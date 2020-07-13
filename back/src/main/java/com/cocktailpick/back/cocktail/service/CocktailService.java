@@ -1,5 +1,6 @@
 package com.cocktailpick.back.cocktail.service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,8 +18,8 @@ public class CocktailService {
 	}
 
 	public List<CocktailResponse> findAllCocktails() {
-		return cocktailRepository.findAll().stream()
+		return Collections.unmodifiableList(cocktailRepository.findAll().stream()
 			.map(CocktailResponse::of)
-			.collect(Collectors.toList());
+			.collect(Collectors.toList()));
 	}
 }
