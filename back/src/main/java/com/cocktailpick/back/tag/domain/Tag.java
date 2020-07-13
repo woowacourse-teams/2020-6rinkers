@@ -1,5 +1,6 @@
 package com.cocktailpick.back.tag.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -17,5 +18,5 @@ public class Tag extends BaseEntity {
 	private String tagName;
 
 	@OneToMany(mappedBy = "tag")
-	private List<CocktailTag> cocktailTags;
+	private List<CocktailTag> cocktailTags = new ArrayList<>();
 }

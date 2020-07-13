@@ -1,5 +1,6 @@
 package com.cocktailpick.back.tag.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Embeddable;
@@ -12,5 +13,9 @@ import lombok.NoArgsConstructor;
 @Embeddable
 public class CocktailTags {
 	@OneToMany(mappedBy = "cocktail")
-	private List<CocktailTag> cocktailTags;
+	private List<CocktailTag> cocktailTags = new ArrayList<>();
+
+	public static CocktailTags empty() {
+		return new CocktailTags();
+	}
 }
