@@ -1,5 +1,6 @@
 package com.cocktailpick.back.recipe.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Embeddable;
@@ -12,5 +13,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Recipe {
 	@OneToMany(mappedBy = "cocktail")
-	private List<RecipeItem> recipe;
+	private List<RecipeItem> recipe = new ArrayList<>();
+
+	public static Recipe empty() {
+		return new Recipe();
+	}
 }
