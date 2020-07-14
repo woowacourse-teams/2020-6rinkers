@@ -7,6 +7,7 @@ import javax.persistence.ManyToOne;
 import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.common.BaseEntity;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,11 +15,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class RecipeItem extends BaseEntity {
+	private String ingredient;
+
+	private double quantity;
+
 	@ManyToOne
 	@JoinColumn(name = "cocktail_id")
 	private Cocktail cocktail;
 
-	private String ingredient;
-
-	private double quantity;
+	@Builder
+	private RecipeItem(Cocktail cocktail, String ingredient, double quantity) {
+		this.cocktail = cocktail;
+		this.ingredient = ingredient;
+		this.quantity = quantity;
+	}
 }

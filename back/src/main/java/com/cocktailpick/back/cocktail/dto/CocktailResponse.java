@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class CocktailResponse {
 	private String name;
+
 	private String imageUrl;
 
 	public static CocktailResponse of(Cocktail cocktail) {

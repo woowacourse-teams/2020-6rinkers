@@ -1,5 +1,7 @@
 package com.cocktailpick.back.cocktail.domain;
 
+import java.util.List;
+
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
@@ -7,6 +9,7 @@ import javax.persistence.Lob;
 import com.cocktailpick.back.common.BaseEntity;
 import com.cocktailpick.back.recipe.domain.Recipe;
 import com.cocktailpick.back.tag.domain.CocktailTags;
+import com.cocktailpick.back.tag.domain.Tag;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,7 +32,7 @@ public class Cocktail extends BaseEntity {
 	private String imageUrl;
 
 	@Embedded
-	private CocktailTags tags = CocktailTags.empty();
+	private CocktailTags cocktailTags = CocktailTags.empty();
 
 	@Embedded
 	private Flavor flavor;
@@ -38,15 +41,29 @@ public class Cocktail extends BaseEntity {
 	private Recipe recipe = Recipe.empty();
 
 	@Builder
-	public Cocktail(String name, double abv, String description, String origin, String imageUrl,
-		CocktailTags tags, Flavor flavor, Recipe recipe) {
+	public Cocktail(String name, double abv, String description, String origin,
+		String imageUrl, Flavor flavor) {
 		this.name = name;
 		this.abv = abv;
 		this.description = description;
 		this.origin = origin;
 		this.imageUrl = imageUrl;
-		this.tags = tags;
 		this.flavor = flavor;
-		this.recipe = recipe;
+	}
+
+	public List<Tag> getTags() {
+		return cocktailTags.getTags();
+	}
+
+	public boolean isSweet() {
+		return flavor.isSweet();
+	}
+
+	public boolean isSour() {
+		return flavor.isSour();
+	}
+
+	public boolean isBitter() {
+		return flavor.isBitter();
 	}
 }

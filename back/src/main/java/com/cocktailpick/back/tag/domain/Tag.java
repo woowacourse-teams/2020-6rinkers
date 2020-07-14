@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Tag extends BaseEntity {
-	private String tagName;
+	private String name;
 
 	@OneToMany(mappedBy = "tag")
 	private List<CocktailTag> cocktailTags = new ArrayList<>();
