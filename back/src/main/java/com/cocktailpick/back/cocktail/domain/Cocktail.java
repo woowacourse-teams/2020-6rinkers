@@ -29,13 +29,13 @@ public class Cocktail extends BaseEntity {
 	private String imageUrl;
 
 	@Embedded
-	private CocktailTags tags = CocktailTags.empty();
+	private CocktailTags tags;
 
 	@Embedded
 	private Flavor flavor;
 
 	@Embedded
-	private Recipe recipe = Recipe.empty();
+	private Recipe recipe;
 
 	@Builder
 	public Cocktail(String name, double abv, String description, String origin, String imageUrl,

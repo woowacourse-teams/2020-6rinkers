@@ -14,8 +14,4 @@ import lombok.NoArgsConstructor;
 public class Recipe {
 	@OneToMany(mappedBy = "cocktail")
 	private List<RecipeItem> recipe = new ArrayList<>();
-
-	public static Recipe empty() {
-		return new Recipe();
-	}
 }
