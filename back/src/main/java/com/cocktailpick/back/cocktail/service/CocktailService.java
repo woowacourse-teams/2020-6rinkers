@@ -8,9 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cocktailpick.back.cocktail.domain.Cocktail;
+import com.cocktailpick.back.cocktail.domain.CocktailRepository;
 import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
+import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
-import com.cocktailpick.back.cocktail.repository.CocktailRepository;
 
 @Service
 public class CocktailService {
