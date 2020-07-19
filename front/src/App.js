@@ -1,23 +1,15 @@
 import React from "react";
 import "./index.css";
-import EditFormContainer from "./component/EditFormContainer";
-import CocktailListContainer from "./component/CocktailListContainer";
 import Header from "./component/Header";
+import Main from "./component/Main";
 
-function App() {
+const App = () => {
   return (
     <div className="App">
       <Header />
-      <div className="main">
-        <div className="editFormContainer">
-          <EditFormContainer />
-        </div>
-        <div className="cocktailListContainer">
-          <CocktailListContainer />
-        </div>
-      </div>
+      <Main />
     </div>
   );
-}
+};
 
 export default App;

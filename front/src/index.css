@@ -38,15 +38,20 @@ code {
 }
 
 .editFormContainer {
-    background-color: yellow;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /*background-color: yellow;*/
     width: 100%;
     height: 100%;
     flex: 2;
+    overflow: auto;
 }
 
 .cocktailListContainer {
-    background-color: gray;
+    /*background-color: gray;*/
     width: 100%;
     flex: 1;
-    border-left: solid 3px blueviolet;
+    border-left: solid 2px black;
+    overflow: auto;
 }

@@ -1,0 +1,15 @@
+.editForms {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+    /*background-color: #61dafb;*/
+}
+
+.inputContainer {
+    margin-bottom: 0.5rem;
+}
+
+.submit {
+    margin: 0.5rem;
+}
