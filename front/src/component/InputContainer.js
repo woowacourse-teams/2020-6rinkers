@@ -1,6 +1,6 @@
 import React from "react";
 
-function InputContainer({ property, value, onChange }) {
+function InputContainer({ property, value, onChange, onEnter }) {
   return (
     <div className="inputContainer">
       <div>{property}</div>
@@ -9,6 +9,7 @@ function InputContainer({ property, value, onChange }) {
         name={property}
         onChange={onChange}
         value={value}
+        onKeyDown={onEnter}
       />
     </div>
   );

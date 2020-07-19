@@ -15,6 +15,12 @@ const EditFormContainer = ({ cocktail, updateCocktail, onResetCocktail }) => {
     onResetCocktail();
   };
 
+  const onEnter = (e) => {
+    if (e.key === "Enter") {
+      onSubmit(e);
+    }
+  };
+
   return (
     <>
       <div className="editForms">
@@ -23,6 +29,7 @@ const EditFormContainer = ({ cocktail, updateCocktail, onResetCocktail }) => {
             property={property}
             value={cocktail[property]}
             onChange={onChange}
+            onEnter={onEnter}
             key={"property" + index}
           />
         ))}
