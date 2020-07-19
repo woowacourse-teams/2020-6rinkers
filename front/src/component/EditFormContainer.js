@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import InputContainer from "./InputContainer";
 import "../css/editFormContainer.css";
+import { createCocktail } from "../api";
+import dataToCocktailRequest from "../utils/cocktailConverter";
 
 const EditFormContainer = ({ cocktail, updateCocktail, onResetCocktail }) => {
   const onChange = (e) => {
@@ -11,7 +13,8 @@ const EditFormContainer = ({ cocktail, updateCocktail, onResetCocktail }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    // api 쏘기
+    const result = createCocktail(dataToCocktailRequest(cocktail));
+    console.log(result);
     onResetCocktail();
   };
 
