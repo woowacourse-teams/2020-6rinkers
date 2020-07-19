@@ -4,7 +4,7 @@ function InputContainer({ property, onChange }) {
   return (
     <div className="inputContainer">
       <div>{property}</div>
-      <input name={property} onChange={onChange} />
+      <input className="inputBox" name={property} onChange={onChange} />
     </div>
   );
 }

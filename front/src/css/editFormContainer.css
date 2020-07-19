@@ -3,13 +3,19 @@
     flex-direction: column;
     align-items: center;
     margin-top: 1rem;
-    /*background-color: #61dafb;*/
+    user-select: none;
 }
 
 .inputContainer {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.8rem;
 }
 
 .submit {
+    user-select: none;
     margin: 0.5rem;
+}
+
+.inputBox {
+    max-width: 400px;
+    width: 30vw;
 }
