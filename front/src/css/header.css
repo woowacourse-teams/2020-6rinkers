@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     border-bottom: black solid 2px;
-
+    user-select: none;
 }
 
 .header {
