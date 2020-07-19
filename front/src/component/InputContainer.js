@@ -1,6 +1,6 @@
 import React from "react";
 
-function InputContainer({ property, value, onChange, onEnter }) {
+const InputContainer = ({ property, value, onChange, onEnter }) => {
   return (
     <div className="inputContainer">
       <div>{property}</div>
