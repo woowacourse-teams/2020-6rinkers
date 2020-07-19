@@ -1,12 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { fetchAllCocktails } from "../api";
+import CocktailItem from "./CocktailItem";
+import "../css/cocktailListContainer.css";
 
-// 전체조회를 해서 쏴줄 거임
-const CocktailListContainer = () => {
+const CocktailListContainer = ({ cocktail }) => {
+  const [cocktails, setCocktails] = useState([]);
+
+  const onLoadCocktails = async () => {
+    const response = await fetchAllCocktails();
+    const content = response["data"];
+    setCocktails(content);
+  };
+
+  useEffect(() => {
+    onLoadCocktails();
+  }, [cocktail]);
+
   return (
-      <div>
-        list
-      </div>
-  )
-}
+    <div className="cocktailsListContainer">
+      {cocktails.map((item, index) => (
+        <CocktailItem cocktail={item} key={"cocktail" + index} />
+      ))}
+    </div>
+  );
+};
 
 export default CocktailListContainer;

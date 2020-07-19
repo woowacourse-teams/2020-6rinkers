@@ -27,7 +27,7 @@ const Main = () => {
         />
       </div>
       <div className="cocktailListContainer">
-        <CocktailListContainer />
+        <CocktailListContainer cocktail={cocktail} />
       </div>
     </div>
   );
