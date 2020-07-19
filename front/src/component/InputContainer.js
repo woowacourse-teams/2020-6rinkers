@@ -1,10 +1,15 @@
 import React from "react";
 
-function InputContainer({ property, onChange }) {
+function InputContainer({ property, value, onChange }) {
   return (
     <div className="inputContainer">
       <div>{property}</div>
-      <input className="inputBox" name={property} onChange={onChange} />
+      <input
+        className="inputBox"
+        name={property}
+        onChange={onChange}
+        value={value}
+      />
     </div>
   );
 }

@@ -1,0 +1,15 @@
+export const DEFAULT_COCKTAIL_DATA = {
+  name: "",
+  abv: "",
+  description: "",
+  origin: "",
+  imageUrl: "",
+  tag: "",
+  sweet: "",
+  sour: "",
+  bitter: "",
+  liquor: "",
+  liquorQuantity: "",
+  special: "",
+  specialQuantity: "",
+};
