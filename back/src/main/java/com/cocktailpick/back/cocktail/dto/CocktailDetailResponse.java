@@ -14,6 +14,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class CocktailDetailResponse {
+	private Long id;
+
 	private String name;
 
 	private double abv;
@@ -36,6 +38,7 @@ public class CocktailDetailResponse {
 
 	public static CocktailDetailResponse of(Cocktail cocktail) {
 		return new CocktailDetailResponse(
+			cocktail.getId(),
 			cocktail.getName(),
 			cocktail.getAbv(),
 			cocktail.getDescription(),
