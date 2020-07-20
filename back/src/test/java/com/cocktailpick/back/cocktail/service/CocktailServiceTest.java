@@ -23,7 +23,6 @@ import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
 import com.cocktailpick.back.recipe.domain.RecipeItem;
-import com.cocktailpick.back.recipe.domain.RecipeItemRepository;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
 
@@ -35,14 +34,11 @@ class CocktailServiceTest {
 	private CocktailRepository cocktailRepository;
 
 	@Mock
-	private RecipeItemRepository recipeItemRepository;
-
-	@Mock
 	private TagRepository tagRepository;
 
 	@BeforeEach
 	void setUp() {
-		cocktailService = new CocktailService(cocktailRepository, recipeItemRepository, tagRepository);
+		cocktailService = new CocktailService(cocktailRepository, tagRepository);
 	}
 
 	@DisplayName("모든 칵테일을 조회한다.")

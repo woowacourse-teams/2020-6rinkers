@@ -28,7 +28,7 @@ import com.cocktailpick.back.cocktail.dto.CocktailResponse;
 import com.cocktailpick.back.cocktail.service.CocktailService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebMvcTest
+@WebMvcTest(controllers = {CocktailController.class})
 class CocktailControllerTest {
 	@MockBean
 	private CocktailService cocktailService;
