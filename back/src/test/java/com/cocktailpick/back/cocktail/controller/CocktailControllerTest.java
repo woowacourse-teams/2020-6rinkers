@@ -47,8 +47,8 @@ class CocktailControllerTest {
 	@Test
 	void findCocktails() throws Exception {
 		List<CocktailResponse> cocktailResponses = Arrays.asList(
-			new CocktailResponse("싱가폴 슬링", "https://naver.com"),
-			new CocktailResponse("블루 하와이", "https://daum.net")
+			new CocktailResponse(1L, "싱가폴 슬링", "https://naver.com"),
+			new CocktailResponse(2L, "블루 하와이", "https://daum.net")
 		);
 		given(cocktailService.findAllCocktails()).willReturn(cocktailResponses);
 
@@ -114,6 +114,34 @@ class CocktailControllerTest {
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isCreated())
 			.andExpect(header().string("Location", "/api/cocktails/1"))
+			.andDo(print());
+	}
+
+	@DisplayName("칵테일을 수정한다.")
+	@Test
+	void updateCocktail() throws Exception {
+		doNothing().when(cocktailService).updateCocktail(anyLong(), any());
+
+		CocktailRequest updateCocktailRequest = CocktailRequest.builder()
+			.abv(40)
+			.description("작곰 맛 칵테일")
+			.imageUrl("https://naver.com")
+			.name("DOO")
+			.origin("두원이는 강하다.")
+			.bitter(true)
+			.sour(true)
+			.sweet(false)
+			.liquor(Arrays.asList("두강이"))
+			.liquorQuantity(Arrays.asList("두ml"))
+			.tag(Arrays.asList("두강맛"))
+			.special(new ArrayList<>())
+			.specialQuantity(new ArrayList<>())
+			.build();
+
+		mockMvc.perform(put("/api/cocktails/1")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content(new ObjectMapper().writeValueAsString(updateCocktailRequest)))
+			.andExpect(status().isOk())
 			.andDo(print());
 	}
 }

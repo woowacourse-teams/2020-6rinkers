@@ -10,11 +10,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class CocktailResponse {
+	private Long id;
+
 	private String name;
 
 	private String imageUrl;
 
 	public static CocktailResponse of(Cocktail cocktail) {
-		return new CocktailResponse(cocktail.getName(), cocktail.getImageUrl());
+		return new CocktailResponse(cocktail.getId(), cocktail.getName(), cocktail.getImageUrl());
 	}
 }

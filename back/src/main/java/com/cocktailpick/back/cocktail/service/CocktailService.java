@@ -13,8 +13,8 @@ import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
 import com.cocktailpick.back.recipe.domain.RecipeItem;
-import com.cocktailpick.back.recipe.domain.RecipeItemRepository;
 import com.cocktailpick.back.tag.domain.CocktailTag;
+import com.cocktailpick.back.tag.domain.CocktailTags;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +23,6 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class CocktailService {
 	private final CocktailRepository cocktailRepository;
-	private final RecipeItemRepository recipeItemRepository;
 	private final TagRepository tagRepository;
 
 	@Transactional(readOnly = true)
@@ -55,11 +54,27 @@ public class CocktailService {
 		tagRepository.saveAll(tags);
 
 		for (Tag tag : tags) {
-			CocktailTag cocktailTag = new CocktailTag();
-			cocktailTag.setTag(tag);
-			cocktailTag.setCocktail(cocktail);
+			CocktailTag.of(cocktail, tag);
 		}
 
 		return cocktail.getId();
+	}
+
+	@Transactional
+	public void updateCocktail(Long id, CocktailRequest cocktailRequest) {
+		Cocktail cocktail = findById(id);
+		Cocktail requestCocktail = cocktailRequest.toCocktail();
+
+		List<Tag> tags = tagRepository.findByNameIn(cocktailRequest.getTag());
+		CocktailTags cocktailTags = tags.stream()
+			.map(tag -> CocktailTag.of(cocktail, tag))
+			.collect(Collectors.collectingAndThen(Collectors.toList(), CocktailTags::new));
+
+		cocktail.update(requestCocktail, cocktailTags);
+	}
+
+	private Cocktail findById(Long id) {
+		return cocktailRepository.findById(id)
+			.orElseThrow(RuntimeException::new);
 	}
 }
