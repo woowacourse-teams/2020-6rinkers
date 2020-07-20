@@ -9,9 +9,11 @@ import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
 
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @Embeddable
 public class CocktailTags {
 	@OneToMany(mappedBy = "cocktail", cascade = CascadeType.PERSIST)

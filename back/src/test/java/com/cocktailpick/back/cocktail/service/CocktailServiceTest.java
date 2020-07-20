@@ -157,4 +157,59 @@ class CocktailServiceTest {
 
 		verify(cocktailRepository).save(any());
 	}
+
+	@DisplayName("칵테일을 수정한다.")
+	@Test
+	void update() {
+		Flavor flavor = Flavor.builder()
+			.bitter(true)
+			.sour(true)
+			.sweet(false)
+			.build();
+
+		Cocktail blueHawaii = Cocktail.builder()
+			.abv(40)
+			.description("두강 맛 칵테일")
+			.flavor(flavor)
+			.imageUrl("https://naver.com")
+			.name("DOO")
+			.origin("두원이는 강하다.")
+			.build();
+
+		Tag tag = new Tag("두강맛");
+
+		RecipeItem recipeItem = RecipeItem.builder()
+			.ingredient("두강이")
+			.quantity("두ml")
+			.build();
+
+		CocktailRequest cocktailRequest = CocktailRequest.builder()
+			.abv(40)
+			.description("곰 맛 칵테일")
+			.imageUrl("https://naver.com")
+			.name("iceBear")
+			.origin("두원이는 강하다.")
+			.bitter(true)
+			.sour(true)
+			.sweet(false)
+			.liquor(Arrays.asList("두강이"))
+			.liquorQuantity(Arrays.asList("두ml"))
+			.tag(Arrays.asList("곰"))
+			.special(new ArrayList<>())
+			.specialQuantity(new ArrayList<>())
+			.build();
+
+		Tag 곰 = new Tag("곰");
+
+		when(cocktailRepository.findById(anyLong())).thenReturn(Optional.of(blueHawaii));
+		when(tagRepository.findByNameIn(anyList())).thenReturn(Arrays.asList(곰));
+
+		cocktailService.updateCocktail(1L, cocktailRequest);
+
+		assertAll(
+			() -> assertThat(blueHawaii.getName()).isEqualTo(cocktailRequest.getName()),
+			() -> assertThat(blueHawaii.getDescription()).isEqualTo(cocktailRequest.getDescription()),
+			() -> assertThat(blueHawaii.getTags()).isEqualTo(Arrays.asList(곰))
+		);
+	}
 }
