@@ -17,16 +17,33 @@ import lombok.NoArgsConstructor;
 public class RecipeItem extends BaseEntity {
 	private String ingredient;
 
-	private double quantity;
+	private String quantity;
 
 	@ManyToOne
 	@JoinColumn(name = "cocktail_id")
 	private Cocktail cocktail;
 
 	@Builder
-	private RecipeItem(Cocktail cocktail, String ingredient, double quantity) {
+	private RecipeItem(Cocktail cocktail, String ingredient, String quantity) {
 		this.cocktail = cocktail;
 		this.ingredient = ingredient;
 		this.quantity = quantity;
+	}
+
+	public boolean isSameIngredientWith(RecipeItem recipeItem) {
+		return this.ingredient.equals(recipeItem.ingredient);
+	}
+
+	public void setCocktail(Cocktail cocktail) {
+		removeRecipeItemIfUpdate(cocktail);
+
+		this.cocktail = cocktail;
+		cocktail.getRecipe().addRecipeItem(this);
+	}
+
+	private void removeRecipeItemIfUpdate(Cocktail cocktail) {
+		if (cocktail != null) {
+			cocktail.getRecipe().removeRecipeItem(this);
+		}
 	}
 }

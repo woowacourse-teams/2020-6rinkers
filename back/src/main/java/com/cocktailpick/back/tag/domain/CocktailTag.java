@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
 public class CocktailTag extends BaseEntity {
 	@ManyToOne
@@ -21,4 +21,17 @@ public class CocktailTag extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "tag_id")
 	private Tag tag;
+
+	public void setTag(Tag tag) {
+		this.tag = tag;
+	}
+
+	public void setCocktail(Cocktail cocktail) {
+		this.cocktail = cocktail;
+		cocktail.getCocktailTags().addCocktailTag(this);
+	}
+
+	public boolean isSameNameWith(CocktailTag cocktailTag) {
+		return this.tag.getName().equals(cocktailTag.tag.getName());
+	}
 }
