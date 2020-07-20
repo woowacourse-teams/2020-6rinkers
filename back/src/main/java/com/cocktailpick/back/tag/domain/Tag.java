@@ -1,22 +1,19 @@
 package com.cocktailpick.back.tag.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 
 import com.cocktailpick.back.common.BaseEntity;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
 public class Tag extends BaseEntity {
+	@Column(name = "name")
 	private String name;
-
-	@OneToMany(mappedBy = "tag")
-	private List<CocktailTag> cocktailTags = new ArrayList<>();
 }

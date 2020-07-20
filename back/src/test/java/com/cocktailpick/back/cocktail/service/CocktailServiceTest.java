@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -16,10 +17,15 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.cocktailpick.back.cocktail.domain.Cocktail;
+import com.cocktailpick.back.cocktail.domain.CocktailRepository;
 import com.cocktailpick.back.cocktail.domain.Flavor;
 import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
+import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
-import com.cocktailpick.back.cocktail.repository.CocktailRepository;
+import com.cocktailpick.back.recipe.domain.RecipeItem;
+import com.cocktailpick.back.recipe.domain.RecipeItemRepository;
+import com.cocktailpick.back.tag.domain.Tag;
+import com.cocktailpick.back.tag.domain.TagRepository;
 
 @ExtendWith(MockitoExtension.class)
 class CocktailServiceTest {
@@ -28,9 +34,15 @@ class CocktailServiceTest {
 	@Mock
 	private CocktailRepository cocktailRepository;
 
+	@Mock
+	private RecipeItemRepository recipeItemRepository;
+
+	@Mock
+	private TagRepository tagRepository;
+
 	@BeforeEach
 	void setUp() {
-		cocktailService = new CocktailService(cocktailRepository);
+		cocktailService = new CocktailService(cocktailRepository, recipeItemRepository, tagRepository);
 	}
 
 	@DisplayName("모든 칵테일을 조회한다.")
@@ -94,5 +106,55 @@ class CocktailServiceTest {
 			() -> assertThat(cocktailDetailResponse.getTags()).isEmpty(),
 			() -> assertThat(cocktailDetailResponse.getRecipe()).isEmpty()
 		);
+	}
+
+	@DisplayName("칵테일을 생성한다.")
+	@Test
+	void save() {
+		Flavor flavor = Flavor.builder()
+			.bitter(true)
+			.sour(true)
+			.sweet(false)
+			.build();
+
+		Cocktail blueHawaii = Cocktail.builder()
+			.abv(40)
+			.description("두강 맛 칵테일")
+			.flavor(flavor)
+			.imageUrl("https://naver.com")
+			.name("DOO")
+			.origin("두원이는 강하다.")
+			.build();
+
+		Tag tag = new Tag("두강맛");
+
+		RecipeItem recipeItem = RecipeItem.builder()
+			.ingredient("두강이")
+			.quantity("두ml")
+			.build();
+
+		CocktailRequest cocktailRequest = CocktailRequest.builder()
+			.abv(40)
+			.description("두강 맛 칵테일")
+			.imageUrl("https://naver.com")
+			.name("DOO")
+			.origin("두원이는 강하다.")
+			.bitter(true)
+			.sour(true)
+			.sweet(false)
+			.liquor(Arrays.asList("두강이"))
+			.liquorQuantity(Arrays.asList("두ml"))
+			.tag(Arrays.asList("두강맛"))
+			.special(new ArrayList<>())
+			.specialQuantity(new ArrayList<>())
+			.build();
+
+		when(tagRepository.findByNameIn(anyList())).thenReturn(Arrays.asList(tag));
+
+		when(cocktailRepository.save(any())).thenReturn(blueHawaii);
+
+		cocktailService.save(cocktailRequest);
+
+		verify(cocktailRepository).save(any());
 	}
 }

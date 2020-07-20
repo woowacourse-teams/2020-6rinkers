@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -22,8 +23,10 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.cocktail.domain.Flavor;
 import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
+import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
 import com.cocktailpick.back.cocktail.service.CocktailService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest
 class CocktailControllerTest {
@@ -81,6 +84,36 @@ class CocktailControllerTest {
 		mockMvc.perform(get("/api/cocktails/1")
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
+			.andDo(print());
+	}
+
+	@DisplayName("칵테일을 생성한다.")
+	@Test
+	void addCocktail() throws Exception {
+		CocktailRequest cocktailRequest = CocktailRequest.builder()
+			.abv(40)
+			.description("두강 맛 칵테일")
+			.imageUrl("https://naver.com")
+			.name("DOO")
+			.origin("두원이는 강하다.")
+			.bitter(true)
+			.sour(true)
+			.sweet(false)
+			.liquor(Arrays.asList("두강이"))
+			.liquorQuantity(Arrays.asList("두ml"))
+			.tag(Arrays.asList("두강맛"))
+			.special(new ArrayList<>())
+			.specialQuantity(new ArrayList<>())
+			.build();
+
+		given(cocktailService.save(any())).willReturn(1L);
+
+		mockMvc.perform(post("/api/cocktails")
+			.content(new ObjectMapper().writeValueAsString(cocktailRequest))
+			.contentType(MediaType.APPLICATION_JSON)
+			.accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isCreated())
+			.andExpect(header().string("Location", "/api/cocktails/1"))
 			.andDo(print());
 	}
 }
