@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class RecipeItemResponse {
 	private String ingredient;
 
-	private double quantity;
+	private String quantity;
 
 	private static RecipeItemResponse of(RecipeItem recipeItem) {
 		return new RecipeItemResponse(recipeItem.getIngredient(),
