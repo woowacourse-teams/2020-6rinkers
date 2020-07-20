@@ -3,7 +3,6 @@ package com.cocktailpick.back.tag.service;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -29,11 +28,6 @@ class TagCsvReaderTest {
 
 		List<Tag> actual = tagCsvReader.getTags();
 
-		List<Tag> expected = Arrays.asList(
-			new Tag("두강"),
-			new Tag("두중"),
-			new Tag("두약")
-		);
 		assertAll(
 			() -> assertThat(actual).hasSize(3),
 			() -> assertThat(actual.get(0).getName()).isEqualTo("두강"),
