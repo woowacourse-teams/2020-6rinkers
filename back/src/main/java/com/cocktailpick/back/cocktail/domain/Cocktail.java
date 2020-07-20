@@ -51,6 +51,16 @@ public class Cocktail extends BaseEntity {
 		this.flavor = flavor;
 	}
 
+	public void update(Cocktail requestCocktail, CocktailTags cocktailTags) {
+		this.name = requestCocktail.name;
+		this.abv = requestCocktail.abv;
+		this.description = requestCocktail.description;
+		this.origin = requestCocktail.origin;
+		this.flavor = requestCocktail.flavor;
+		this.imageUrl = requestCocktail.imageUrl;
+		this.cocktailTags = cocktailTags;
+	}
+
 	public List<Tag> getTags() {
 		return cocktailTags.getTags();
 	}
