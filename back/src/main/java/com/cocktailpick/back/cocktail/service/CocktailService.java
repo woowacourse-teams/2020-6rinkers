@@ -52,10 +52,8 @@ public class CocktailService {
 		}
 
 		List<Tag> tags = tagRepository.findByNameIn(cocktailRequest.getTag());
-		tagRepository.saveAll(tags);
-
 		for (Tag tag : tags) {
-			CocktailTag.of(cocktail, tag);
+			CocktailTag.connect(cocktail, tag);
 		}
 
 		return cocktail.getId();
@@ -68,7 +66,7 @@ public class CocktailService {
 
 		List<Tag> tags = tagRepository.findByNameIn(cocktailRequest.getTag());
 		CocktailTags cocktailTags = tags.stream()
-			.map(tag -> CocktailTag.of(cocktail, tag))
+			.map(tag -> CocktailTag.connect(cocktail, tag))
 			.collect(Collectors.collectingAndThen(Collectors.toList(), CocktailTags::new));
 
 		cocktail.update(requestCocktail, cocktailTags);
@@ -81,5 +79,26 @@ public class CocktailService {
 
 	@Transactional
 	public void saveAll(MultipartFile file) {
+		CocktailCsvReader cocktailCsvReader = CocktailCsvReader.from(file);
+		List<CocktailRequest> cocktailRequests = cocktailCsvReader.getCocktailRequests();
+
+		for (CocktailRequest cocktailRequest : cocktailRequests) {
+			Cocktail cocktail = cocktailRequest.toCocktail();
+			cocktailRepository.save(cocktail);
+
+			List<RecipeItem> recipeItems = cocktailRequest.toRecipeItems();
+			for (RecipeItem recipeItem : recipeItems) {
+				recipeItem.setCocktail(cocktail);
+			}
+
+			List<String> tagNames = cocktailRequest.getTag();
+			List<Tag> tags = tagNames.stream()
+				.map(Tag::new)
+				.collect(Collectors.toList());
+			tagRepository.saveAll(tags);
+			for (Tag tag : tags) {
+				CocktailTag.connect(cocktail, tag);
+			}
+		}
 	}
 }
