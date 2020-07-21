@@ -36,12 +36,12 @@ class TagControllerTest {
 
 	@DisplayName("태그 csv 파일을 저장한다.")
 	@Test
-	void addTags() throws Exception {
+	void addTagsByCsv() throws Exception {
 		String content = "태그\n두강\n두중\n두약";
 
 		doNothing().when(tagService).saveAll(any());
 
-		mockMvc.perform(multipart("/api/tags/upload")
+		mockMvc.perform(multipart("/api/tags/upload/csv")
 			.file(new MockMultipartFile("file", "test.csv", "text/csv",
 				content.getBytes()))
 			.contentType(MediaType.MULTIPART_FORM_DATA))

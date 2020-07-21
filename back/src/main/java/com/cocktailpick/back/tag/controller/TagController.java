@@ -18,8 +18,8 @@ import lombok.RequiredArgsConstructor;
 public class TagController {
 	private final TagService tagService;
 
-	@PostMapping("/upload")
-	public ResponseEntity<Void> addTags(@RequestPart MultipartFile file) {
+	@PostMapping("/upload/csv")
+	public ResponseEntity<Void> addTagsByCsv(@RequestPart MultipartFile file) {
 		tagService.saveAll(file);
 
 		return ResponseEntity.created(URI.create("/api/tags")).build();
