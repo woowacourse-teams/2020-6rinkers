@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.cocktail.domain.CocktailRepository;
@@ -76,5 +77,9 @@ public class CocktailService {
 	private Cocktail findById(Long id) {
 		return cocktailRepository.findById(id)
 			.orElseThrow(RuntimeException::new);
+	}
+
+	@Transactional
+	public void saveAll(MultipartFile file) {
 	}
 }
