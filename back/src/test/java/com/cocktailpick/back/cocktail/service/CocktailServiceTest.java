@@ -208,4 +208,27 @@ class CocktailServiceTest {
 			() -> assertThat(blueHawaii.getTags()).isEqualTo(Arrays.asList(곰))
 		);
 	}
+
+	@DisplayName("칵테일을 삭제한다.")
+	@Test
+	void deleteCocktail() {
+		Flavor flavor = Flavor.builder()
+			.bitter(true)
+			.sour(true)
+			.sweet(false)
+			.build();
+
+		Cocktail blueHawaii = Cocktail.builder()
+			.abv(40)
+			.description("두강 맛 칵테일")
+			.flavor(flavor)
+			.imageUrl("https://naver.com")
+			.name("DOO")
+			.origin("두원이는 강하다.")
+			.build();
+
+		cocktailService.deleteCocktail(1L);
+
+		verify(cocktailRepository).deleteById(1L);
+	}
 }

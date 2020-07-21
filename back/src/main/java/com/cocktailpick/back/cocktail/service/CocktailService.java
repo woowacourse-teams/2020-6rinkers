@@ -79,6 +79,6 @@ public class CocktailService {
 	}
 
 	public void deleteCocktail(Long id) {
-
+		cocktailRepository.deleteById(id);
 	}
 }
