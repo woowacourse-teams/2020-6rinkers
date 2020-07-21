@@ -77,4 +77,8 @@ public class CocktailService {
 		return cocktailRepository.findById(id)
 			.orElseThrow(RuntimeException::new);
 	}
+
+	public void deleteCocktail(Long id) {
+
+	}
 }

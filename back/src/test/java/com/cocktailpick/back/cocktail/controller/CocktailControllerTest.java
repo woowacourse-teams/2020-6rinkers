@@ -144,4 +144,14 @@ class CocktailControllerTest {
 			.andExpect(status().isOk())
 			.andDo(print());
 	}
+
+	@DisplayName("칵테일을 삭제한다.")
+	@Test
+	void deleteCocktail() throws Exception {
+		doNothing().when(cocktailService).deleteCocktail(any());
+
+		mockMvc.perform(delete("/api/cocktails/1"))
+			.andExpect(status().isNoContent())
+			.andDo(print());
+	}
 }
