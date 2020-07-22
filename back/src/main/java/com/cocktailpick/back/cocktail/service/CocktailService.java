@@ -78,6 +78,7 @@ public class CocktailService {
 			.orElseThrow(RuntimeException::new);
 	}
 
+	@Transactional
 	public void deleteCocktail(Long id) {
 		cocktailRepository.deleteById(id);
 	}

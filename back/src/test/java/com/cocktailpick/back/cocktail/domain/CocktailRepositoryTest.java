@@ -2,6 +2,7 @@ package com.cocktailpick.back.cocktail.domain;
 
 import static org.assertj.core.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -23,15 +24,23 @@ public class CocktailRepositoryTest {
 	@Autowired
 	private TagRepository tagRepository;
 
-	@Test
-	void delete() {
-		Flavor flavor = Flavor.builder()
+	private Tag tag;
+
+	private Flavor flavor;
+
+	private Cocktail blueHawaii;
+
+	@BeforeEach
+	void setUp() {
+		tag = new Tag("두강맛");
+
+		flavor = Flavor.builder()
 			.bitter(true)
 			.sour(true)
 			.sweet(false)
 			.build();
 
-		Cocktail blueHawaii = Cocktail.builder()
+		blueHawaii = Cocktail.builder()
 			.abv(40)
 			.description("두강 맛 칵테일")
 			.flavor(flavor)
@@ -39,8 +48,10 @@ public class CocktailRepositoryTest {
 			.name("DOO")
 			.origin("두원이는 강하다.")
 			.build();
+	}
 
-		Tag tag = new Tag("두강맛");
+	@Test
+	void delete() {
 		tagRepository.save(tag);
 
 		RecipeItem recipeItem = RecipeItem.builder()

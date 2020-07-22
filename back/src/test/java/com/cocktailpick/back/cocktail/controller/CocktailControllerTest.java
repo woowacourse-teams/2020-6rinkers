@@ -35,11 +35,48 @@ class CocktailControllerTest {
 
 	private MockMvc mockMvc;
 
+	private Flavor flavor;
+
+	private Cocktail blueHawaii;
+
+	private CocktailRequest cocktailRequest;
+
 	@BeforeEach
 	public void setUp(WebApplicationContext webApplicationContext) {
 		this.mockMvc = MockMvcBuilders
 			.webAppContextSetup(webApplicationContext)
 			.addFilters(new CharacterEncodingFilter("UTF-8", true))
+			.build();
+
+		flavor = Flavor.builder()
+			.bitter(true)
+			.sour(true)
+			.sweet(false)
+			.build();
+
+		blueHawaii = Cocktail.builder()
+			.abv(40)
+			.description("두강 맛 칵테일")
+			.flavor(flavor)
+			.imageUrl("https://naver.com")
+			.name("DOO")
+			.origin("두원이는 강하다.")
+			.build();
+
+		cocktailRequest = CocktailRequest.builder()
+			.abv(40)
+			.description("곰 맛 칵테일")
+			.imageUrl("https://naver.com")
+			.name("iceBear")
+			.origin("두원이는 강하다.")
+			.bitter(true)
+			.sour(true)
+			.sweet(false)
+			.liquor(Arrays.asList("두강이"))
+			.liquorQuantity(Arrays.asList("두ml"))
+			.tag(Arrays.asList("곰"))
+			.special(new ArrayList<>())
+			.specialQuantity(new ArrayList<>())
 			.build();
 	}
 
@@ -61,23 +98,8 @@ class CocktailControllerTest {
 	@DisplayName("칵테일을 단일 조회한다.")
 	@Test
 	void findCocktail() throws Exception {
-		Flavor flavor = Flavor.builder()
-			.bitter(true)
-			.sour(true)
-			.sweet(false)
-			.build();
 
-		Cocktail blueHawaii = Cocktail.builder()
-			.abv(40)
-			.description("두강 맛 칵테일")
-			.flavor(flavor)
-			.imageUrl("https://naver.com")
-			.name("DOO")
-			.origin("두원이는 강하다.")
-			.build();
-
-		CocktailDetailResponse cocktailDetailResponse = CocktailDetailResponse.of(
-			blueHawaii);
+		CocktailDetailResponse cocktailDetailResponse = CocktailDetailResponse.of(blueHawaii);
 
 		given(cocktailService.findCocktail(anyLong())).willReturn(cocktailDetailResponse);
 
@@ -90,21 +112,6 @@ class CocktailControllerTest {
 	@DisplayName("칵테일을 생성한다.")
 	@Test
 	void addCocktail() throws Exception {
-		CocktailRequest cocktailRequest = CocktailRequest.builder()
-			.abv(40)
-			.description("두강 맛 칵테일")
-			.imageUrl("https://naver.com")
-			.name("DOO")
-			.origin("두원이는 강하다.")
-			.bitter(true)
-			.sour(true)
-			.sweet(false)
-			.liquor(Arrays.asList("두강이"))
-			.liquorQuantity(Arrays.asList("두ml"))
-			.tag(Arrays.asList("두강맛"))
-			.special(new ArrayList<>())
-			.specialQuantity(new ArrayList<>())
-			.build();
 
 		given(cocktailService.save(any())).willReturn(1L);
 

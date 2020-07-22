@@ -14,8 +14,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cocktailpick.back.tag.domain.TagRepository;
 
 @ExtendWith(MockitoExtension.class)
-class TagServiceTest {
+public class TagServiceTest {
 	private TagService tagService;
+
+	public static final String CONTENT = "태그\n두강\n두중\n두약";
 
 	@Mock
 	private TagRepository tagRepository;
@@ -28,9 +30,8 @@ class TagServiceTest {
 	@DisplayName("태그 csv 파일을 저장한다.")
 	@Test
 	void saveAll() {
-		String content = "태그\n두강\n두중\n두약";
 		MultipartFile file = new MockMultipartFile("file", "태그.csv", "text/csv",
-			content.getBytes());
+			CONTENT.getBytes());
 
 		tagService.saveAll(file);
 
