@@ -18,6 +18,8 @@
 
 .todayCocktailTitle {
     font-size: 20px;
+    border-bottom: black 1px solid;
+    padding: 0 3rem;
 }
 
 .todayCocktailImage > img {
