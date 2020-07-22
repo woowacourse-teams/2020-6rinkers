@@ -1,10 +1,11 @@
 import React from "react";
 import "../../css/common/header.css";
+import Nav from "./Nav";
 
 const Header = () => {
   return (
     <div className="headerContainer">
-      <div className="header">좋은 술을 고민 없이, 칵테일픽</div>
+      <Nav />
     </div>
   );
 };
