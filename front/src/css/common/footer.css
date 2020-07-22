@@ -1,9 +1,9 @@
 .footerContainer {
-    display: flex;
-    justify-content: space-around;
-    border-top: black solid 1px;
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 2.5rem;
+  display: flex;
+  justify-content: space-around;
+  border-top: black solid 1px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2.5rem;
 }

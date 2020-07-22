@@ -1,43 +1,43 @@
 .home {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
-    width: 100%;
-    height: 100%;
-    user-select: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 100%;
+  user-select: none;
 }
 
 .todayCocktailContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: black 1px solid;
-    padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: black 1px solid;
+  padding: 1rem;
 }
 
 .todayCocktailTitle {
-    font-size: 20px;
-    border-bottom: black 1px solid;
-    padding: 0 3rem;
+  font-size: 20px;
+  border-bottom: black 1px solid;
+  padding: 0 3rem;
 }
 
 .todayCocktailImage > img {
-    max-width: 450px;
+  max-width: 450px;
 }
 
 .homeRecommendation {
-    display: flex;
-    align-items: center;
-    margin-bottom: 7rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 7rem;
 }
 
 .content {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 .horizontalLine {
-    width: 10rem;
-    border-bottom: black 1px solid;
-    margin: 1rem;
+  width: 10rem;
+  border-bottom: black 1px solid;
+  margin: 1rem;
 }

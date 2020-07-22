@@ -13,6 +13,6 @@ const InputContainer = ({ property, value, onChange, onEnter }) => {
       />
     </div>
   );
-}
+};
 
 export default InputContainer;
