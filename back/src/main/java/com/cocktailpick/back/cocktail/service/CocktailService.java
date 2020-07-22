@@ -13,6 +13,7 @@ import com.cocktailpick.back.cocktail.domain.CocktailRepository;
 import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
+import com.cocktailpick.back.common.csv.OpenCsvReader;
 import com.cocktailpick.back.recipe.domain.RecipeItem;
 import com.cocktailpick.back.tag.domain.CocktailTag;
 import com.cocktailpick.back.tag.domain.CocktailTags;
@@ -85,7 +86,7 @@ public class CocktailService {
 
 	@Transactional
 	public void saveAll(MultipartFile file) {
-		CocktailCsvReader cocktailCsvReader = CocktailCsvReader.from(file);
+		CocktailCsvReader cocktailCsvReader = new CocktailCsvReader(OpenCsvReader.from(file));
 		List<CocktailRequest> cocktailRequests = cocktailCsvReader.getCocktailRequests();
 
 		for (CocktailRequest cocktailRequest : cocktailRequests) {

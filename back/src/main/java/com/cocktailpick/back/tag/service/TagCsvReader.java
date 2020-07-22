@@ -11,7 +11,7 @@ import com.cocktailpick.back.tag.domain.Tag;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 public class TagCsvReader {
 	private static final int NAME_COLUMN_INDEX = 0;
 

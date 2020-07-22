@@ -12,6 +12,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
+import com.cocktailpick.back.common.csv.OpenCsvReader;
 
 class CocktailCsvReaderTest {
 	private MultipartFile multipartFile;
@@ -24,7 +25,7 @@ class CocktailCsvReaderTest {
 
 	@Test
 	void getCocktailRequests() {
-		CocktailCsvReader cocktailCsvReader = CocktailCsvReader.from(multipartFile);
+		CocktailCsvReader cocktailCsvReader = new CocktailCsvReader(OpenCsvReader.from(multipartFile));
 		List<CocktailRequest> cocktailRequests = cocktailCsvReader.getCocktailRequests();
 
 		assertAll(

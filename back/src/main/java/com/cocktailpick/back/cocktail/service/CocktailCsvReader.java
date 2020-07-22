@@ -5,15 +5,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.common.csv.CsvReader;
-import com.cocktailpick.back.common.csv.OpenCsvReader;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 public class CocktailCsvReader {
 	private static final String TRUE_VALUE = "1";
 
@@ -33,10 +31,6 @@ public class CocktailCsvReader {
 	private static final int SPECIAL_QUANTITY_INDEX = 13;
 
 	private final CsvReader csvReader;
-
-	public static CocktailCsvReader from(MultipartFile file) {
-		return new CocktailCsvReader(OpenCsvReader.from(file));
-	}
 
 	public List<CocktailRequest> getCocktailRequests() {
 		List<String[]> lines = csvReader.readAll();

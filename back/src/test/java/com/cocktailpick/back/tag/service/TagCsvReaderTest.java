@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cocktailpick.back.common.csv.OpenCsvReader;
 import com.cocktailpick.back.tag.domain.Tag;
 
 class TagCsvReaderTest {
@@ -24,7 +25,7 @@ class TagCsvReaderTest {
 
 	@Test
 	void getTags() {
-		TagCsvReader tagCsvReader = TagCsvReader.from(multipartFile);
+		TagCsvReader tagCsvReader = new TagCsvReader(OpenCsvReader.from(multipartFile));
 
 		List<Tag> actual = tagCsvReader.getTags();
 
