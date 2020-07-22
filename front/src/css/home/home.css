@@ -14,12 +14,12 @@
   flex-direction: column;
   align-items: center;
   padding: 0.8rem;
-  box-shadow: 0 15px 50px 10px #eeeeee;
+  box-shadow: 0px 0px 20px 10px #eeeeee;
   cursor: pointer;
 }
 
 .todayCocktailContainer:hover {
-  box-shadow: 0 -10px 50px 10px #eeeeee;
+  box-shadow: 0px 0px 20px 0px #eeeeee;
 }
 
 .todayCocktailTitle {
@@ -51,8 +51,8 @@
 }
 
 .content:hover {
-  color: rgba(17, 17, 17, 0.8);
+  color: #000000;
   border-radius: 30px;
-  background-color: rgba(238, 238, 238, 0.8);
-  box-shadow: 0 0 30px 25px rgba(238, 238, 238, 0.9);
+  background-color: rgba(166, 0, 0, 0.2);
+  box-shadow: 0 0 30px 25px rgba(166, 0, 0, 0.2);
 }
