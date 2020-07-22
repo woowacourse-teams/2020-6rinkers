@@ -10,7 +10,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: black solid 2px;
+  border-bottom: #111111 solid 2px;
   user-select: none;
   height: 55px;
 }
@@ -21,7 +21,7 @@
   align-items: center;
   width: 90vw;
   height: 100%;
-  border-bottom: black solid 1px;
+  border-bottom: #111111 solid 1px;
 }
 
 .title {
@@ -38,7 +38,7 @@
 }
 
 .title:hover .highlightCharacter {
-  color: black;
+  color: #111111;
   transition: 0.8s ease;
 }
 

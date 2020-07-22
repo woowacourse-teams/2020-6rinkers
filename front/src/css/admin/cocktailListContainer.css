@@ -6,7 +6,7 @@
 .cocktailItem {
   display: flex;
   align-items: center;
-  border-bottom: black solid 2px;
+  border-bottom: #111111 solid 2px;
 }
 
 .cocktailItem:hover {

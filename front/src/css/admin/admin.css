@@ -17,6 +17,6 @@
 .cocktailListContainer {
   width: 100%;
   flex: 1;
-  border-left: solid 2px black;
+  border-left: solid 2px #111111;
   overflow: auto;
 }
