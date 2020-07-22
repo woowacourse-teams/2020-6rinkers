@@ -1,5 +1,6 @@
 package com.cocktailpick.back.tag.service;
 
+import static com.cocktailpick.back.tag.Fixtures.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -17,8 +18,6 @@ import com.cocktailpick.back.tag.domain.TagRepository;
 public class TagServiceTest {
 	private TagService tagService;
 
-	public static final String CONTENT = "태그\n두강\n두중\n두약";
-
 	@Mock
 	private TagRepository tagRepository;
 
@@ -31,7 +30,7 @@ public class TagServiceTest {
 	@Test
 	void saveAll() {
 		MultipartFile file = new MockMultipartFile("file", "태그.csv", "text/csv",
-			CONTENT.getBytes());
+			THREE_TAGS_CSV_CONTENT.getBytes());
 
 		tagService.saveAll(file);
 

@@ -1,6 +1,6 @@
 package com.cocktailpick.back.tag.controller;
 
-import static com.cocktailpick.back.tag.service.TagServiceTest.*;
+import static com.cocktailpick.back.tag.Fixtures.*;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
@@ -42,7 +42,7 @@ class TagControllerTest {
 
 		mockMvc.perform(multipart("/api/tags/upload/csv")
 			.file(new MockMultipartFile("file", "test.csv", "text/csv",
-				CONTENT.getBytes()))
+				THREE_TAGS_CSV_CONTENT.getBytes()))
 			.contentType(MediaType.MULTIPART_FORM_DATA))
 			.andExpect(status().isCreated())
 			.andExpect(header().string("Location", "/api/tags"))
