@@ -27,9 +27,30 @@
 .title {
     justify-self: start;
     font-size: 24px;
-    margin-right: 1rem;
+    margin-left: 0.5rem;
+    margin-right: 2rem;
 }
 
 .service {
     display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.serviceItem {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 1rem;
+}
+
+.searchCocktail:hover,
+.recommendation:hover,
+.searchBar:hover {
+    background-color: red;
+}
+
+.divider {
+    border-left: black 1px solid;
+    height: 1.2rem;
 }
