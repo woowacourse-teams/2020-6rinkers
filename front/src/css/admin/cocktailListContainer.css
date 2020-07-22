@@ -6,11 +6,11 @@
 .cocktailItem {
   display: flex;
   align-items: center;
-  border-bottom: #111111 solid 2px;
+  border-bottom: var(--little-light-black) solid 2px;
 }
 
 .cocktailItem:hover {
-  background-color: #ccc;
+  background-color: var(--little-dark-white);
 }
 
 .cocktailItem > img {

@@ -14,7 +14,7 @@
   justify-content: space-around;
   height: 65%;
   width: 100px;
-  border: rgba(17, 17, 17, 0.4) 1px solid;
+  border: var(--light_black) 1px solid;
   border-radius: 10px;
   margin-bottom: 0.5rem;
 }

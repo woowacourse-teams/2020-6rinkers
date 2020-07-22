@@ -14,17 +14,17 @@
   flex-direction: column;
   align-items: center;
   padding: 0.8rem;
-  box-shadow: 0px 0px 20px 10px #eeeeee;
+  box-shadow: 0px 0px 20px 10px var(--little-dark-white);
   cursor: pointer;
 }
 
 .todayCocktailContainer:hover {
-  box-shadow: 0px 0px 20px 0px #eeeeee;
+  box-shadow: 0px 0px 20px 0px var(--little-dark-white);
 }
 
 .todayCocktailTitle {
   font-size: 20px;
-  border-bottom: #111111 1px solid;
+  border-bottom: var(--little-light-black) 1px solid;
   padding: 0 3rem;
 }
 
@@ -34,7 +34,7 @@
 }
 
 .todayCocktailName {
-  color: #a60000;
+  color: var(--red);
   margin-bottom: 2rem;
 }
 
@@ -51,8 +51,8 @@
 }
 
 .content:hover {
-  color: #000000;
+  color: var(--black);
   border-radius: 30px;
-  background-color: rgba(166, 0, 0, 0.2);
-  box-shadow: 0 0 30px 25px rgba(166, 0, 0, 0.2);
+  background-color: var(--more-light-red);
+  box-shadow: 0 0 30px 25px var(--more-light-red);
 }

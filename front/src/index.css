@@ -1,3 +1,15 @@
+:root {
+  --black: #000000;
+  --little-light-black: #111111;
+  --light_black: rgba(17, 17, 17, 0.4);
+  --red: #a60000;
+  --light-red: rgba(166, 0, 0, 0.3);
+  --little-light-red: rgba(166, 0, 0, 0.8);
+  --more-light-red: rgba(166, 0, 0, 0.2);
+  --white: #ffffff;
+  --little-dark-white: #eeeeee;
+}
+
 * {
   margin: 0;
   font-family: "Menlo", sans-serif;
@@ -17,7 +29,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
-  color: #111111;
+  color: var(--little-light-black);
 }
 
 code {

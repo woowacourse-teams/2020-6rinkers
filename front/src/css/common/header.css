@@ -20,7 +20,7 @@
   align-items: center;
   width: 90vw;
   height: 100%;
-  border-bottom: rgba(17, 17, 17, 0.4) solid 1px;
+  border-bottom: var(--light_black) solid 1px;
 }
 
 .title {
@@ -33,17 +33,17 @@
 }
 
 .title:hover {
-  color: #a60000;
+  color: var(--red);
   transition: 0.8s ease;
 }
 
 .title:hover .highlightCharacter {
-  color: #111111;
+  color: var(--little-light-black);
   transition: 0.8s ease;
 }
 
 .highlightCharacter {
-  color: #a60000;
+  color: var(--red);
   font-size: 30px;
   transition: 0.8s ease;
 }
@@ -59,17 +59,17 @@
   align-items: center;
   height: 100%;
   padding: 0 1rem;
-  border-left: rgba(166, 0, 0, 0.3) 1px solid;
-  color: #a60000;
+  border-left: var(--light-red) 1px solid;
+  color: var(--red);
   cursor: pointer;
 }
 
 .serviceItem:hover {
-  background-color: rgba(166, 0, 0, 0.8);
+  background-color: var(--little-light-red);
   transition: 0.1s ease;
-  color: #ffffff;
+  color: var(--white);
 }
 
 .recommendation {
-  border-right: rgba(166, 0, 0, 0.3) 1px solid;
+  border-right: var(--light-red) 1px solid;
 }
