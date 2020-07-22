@@ -41,7 +41,7 @@
 .homeRecommendation {
   display: flex;
   align-items: center;
-  height: 100px;
+  height: 70px;
   cursor: pointer;
 }
 
@@ -49,8 +49,9 @@
   font-size: 20px;
 }
 
-.horizontalLine {
-  width: 8rem;
-  border-bottom: #111111 1px solid;
-  margin: 1rem;
+.content:hover {
+  color: rgba(17, 17, 17, 0.8);
+  border-radius: 30px;
+  background-color: rgba(238, 238, 238, 0.8);
+  box-shadow: 0 0 30px 25px rgba(238, 238, 238, 0.9);
 }
