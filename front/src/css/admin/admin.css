@@ -1,3 +1,12 @@
+.adminHeaderContainer {
+  border-bottom: var(--black) 2px solid;
+}
+
+.adminTitle {
+  font-size: 24px;
+}
+
+
 .admin {
   display: flex;
   width: 100%;
