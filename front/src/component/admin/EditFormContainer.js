@@ -38,7 +38,9 @@ const EditFormContainer = ({ cocktail, updateCocktail, onResetCocktail }) => {
         ))}
       </div>
       <div className="submit">
-        <button onClick={onSubmit}>저장/수정</button>
+        <button type="submit" onClick={onSubmit}>
+          저장/수정
+        </button>
       </div>
     </>
   );
