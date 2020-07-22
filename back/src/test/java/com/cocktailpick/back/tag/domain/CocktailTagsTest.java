@@ -2,6 +2,7 @@ package com.cocktailpick.back.tag.domain;
 
 import static org.assertj.core.api.Assertions.*;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +10,32 @@ import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.cocktail.domain.Flavor;
 
 class CocktailTagsTest {
+	private Tag tag;
+
+	private Flavor flavor;
+
+	private Cocktail blueHawaii;
+
+	@BeforeEach
+	void setUp() {
+		tag = new Tag("두강맛");
+
+		flavor = Flavor.builder()
+			.bitter(true)
+			.sour(true)
+			.sweet(false)
+			.build();
+
+		blueHawaii = Cocktail.builder()
+			.abv(40)
+			.description("두강 맛 칵테일")
+			.flavor(flavor)
+			.imageUrl("https://naver.com")
+			.name("DOO")
+			.origin("두원이는 강하다.")
+			.build();
+	}
+
 	@DisplayName("빈 CocktailTags를 생성한다.")
 	@Test
 	void empty() {
@@ -24,23 +51,6 @@ class CocktailTagsTest {
 
 		CocktailTag cocktailTag = new CocktailTag();
 
-		Flavor flavor = Flavor.builder()
-			.bitter(true)
-			.sour(true)
-			.sweet(false)
-			.build();
-
-		Cocktail blueHawaii = Cocktail.builder()
-			.abv(40)
-			.description("두강 맛 칵테일")
-			.flavor(flavor)
-			.imageUrl("https://naver.com")
-			.name("DOO")
-			.origin("두원이는 강하다.")
-			.build();
-
-		Tag tag = new Tag("두강맛");
-
 		cocktailTag.setTag(tag);
 		cocktailTag.setCocktail(blueHawaii);
 
@@ -55,23 +65,6 @@ class CocktailTagsTest {
 		CocktailTags cocktailTags = new CocktailTags();
 
 		CocktailTag cocktailTag = new CocktailTag();
-
-		Flavor flavor = Flavor.builder()
-			.bitter(true)
-			.sour(true)
-			.sweet(false)
-			.build();
-
-		Cocktail blueHawaii = Cocktail.builder()
-			.abv(40)
-			.description("두강 맛 칵테일")
-			.flavor(flavor)
-			.imageUrl("https://naver.com")
-			.name("DOO")
-			.origin("두원이는 강하다.")
-			.build();
-
-		Tag tag = new Tag("두강맛");
 
 		cocktailTag.setTag(tag);
 		cocktailTag.setCocktail(blueHawaii);

@@ -78,6 +78,11 @@ public class CocktailService {
 	}
 
 	@Transactional
+	public void deleteCocktail(Long id) {
+		cocktailRepository.deleteById(id);
+	}
+
+	@Transactional
 	public void saveAll(MultipartFile file) {
 		CocktailCsvReader cocktailCsvReader = CocktailCsvReader.from(file);
 		List<CocktailRequest> cocktailRequests = cocktailCsvReader.getCocktailRequests();

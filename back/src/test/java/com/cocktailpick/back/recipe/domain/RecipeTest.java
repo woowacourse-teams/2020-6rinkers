@@ -17,7 +17,7 @@ class RecipeTest {
 	@DisplayName("Recipe에 RecipeItem을 추가한다.")
 	@Test
 	void addRecipeItem() {
-		Recipe recipe = new Recipe();
+		Recipe recipe = Recipe.empty();
 		RecipeItem recipeItem = RecipeItem.builder()
 			.ingredient("두강")
 			.quantity("두ml")
@@ -31,7 +31,7 @@ class RecipeTest {
 	@DisplayName("RecipeItem 중복되는 경우 예외를 발생시킨다.")
 	@Test
 	void addDuplicatedRecipeItem() {
-		Recipe recipe = new Recipe();
+		Recipe recipe = Recipe.empty();
 		RecipeItem recipeItem = RecipeItem.builder()
 			.ingredient("두강")
 			.quantity("두ml")

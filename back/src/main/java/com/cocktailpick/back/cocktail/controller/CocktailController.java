@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,6 +49,12 @@ public class CocktailController {
 	public ResponseEntity<Void> updateCocktail(@PathVariable Long id, @RequestBody CocktailRequest cocktailRequest) {
 		cocktailService.updateCocktail(id, cocktailRequest);
 		return ResponseEntity.ok().build();
+	}
+
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteCocktail(@PathVariable Long id) {
+		cocktailService.deleteCocktail(id);
+		return ResponseEntity.noContent().build();
 	}
 
 	@PostMapping("/upload/csv")
