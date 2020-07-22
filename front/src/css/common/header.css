@@ -59,15 +59,15 @@
   align-items: center;
   height: 100%;
   padding: 0 1rem;
+  border-left: rgba(166, 0, 0, 0.4) 1px solid;
 }
 
-.searchCocktail:hover,
-.recommendation:hover,
-.searchBar:hover {
-  background-color: red;
+.serviceItem:hover {
+  background-color: rgba(166, 0, 0, 0.8);
+  transition: 0.1s ease;
+  font-weight: bold;
 }
 
-.divider {
-  border-left: black 1px solid;
-  height: 1.2rem;
+.recommendation {
+  border-right: rgba(166, 0, 0, 0.5) 1px solid;
 }
