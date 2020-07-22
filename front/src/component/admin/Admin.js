@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import EditFormContainer from "./EditFormContainer";
 import CocktailListContainer from "./CocktailListContainer";
 import { DEFAULT_COCKTAIL_DATA } from "../../utils/admin/constant";
+import "../../css/admin/admin.css";
 
 const Admin = () => {
   const [cocktail, setCocktail] = useState(DEFAULT_COCKTAIL_DATA);
@@ -18,7 +19,7 @@ const Admin = () => {
   };
 
   return (
-    <div className="main">
+    <div className="admin">
       <div className="editFormContainer">
         <EditFormContainer
           cocktail={cocktail}
