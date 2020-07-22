@@ -6,7 +6,7 @@
   width: 100%;
   height: 100%;
   user-select: none;
-  padding-bottom: 2.5rem;
+  padding-bottom: 55px;
 }
 
 .todayCocktailContainer {
@@ -43,6 +43,7 @@
   align-items: center;
   height: 70px;
   cursor: pointer;
+  margin-bottom: 1rem;
 }
 
 .content {
