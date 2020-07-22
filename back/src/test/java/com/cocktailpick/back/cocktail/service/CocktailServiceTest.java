@@ -1,6 +1,7 @@
 package com.cocktailpick.back.cocktail.service;
 
 import static com.cocktailpick.back.cocktail.Fixtures.*;
+import static com.cocktailpick.back.tag.Fixtures.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -177,11 +178,11 @@ public class CocktailServiceTest {
 		MultipartFile file = new MockMultipartFile("file", "칵테일.csv", "text/csv",
 			THREE_COCKTAILS_CSV_CONTENT.getBytes());
 
-		when(tagRepository.findByNameIn(anyList())).thenReturn(anyList());
+		when(tagRepository.findAll()).thenReturn(FOUR_TAGS_FROM_TAG_CSV);
 
 		cocktailService.saveAll(file);
 
-		verify(tagRepository, times(3)).findByNameIn(anyList());
-		verify(cocktailRepository, times(3)).save(any());
+		verify(tagRepository).findAll();
+		verify(cocktailRepository).saveAll(any());
 	}
 }

@@ -1,7 +1,9 @@
 package com.cocktailpick.back.cocktail.service;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -86,12 +88,25 @@ public class CocktailService {
 
 	@Transactional
 	public void saveAll(MultipartFile file) {
-		CocktailCsvReader cocktailCsvReader = new CocktailCsvReader(OpenCsvReader.from(file));
+		CocktailCsvReader cocktailCsvReader = new CocktailCsvReader(
+			OpenCsvReader.from(file));
 		List<CocktailRequest> cocktailRequests = cocktailCsvReader.getCocktailRequests();
 
+		Map<String, Cocktail> cocktailMapper = new HashMap<>();
 		for (CocktailRequest cocktailRequest : cocktailRequests) {
 			Cocktail cocktail = cocktailRequest.toCocktail();
-			cocktailRepository.save(cocktail);
+			cocktailMapper.put(cocktailRequest.getName(), cocktail);
+		}
+		cocktailRepository.saveAll(cocktailMapper.values());
+
+		List<Tag> allTags = tagRepository.findAll();
+		Map<String, Tag> tagMapper = new HashMap<>();
+		for (Tag tag : allTags) {
+			tagMapper.put(tag.getName(), tag);
+		}
+
+		for (CocktailRequest cocktailRequest : cocktailRequests) {
+			Cocktail cocktail = cocktailMapper.get(cocktailRequest.getName());
 
 			List<RecipeItem> recipeItems = cocktailRequest.toRecipeItems();
 			for (RecipeItem recipeItem : recipeItems) {
@@ -99,7 +114,10 @@ public class CocktailService {
 			}
 
 			List<String> tagNames = cocktailRequest.getTag();
-			List<Tag> tags = tagRepository.findByNameIn(tagNames);
+			List<Tag> tags = tagNames.stream()
+				.map(tagMapper::get)
+				.collect(Collectors.toList());
+
 			for (Tag tag : tags) {
 				CocktailTag.connect(cocktail, tag);
 			}

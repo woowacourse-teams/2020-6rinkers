@@ -24,7 +24,7 @@ public class TagCsvReader {
 	public List<Tag> getTags() {
 		List<String[]> tags = csvReader.readAll();
 		return tags.stream()
-			.map(line -> new Tag(line[NAME_COLUMN_INDEX]))
+			.map(line -> new Tag(line[NAME_COLUMN_INDEX].trim()))
 			.collect(Collectors.toList());
 	}
 }
