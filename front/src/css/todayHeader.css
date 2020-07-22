@@ -1,0 +1,33 @@
+.today-header {
+    height: max-content;
+    border-bottom: 1px solid black;
+    display: flex;
+}
+
+.today-header * {
+    display: inline-block;
+}
+
+.login-button {
+    margin-right: auto;
+}
+
+.left-container {
+    width: max-content;
+    display: block;
+}
+
+.left-container h1 {
+    margin-left: 20px;
+}
+
+.left-container li {
+    margin-right: 20px;
+}
+
+.right-container {
+    width: max-content;
+    height: 100%;
+    margin: auto 20px auto auto;
+    display: block;
+}

@@ -1,0 +1,9 @@
+.today-main img {
+    display: block;
+    height: 300px;
+    width: 300px;
+    margin-top: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+}
