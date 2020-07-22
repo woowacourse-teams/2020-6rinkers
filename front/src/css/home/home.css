@@ -6,14 +6,21 @@
   width: 100%;
   height: 100%;
   user-select: none;
+  padding-bottom: 2.5rem;
 }
 
 .todayCocktailContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: #111111 1px solid;
-  padding: 1rem;
+  padding: 0.8rem;
+  box-shadow: 0 15px 50px 10px #eeeeee;
+}
+
+.todayCocktailContainer:hover {
+  cursor: pointer;
+  box-shadow: 0 -10px 50px 10px #eeeeee;
+
 }
 
 .todayCocktailTitle {
@@ -24,12 +31,18 @@
 
 .todayCocktailImage > img {
   max-width: 450px;
+  max-height: 450px;
+}
+
+.todayCocktailName {
+  color: #a60000;
+  margin-bottom: 2rem;
 }
 
 .homeRecommendation {
   display: flex;
   align-items: center;
-  margin-bottom: 7rem;
+  height: 100px;
 }
 
 .content {
@@ -37,7 +50,7 @@
 }
 
 .horizontalLine {
-  width: 10rem;
+  width: 8rem;
   border-bottom: #111111 1px solid;
   margin: 1rem;
 }
