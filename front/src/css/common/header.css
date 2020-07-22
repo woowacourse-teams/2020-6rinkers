@@ -29,12 +29,12 @@
   margin-left: 0.5rem;
   margin-right: 1.5rem;
   transition: 0.8s ease;
+  cursor: pointer;
 }
 
 .title:hover {
   color: #a60000;
   transition: 0.8s ease;
-  cursor: pointer;
 }
 
 .title:hover .highlightCharacter {
@@ -61,13 +61,13 @@
   padding: 0 1rem;
   border-left: rgba(166, 0, 0, 0.3) 1px solid;
   color: #a60000;
+  cursor: pointer;
 }
 
 .serviceItem:hover {
   background-color: rgba(166, 0, 0, 0.8);
   transition: 0.1s ease;
   color: #ffffff;
-  cursor: pointer;
 }
 
 .recommendation {
