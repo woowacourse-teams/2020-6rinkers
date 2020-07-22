@@ -29,6 +29,23 @@
   font-size: 24px;
   margin-left: 0.5rem;
   margin-right: 2rem;
+  transition: 0.8s ease;
+}
+
+.title:hover  {
+  color: #a60000;
+  transition: 0.8s ease;
+}
+
+.title:hover .highlightCharacter {
+  color: black;
+  transition: 0.8s ease;
+}
+
+.highlightCharacter {
+  color: #a60000;
+  font-size: 30px;
+  transition: 0.8s ease;
 }
 
 .service {
