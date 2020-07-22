@@ -1,7 +1,7 @@
 .headerContainer {
     display: flex;
     justify-content: center;
-    border-bottom: black solid 2px;
+    border-bottom: black solid 1px;
     user-select: none;
 }
 
