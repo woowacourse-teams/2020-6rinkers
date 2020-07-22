@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import "./index.css";
 import Header from "./component/common/Header";
-import Main from "./component/admin/Main";
+import Admin from "./component/admin/Main";
 import Home from "./component/home/Home";
 
 const App = () => {
@@ -14,7 +14,7 @@ const App = () => {
           <Home />
         </Route>
         <Route path="/admin">
-          <Main />
+          <Admin />
         </Route>
       </Switch>
     </div>

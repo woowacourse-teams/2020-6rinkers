@@ -3,7 +3,7 @@ import EditFormContainer from "./EditFormContainer";
 import CocktailListContainer from "./CocktailListContainer";
 import { DEFAULT_COCKTAIL_DATA } from "../../utils/admin/constant";
 
-const Main = () => {
+const Admin = () => {
   const [cocktail, setCocktail] = useState(DEFAULT_COCKTAIL_DATA);
 
   const onUpdateCocktail = (value, name) => {
@@ -33,4 +33,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default Admin;
