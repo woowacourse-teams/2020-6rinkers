@@ -182,9 +182,11 @@ public class CocktailServiceTest {
 		MultipartFile file = new MockMultipartFile("file", "칵테일.csv", "text/csv",
 			content.getBytes());
 
+		when(tagRepository.findByNameIn(anyList())).thenReturn(anyList());
+
 		cocktailService.saveAll(file);
 
-		verify(tagRepository, times(3)).saveAll(anyCollection());
+		verify(tagRepository, times(3)).findByNameIn(anyList());
 		verify(cocktailRepository, times(3)).save(any());
 	}
 }

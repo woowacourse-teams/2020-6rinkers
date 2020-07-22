@@ -67,7 +67,8 @@ public class CocktailService {
 		List<Tag> tags = tagRepository.findByNameIn(cocktailRequest.getTag());
 		CocktailTags cocktailTags = tags.stream()
 			.map(tag -> CocktailTag.connect(cocktail, tag))
-			.collect(Collectors.collectingAndThen(Collectors.toList(), CocktailTags::new));
+			.collect(
+				Collectors.collectingAndThen(Collectors.toList(), CocktailTags::new));
 
 		cocktail.update(requestCocktail, cocktailTags);
 	}
@@ -97,10 +98,7 @@ public class CocktailService {
 			}
 
 			List<String> tagNames = cocktailRequest.getTag();
-			List<Tag> tags = tagNames.stream()
-				.map(Tag::new)
-				.collect(Collectors.toList());
-			tagRepository.saveAll(tags);
+			List<Tag> tags = tagRepository.findByNameIn(tagNames);
 			for (Tag tag : tags) {
 				CocktailTag.connect(cocktail, tag);
 			}
