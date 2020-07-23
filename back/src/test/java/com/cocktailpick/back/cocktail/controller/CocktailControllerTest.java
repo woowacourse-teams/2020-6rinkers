@@ -1,5 +1,6 @@
 package com.cocktailpick.back.cocktail.controller;
 
+import static com.cocktailpick.back.cocktail.Fixtures.*;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
@@ -15,6 +16,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -150,6 +152,21 @@ class CocktailControllerTest {
 			.content(new ObjectMapper().writeValueAsString(updateCocktailRequest)))
 			.andExpect(status().isOk())
 			.andDo(print());
+	}
+
+	@DisplayName("csv 파일로 칵테일을 저장한다.")
+	@Test
+	void addCocktailsByCsv() throws Exception {
+		doNothing().when(cocktailService).saveAll(any());
+
+		mockMvc.perform(multipart("/api/cocktails/upload/csv")
+			.file(
+				new MockMultipartFile("file", "test.csv", "text/csv", THREE_COCKTAILS_CSV_CONTENT.getBytes()))
+			.contentType(MediaType.MULTIPART_FORM_DATA))
+			.andExpect(status().isCreated())
+			.andExpect(header().string("Location", "/api/cocktails"))
+			.andDo(print());
+
 	}
 
 	@DisplayName("칵테일을 삭제한다.")
