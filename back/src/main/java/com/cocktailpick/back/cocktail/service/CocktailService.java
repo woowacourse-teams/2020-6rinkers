@@ -21,18 +21,21 @@ import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
 import com.cocktailpick.back.cocktail.dto.UserRecommendRequests;
 import com.cocktailpick.back.common.EntityMapper;
 import com.cocktailpick.back.common.csv.OpenCsvReader;
+import com.cocktailpick.back.common.random.RandomIndexGenerator;
 import com.cocktailpick.back.recipe.domain.RecipeItem;
 import com.cocktailpick.back.tag.domain.CocktailTag;
 import com.cocktailpick.back.tag.domain.CocktailTags;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 @Service
 public class CocktailService {
 	private final CocktailRepository cocktailRepository;
 	private final TagRepository tagRepository;
+	private final RandomIndexGenerator randomIndexGenerator;
 
 	@Transactional(readOnly = true)
 	public List<CocktailResponse> findAllCocktails() {
@@ -71,7 +74,8 @@ public class CocktailService {
 		List<Tag> tags = tagRepository.findByNameIn(cocktailRequest.getTag());
 		CocktailTags cocktailTags = tags.stream()
 			.map(tag -> CocktailTag.associate(cocktail, tag))
-			.collect(Collectors.collectingAndThen(Collectors.toList(), CocktailTags::new));
+			.collect(
+				Collectors.collectingAndThen(Collectors.toList(), CocktailTags::new));
 
 		cocktail.update(requestCocktail, cocktailTags);
 	}
@@ -128,7 +132,8 @@ public class CocktailService {
 		}
 	}
 
-	private List<Tag> getTagsByName(EntityMapper<String, Tag> tagMapper, List<String> tagNames) {
+	private List<Tag> getTagsByName(EntityMapper<String, Tag> tagMapper,
+		List<String> tagNames) {
 		return tagNames.stream()
 			.map(tagMapper::get)
 			.collect(Collectors.toList());
@@ -183,6 +188,15 @@ public class CocktailService {
 	}
 
 	public CocktailResponse findCocktailOfToday() {
-		return null;
+		long length = cocktailRepository.count();
+		int todayCocktailIndex = randomIndexGenerator.generate(length);
+
+		List<Cocktail> cocktails = cocktailRepository.findAll();
+
+		if (cocktails.isEmpty()) {
+			throw new RuntimeException();
+		}
+
+		return CocktailResponse.of(cocktails.get(todayCocktailIndex));
 	}
 }

@@ -28,6 +28,7 @@ import com.cocktailpick.back.cocktail.domain.Flavor;
 import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
+import com.cocktailpick.back.common.random.RandomIndexGenerator;
 import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
 import com.cocktailpick.back.cocktail.dto.UserRecommendRequests;
 import com.cocktailpick.back.tag.domain.CocktailTag;
@@ -43,6 +44,9 @@ public class CocktailServiceTest {
 
 	@Mock
 	private TagRepository tagRepository;
+
+	@Mock
+	private RandomIndexGenerator randomIndexGenerator;
 
 	private Tag tag;
 
@@ -189,6 +193,29 @@ public class CocktailServiceTest {
 
 		verify(tagRepository).findAll();
 		verify(cocktailRepository).saveAll(any());
+	}
+
+	@DisplayName("오늘의 칵테일을 조회한다.")
+	@Test
+	void findCocktailOfToday() {
+		when(cocktailRepository.count()).thenReturn(3L);
+		when(cocktailRepository.findAll()).thenReturn(Arrays.asList(
+			Cocktail.builder().name("두강 진").build(),
+			Cocktail.builder().name("토니 진").build(),
+			Cocktail.builder().name("작곰 진").build()));
+		when(randomIndexGenerator.generate(anyLong())).thenReturn(1);
+
+		assertThat(cocktailService.findCocktailOfToday().getName()).isEqualTo("토니 진");
+	}
+
+	@DisplayName("칵테일이 없을 경우 오늘의 칵테일 api 사용 시 예외처리한다.")
+	@Test
+	void findCocktailOfToday_WhenNoCocktails() {
+		when(cocktailRepository.count()).thenReturn(0L);
+		when(cocktailRepository.findAll()).thenReturn(new ArrayList<>());
+
+		assertThatThrownBy(() -> cocktailService.findCocktailOfToday())
+			.isInstanceOf(RuntimeException.class);
 	}
 
 	@DisplayName("칵테일을 추천한다.")
