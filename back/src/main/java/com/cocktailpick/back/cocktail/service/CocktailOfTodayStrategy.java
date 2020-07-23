@@ -3,25 +3,26 @@ package com.cocktailpick.back.cocktail.service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
-import org.springframework.stereotype.Component;
+import com.cocktailpick.back.cocktail.domain.Cocktail;
 
-import com.cocktailpick.back.common.random.RandomIndexGenerator;
-
-@Component
-public class TodayRandomIndexGenerator implements RandomIndexGenerator {
+public class CocktailOfTodayStrategy implements CocktailFindStrategy {
 	@Override
-	public int generate(long length) {
-		long seed = createSeed();
-		Random random = new Random(seed);
+	public Cocktail find(List<Cocktail> cocktails) {
+		return cocktails.get(getIndex(cocktails.size()));
+	}
+
+	private int getIndex(int length) {
+		Random random = new Random(createSeed());
 		return (int)(random.nextDouble() * length);
 	}
 
 	private long createSeed() {
 		try {
 			Date date = new Date();
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
 			String format = simpleDateFormat.format(date);
 
 			return simpleDateFormat.parse(format).getTime();

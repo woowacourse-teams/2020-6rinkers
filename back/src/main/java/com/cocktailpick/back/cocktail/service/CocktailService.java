@@ -22,7 +22,6 @@ import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
 import com.cocktailpick.back.cocktail.dto.UserRecommendRequests;
 import com.cocktailpick.back.common.EntityMapper;
 import com.cocktailpick.back.common.csv.OpenCsvReader;
-import com.cocktailpick.back.common.random.RandomIndexGenerator;
 import com.cocktailpick.back.recipe.domain.RecipeItem;
 import com.cocktailpick.back.tag.domain.CocktailTag;
 import com.cocktailpick.back.tag.domain.CocktailTags;
@@ -36,12 +35,12 @@ import lombok.RequiredArgsConstructor;
 public class CocktailService {
 	private final CocktailRepository cocktailRepository;
 	private final TagRepository tagRepository;
-	private final RandomIndexGenerator randomIndexGenerator;
+	private final CocktailFindStrategy cocktailOfTodayStrategy;
 
 	@Autowired
 	public CocktailService(CocktailRepository cocktailRepository,
 		TagRepository tagRepository) {
-		this(cocktailRepository, tagRepository, new TodayRandomIndexGenerator());
+		this(cocktailRepository, tagRepository, new CocktailOfTodayStrategy());
 	}
 
 	@Transactional(readOnly = true)
@@ -195,15 +194,7 @@ public class CocktailService {
 	}
 
 	public CocktailResponse findCocktailOfToday() {
-		long length = cocktailRepository.count();
-		int todayCocktailIndex = randomIndexGenerator.generate(length);
-
 		List<Cocktail> cocktails = cocktailRepository.findAll();
-
-		if (cocktails.isEmpty()) {
-			throw new RuntimeException();
-		}
-
-		return CocktailResponse.of(cocktails.get(todayCocktailIndex));
+		return CocktailResponse.of(cocktailOfTodayStrategy.find(cocktails));
 	}
 }
