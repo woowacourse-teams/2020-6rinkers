@@ -41,18 +41,19 @@
 .homeRecommendation {
   display: flex;
   align-items: center;
-  height: 70px;
+  height: 3rem;
   cursor: pointer;
   margin-bottom: 1rem;
+  padding: 0 1rem;
+}
+
+.homeRecommendation:hover {
+  color: var(--black);
+  border-radius: 30px;
+  background-color: var(--more-light-red);
+  box-shadow: 0 0 23px 25px var(--more-light-red);
 }
 
 .content {
   font-size: 20px;
-}
-
-.content:hover {
-  color: var(--black);
-  border-radius: 30px;
-  background-color: var(--more-light-red);
-  box-shadow: 0 0 30px 25px var(--more-light-red);
 }
