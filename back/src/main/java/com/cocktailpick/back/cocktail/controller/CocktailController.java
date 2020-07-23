@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
+import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
 import com.cocktailpick.back.cocktail.service.CocktailService;
 
 @RestController
@@ -53,5 +54,12 @@ public class CocktailController {
 	public ResponseEntity<Void> deleteCocktail(@PathVariable Long id) {
 		cocktailService.deleteCocktail(id);
 		return ResponseEntity.noContent().build();
+	}
+
+	@GetMapping("/recommend")
+	public ResponseEntity<List<CocktailDetailResponse>> recommend(UserRecommendRequest recommendRequest) {
+		List<CocktailDetailResponse> cocktailDetailResponses = cocktailService.recommendCocktail(recommendRequest);
+
+		return ResponseEntity.ok(cocktailDetailResponses);
 	}
 }

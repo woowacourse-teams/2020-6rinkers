@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -22,6 +23,8 @@ import com.cocktailpick.back.cocktail.domain.Flavor;
 import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
+import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
+import com.cocktailpick.back.tag.domain.CocktailTag;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
 
@@ -165,5 +168,62 @@ public class CocktailServiceTest {
 		cocktailService.deleteCocktail(1L);
 
 		verify(cocktailRepository).deleteById(1L);
+	}
+
+	@DisplayName("칵테일을 추천한다.")
+	@Test
+	void recommend() {
+		Cocktail cocktail1 = Cocktail.builder()
+			.name("a")
+			.abv(10)
+			.flavor(flavor)
+			.build();
+		Cocktail cocktail2 = Cocktail.builder()
+			.name("b")
+			.abv(20)
+			.flavor(flavor)
+			.build();
+		Cocktail cocktail3 = Cocktail.builder()
+			.name("c")
+			.abv(30)
+			.flavor(flavor)
+			.build();
+		Cocktail cocktail4 = Cocktail.builder()
+			.name("d")
+			.abv(40)
+			.flavor(flavor)
+			.build();
+
+		List<Cocktail> cocktails = Arrays.asList(cocktail1, cocktail2, cocktail3, cocktail4);
+		String[] tagNames = {"도수가 높은", "단 맛", "신 맛", "쓴 맛", "탄산", "매운 맛", "커피", "초코", "코코넛", "우유"};
+		List<Tag> tags = Arrays.stream(tagNames)
+			.map(Tag::new)
+			.collect(Collectors.toList());
+
+		CocktailTag.of(cocktail1, tags.get(0));
+		CocktailTag.of(cocktail1, tags.get(1));
+		CocktailTag.of(cocktail1, tags.get(4));
+		CocktailTag.of(cocktail1, tags.get(7));
+
+		CocktailTag.of(cocktail2, tags.get(2));
+		CocktailTag.of(cocktail2, tags.get(3));
+		CocktailTag.of(cocktail2, tags.get(5));
+
+		CocktailTag.of(cocktail3, tags.get(2));
+		CocktailTag.of(cocktail3, tags.get(3));
+		CocktailTag.of(cocktail3, tags.get(7));
+
+		CocktailTag.of(cocktail4, tags.get(3));
+		CocktailTag.of(cocktail4, tags.get(5));
+		CocktailTag.of(cocktail4, tags.get(8));
+
+		when(tagRepository.findByNameIn(anyList())).thenReturn(tags);
+		when(cocktailRepository.findAll()).thenReturn(cocktails);
+
+		List<Boolean> answers = Arrays.asList(true, true, false, true, false, true, true, false, true, false);
+		UserRecommendRequest recommendRequest = new UserRecommendRequest(answers);
+
+		assertThat(cocktailService.recommendCocktail(recommendRequest))
+			.extracting("name").contains("d");
 	}
 }

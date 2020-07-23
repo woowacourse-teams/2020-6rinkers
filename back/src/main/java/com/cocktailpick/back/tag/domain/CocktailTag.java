@@ -42,4 +42,8 @@ public class CocktailTag extends BaseEntity {
 	public boolean isSameNameWith(CocktailTag cocktailTag) {
 		return this.tag.getName().equals(cocktailTag.tag.getName());
 	}
+
+	public boolean notContainsTag(Tag tag) {
+		return !this.tag.isSameName(tag);
+	}
 }

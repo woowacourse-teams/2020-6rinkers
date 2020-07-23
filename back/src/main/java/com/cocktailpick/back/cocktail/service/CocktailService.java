@@ -1,5 +1,6 @@
 package com.cocktailpick.back.cocktail.service;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,9 +10,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.cocktail.domain.CocktailRepository;
+import com.cocktailpick.back.cocktail.domain.TagFilter;
 import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
+import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
 import com.cocktailpick.back.recipe.domain.RecipeItem;
 import com.cocktailpick.back.tag.domain.CocktailTag;
 import com.cocktailpick.back.tag.domain.CocktailTags;
@@ -81,5 +84,25 @@ public class CocktailService {
 	@Transactional
 	public void deleteCocktail(Long id) {
 		cocktailRepository.deleteById(id);
+	}
+
+	@Transactional
+	public List<CocktailDetailResponse> recommendCocktail(UserRecommendRequest recommendRequest) {
+		List<Boolean> answers = recommendRequest.getAnswer();
+		List<String> names = Arrays.stream(TagFilter.values())
+			.map(TagFilter::getName)
+			.collect(Collectors.toList());
+
+		List<Cocktail> allCocktails = cocktailRepository.findAll();
+		List<Tag> tags = tagRepository.findByNameIn(names);
+
+		for (int i = 0; i < answers.size(); i++) {
+			allCocktails = TagFilter.filter(allCocktails, tags.get(i), answers.get(i));
+
+		}
+
+		return allCocktails.stream()
+			.map(CocktailDetailResponse::of)
+			.collect(Collectors.toList());
 	}
 }

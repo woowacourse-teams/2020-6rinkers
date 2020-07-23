@@ -25,6 +25,7 @@ import com.cocktailpick.back.cocktail.domain.Flavor;
 import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
+import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
 import com.cocktailpick.back.cocktail.service.CocktailService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -159,6 +160,21 @@ class CocktailControllerTest {
 
 		mockMvc.perform(delete("/api/cocktails/1"))
 			.andExpect(status().isNoContent())
+			.andDo(print());
+	}
+
+	@DisplayName("칵테일을 추천한다.")
+	@Test
+	void recommendCocktail() throws Exception {
+		UserRecommendRequest userRecommendRequest = new UserRecommendRequest(Arrays.asList(true, false));
+		CocktailDetailResponse response1 = CocktailDetailResponse.of(blueHawaii);
+		given(cocktailService.recommendCocktail(any())).willReturn(Arrays.asList(response1));
+
+		mockMvc.perform(get("/api/cocktails/recommend")
+			.contentType(MediaType.APPLICATION_JSON)
+			.accept(MediaType.APPLICATION_JSON)
+			.content(new ObjectMapper().writeValueAsString(userRecommendRequest)))
+			.andExpect(status().isOk())
 			.andDo(print());
 	}
 }
