@@ -1,0 +1,28 @@
+section {
+    display: flex;
+    justify-content: center;
+}
+
+.today-pick-logo {
+    position: relative;
+    font-weight: 100;
+}
+
+.today-pick-logo .front-style {
+    display: inline-block;
+    font-size: 50px;
+}
+
+.today-pick-logo .back-style {
+    display: inline-block;
+    font-size: 50px;
+    font-family: "Noto Sans KR", serif;
+    color: #a60000;
+}
+
+.today-pick-logo .underline-style {
+    position: absolute;
+    border: 1px solid #a60000;
+    left: 63%;
+    width: 37%;
+}

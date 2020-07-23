@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import InputContainer from "./InputContainer";
-import "../css/editFormContainer.css";
-import { createCocktail } from "../api";
-import dataToCocktailRequest from "../utils/cocktailConverter";
+import "../../css/editFormContainer.css";
+import {createCocktail} from "../../api";
+import dataToCocktailRequest from "../../utils/cocktailConverter";
 
 const EditFormContainer = ({ cocktail, updateCocktail, onResetCocktail }) => {
   const onChange = (e) => {

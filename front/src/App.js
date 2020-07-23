@@ -1,13 +1,15 @@
 import React from "react";
 import "./index.css";
-import Header from "./component/Header";
-import Main from "./component/Main";
+import { Route } from "react-router-dom";
+import Admin from "./component/admin/Admin";
+import Home from "./component/home/Home";
+import "css"
 
 const App = () => {
   return (
-    <div className="App">
-      <Header />
-      <Main />
+    <div>
+      <Route exact path="/admin" component={Admin} />
+      <Route path="/" component={Home} />
     </div>
   );
 };

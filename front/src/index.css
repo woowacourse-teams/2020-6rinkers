@@ -1,42 +1,18 @@
+@import url("https://fonts.googleapis.com/earlyaccess/notosanskr.css");
+
 * {
     margin: 0;
-    font-family: "Menlo", sans-serif;
     box-sizing: border-box;
     line-height: 1.5;
 }
 
 html,
 body {
-    width: 100%;
-    height: 100%;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+    background: #f5f5f5;
+    font-family: "Noto Sans KR", serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow: hidden;
-
-}
-
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-#root {
-    width: 100%;
-    height: 100%;
-}
-
-.App {
-    width: 100%;
-    height: 100%;
-}
-
-.main {
-    display: flex;
-    width: 100%;
-    height: 100%;
 }
 
 .editFormContainer {

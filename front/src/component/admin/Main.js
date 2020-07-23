@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import EditFormContainer from "./EditFormContainer";
 import CocktailListContainer from "./CocktailListContainer";
-import { DEFAULT_COCKTAIL_DATA } from "../utils/constant";
+import { DEFAULT_COCKTAIL_DATA } from "../../utils/constant";
 
 const Main = () => {
   const [cocktail, setCocktail] = useState(DEFAULT_COCKTAIL_DATA);

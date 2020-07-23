@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { fetchAllCocktails } from "../api";
+import "../../css/cocktailListContainer.css";
 import CocktailItem from "./CocktailItem";
-import "../css/cocktailListContainer.css";
+import { fetchAllCocktails } from "../../api";
 
 const CocktailListContainer = ({ cocktail }) => {
   const [cocktails, setCocktails] = useState([]);
 
   const onLoadCocktails = async () => {
     const response = await fetchAllCocktails();
-    const content = response["data"];
+    const content = response.data;
     setCocktails(content);
   };
 

@@ -1,0 +1,42 @@
+header {
+    margin: 35px 5% 35px 5%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.menubar {
+    width: 35%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.menu {
+    display: flex;
+    align-content: center;
+    font-size: 30px;
+    color: #707070;
+}
+
+.cocktail-pick-logo {
+    position: relative;
+}
+
+.cocktail-pick-logo .front-style {
+    letter-spacing: -0.3px;
+    display: inline-block;
+    font-size: 30px;
+}
+
+.cocktail-pick-logo .back-style {
+    letter-spacing: -0.35px;
+    display: inline-block;
+    font-size: 35px;
+    color: #a60000;
+}
+
+.cocktail-pick-logo .underline-style {
+    position: absolute;
+    border: 1px solid #a60000;
+    left: 63%;
+    width: 37%;
+}
