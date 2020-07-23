@@ -60,7 +60,7 @@ public class CocktailRepositoryTest {
 			.build();
 
 		recipeItem.setCocktail(blueHawaii);
-		CocktailTag.connect(blueHawaii, tag);
+		CocktailTag.associate(blueHawaii, tag);
 
 		cocktailRepository.saveAndFlush(blueHawaii);
 		assertThat(recipeItemRepository.findAll()).hasSize(1);
