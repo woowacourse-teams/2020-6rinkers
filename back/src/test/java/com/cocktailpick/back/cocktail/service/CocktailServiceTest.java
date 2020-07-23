@@ -1,5 +1,7 @@
 package com.cocktailpick.back.cocktail.service;
 
+import static com.cocktailpick.back.cocktail.Fixtures.*;
+import static com.cocktailpick.back.tag.Fixtures.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -16,6 +18,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.cocktail.domain.CocktailRepository;
@@ -157,7 +161,8 @@ public class CocktailServiceTest {
 
 		assertAll(
 			() -> assertThat(blueHawaii.getName()).isEqualTo(cocktailRequest.getName()),
-			() -> assertThat(blueHawaii.getDescription()).isEqualTo(cocktailRequest.getDescription()),
+			() -> assertThat(blueHawaii.getDescription()).isEqualTo(
+				cocktailRequest.getDescription()),
 			() -> assertThat(blueHawaii.getTags()).isEqualTo(Arrays.asList(곰))
 		);
 	}
@@ -168,6 +173,20 @@ public class CocktailServiceTest {
 		cocktailService.deleteCocktail(1L);
 
 		verify(cocktailRepository).deleteById(1L);
+	}
+
+	@DisplayName("csv 파일로 칵테일을 저장한다.")
+	@Test
+	void saveAll() {
+		MultipartFile file = new MockMultipartFile("file", "칵테일.csv", "text/csv",
+			THREE_COCKTAILS_CSV_CONTENT.getBytes());
+
+		when(tagRepository.findAll()).thenReturn(FOUR_TAGS_FROM_TAG_CSV);
+
+		cocktailService.saveAll(file);
+
+		verify(tagRepository).findAll();
+		verify(cocktailRepository).saveAll(any());
 	}
 
 	@DisplayName("칵테일을 추천한다.")
@@ -200,22 +219,22 @@ public class CocktailServiceTest {
 			.map(Tag::new)
 			.collect(Collectors.toList());
 
-		CocktailTag.of(cocktail1, tags.get(0));
-		CocktailTag.of(cocktail1, tags.get(1));
-		CocktailTag.of(cocktail1, tags.get(4));
-		CocktailTag.of(cocktail1, tags.get(7));
+		CocktailTag.associate(cocktail1, tags.get(0));
+		CocktailTag.associate(cocktail1, tags.get(1));
+		CocktailTag.associate(cocktail1, tags.get(4));
+		CocktailTag.associate(cocktail1, tags.get(7));
 
-		CocktailTag.of(cocktail2, tags.get(2));
-		CocktailTag.of(cocktail2, tags.get(3));
-		CocktailTag.of(cocktail2, tags.get(5));
+		CocktailTag.associate(cocktail2, tags.get(2));
+		CocktailTag.associate(cocktail2, tags.get(3));
+		CocktailTag.associate(cocktail2, tags.get(5));
 
-		CocktailTag.of(cocktail3, tags.get(2));
-		CocktailTag.of(cocktail3, tags.get(3));
-		CocktailTag.of(cocktail3, tags.get(7));
+		CocktailTag.associate(cocktail3, tags.get(2));
+		CocktailTag.associate(cocktail3, tags.get(3));
+		CocktailTag.associate(cocktail3, tags.get(7));
 
-		CocktailTag.of(cocktail4, tags.get(3));
-		CocktailTag.of(cocktail4, tags.get(5));
-		CocktailTag.of(cocktail4, tags.get(8));
+		CocktailTag.associate(cocktail4, tags.get(3));
+		CocktailTag.associate(cocktail4, tags.get(5));
+		CocktailTag.associate(cocktail4, tags.get(8));
 
 		when(tagRepository.findByNameIn(anyList())).thenReturn(tags);
 		when(cocktailRepository.findAll()).thenReturn(cocktails);

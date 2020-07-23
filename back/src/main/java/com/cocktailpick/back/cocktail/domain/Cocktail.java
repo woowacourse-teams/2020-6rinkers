@@ -29,6 +29,7 @@ public class Cocktail extends BaseEntity {
 	@Lob
 	private String origin;
 
+	@Lob
 	private String imageUrl;
 
 	@Embedded

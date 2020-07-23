@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cocktailpick.back.common.csv.OpenCsvReader;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
 import lombok.AccessLevel;
@@ -18,7 +19,7 @@ public class TagService {
 
 	@Transactional
 	public void saveAll(MultipartFile file) {
-		TagCsvReader tagCsvReader = TagCsvReader.from(file);
+		TagCsvReader tagCsvReader = new TagCsvReader(OpenCsvReader.from(file));
 		List<Tag> tags = tagCsvReader.getTags();
 
 		tagRepository.saveAll(tags);

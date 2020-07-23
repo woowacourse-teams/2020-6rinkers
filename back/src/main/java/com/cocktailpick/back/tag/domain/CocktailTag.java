@@ -22,7 +22,7 @@ public class CocktailTag extends BaseEntity {
 	@JoinColumn(name = "tag_id")
 	private Tag tag;
 
-	public static CocktailTag of(Cocktail cocktail, Tag tag) {
+	public static CocktailTag associate(Cocktail cocktail, Tag tag) {
 		CocktailTag cocktailTag = new CocktailTag();
 		cocktailTag.setTag(tag);
 		cocktailTag.setCocktail(cocktail);
