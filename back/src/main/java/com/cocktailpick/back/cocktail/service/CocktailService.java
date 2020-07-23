@@ -181,4 +181,8 @@ public class CocktailService {
 			.filter(cocktail -> cocktail.notContainsTag(tag))
 			.collect(Collectors.toList());
 	}
+
+	public CocktailResponse findCocktailOfToday() {
+		return null;
+	}
 }

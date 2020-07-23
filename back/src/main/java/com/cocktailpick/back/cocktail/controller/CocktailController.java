@@ -61,6 +61,11 @@ public class CocktailController {
 		return ResponseEntity.noContent().build();
 	}
 
+	@GetMapping("/today")
+	public ResponseEntity<CocktailResponse> findCocktailOfToday() {
+		return ResponseEntity.ok(cocktailService.findCocktailOfToday());
+	}
+
 	@PostMapping("/upload/csv")
 	public ResponseEntity<Void> addCocktailsByCsv(@RequestPart MultipartFile file) {
 		cocktailService.saveAll(file);
