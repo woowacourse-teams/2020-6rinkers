@@ -41,7 +41,7 @@
 .homeRecommendation {
   display: flex;
   align-items: center;
-  height: 3rem;
+  height: 0.5rem;
   cursor: pointer;
   margin-bottom: 1rem;
   padding: 0 1rem;

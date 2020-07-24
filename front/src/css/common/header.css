@@ -59,7 +59,6 @@
   align-items: center;
   height: 100%;
   padding: 0 1rem;
-  border-left: var(--light-red) 1px solid;
   color: var(--red);
   cursor: pointer;
 }
@@ -68,8 +67,4 @@
   background-color: var(--little-light-red);
   transition: 0.1s ease;
   color: var(--white);
-}
-
-.recommendation {
-  border-right: var(--light-red) 1px solid;
 }
