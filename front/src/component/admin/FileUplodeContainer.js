@@ -7,12 +7,18 @@ const FileUploadContainer = () => {
     setFile({ file: e.target.files[0] });
   };
 
+  const resetFile = () => {
+    setFile({});
+  };
+
   const onUploadTagFile = (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("file", file.file);
 
     createTagsBy(formData);
+
+    resetFile();
   };
 
   const onUploadCocktailFile = (e) => {
@@ -21,6 +27,8 @@ const FileUploadContainer = () => {
     formData.append("file", file.file);
 
     createCocktailsBy(formData);
+
+    resetFile();
   };
 
   return (
