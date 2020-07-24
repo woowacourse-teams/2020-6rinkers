@@ -1,9 +1,12 @@
 section {
+    position: relative;
     display: flex;
     justify-content: center;
+    flex: 1;
 }
 
 .today-pick-logo {
+    margin: 35px 35px 10px 35px;
     position: relative;
     font-weight: 100;
 }
@@ -18,11 +21,77 @@ section {
     font-size: 50px;
     font-family: "Noto Sans KR", serif;
     color: #a60000;
+    border-bottom: 1px solid;
 }
 
-.today-pick-logo .underline-style {
+.today-pick-container {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.today-pick-container .card {
+    width: 90%;
+    height: 100%;
+    background: white;
+    box-shadow: 0 3px 6px;
+}
+
+.today-pick-container .pick-image {
+    border-top-right-radius: 50px;
     position: absolute;
-    border: 1px solid #a60000;
-    left: 63%;
-    width: 37%;
+    background-image: url("https://upload.wikimedia.org/wikipedia/commons/4/47/Cocktail_02.jpg");
+    background-repeat : no-repeat;
+    background-size : cover;
+    /*background: #707070;*/
+    height: 65%;
+    width: 85%;
+    top: 35%;
+    right: 15%;
+    z-index: 2;
+    box-shadow: 0 3px 6px;
+}
+
+.today-pick-container .cover {
+    position: absolute;
+    background: #a60000;
+    opacity: 0.3;
+    height: 55%;
+    width: 85%;
+    top: 45%;
+    left: 15%;
+    z-index: 1;
+    box-shadow: 0 3px 6px;
+}
+
+.today-pick-content {
+    padding-right: 20px;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+
+.today-pick-content .name {
+    font-size: 35px;
+}
+
+.today-pick-content .tag {
+    font-size: 25px;
+    color: #7f7f7f;
+}
+
+.today-pick-content .cocktail {
+    padding-bottom: 10px;
+    border-bottom: 1px #a60000 solid;
+    width: 50%;
+}
+
+.today-pick-content .detail {
+    font-size: 20px;
+    padding-top: 10px;
+    color: #707070;
 }

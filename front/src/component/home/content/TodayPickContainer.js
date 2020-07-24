@@ -1,10 +1,14 @@
 import React from "react";
-import TodayPickHeader from "./TodayPickHeader";
+import TodayPickCard from "./TodayPickCard";
+import TodayPickImage from "./TodayPickImage";
+import TodayPickCover from "./TodayPickCover";
 
 const TodayPickContainer = () => {
   return (
     <div className="today-pick-container">
-      <TodayPickHeader />
+      <TodayPickCard />
+      <TodayPickImage />
+      <TodayPickCover />
     </div>
   );
 };

@@ -8,11 +8,20 @@
 
 html,
 body {
+    width: 100%;
+    height: 100%;
     background: #f5f5f5;
     font-family: "Noto Sans KR", serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow: hidden;
+}
+
+#root {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .editFormContainer {

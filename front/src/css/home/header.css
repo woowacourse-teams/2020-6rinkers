@@ -12,13 +12,17 @@ header {
 
 .menu {
     display: flex;
-    align-content: center;
     font-size: 30px;
+}
+
+.menu a {
     color: #707070;
+    text-decoration: none;
 }
 
 .cocktail-pick-logo {
     position: relative;
+    font-weight: 300;
 }
 
 .cocktail-pick-logo .front-style {
@@ -32,11 +36,5 @@ header {
     display: inline-block;
     font-size: 35px;
     color: #a60000;
-}
-
-.cocktail-pick-logo .underline-style {
-    position: absolute;
-    border: 1px solid #a60000;
-    left: 63%;
-    width: 37%;
+    border-bottom: 1px solid;
 }

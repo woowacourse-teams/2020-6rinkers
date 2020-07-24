@@ -7,10 +7,10 @@ import "css"
 
 const App = () => {
   return (
-    <div>
+    <>
       <Route exact path="/admin" component={Admin} />
       <Route path="/" component={Home} />
-    </div>
+    </>
   );
 };
 
