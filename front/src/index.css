@@ -1,57 +1,50 @@
+:root {
+  --black: #000000;
+  --little-light-black: #111111;
+  --light_black: rgba(17, 17, 17, 0.4);
+  --red: #a60000;
+  --light-red: rgba(166, 0, 0, 0.3);
+  --little-light-red: rgba(166, 0, 0, 0.8);
+  --more-light-red: rgba(166, 0, 0, 0.2);
+  --white: #ffffff;
+  --little-dark-white: #eeeeee;
+}
+
 * {
-    margin: 0;
-    font-family: "Menlo", sans-serif;
-    box-sizing: border-box;
-    line-height: 1.5;
+  margin: 0;
+  font-family: "Menlo", sans-serif;
+  box-sizing: border-box;
+  line-height: 1.5;
 }
 
 html,
 body {
-    width: 100%;
-    height: 100%;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Serif", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    overflow: hidden;
-
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+  color: var(--little-light-black);
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
 #root {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .App {
-    width: 100%;
-    height: 100%;
-}
-
-.main {
-    display: flex;
-    width: 100%;
-    height: 100%;
-}
-
-.editFormContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    flex: 2;
-    overflow: auto!important;
-}
-
-.cocktailListContainer {
-    width: 100%;
-    flex: 1;
-    border-left: solid 2px black;
-    overflow: auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
