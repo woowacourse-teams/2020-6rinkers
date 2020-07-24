@@ -1,10 +1,5 @@
 package com.cocktailpick.back.cocktail.domain;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import com.cocktailpick.back.tag.domain.Tag;
-
 public enum TagFilter {
 	HIGH_ABV("도수가 높은"),
 	SWEET("단맛"),
@@ -21,15 +16,6 @@ public enum TagFilter {
 
 	TagFilter(String name) {
 		this.name = name;
-	}
-
-	public static List<Cocktail> filter(List<Cocktail> cocktails, Tag tag, Boolean answer) {
-		if (answer) {
-			return cocktails;
-		}
-		return cocktails.stream()
-			.filter(cocktail -> cocktail.isNotContainsTag(tag))
-			.collect(Collectors.toList());
 	}
 
 	public String getName() {

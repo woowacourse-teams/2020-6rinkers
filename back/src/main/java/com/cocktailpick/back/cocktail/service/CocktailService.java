@@ -160,4 +160,13 @@ public class CocktailService {
 			.map(CocktailDetailResponse::of)
 			.collect(Collectors.toList());
 	}
+
+	private List<Cocktail> filter(List<Cocktail> cocktails, Tag tag, Boolean answer) {
+		if (answer) {
+			return cocktails;
+		}
+		return cocktails.stream()
+			.filter(cocktail -> cocktail.isNotContainsTag(tag))
+			.collect(Collectors.toList());
+	}
 }
