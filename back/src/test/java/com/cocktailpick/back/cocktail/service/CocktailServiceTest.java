@@ -216,7 +216,7 @@ public class CocktailServiceTest {
 			.build();
 
 		List<Cocktail> cocktails = Arrays.asList(cocktail1, cocktail2, cocktail3, cocktail4);
-		String[] tagNames = {"도수가 높은", "단 맛", "신 맛", "쓴 맛", "탄산", "매운 맛", "커피", "초코", "코코넛", "우유"};
+		String[] tagNames = {"도수가 높은", "단맛", "신맛", "쓴맛", "탄산", "매운 맛", "커피", "초코", "코코넛", "우유"};
 		List<Tag> tags = Arrays.stream(tagNames)
 			.map(Tag::new)
 			.collect(Collectors.toList());

@@ -7,11 +7,11 @@ import com.cocktailpick.back.tag.domain.Tag;
 
 public enum TagFilter {
 	HIGH_ABV("도수가 높은"),
-	SWEET("단 맛"),
-	SOUR("신 맛"),
-	BITTER("쓴 맛"),
+	SWEET("단맛"),
+	SOUR("신맛"),
+	BITTER("쓴맛"),
 	SODA("탄산"),
-	SPICY("매운 맛"),
+	SPICY("매운맛"),
 	COFFEE("커피"),
 	CHOCOLATE("초코"),
 	COCONUT("코코넛"),
