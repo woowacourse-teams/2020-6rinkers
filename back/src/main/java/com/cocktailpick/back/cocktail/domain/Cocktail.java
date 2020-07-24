@@ -62,6 +62,10 @@ public class Cocktail extends BaseEntity {
 		this.cocktailTags = cocktailTags;
 	}
 
+	public boolean notContainsTag(Tag tag) {
+		return cocktailTags.notContainsTag(tag);
+	}
+
 	public List<Tag> getTags() {
 		return cocktailTags.getTags();
 	}

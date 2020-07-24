@@ -1,6 +1,7 @@
 package com.cocktailpick.back.cocktail.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -12,9 +13,12 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.cocktail.domain.CocktailRepository;
+import com.cocktailpick.back.cocktail.domain.TagFilter;
 import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
+import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
+import com.cocktailpick.back.cocktail.dto.UserRecommendRequests;
 import com.cocktailpick.back.common.EntityMapper;
 import com.cocktailpick.back.common.csv.OpenCsvReader;
 import com.cocktailpick.back.recipe.domain.RecipeItem;
@@ -134,5 +138,47 @@ public class CocktailService {
 		for (Tag tag : tags) {
 			CocktailTag.associate(cocktail, tag);
 		}
+	}
+
+	@Transactional
+	public List<CocktailDetailResponse> recommend(UserRecommendRequests recommendRequests) {
+		List<Boolean> answers = recommendRequests.getUserRecommendRequests().stream()
+			.map(UserRecommendRequest::getAnswer)
+			.collect(Collectors.toList());
+
+		List<Tag> tags = getFilteringTags();
+		List<Cocktail> filteredCocktails = recommendCocktails(answers, tags);
+
+		return filteredCocktails.stream()
+			.map(CocktailDetailResponse::of)
+			.collect(Collectors.toList());
+	}
+
+	private List<Tag> getFilteringTags() {
+		List<String> names = Arrays.stream(TagFilter.values())
+			.map(TagFilter::getName)
+			.collect(Collectors.toList());
+
+		return tagRepository.findByNameIn(names);
+	}
+
+	private List<Cocktail> recommendCocktails(List<Boolean> answers, List<Tag> tags) {
+		List<Cocktail> allCocktails = cocktailRepository.findAll();
+
+		List<Cocktail> filteredCocktails = new ArrayList<>(allCocktails);
+
+		for (int i = 0; i < answers.size(); i++) {
+			filteredCocktails = filter(filteredCocktails, tags.get(i), answers.get(i));
+		}
+		return filteredCocktails;
+	}
+
+	private List<Cocktail> filter(List<Cocktail> cocktails, Tag tag, Boolean answer) {
+		if (answer) {
+			return cocktails;
+		}
+		return cocktails.stream()
+			.filter(cocktail -> cocktail.notContainsTag(tag))
+			.collect(Collectors.toList());
 	}
 }

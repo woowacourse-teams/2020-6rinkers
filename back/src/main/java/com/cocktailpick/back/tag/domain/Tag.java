@@ -16,4 +16,8 @@ import lombok.NoArgsConstructor;
 public class Tag extends BaseEntity {
 	@Column(name = "name")
 	private String name;
+
+	public boolean isSameName(Tag tag) {
+		return this.name.equals(tag.name);
+	}
 }

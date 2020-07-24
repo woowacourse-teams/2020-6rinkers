@@ -43,6 +43,8 @@ class CocktailControllerTest {
 
 	private CocktailRequest cocktailRequest;
 
+	private ObjectMapper objectMapper;
+
 	@BeforeEach
 	public void setUp(WebApplicationContext webApplicationContext) {
 		this.mockMvc = MockMvcBuilders
@@ -80,6 +82,8 @@ class CocktailControllerTest {
 			.special(new ArrayList<>())
 			.specialQuantity(new ArrayList<>())
 			.build();
+
+		objectMapper = new ObjectMapper();
 	}
 
 	@DisplayName("칵테일을 전체 조회한다.")
@@ -118,7 +122,7 @@ class CocktailControllerTest {
 		given(cocktailService.save(any())).willReturn(1L);
 
 		mockMvc.perform(post("/api/cocktails")
-			.content(new ObjectMapper().writeValueAsString(cocktailRequest))
+			.content(objectMapper.writeValueAsString(cocktailRequest))
 			.contentType(MediaType.APPLICATION_JSON)
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isCreated())
@@ -149,7 +153,7 @@ class CocktailControllerTest {
 
 		mockMvc.perform(put("/api/cocktails/1")
 			.contentType(MediaType.APPLICATION_JSON)
-			.content(new ObjectMapper().writeValueAsString(updateCocktailRequest)))
+			.content(objectMapper.writeValueAsString(updateCocktailRequest)))
 			.andExpect(status().isOk())
 			.andDo(print());
 	}
@@ -176,6 +180,18 @@ class CocktailControllerTest {
 
 		mockMvc.perform(delete("/api/cocktails/1"))
 			.andExpect(status().isNoContent())
+			.andDo(print());
+	}
+
+	@DisplayName("칵테일을 추천한다.")
+	@Test
+	void recommendCocktail() throws Exception {
+		CocktailDetailResponse blueHawaiiResponse = CocktailDetailResponse.of(blueHawaii);
+		given(cocktailService.recommend(any())).willReturn(Arrays.asList(blueHawaiiResponse));
+
+		mockMvc.perform(get("/api/cocktails/recommend?answer=true&answer=false")
+			.accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
 			.andDo(print());
 	}
 }
