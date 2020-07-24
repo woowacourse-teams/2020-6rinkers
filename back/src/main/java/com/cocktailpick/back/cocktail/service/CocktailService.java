@@ -1,7 +1,7 @@
 package com.cocktailpick.back.cocktail.service;
 
-import java.util.Arrays;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -17,9 +17,10 @@ import com.cocktailpick.back.cocktail.domain.TagFilter;
 import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
+import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
+import com.cocktailpick.back.cocktail.dto.UserRecommendRequests;
 import com.cocktailpick.back.common.EntityMapper;
 import com.cocktailpick.back.common.csv.OpenCsvReader;
-import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
 import com.cocktailpick.back.recipe.domain.RecipeItem;
 import com.cocktailpick.back.tag.domain.CocktailTag;
 import com.cocktailpick.back.tag.domain.CocktailTags;
@@ -140,8 +141,10 @@ public class CocktailService {
 	}
 
 	@Transactional
-	public List<CocktailDetailResponse> recommendCocktail(UserRecommendRequest recommendRequest) {
-		List<Boolean> answers = recommendRequest.getAnswer();
+	public List<CocktailDetailResponse> recommendCocktail(UserRecommendRequests recommendRequests) {
+		List<Boolean> answers = recommendRequests.getUserRecommendRequests().stream()
+			.map(UserRecommendRequest::getAnswer)
+			.collect(Collectors.toList());
 		List<String> names = Arrays.stream(TagFilter.values())
 			.map(TagFilter::getName)
 			.collect(Collectors.toList());
@@ -151,7 +154,6 @@ public class CocktailService {
 
 		for (int i = 0; i < answers.size(); i++) {
 			allCocktails = TagFilter.filter(allCocktails, tags.get(i), answers.get(i));
-
 		}
 
 		return allCocktails.stream()

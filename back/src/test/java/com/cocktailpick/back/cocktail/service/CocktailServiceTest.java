@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -28,6 +29,7 @@ import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
 import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
+import com.cocktailpick.back.cocktail.dto.UserRecommendRequests;
 import com.cocktailpick.back.tag.domain.CocktailTag;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
@@ -239,10 +241,12 @@ public class CocktailServiceTest {
 		when(tagRepository.findByNameIn(anyList())).thenReturn(tags);
 		when(cocktailRepository.findAll()).thenReturn(cocktails);
 
-		List<Boolean> answers = Arrays.asList(true, true, false, true, false, true, true, false, true, false);
-		UserRecommendRequest recommendRequest = new UserRecommendRequest(answers);
+		UserRecommendRequests recommendRequests =
+			Stream.of(true, true, false, true, false, true, true, false, true, false)
+				.map(UserRecommendRequest::new)
+				.collect(Collectors.collectingAndThen(Collectors.toList(), UserRecommendRequests::new));
 
-		assertThat(cocktailService.recommendCocktail(recommendRequest))
+		assertThat(cocktailService.recommendCocktail(recommendRequests))
 			.extracting("name").contains("d");
 	}
 }
