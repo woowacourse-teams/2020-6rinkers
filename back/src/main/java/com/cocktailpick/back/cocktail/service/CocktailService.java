@@ -178,7 +178,7 @@ public class CocktailService {
 			return cocktails;
 		}
 		return cocktails.stream()
-			.filter(cocktail -> cocktail.isNotContainsTag(tag))
+			.filter(cocktail -> cocktail.notContainsTag(tag))
 			.collect(Collectors.toList());
 	}
 }

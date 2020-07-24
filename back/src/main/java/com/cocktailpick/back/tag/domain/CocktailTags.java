@@ -42,8 +42,8 @@ public class CocktailTags {
 			.anyMatch(tag -> tag.isSameNameWith(cocktailTag));
 	}
 
-	public boolean isNotContainsTag(Tag tag) {
+	public boolean notContainsTag(Tag tag) {
 		return cocktailTags.stream()
-			.noneMatch(cocktailTag -> cocktailTag.isContainingTag(tag));
+			.noneMatch(cocktailTag -> cocktailTag.containsTag(tag));
 	}
 }
