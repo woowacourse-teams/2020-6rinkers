@@ -141,26 +141,36 @@ public class CocktailService {
 	}
 
 	@Transactional
-	public List<CocktailDetailResponse> recommendCocktail(UserRecommendRequests recommendRequests) {
+	public List<CocktailDetailResponse> recommend(UserRecommendRequests recommendRequests) {
 		List<Boolean> answers = recommendRequests.getUserRecommendRequests().stream()
 			.map(UserRecommendRequest::getAnswer)
 			.collect(Collectors.toList());
+
+		List<Tag> tags = getFilteringTags();
+		List<Cocktail> filteredCocktails = recommendCocktails(answers, tags);
+
+		return filteredCocktails.stream()
+			.map(CocktailDetailResponse::of)
+			.collect(Collectors.toList());
+	}
+
+	private List<Tag> getFilteringTags() {
 		List<String> names = Arrays.stream(TagFilter.values())
 			.map(TagFilter::getName)
 			.collect(Collectors.toList());
 
+		return tagRepository.findByNameIn(names);
+	}
+
+	private List<Cocktail> recommendCocktails(List<Boolean> answers, List<Tag> tags) {
 		List<Cocktail> allCocktails = cocktailRepository.findAll();
-		List<Tag> tags = tagRepository.findByNameIn(names);
 
 		List<Cocktail> filteredCocktails = new ArrayList<>(allCocktails);
 
 		for (int i = 0; i < answers.size(); i++) {
 			filteredCocktails = filter(filteredCocktails, tags.get(i), answers.get(i));
 		}
-
-		return filteredCocktails.stream()
-			.map(CocktailDetailResponse::of)
-			.collect(Collectors.toList());
+		return filteredCocktails;
 	}
 
 	private List<Cocktail> filter(List<Cocktail> cocktails, Tag tag, Boolean answer) {

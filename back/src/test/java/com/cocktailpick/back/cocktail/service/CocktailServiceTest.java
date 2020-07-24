@@ -246,7 +246,7 @@ public class CocktailServiceTest {
 				.map(UserRecommendRequest::new)
 				.collect(Collectors.collectingAndThen(Collectors.toList(), UserRecommendRequests::new));
 
-		assertThat(cocktailService.recommendCocktail(recommendRequests))
+		assertThat(cocktailService.recommend(recommendRequests))
 			.extracting("name").contains("d");
 	}
 }

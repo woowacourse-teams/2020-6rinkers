@@ -68,7 +68,7 @@ public class CocktailController {
 	@GetMapping("/recommend")
 	public ResponseEntity<List<CocktailDetailResponse>> recommend(
 		@ModelAttribute UserRecommendRequests recommendRequests) {
-		List<CocktailDetailResponse> cocktailDetailResponses = cocktailService.recommendCocktail(recommendRequests);
+		List<CocktailDetailResponse> cocktailDetailResponses = cocktailService.recommend(recommendRequests);
 		return ResponseEntity.ok(cocktailDetailResponses);
 	}
 }
