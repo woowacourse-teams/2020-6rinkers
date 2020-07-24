@@ -219,22 +219,22 @@ public class CocktailServiceTest {
 			.map(Tag::new)
 			.collect(Collectors.toList());
 
-		CocktailTag.associate(cocktail1, tags.get(0));
-		CocktailTag.associate(cocktail1, tags.get(1));
-		CocktailTag.associate(cocktail1, tags.get(4));
-		CocktailTag.associate(cocktail1, tags.get(7));
+		CocktailTag.associate(cocktail1, tags.get(0));  //도수가 높은
+		CocktailTag.associate(cocktail1, tags.get(1));  //단맛
+		CocktailTag.associate(cocktail1, tags.get(4));  //탄산
+		CocktailTag.associate(cocktail1, tags.get(7));  //초코
 
-		CocktailTag.associate(cocktail2, tags.get(2));
-		CocktailTag.associate(cocktail2, tags.get(3));
-		CocktailTag.associate(cocktail2, tags.get(5));
+		CocktailTag.associate(cocktail2, tags.get(2));  //신맛
+		CocktailTag.associate(cocktail2, tags.get(3));  //쓴맛
+		CocktailTag.associate(cocktail2, tags.get(5));  //매운맛
 
-		CocktailTag.associate(cocktail3, tags.get(2));
-		CocktailTag.associate(cocktail3, tags.get(3));
-		CocktailTag.associate(cocktail3, tags.get(7));
+		CocktailTag.associate(cocktail3, tags.get(2));  //신맛
+		CocktailTag.associate(cocktail3, tags.get(3));  //쓴맛
+		CocktailTag.associate(cocktail3, tags.get(7));  //초코
 
-		CocktailTag.associate(cocktail4, tags.get(3));
-		CocktailTag.associate(cocktail4, tags.get(5));
-		CocktailTag.associate(cocktail4, tags.get(8));
+		CocktailTag.associate(cocktail4, tags.get(3));  //쓴맛
+		CocktailTag.associate(cocktail4, tags.get(5));  //탄산
+		CocktailTag.associate(cocktail4, tags.get(8));  //코코넛
 
 		when(tagRepository.findByNameIn(anyList())).thenReturn(tags);
 		when(cocktailRepository.findAll()).thenReturn(cocktails);

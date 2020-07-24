@@ -184,8 +184,8 @@ class CocktailControllerTest {
 	@Test
 	void recommendCocktail() throws Exception {
 		UserRecommendRequest userRecommendRequest = new UserRecommendRequest(Arrays.asList(true, false));
-		CocktailDetailResponse response1 = CocktailDetailResponse.of(blueHawaii);
-		given(cocktailService.recommendCocktail(any())).willReturn(Arrays.asList(response1));
+		CocktailDetailResponse blueHawaiiResponse = CocktailDetailResponse.of(blueHawaii);
+		given(cocktailService.recommendCocktail(any())).willReturn(Arrays.asList(blueHawaiiResponse));
 
 		mockMvc.perform(get("/api/cocktails/recommend")
 			.contentType(MediaType.APPLICATION_JSON)
