@@ -17,7 +17,7 @@ public enum TagFilter {
 	COCONUT("코코넛"),
 	MILK("밀크");
 
-	private String name;
+	private final String name;
 
 	TagFilter(String name) {
 		this.name = name;
