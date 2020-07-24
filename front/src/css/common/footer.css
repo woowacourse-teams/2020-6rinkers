@@ -1,0 +1,34 @@
+.footerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 70px;
+}
+
+.linkContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 65%;
+  width: 100px;
+  border: var(--light_black) 1px solid;
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+}
+
+.link > a {
+  display: flex;
+  align-items: center;
+}
+
+.github > a > img {
+  margin-left: 4px;
+  max-width: 29px;
+}
+
+.instagram > a > img {
+  max-width: 32px;
+}

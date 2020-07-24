@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import InputContainer from "./InputContainer";
-import "../css/editFormContainer.css";
-import { createCocktail } from "../api";
-import dataToCocktailRequest from "../utils/cocktailConverter";
+import "../../css/admin/editFormContainer.css";
+import { createCocktail } from "../../api";
+import dataToCocktailRequest from "../../utils/admin/cocktailConverter";
 
 const EditFormContainer = ({ cocktail, updateCocktail, onResetCocktail }) => {
   const onChange = (e) => {
@@ -38,7 +38,9 @@ const EditFormContainer = ({ cocktail, updateCocktail, onResetCocktail }) => {
         ))}
       </div>
       <div className="submit">
-        <button onClick={onSubmit}>저장/수정</button>
+        <button type="submit" onClick={onSubmit}>
+          저장/수정
+        </button>
       </div>
     </>
   );

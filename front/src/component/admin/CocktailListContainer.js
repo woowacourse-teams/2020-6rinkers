@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { fetchAllCocktails } from "../api";
+import { fetchAllCocktails } from "../../api";
 import CocktailItem from "./CocktailItem";
-import "../css/cocktailListContainer.css";
+import "../../css/admin/cocktailListContainer.css";
 
 const CocktailListContainer = ({ cocktail }) => {
   const [cocktails, setCocktails] = useState([]);

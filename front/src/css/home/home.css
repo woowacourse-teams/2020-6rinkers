@@ -1,0 +1,59 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  padding-bottom: 70px;
+}
+
+.todayCocktailContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.8rem;
+  cursor: pointer;
+  box-shadow: 0 0 20px 0px var(--little-dark-white);
+}
+
+.todayCocktailContainer:hover {
+  box-shadow: 0 0 20px 10px var(--little-dark-white);
+}
+
+.todayCocktailTitle {
+  font-size: 20px;
+  border-bottom: var(--little-light-black) 1px solid;
+  padding: 0 3rem;
+}
+
+.todayCocktailImage > img {
+  max-width: 450px;
+  max-height: 450px;
+}
+
+.todayCocktailName {
+  color: var(--red);
+  margin-bottom: 2rem;
+}
+
+.homeRecommendation {
+  display: flex;
+  align-items: center;
+  height: 0.5rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+}
+
+.homeRecommendation:hover {
+  color: var(--black);
+  border-radius: 30px;
+  background-color: var(--more-light-red);
+  box-shadow: 0 0 23px 25px var(--more-light-red);
+}
+
+.content {
+  font-size: 20px;
+}

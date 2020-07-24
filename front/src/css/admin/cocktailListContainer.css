@@ -1,0 +1,22 @@
+.cocktailsListContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.cocktailItem {
+  display: flex;
+  align-items: center;
+  border-bottom: var(--little-light-black) solid 2px;
+}
+
+.cocktailItem:hover {
+  background-color: var(--little-dark-white);
+}
+
+.cocktailItem > img {
+  max-width: 68px;
+}
+
+.cocktailName {
+  margin-left: 0.5rem;
+}

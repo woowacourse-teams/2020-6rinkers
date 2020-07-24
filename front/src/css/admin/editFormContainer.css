@@ -1,0 +1,21 @@
+.editForms {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+  user-select: none;
+}
+
+.inputContainer {
+  margin-bottom: 0.8rem;
+}
+
+.submit {
+  user-select: none;
+  margin: 0.5rem;
+}
+
+.inputBox {
+  max-width: 400px;
+  width: 30vw;
+}
