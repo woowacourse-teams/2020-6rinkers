@@ -1,0 +1,26 @@
+.navbar {
+    list-style-type: none;
+    margin: 20px 40px;
+    padding: 0;
+    height: 56px;
+}
+
+.nav {
+    display: inline;
+    float: left;
+    padding: 8px;
+    font-size: 24px;
+    color: #a60000;
+    text-align: center;
+    width: 230px;
+    height: 60px;
+    line-height: 60px;
+}
+
+.logo {
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 105px;
+    color: #707070;
+    font-size: 30px;
+}

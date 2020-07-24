@@ -1,0 +1,10 @@
+.footer {
+  height: 40px;
+  border-top: solid 1px #bbbbbb;
+  text-align: center;
+  bottom: 0;
+}
+
+.text {
+  text-align: center;
+}

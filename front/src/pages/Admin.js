@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import EditFormContainer from "./EditFormContainer";
-import CocktailListContainer from "./CocktailListContainer";
+import EditFormContainer from "../component/EditFormContainer";
+import CocktailListContainer from "../component/CocktailListContainer";
 import { DEFAULT_COCKTAIL_DATA } from "../utils/constant";
 
-const Main = () => {
+const Admin = () => {
   const [cocktail, setCocktail] = useState(DEFAULT_COCKTAIL_DATA);
 
   const onUpdateCocktail = (value, name) => {
@@ -33,4 +33,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default Admin;

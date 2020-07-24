@@ -1,0 +1,10 @@
+.main-page {
+  width: 100%;
+  height: 100%;
+}
+
+.solid {
+  border-top: 3px solid #bbbbbb;
+  margin-left: 40px;
+  margin-right: 40px;
+}

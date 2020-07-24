@@ -1,13 +1,14 @@
 import React from "react";
 import "./index.css";
-import Header from "./component/Header";
-import Main from "./component/Main";
+import { Route } from "react-router-dom";
+import Admin from "./pages/Admin";
+import Main from "./pages/Main";
 
 const App = () => {
   return (
     <div className="App">
-      <Header />
-      <Main />
+      <Route path="/" exact component={Main} />
+      <Route path="/admin" component={Admin} />
     </div>
   );
 };
