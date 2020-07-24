@@ -7,18 +7,26 @@ import AdminHeader from "../component/admin/AdminHeader";
 import Admin from "../component/admin/Admin";
 
 const Routes = () => {
+  const checkAdmin = (location) => {
+    if (location.pathname.split("/")[1] !== "admin") {
+      return (
+        <>
+          <Header />
+          <Footer />
+        </>
+      );
+    }
+    return <AdminHeader />;
+  };
+
   return (
-    <Switch>
-      <Route exact path="/">
-        <Header />
-        <Home />
-        <Footer />
-      </Route>
-      <Route path="/admin">
-        <AdminHeader />
-        <Admin />
-      </Route>
-    </Switch>
+    <>
+      <Route render={({ location }) => checkAdmin(location)} />
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/admin" component={Admin} />
+      </Switch>
+    </>
   );
 };
 
