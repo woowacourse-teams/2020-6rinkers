@@ -44,6 +44,6 @@ public class CocktailTags {
 
 	public boolean isNotContainsTag(Tag tag) {
 		return cocktailTags.stream()
-			.allMatch(cocktailTag -> cocktailTag.notContainsTag(tag));
+			.noneMatch(cocktailTag -> cocktailTag.isContainingTag(tag));
 	}
 }
