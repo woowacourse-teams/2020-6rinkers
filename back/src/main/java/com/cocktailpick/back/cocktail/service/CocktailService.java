@@ -152,11 +152,13 @@ public class CocktailService {
 		List<Cocktail> allCocktails = cocktailRepository.findAll();
 		List<Tag> tags = tagRepository.findByNameIn(names);
 
+		List<Cocktail> filteredCocktails = new ArrayList<>(allCocktails);
+
 		for (int i = 0; i < answers.size(); i++) {
-			allCocktails = TagFilter.filter(allCocktails, tags.get(i), answers.get(i));
+			filteredCocktails = filter(filteredCocktails, tags.get(i), answers.get(i));
 		}
 
-		return allCocktails.stream()
+		return filteredCocktails.stream()
 			.map(CocktailDetailResponse::of)
 			.collect(Collectors.toList());
 	}
