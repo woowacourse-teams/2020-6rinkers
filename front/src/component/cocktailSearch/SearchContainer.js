@@ -10,6 +10,6 @@ const SearchContainer = (props) => {
       <div className="tagsContainer">태그 보여주기 창</div>
     </div>
   );
-}
+};
 
 export default SearchContainer;

@@ -1,22 +1,13 @@
 import React from "react";
 import SearchedCocktail from "./SearchedCocktail";
 
-const SearchedCocktails = (props) => {
+const SearchedCocktails = ({ cocktails }) => {
   return (
     <div className="searchedCocktailsContainer">
-      <SearchedCocktail />
-      <SearchedCocktail />
-      <SearchedCocktail />
-      <SearchedCocktail />
-      <SearchedCocktail />
-      <SearchedCocktail />
-      <SearchedCocktail />
-      <SearchedCocktail />
-      <SearchedCocktail />
-      <SearchedCocktail />
-      <SearchedCocktail />
-      <SearchedCocktail />
-      <SearchedCocktail />
+      {cocktails.length !== 1 &&
+        cocktails.map((cocktail, index) => (
+          <SearchedCocktail key={index} cocktail={cocktail} />
+        ))}
     </div>
   );
 };
