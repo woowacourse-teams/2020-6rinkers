@@ -31,7 +31,7 @@
 .todayCocktailImage > img {
   max-width: 450px;
   max-height: 450px;
-  pointer-events: none
+  pointer-events: none;
 }
 
 .todayCocktailName {

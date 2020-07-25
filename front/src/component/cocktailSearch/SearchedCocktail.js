@@ -7,7 +7,7 @@ const SearchedCocktail = ({ cocktail }) => {
       <div className="searchedCocktailImage">
         <img src={cocktail.imageUrl} alt={cocktail.name} />
       </div>
-      <div className="searchedCocktailTitle">태그 태그 태그 태그 태그</div>
+      <div className="searchedCocktailTags">태그 태그 태그 태그 태그</div>
     </div>
   );
 };
