@@ -24,6 +24,7 @@
   row-gap: 2px;
   width: 90vw;
   margin-bottom: 2rem;
+  user-select: none;
 }
 
 .searchedCocktailContainer {
@@ -34,6 +35,7 @@
   margin: 1rem;
   box-shadow: 0 0 20px 0 var(--little-dark-white);
   min-height: 400px;
+  cursor: pointer;
 }
 
 .searchedCocktailContainer:hover {
@@ -42,6 +44,7 @@
 
 .searchedCocktailImage > img {
   width: 300px;
+  pointer-events: none
 }
 
 @media screen and (max-width: 1024px) {
