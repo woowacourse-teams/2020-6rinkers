@@ -48,6 +48,11 @@
   transition: 0.8s ease;
 }
 
+.textLink {
+  text-decoration: none;
+  color: inherit;
+}
+
 .service {
   display: flex;
   align-items: center;
