@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cocktailpick.back.common.csv.OpenCsvReader;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
+import com.cocktailpick.back.tag.dto.TagResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
@@ -24,5 +25,8 @@ public class TagService {
 
 		tagRepository.saveAll(tags);
 	}
-}
 
+	public List<TagResponse> findAllTags() {
+		return null;
+	}
+}
