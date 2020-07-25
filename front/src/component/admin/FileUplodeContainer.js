@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createCocktailsBy, createTagsBy } from "../../api";
+import { createCocktailsByCsv, createTagsByCsv } from "../../api";
 
 const FileUploadContainer = () => {
   const [file, setFile] = useState({});
@@ -16,7 +16,7 @@ const FileUploadContainer = () => {
     const formData = new FormData();
     formData.append("file", file.file);
 
-    createTagsBy(formData);
+    createTagsByCsv(formData);
 
     resetFile();
   };
@@ -26,7 +26,7 @@ const FileUploadContainer = () => {
     const formData = new FormData();
     formData.append("file", file.file);
 
-    createCocktailsBy(formData);
+    createCocktailsByCsv(formData);
 
     resetFile();
   };
@@ -37,7 +37,11 @@ const FileUploadContainer = () => {
       <button className="fileButton" type="button" onClick={onUploadTagFile}>
         태그 CSV 파일 업로드
       </button>
-      <button className="fileButton" type="button" onClick={onUploadCocktailFile}>
+      <button
+        className="fileButton"
+        type="button"
+        onClick={onUploadCocktailFile}
+      >
         칵테일 CSV 파일 업로드
       </button>
     </div>
