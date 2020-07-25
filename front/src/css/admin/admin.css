@@ -21,6 +21,16 @@
   height: 100%;
   flex: 2;
   overflow: auto !important;
+  padding-bottom: 3rem;
+}
+
+.fileUpload {
+  display: flex;
+  flex-direction: column;
+}
+
+.fileButton {
+  margin: 0.2rem;
 }
 
 .cocktailListContainer {
@@ -28,4 +38,5 @@
   flex: 1;
   border-left: var(--little-light-black) solid 2px;
   overflow: auto;
+  padding-bottom: 3rem;
 }

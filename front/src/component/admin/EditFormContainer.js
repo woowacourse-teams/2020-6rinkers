@@ -3,6 +3,7 @@ import InputContainer from "./InputContainer";
 import "../../css/admin/editFormContainer.css";
 import { createCocktail } from "../../api";
 import dataToCocktailRequest from "../../utils/admin/cocktailConverter";
+import FileUploadContainer from "./FileUplodeContainer";
 
 const EditFormContainer = ({ cocktail, updateCocktail, onResetCocktail }) => {
   const onChange = (e) => {
@@ -26,6 +27,9 @@ const EditFormContainer = ({ cocktail, updateCocktail, onResetCocktail }) => {
 
   return (
     <>
+      <div className="fileUploadContainer">
+        <FileUploadContainer />
+      </div>
       <div className="editForms">
         {Object.keys(cocktail).map((property, index) => (
           <InputContainer
