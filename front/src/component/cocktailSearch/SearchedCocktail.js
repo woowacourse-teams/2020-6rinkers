@@ -2,7 +2,10 @@ import React from "react";
 
 const SearchedCocktail = ({ cocktail }) => {
   return (
-    <div className="searchedCocktailContainer">
+    <div
+      className="searchedCocktailContainer"
+      data-search-cocktail={cocktail.id}
+    >
       <div className="searchedCocktailName">{cocktail.name}</div>
       <div className="searchedCocktailImage">
         <img src={cocktail.imageUrl} alt={cocktail.name} />
