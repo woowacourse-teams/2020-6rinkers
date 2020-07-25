@@ -1,0 +1,50 @@
+.cocktailSearchContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search {
+  border: #a60000 1px solid;
+  margin: 1rem;
+  width: 100%;
+  height: 20vh;
+}
+
+.searchTags {
+  border: blueviolet 1px solid;
+  margin: 1rem;
+  width: 100%;
+  height: 5vh;
+}
+
+.searchedCocktailsContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 30vw);
+  row-gap: 2px;
+  width: 90vw;
+  margin-bottom: 2rem;
+}
+
+.searchedCocktailContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin: 1rem;
+  flex-wrap: wrap;
+  box-shadow: 0 0 20px 0 var(--little-dark-white);
+  min-height: 400px;
+}
+
+.searchedCocktailContainer:hover {
+  box-shadow: 0 0 20px 10px var(--little-dark-white);
+
+}
+
+.searchedCocktailImage > img {
+  max-width: 25vw;
+  min-width: 20vw;
+  min-height: 300px;
+}
+
