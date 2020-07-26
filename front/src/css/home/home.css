@@ -57,3 +57,42 @@
 .content {
   font-size: 20px;
 }
+
+@media screen and (max-width: 700px) {
+  .todayCocktailContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 80vw;
+    padding: 0.8rem;
+    cursor: pointer;
+    box-shadow: 0 0 20px 0px var(--little-dark-white);
+    margin: 1rem 0;
+  }
+
+  .todayCocktailContainer:hover {
+    box-shadow: 0 0 20px 0px var(--little-dark-white);
+  }
+
+  .todayCocktailImage {
+    display: flex;
+    justify-content: center;
+  }
+
+  .todayCocktailImage > img {
+    max-width: 80%;
+    /*max-height: 450px;*/
+  }
+
+  .homeRecommendation {
+    margin-top: 1rem;
+  }
+
+  .homeRecommendation:hover {
+    color: var(--black);
+    border-radius: 30px;
+    background-color: var(--more-light-red);
+    box-shadow: 0 0 23px 25px var(--more-light-red);
+  }
+}
+
