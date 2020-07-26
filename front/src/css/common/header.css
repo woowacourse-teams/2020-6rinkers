@@ -143,6 +143,7 @@
     z-index: 7;
     font-size: 20px;
     margin: 0.5rem;
+    cursor: pointer;
     color: var(--little-light-red);
   }
 
