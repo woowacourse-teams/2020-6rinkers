@@ -10,7 +10,7 @@ const MobileNav = ({ toggleSlider, slider }) => {
           Cocktail<span className="highlightCharacter">P</span>ick
         </Link>
       </div>
-      <ServiceSlider slider={slider} />
+      {slider && <ServiceSlider slider={slider} />}
       <div className="sliderToggle" onClick={toggleSlider}>
         {slider ? (
           <img className="xIcon" src="/image/x.svg" alt="x" />
