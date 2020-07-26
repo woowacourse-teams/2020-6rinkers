@@ -19,7 +19,7 @@
   align-items: center;
   width: 60vw;
   min-width: 250px;
-  height: 50px;
+  height: 30px;
   border-bottom: var(--little-light-black) 1px solid;
 }
 
@@ -33,15 +33,11 @@
   border: none;
 }
 
-.search button {
-  width: 70px;
-  height: 80%;
-  border: 0;
-  outline: 0;
-}
-
-.search button:hover {
-  background-color: var(--light-red);
+.searchButtonContainer {
+  width: 28px;
+  height: 28px;
+  margin-right: 0.5rem;
+  cursor: pointer;
 }
 
 .tagsContainer {
