@@ -5,12 +5,15 @@ import MobileNav from "./MoblieNav";
 
 const Header = () => {
   const [slider, setSlider] = useState(false);
+
   const toggleSlider = () => {
     setSlider(!slider);
   };
+
   return (
     <div className="headerContainer">
       <Nav />
+      {slider && <div className="cover" onClick={toggleSlider} />}
       <MobileNav toggleSlider={toggleSlider} slider={slider} />
     </div>
   );

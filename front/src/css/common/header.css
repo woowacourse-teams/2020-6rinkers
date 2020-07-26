@@ -23,6 +23,17 @@
   border-bottom: var(--light_black) solid 1px;
 }
 
+.cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--light_black);
+  z-index: 3;
+  cursor: pointer;
+}
+
 .mobileNav {
   display: none;
 }
