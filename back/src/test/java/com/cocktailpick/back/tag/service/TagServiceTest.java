@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
+import com.cocktailpick.back.tag.dto.TagRequest;
 
 @ExtendWith(MockitoExtension.class)
 public class TagServiceTest {
@@ -50,5 +51,16 @@ public class TagServiceTest {
 		tagService.findAllTags();
 
 		verify(tagRepository).findAll();
+	}
+
+	@DisplayName("태그를 추가한다.")
+	@Test
+	void addTag() {
+		TagRequest tagRequest = new TagRequest("새로운 태그");
+		when(tagRepository.save(any())).thenReturn(TagRequest.toTag(tagRequest));
+
+		tagService.addTag(tagRequest);
+
+		verify(tagRepository).save(any());
 	}
 }
