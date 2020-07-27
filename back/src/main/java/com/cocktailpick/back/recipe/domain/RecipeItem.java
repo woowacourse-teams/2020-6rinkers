@@ -35,7 +35,7 @@ public class RecipeItem extends BaseEntity {
 	}
 
 	public void setCocktail(Cocktail cocktail) {
-		removeRecipeItemIfUpdate(cocktail);
+		removeRecipeItemIfUpdate(this.cocktail);
 
 		this.cocktail = cocktail;
 		cocktail.getRecipe().addRecipeItem(this);
