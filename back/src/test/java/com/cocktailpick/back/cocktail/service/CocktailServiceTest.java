@@ -30,7 +30,6 @@ import com.cocktailpick.back.cocktail.domain.Flavor;
 import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
-import com.cocktailpick.back.common.random.RandomIndexGenerator;
 import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
 import com.cocktailpick.back.cocktail.dto.UserRecommendRequests;
 import com.cocktailpick.back.tag.domain.CocktailTag;

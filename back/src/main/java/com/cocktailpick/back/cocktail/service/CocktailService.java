@@ -147,7 +147,7 @@ public class CocktailService {
 		}
 	}
 
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<CocktailDetailResponse> recommend(UserRecommendRequests recommendRequests) {
 		List<Boolean> answers = recommendRequests.getUserRecommendRequests().stream()
 			.map(UserRecommendRequest::getAnswer)
@@ -189,6 +189,7 @@ public class CocktailService {
 			.collect(Collectors.toList());
 	}
 
+	@Transactional(readOnly = true)
 	public CocktailResponse findCocktailOfToday() {
 		DailyDate dailyDate = DailyDate.of(new Date());
 		CocktailSearcher cocktailSearcher = cocktailFindStrategyFactory.createCocktailSearcher(

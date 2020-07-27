@@ -28,6 +28,7 @@ import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
 import com.cocktailpick.back.cocktail.service.CocktailService;
+import com.cocktailpick.back.tag.dto.TagResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(controllers = {CocktailController.class})
@@ -89,9 +90,12 @@ class CocktailControllerTest {
 	@DisplayName("칵테일을 전체 조회한다.")
 	@Test
 	void findCocktails() throws Exception {
+
 		List<CocktailResponse> cocktailResponses = Arrays.asList(
-			new CocktailResponse(1L, "싱가폴 슬링", "https://naver.com"),
-			new CocktailResponse(2L, "블루 하와이", "https://daum.net")
+			new CocktailResponse(1L, "싱가폴 슬링", "https://naver.com",
+				Arrays.asList(new TagResponse("마지막 양심"))),
+			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
+				Arrays.asList(new TagResponse("쫄깃쫄깃"), new TagResponse("짭쪼름")))
 		);
 		given(cocktailService.findAllCocktails()).willReturn(cocktailResponses);
 
@@ -104,7 +108,6 @@ class CocktailControllerTest {
 	@DisplayName("칵테일을 단일 조회한다.")
 	@Test
 	void findCocktail() throws Exception {
-
 		CocktailDetailResponse cocktailDetailResponse = CocktailDetailResponse.of(blueHawaii);
 
 		given(cocktailService.findCocktail(anyLong())).willReturn(cocktailDetailResponse);
