@@ -87,7 +87,7 @@ public class CocktailService {
 
 	private Cocktail findById(Long id) {
 		return cocktailRepository.findById(id)
-			.orElseThrow(RuntimeException::new);
+			.orElseThrow(() -> new EntityNotFoundException(ErrorCode.COCKTAIL_NOT_FOUND));
 	}
 
 	@Transactional

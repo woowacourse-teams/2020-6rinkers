@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cocktailpick.back.common.exceptions.ErrorCode;
+import com.cocktailpick.back.common.exceptions.InvalidValueException;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import lombok.AccessLevel;
@@ -29,7 +31,7 @@ public class OpenCsvReader implements CsvReader {
 		try {
 			return new InputStreamReader(file.getInputStream());
 		} catch (IOException e) {
-			throw new RuntimeException();
+			throw new InvalidValueException(ErrorCode.INVALID_INPUT_VALUE);
 		}
 	}
 
@@ -38,7 +40,7 @@ public class OpenCsvReader implements CsvReader {
 		try {
 			return csvReader.readAll();
 		} catch (IOException e) {
-			throw new RuntimeException();
+			throw new InvalidValueException(ErrorCode.INVALID_INPUT_VALUE);
 		}
 	}
 }

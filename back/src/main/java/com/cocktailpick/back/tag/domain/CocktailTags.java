@@ -8,6 +8,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
 
+import com.cocktailpick.back.common.exceptions.ErrorCode;
+import com.cocktailpick.back.common.exceptions.InvalidValueException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -31,7 +33,7 @@ public class CocktailTags {
 
 	public void addCocktailTag(CocktailTag cocktailTag) {
 		if (isContainCocktailTag(cocktailTag)) {
-			throw new RuntimeException();
+			throw new InvalidValueException(ErrorCode.TAG_DUPLICATED);
 		}
 
 		cocktailTags.add(cocktailTag);
