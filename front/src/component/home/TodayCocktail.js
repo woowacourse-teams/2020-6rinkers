@@ -1,13 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
+import { fetchTodayCocktail } from "../../api";
 
-const TodayCocktail = (props) => {
+const TodayCocktail = () => {
+  const [todayCocktail, setTodayCocktail] = useState({});
+
+  const loadTodayCocktail = async () => {
+    const response = await fetchTodayCocktail();
+    const content = response["data"];
+    setTodayCocktail(content);
+  };
+
+  useState(loadTodayCocktail, []);
+
   return (
     <div className="todayCocktailContainer">
       <div className="todayCocktailTitle">오늘의 칵테일</div>
       <div className="todayCocktailImage">
-        <img src="/image/blue-hawai.png" alt="blueHawai" />
+        <img src={todayCocktail.imageUrl} alt={todayCocktail.name} />
       </div>
-      <div className="todayCocktailName">블루 하와이</div>
+      <div className="todayCocktailName">{todayCocktail.name}</div>
     </div>
   );
 };
