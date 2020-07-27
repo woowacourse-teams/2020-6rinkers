@@ -3,6 +3,10 @@ package com.cocktailpick.back.cocktail.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.PositiveOrZero;
+
 import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.cocktail.domain.Flavor;
 import com.cocktailpick.back.recipe.domain.RecipeItem;
@@ -14,18 +18,26 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
 public class CocktailRequest {
+	@NotBlank
 	private String name;
+	@NotBlank
 	private String description;
+	@NotBlank
 	private String origin;
-	private List<String> liquor;
-	private List<String> liquorQuantity;
-	private List<String> special;
-	private List<String> specialQuantity;
+	@NotEmpty
+	private List<@NotBlank String> liquor;
+	@NotEmpty
+	private List<@NotBlank String> liquorQuantity;
+	private List<@NotBlank String> special;
+	private List<@NotBlank String> specialQuantity;
 	private boolean sweet;
 	private boolean sour;
 	private boolean bitter;
+	@PositiveOrZero
 	private double abv;
+	@NotBlank
 	private String imageUrl;
+	@NotEmpty
 	private List<String> tag;
 
 	@Builder

@@ -3,6 +3,8 @@ package com.cocktailpick.back.cocktail.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -44,13 +46,14 @@ public class CocktailController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Void> addCocktail(@RequestBody CocktailRequest cocktailRequest) {
+	public ResponseEntity<Void> addCocktail(@RequestBody @Valid CocktailRequest cocktailRequest) {
 		Long saveId = cocktailService.save(cocktailRequest);
 		return ResponseEntity.created(URI.create("/api/cocktails/" + saveId)).build();
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> updateCocktail(@PathVariable Long id, @RequestBody CocktailRequest cocktailRequest) {
+	public ResponseEntity<Void> updateCocktail(@PathVariable Long id,
+		@RequestBody @Valid CocktailRequest cocktailRequest) {
 		cocktailService.updateCocktail(id, cocktailRequest);
 		return ResponseEntity.ok().build();
 	}
