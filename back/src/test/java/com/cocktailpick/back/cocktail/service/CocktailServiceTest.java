@@ -205,7 +205,7 @@ public class CocktailServiceTest {
 
 		when(cocktailRepository.findAll()).thenReturn(
 			Arrays.asList(first, second, third));
-		when(cocktailFindStrategy.find(anyList())).thenReturn(second);
+		when(cocktailFindStrategy.findIn(anyList())).thenReturn(second);
 
 		assertThat(cocktailService.findCocktailOfToday().getName()).isEqualTo("토니 진");
 	}

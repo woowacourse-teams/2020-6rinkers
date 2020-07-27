@@ -10,7 +10,7 @@ import com.cocktailpick.back.cocktail.domain.Cocktail;
 
 public class CocktailOfTodayStrategy implements CocktailFindStrategy {
 	@Override
-	public Cocktail find(List<Cocktail> cocktails) {
+	public Cocktail findIn(List<Cocktail> cocktails) {
 		return cocktails.get(getIndex(cocktails.size()));
 	}
 

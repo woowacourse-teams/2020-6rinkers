@@ -192,7 +192,8 @@ public class CocktailService {
 	}
 
 	public CocktailResponse findCocktailOfToday() {
-		List<Cocktail> cocktails = cocktailRepository.findAll();
-		return CocktailResponse.of(cocktailOfTodayStrategy.find(cocktails));
+		List<Cocktail> allCocktails = cocktailRepository.findAll();
+		Cocktail cocktailOfToday = cocktailOfTodayStrategy.findIn(allCocktails);
+		return CocktailResponse.of(cocktailOfToday);
 	}
 }
