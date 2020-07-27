@@ -17,22 +17,18 @@ import lombok.NoArgsConstructor;
 public class ErrorResponse {
 	private String message;
 
-	private int status;
-
 	private List<FieldError> errors;
 
 	private String code;
 
 	private ErrorResponse(final ErrorCode code, final List<FieldError> errors) {
 		this.message = code.getMessage();
-		this.status = code.getStatus();
 		this.errors = errors;
 		this.code = code.getCode();
 	}
 
 	private ErrorResponse(final ErrorCode code) {
 		this.message = code.getMessage();
-		this.status = code.getStatus();
 		this.code = code.getCode();
 		this.errors = new ArrayList<>();
 	}
@@ -44,10 +40,6 @@ public class ErrorResponse {
 
 	public static ErrorResponse of(final ErrorCode code) {
 		return new ErrorResponse(code);
-	}
-
-	public static ErrorResponse of(final ErrorCode code, final List<FieldError> errors) {
-		return new ErrorResponse(code, errors);
 	}
 
 	public static ErrorResponse of(MethodArgumentTypeMismatchException e) {
