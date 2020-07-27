@@ -1,4 +1,4 @@
-package com.cocktailpick.back.cocktail.domain;
+package com.cocktailpick.back.common.domain;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,6 +28,10 @@ public class DailyDate {
 
 	public Date getDate() {
 		return date;
+	}
+
+	public long getTime() {
+		return date.getTime();
 	}
 }
 

@@ -3,17 +3,19 @@ package com.cocktailpick.back.cocktail.service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cocktailpick.back.cocktail.domain.Cocktail;
+import com.cocktailpick.back.cocktail.domain.CocktailFindStrategyFactory;
 import com.cocktailpick.back.cocktail.domain.CocktailRepository;
+import com.cocktailpick.back.cocktail.domain.CocktailSearcher;
 import com.cocktailpick.back.cocktail.domain.TagFilter;
 import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
@@ -22,6 +24,8 @@ import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
 import com.cocktailpick.back.cocktail.dto.UserRecommendRequests;
 import com.cocktailpick.back.common.EntityMapper;
 import com.cocktailpick.back.common.csv.OpenCsvReader;
+import com.cocktailpick.back.common.domain.DailyDate;
+import com.cocktailpick.back.common.util.NumberOfDaily;
 import com.cocktailpick.back.recipe.domain.RecipeItem;
 import com.cocktailpick.back.tag.domain.CocktailTag;
 import com.cocktailpick.back.tag.domain.CocktailTags;
@@ -35,13 +39,7 @@ import lombok.RequiredArgsConstructor;
 public class CocktailService {
 	private final CocktailRepository cocktailRepository;
 	private final TagRepository tagRepository;
-	private final CocktailFindStrategy cocktailOfTodayStrategy;
-
-	@Autowired
-	public CocktailService(CocktailRepository cocktailRepository,
-		TagRepository tagRepository) {
-		this(cocktailRepository, tagRepository, new CocktailOfTodayStrategy());
-	}
+	private final CocktailFindStrategyFactory cocktailFindStrategyFactory;
 
 	@Transactional(readOnly = true)
 	public List<CocktailResponse> findAllCocktails() {
@@ -192,8 +190,13 @@ public class CocktailService {
 	}
 
 	public CocktailResponse findCocktailOfToday() {
-		List<Cocktail> allCocktails = cocktailRepository.findAll();
-		Cocktail cocktailOfToday = cocktailOfTodayStrategy.findIn(allCocktails);
+		DailyDate dailyDate = DailyDate.of(new Date());
+		CocktailSearcher cocktailSearcher = cocktailFindStrategyFactory.createCocktailSearcher(
+			NumberOfDaily.generateBy(dailyDate));
+
+		List<Cocktail> cocktails = cocktailRepository.findAll();
+
+		Cocktail cocktailOfToday = cocktailSearcher.findIn(cocktails);
 		return CocktailResponse.of(cocktailOfToday);
 	}
 }

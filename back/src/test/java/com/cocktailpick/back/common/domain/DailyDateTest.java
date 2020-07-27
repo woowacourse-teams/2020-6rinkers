@@ -1,4 +1,4 @@
-package com.cocktailpick.back.cocktail.domain;
+package com.cocktailpick.back.common.domain;
 
 import static org.assertj.core.api.Assertions.*;
 
