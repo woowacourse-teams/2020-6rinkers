@@ -210,15 +210,6 @@ public class CocktailServiceTest {
 		assertThat(cocktailService.findCocktailOfToday().getName()).isEqualTo("토니 진");
 	}
 
-	@DisplayName("칵테일이 없을 경우 오늘의 칵테일 api 사용 시 예외처리한다.")
-	@Test
-	void findCocktailOfToday_WhenNoCocktails() {
-		when(cocktailRepository.findAll()).thenReturn(new ArrayList<>());
-
-		assertThatThrownBy(() -> cocktailService.findCocktailOfToday())
-			.isInstanceOf(RuntimeException.class);
-	}
-
 	@DisplayName("칵테일을 추천한다.")
 	@Test
 	void recommend() {
