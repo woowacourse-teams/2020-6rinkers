@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -38,8 +39,6 @@ class CocktailControllerTest {
 
 	private MockMvc mockMvc;
 
-	private Flavor flavor;
-
 	private Cocktail blueHawaii;
 
 	private CocktailRequest cocktailRequest;
@@ -53,7 +52,7 @@ class CocktailControllerTest {
 			.addFilters(new CharacterEncodingFilter("UTF-8", true))
 			.build();
 
-		flavor = Flavor.builder()
+		Flavor flavor = Flavor.builder()
 			.bitter(true)
 			.sour(true)
 			.sweet(false)
@@ -77,9 +76,9 @@ class CocktailControllerTest {
 			.bitter(true)
 			.sour(true)
 			.sweet(false)
-			.liquor(Arrays.asList("두강이"))
-			.liquorQuantity(Arrays.asList("두ml"))
-			.tag(Arrays.asList("곰"))
+			.liquor(Collections.singletonList("두강이"))
+			.liquorQuantity(Collections.singletonList("두ml"))
+			.tag(Collections.singletonList("곰"))
 			.special(new ArrayList<>())
 			.specialQuantity(new ArrayList<>())
 			.build();
@@ -147,9 +146,9 @@ class CocktailControllerTest {
 			.bitter(true)
 			.sour(true)
 			.sweet(false)
-			.liquor(Arrays.asList("두강이"))
-			.liquorQuantity(Arrays.asList("두ml"))
-			.tag(Arrays.asList("두강맛"))
+			.liquor(Collections.singletonList("두강이"))
+			.liquorQuantity(Collections.singletonList("두ml"))
+			.tag(Collections.singletonList("두강맛"))
 			.special(new ArrayList<>())
 			.specialQuantity(new ArrayList<>())
 			.build();

@@ -8,6 +8,7 @@ import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -54,8 +55,6 @@ public class CocktailServiceTest {
 
 	private Tag tag;
 
-	private Flavor flavor;
-
 	private Cocktail blueHawaii;
 
 	private CocktailRequest cocktailRequest;
@@ -67,7 +66,7 @@ public class CocktailServiceTest {
 
 		tag = new Tag("두강맛");
 
-		flavor = Flavor.builder()
+		Flavor flavor = Flavor.builder()
 			.bitter(true)
 			.sour(true)
 			.sweet(false)
@@ -91,9 +90,9 @@ public class CocktailServiceTest {
 			.bitter(true)
 			.sour(true)
 			.sweet(false)
-			.liquor(Arrays.asList("두강이"))
-			.liquorQuantity(Arrays.asList("두ml"))
-			.tag(Arrays.asList("곰"))
+			.liquor(Collections.singletonList("두강이"))
+			.liquorQuantity(Collections.singletonList("두ml"))
+			.tag(Collections.singletonList("곰"))
 			.special(new ArrayList<>())
 			.specialQuantity(new ArrayList<>())
 			.build();
@@ -150,8 +149,7 @@ public class CocktailServiceTest {
 	@DisplayName("칵테일을 생성한다.")
 	@Test
 	void save() {
-		when(tagRepository.findByNameIn(anyList())).thenReturn(Arrays.asList(tag));
-
+		when(tagRepository.findByNameIn(anyList())).thenReturn(Collections.singletonList(tag));
 		when(cocktailRepository.save(any())).thenReturn(blueHawaii);
 
 		cocktailService.save(cocktailRequest);
@@ -162,19 +160,17 @@ public class CocktailServiceTest {
 	@DisplayName("칵테일을 수정한다.")
 	@Test
 	void update() {
-
-		Tag 곰 = new Tag("곰");
+		Tag bearTag = new Tag("곰");
 
 		when(cocktailRepository.findById(anyLong())).thenReturn(Optional.of(blueHawaii));
-		when(tagRepository.findByNameIn(anyList())).thenReturn(Arrays.asList(곰));
+		when(tagRepository.findByNameIn(anyList())).thenReturn(Collections.singletonList(bearTag));
 
 		cocktailService.updateCocktail(1L, cocktailRequest);
 
 		assertAll(
 			() -> assertThat(blueHawaii.getName()).isEqualTo(cocktailRequest.getName()),
-			() -> assertThat(blueHawaii.getDescription()).isEqualTo(
-				cocktailRequest.getDescription()),
-			() -> assertThat(blueHawaii.getTags()).isEqualTo(Arrays.asList(곰))
+			() -> assertThat(blueHawaii.getDescription()).isEqualTo(cocktailRequest.getDescription()),
+			() -> assertThat(blueHawaii.getTags()).isEqualTo(Collections.singletonList(bearTag))
 		);
 	}
 
@@ -191,7 +187,6 @@ public class CocktailServiceTest {
 	void saveAll() {
 		MultipartFile file = new MockMultipartFile("file", "칵테일.csv", "text/csv",
 			THREE_COCKTAILS_CSV_CONTENT.getBytes());
-
 		when(tagRepository.findAll()).thenReturn(FOUR_TAGS_FROM_TAG_CSV);
 
 		cocktailService.saveAll(file);

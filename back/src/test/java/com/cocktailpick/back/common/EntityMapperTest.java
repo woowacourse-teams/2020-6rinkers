@@ -19,11 +19,10 @@ class EntityMapperTest {
 	@DisplayName("매핑 되어있지 않은 key로 조회 시 예외처리한다.")
 	@Test
 	void getWithException() {
-		given(map.get(any())).willReturn(null);
+		given(map.get(anyString())).willReturn(null);
 
-		EntityMapper<String, Object> entityMapper = new EntityMapper(map);
+		EntityMapper<String, Object> entityMapper = new EntityMapper<>(map);
 
 		assertThatThrownBy(() -> entityMapper.get("test")).isInstanceOf(RuntimeException.class);
-
 	}
 }

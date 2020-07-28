@@ -26,15 +26,13 @@ public class CocktailRepositoryTest {
 
 	private Tag tag;
 
-	private Flavor flavor;
-
 	private Cocktail blueHawaii;
 
 	@BeforeEach
 	void setUp() {
 		tag = new Tag("두강맛");
 
-		flavor = Flavor.builder()
+		Flavor flavor = Flavor.builder()
 			.bitter(true)
 			.sour(true)
 			.sweet(false)
