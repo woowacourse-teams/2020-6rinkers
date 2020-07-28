@@ -7,6 +7,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.PositiveOrZero;
 
+import org.hibernate.validator.constraints.URL;
+
 import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.cocktail.domain.Flavor;
 import com.cocktailpick.back.recipe.domain.RecipeItem;
@@ -35,7 +37,7 @@ public class CocktailRequest {
 	private boolean bitter;
 	@PositiveOrZero
 	private double abv;
-	@NotBlank
+	@URL
 	private String imageUrl;
 	@NotEmpty
 	private List<String> tag;
