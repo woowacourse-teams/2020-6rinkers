@@ -33,6 +33,7 @@ import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
 import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
 import com.cocktailpick.back.cocktail.dto.UserRecommendRequests;
+import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
 import com.cocktailpick.back.tag.domain.CocktailTag;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
@@ -145,6 +146,15 @@ public class CocktailServiceTest {
 			() -> assertThat(cocktailDetailResponse.getTags()).isEmpty(),
 			() -> assertThat(cocktailDetailResponse.getRecipe()).isEmpty()
 		);
+	}
+
+	@DisplayName("단일 조회 시 해당하는 id가 없으면 예외 처리한다")
+	@Test
+	void findCocktailException() {
+		when(cocktailRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+		assertThatThrownBy(() -> cocktailService.findCocktail(0L))
+			.isInstanceOf(EntityNotFoundException.class);
 	}
 
 	@DisplayName("칵테일을 생성한다.")
