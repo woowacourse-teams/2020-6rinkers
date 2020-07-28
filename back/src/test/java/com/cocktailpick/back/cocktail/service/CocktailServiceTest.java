@@ -58,6 +58,7 @@ public class CocktailServiceTest {
 	private Cocktail blueHawaii;
 
 	private CocktailRequest cocktailRequest;
+	private Flavor flavor;
 
 	@BeforeEach
 	void setUp() {
@@ -66,7 +67,7 @@ public class CocktailServiceTest {
 
 		tag = new Tag("두강맛");
 
-		Flavor flavor = Flavor.builder()
+		flavor = Flavor.builder()
 			.bitter(true)
 			.sour(true)
 			.sweet(false)
