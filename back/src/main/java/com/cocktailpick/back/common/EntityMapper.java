@@ -2,6 +2,8 @@ package com.cocktailpick.back.common;
 
 import java.util.Map;
 
+import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
+import com.cocktailpick.back.common.exceptions.ErrorCode;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
@@ -17,7 +19,7 @@ public class EntityMapper<K, V> {
 		V value = map.get(key);
 
 		if (value == null) {
-			throw new RuntimeException();
+			throw new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND);
 		}
 		return value;
 	}

@@ -7,6 +7,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
 
+import com.cocktailpick.back.common.exceptions.ErrorCode;
+import com.cocktailpick.back.common.exceptions.InvalidValueException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -32,7 +34,7 @@ public class Recipe {
 
 	public void addRecipeItem(RecipeItem recipeItem) {
 		if (isContainRecipeItem(recipeItem)) {
-			throw new RuntimeException();
+			throw new InvalidValueException(ErrorCode.RECIPE_ITEM_DUPLICATED);
 		}
 
 		recipe.add(recipeItem);

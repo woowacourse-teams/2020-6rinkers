@@ -24,6 +24,8 @@ import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
 import com.cocktailpick.back.cocktail.dto.UserRecommendRequests;
 import com.cocktailpick.back.common.EntityMapper;
 import com.cocktailpick.back.common.csv.OpenCsvReader;
+import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
+import com.cocktailpick.back.common.exceptions.ErrorCode;
 import com.cocktailpick.back.common.domain.DailyDate;
 import com.cocktailpick.back.common.util.NumberOfDaily;
 import com.cocktailpick.back.recipe.domain.RecipeItem;
@@ -51,7 +53,7 @@ public class CocktailService {
 	@Transactional(readOnly = true)
 	public CocktailDetailResponse findCocktail(Long id) {
 		Cocktail cocktail = cocktailRepository.findById(id)
-			.orElseThrow(RuntimeException::new);
+			.orElseThrow(() -> new EntityNotFoundException(ErrorCode.COCKTAIL_NOT_FOUND));
 
 		return CocktailDetailResponse.of(cocktail);
 	}
@@ -85,7 +87,7 @@ public class CocktailService {
 
 	private Cocktail findById(Long id) {
 		return cocktailRepository.findById(id)
-			.orElseThrow(RuntimeException::new);
+			.orElseThrow(() -> new EntityNotFoundException(ErrorCode.COCKTAIL_NOT_FOUND));
 	}
 
 	@Transactional

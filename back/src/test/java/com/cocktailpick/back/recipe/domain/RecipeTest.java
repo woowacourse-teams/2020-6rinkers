@@ -5,6 +5,8 @@ import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.cocktailpick.back.common.exceptions.InvalidValueException;
+
 class RecipeTest {
 	@DisplayName("빈 Recipe 객체를 생성한다.")
 	@Test
@@ -39,6 +41,6 @@ class RecipeTest {
 
 		recipe.addRecipeItem(recipeItem);
 		assertThatThrownBy(() -> recipe.addRecipeItem(recipeItem))
-			.isInstanceOf(RuntimeException.class);
+			.isInstanceOf(InvalidValueException.class);
 	}
 }
