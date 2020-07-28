@@ -3,12 +3,10 @@ package com.cocktailpick.back.cocktail.domain;
 import java.util.List;
 
 import lombok.AccessLevel;
-import lombok.EqualsAndHashCode;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @ToString
-@EqualsAndHashCode
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 public class CocktailSearcher {
 	private final long seed;
