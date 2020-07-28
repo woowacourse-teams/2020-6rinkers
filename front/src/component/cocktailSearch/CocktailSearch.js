@@ -15,7 +15,7 @@ const CocktailSearch = () => {
 
   const onLoadCocktails = async () => {
     const response = await fetchAllCocktails();
-    const content = response["data"];
+    const content = response.data;
     setCocktails(content);
   };
 

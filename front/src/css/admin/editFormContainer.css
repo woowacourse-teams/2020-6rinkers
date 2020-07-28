@@ -7,12 +7,12 @@
 }
 
 .inputContainer {
-  margin-bottom: 0.8rem;
+  margin-bottom: .8rem;
 }
 
 .submit {
   user-select: none;
-  margin: 0.5rem;
+  margin: .5rem;
 }
 
 .inputBox {
