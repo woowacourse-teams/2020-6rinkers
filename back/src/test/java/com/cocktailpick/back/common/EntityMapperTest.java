@@ -11,6 +11,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
+
 @ExtendWith({MockitoExtension.class})
 class EntityMapperTest {
 	@Mock
@@ -23,6 +25,6 @@ class EntityMapperTest {
 
 		EntityMapper<String, Object> entityMapper = new EntityMapper<>(map);
 
-		assertThatThrownBy(() -> entityMapper.get("test")).isInstanceOf(RuntimeException.class);
+		assertThatThrownBy(() -> entityMapper.get("test")).isInstanceOf(EntityNotFoundException.class);
 	}
 }

@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.cocktail.domain.Flavor;
+import com.cocktailpick.back.common.exceptions.InvalidValueException;
 
 class CocktailTagsTest {
 	private Tag tag;
@@ -72,6 +73,6 @@ class CocktailTagsTest {
 		cocktailTags.addCocktailTag(cocktailTag);
 
 		assertThatThrownBy(() -> cocktailTags.addCocktailTag(cocktailTag))
-			.isInstanceOf(RuntimeException.class);
+			.isInstanceOf(InvalidValueException.class);
 	}
 }
