@@ -6,6 +6,7 @@ import com.cocktailpick.back.common.domain.DailyDate;
 
 public class NumberOfDaily {
 	public static long generateBy(DailyDate dailyDate) {
-		return new Random(dailyDate.getTime()).nextLong();
+		int randomNumber = new Random(dailyDate.getTime()).nextInt();
+		return Math.abs(randomNumber);
 	}
 }

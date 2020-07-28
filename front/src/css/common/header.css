@@ -23,6 +23,21 @@
   border-bottom: var(--light_black) solid 1px;
 }
 
+.cover {
+  position: absolute;
+  top: 54px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--light_black);
+  z-index: 3;
+  cursor: pointer;
+}
+
+.mobileNav {
+  display: none;
+}
+
 .title {
   justify-self: start;
   font-size: 24px;
@@ -48,6 +63,11 @@
   transition: 0.8s ease;
 }
 
+.textLink {
+  text-decoration: none;
+  color: inherit;
+}
+
 .service {
   display: flex;
   align-items: center;
@@ -67,4 +87,72 @@
   background-color: var(--little-light-red);
   transition: 0.1s ease;
   color: var(--white);
+}
+
+@media screen and (max-width: 700px) {
+  .nav {
+    display: none;
+  }
+
+  .mobileNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90vw;
+    height: 100%;
+    border-bottom: var(--light_black) solid 1px;
+  }
+
+  .sliderToggle {
+    z-index: 10;
+  }
+
+  .hamburgerIcon,
+  .xIcon {
+    width: 22px;
+    padding-top: 0.5rem;
+    cursor: pointer;
+  }
+
+  .serviceSlider {
+    position: absolute;
+    top: 55px;
+    width: 63vw;
+    right: -63vw;
+    height: calc(100% - 55px);
+    display: flex;
+    flex-direction: column;
+    background-color: var(--white);
+    transition: all 0.35s;
+  }
+
+  .serviceSlider.active {
+    display: flex;
+    flex-direction: column;
+    top: 55px;
+    position: fixed;
+    width: 63vw;
+    right: 0;
+    height: calc(100% - 55px);
+    background-color: var(--white);
+    z-index: 5;
+  }
+
+  .serviceSliderItem {
+    z-index: 7;
+    font-size: 18px;
+    padding: 0.5rem;
+    cursor: pointer;
+    color: var(--little-light-red);
+  }
+
+  .serviceSlider.active .serviceSliderItem {
+    padding: 1rem;
+    color: var(--little-light-red);
+  }
+
+  .serviceSlider.active .serviceSliderItem:hover {
+    color: var(--white);
+    background-color: var(--little-light-red);
+  }
 }
