@@ -92,7 +92,7 @@ class CocktailControllerTest {
 
 		List<CocktailResponse> cocktailResponses = Arrays.asList(
 			new CocktailResponse(1L, "싱가폴 슬링", "https://naver.com",
-				Arrays.asList(new TagResponse("마지막 양심"))),
+				Collections.singletonList(new TagResponse("마지막 양심"))),
 			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
 				Arrays.asList(new TagResponse("쫄깃쫄깃"), new TagResponse("짭쪼름")))
 		);
@@ -125,8 +125,7 @@ class CocktailControllerTest {
 
 		mockMvc.perform(post("/api/cocktails")
 			.content(objectMapper.writeValueAsString(cocktailRequest))
-			.contentType(MediaType.APPLICATION_JSON)
-			.accept(MediaType.APPLICATION_JSON))
+			.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isCreated())
 			.andExpect(header().string("Location", "/api/cocktails/1"))
 			.andDo(print());
@@ -202,7 +201,7 @@ class CocktailControllerTest {
 	@Test
 	void recommendCocktail() throws Exception {
 		CocktailDetailResponse blueHawaiiResponse = CocktailDetailResponse.of(blueHawaii);
-		given(cocktailService.recommend(any())).willReturn(Arrays.asList(blueHawaiiResponse));
+		given(cocktailService.recommend(any())).willReturn(Collections.singletonList(blueHawaiiResponse));
 
 		mockMvc.perform(get("/api/cocktails/recommend?answer=true&answer=false")
 			.accept(MediaType.APPLICATION_JSON))
