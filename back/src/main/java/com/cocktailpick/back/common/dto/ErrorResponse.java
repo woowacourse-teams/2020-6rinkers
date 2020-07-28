@@ -21,30 +21,29 @@ public class ErrorResponse {
 
 	private String code;
 
-	private ErrorResponse(final ErrorCode code, final List<FieldError> errors) {
+	private ErrorResponse(ErrorCode code, List<FieldError> errors) {
 		this.message = code.getMessage();
 		this.errors = errors;
 		this.code = code.getCode();
 	}
 
-	private ErrorResponse(final ErrorCode code) {
+	private ErrorResponse(ErrorCode code) {
 		this.message = code.getMessage();
 		this.code = code.getCode();
 		this.errors = new ArrayList<>();
 	}
 
-	public static ErrorResponse of(final ErrorCode code,
-		final BindingResult bindingResult) {
+	public static ErrorResponse of(ErrorCode code, BindingResult bindingResult) {
 		return new ErrorResponse(code, FieldError.of(bindingResult));
 	}
 
-	public static ErrorResponse of(final ErrorCode code) {
+	public static ErrorResponse of(ErrorCode code) {
 		return new ErrorResponse(code);
 	}
 
 	public static ErrorResponse of(MethodArgumentTypeMismatchException e) {
-		final String value = e.getValue() == null ? "" : e.getValue().toString();
-		final List<ErrorResponse.FieldError> errors = ErrorResponse.FieldError.of(
+		String value = e.getValue() == null ? "" : e.getValue().toString();
+		List<ErrorResponse.FieldError> errors = ErrorResponse.FieldError.of(
 			e.getName(), value, e.getErrorCode());
 		return new ErrorResponse(ErrorCode.INVALID_TYPE_VALUE, errors);
 	}
@@ -56,21 +55,20 @@ public class ErrorResponse {
 		private String value;
 		private String reason;
 
-		private FieldError(final String field, final String value, final String reason) {
+		private FieldError(String field, String value, String reason) {
 			this.field = field;
 			this.value = value;
 			this.reason = reason;
 		}
 
-		public static List<FieldError> of(final String field, final String value,
-			final String reason) {
+		public static List<FieldError> of(String field, String value, String reason) {
 			List<FieldError> fieldErrors = new ArrayList<>();
 			fieldErrors.add(new FieldError(field, value, reason));
 			return fieldErrors;
 		}
 
-		private static List<FieldError> of(final BindingResult bindingResult) {
-			final List<org.springframework.validation.FieldError> fieldErrors = bindingResult
+		private static List<FieldError> of(BindingResult bindingResult) {
+			List<org.springframework.validation.FieldError> fieldErrors = bindingResult
 				.getFieldErrors();
 			return fieldErrors.stream()
 				.map(error -> new FieldError(
@@ -81,5 +79,4 @@ public class ErrorResponse {
 				.collect(Collectors.toList());
 		}
 	}
-
 }
