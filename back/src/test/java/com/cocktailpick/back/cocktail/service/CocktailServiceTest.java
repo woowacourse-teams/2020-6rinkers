@@ -23,7 +23,9 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cocktailpick.back.cocktail.domain.Cocktail;
+import com.cocktailpick.back.cocktail.domain.CocktailFindStrategyFactory;
 import com.cocktailpick.back.cocktail.domain.CocktailRepository;
+import com.cocktailpick.back.cocktail.domain.CocktailSearcher;
 import com.cocktailpick.back.cocktail.domain.Flavor;
 import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
@@ -44,6 +46,12 @@ public class CocktailServiceTest {
 	@Mock
 	private TagRepository tagRepository;
 
+	@Mock
+	private CocktailFindStrategyFactory cocktailFindStrategyFactory;
+
+	@Mock
+	private CocktailSearcher cocktailSearcher;
+
 	private Tag tag;
 
 	private Flavor flavor;
@@ -54,7 +62,8 @@ public class CocktailServiceTest {
 
 	@BeforeEach
 	void setUp() {
-		cocktailService = new CocktailService(cocktailRepository, tagRepository);
+		cocktailService = new CocktailService(cocktailRepository, tagRepository,
+			cocktailFindStrategyFactory);
 
 		tag = new Tag("두강맛");
 
@@ -189,6 +198,29 @@ public class CocktailServiceTest {
 
 		verify(tagRepository).findAll();
 		verify(cocktailRepository).saveAll(any());
+	}
+
+	@DisplayName("오늘의 칵테일을 조회한다.")
+	@Test
+	void findCocktailOfToday() {
+		Cocktail first = Cocktail.builder().name("두강 진").build();
+		Cocktail second = Cocktail.builder().name("토니 진").build();
+		Cocktail third = Cocktail.builder().name("작곰 진").build();
+
+		when(cocktailFindStrategyFactory.createCocktailSearcher(anyLong())).thenReturn(cocktailSearcher);
+		when(cocktailSearcher.findIn(anyList())).thenReturn(second);
+		when(cocktailRepository.findAll()).thenReturn(Arrays.asList(first, second, third));
+
+		assertThat(cocktailService.findCocktailOfToday().getName()).isEqualTo("토니 진");
+	}
+
+	@DisplayName("칵테일이 없을 경우 오늘의 칵테일 api 사용 시 예외처리한다.")
+	@Test
+	void findCocktailOfToday_WhenNoCocktails() {
+		when(cocktailRepository.findAll()).thenReturn(new ArrayList<>());
+
+		assertThatThrownBy(() -> cocktailService.findCocktailOfToday())
+			.isInstanceOf(RuntimeException.class);
 	}
 
 	@DisplayName("칵테일을 추천한다.")
