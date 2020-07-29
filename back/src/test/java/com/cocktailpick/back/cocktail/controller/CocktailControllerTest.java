@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -38,8 +39,6 @@ class CocktailControllerTest {
 
 	private MockMvc mockMvc;
 
-	private Flavor flavor;
-
 	private Cocktail blueHawaii;
 
 	private CocktailRequest cocktailRequest;
@@ -53,7 +52,7 @@ class CocktailControllerTest {
 			.addFilters(new CharacterEncodingFilter("UTF-8", true))
 			.build();
 
-		flavor = Flavor.builder()
+		Flavor flavor = Flavor.builder()
 			.bitter(true)
 			.sour(true)
 			.sweet(false)
@@ -77,9 +76,9 @@ class CocktailControllerTest {
 			.bitter(true)
 			.sour(true)
 			.sweet(false)
-			.liquor(Arrays.asList("두강이"))
-			.liquorQuantity(Arrays.asList("두ml"))
-			.tag(Arrays.asList("곰"))
+			.liquor(Collections.singletonList("두강이"))
+			.liquorQuantity(Collections.singletonList("두ml"))
+			.tag(Collections.singletonList("곰"))
 			.special(new ArrayList<>())
 			.specialQuantity(new ArrayList<>())
 			.build();
@@ -93,7 +92,7 @@ class CocktailControllerTest {
 
 		List<CocktailResponse> cocktailResponses = Arrays.asList(
 			new CocktailResponse(1L, "싱가폴 슬링", "https://naver.com",
-				Arrays.asList(new TagResponse("마지막 양심"))),
+				Collections.singletonList(new TagResponse("마지막 양심"))),
 			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
 				Arrays.asList(new TagResponse("쫄깃쫄깃"), new TagResponse("짭쪼름")))
 		);
@@ -126,8 +125,7 @@ class CocktailControllerTest {
 
 		mockMvc.perform(post("/api/cocktails")
 			.content(objectMapper.writeValueAsString(cocktailRequest))
-			.contentType(MediaType.APPLICATION_JSON)
-			.accept(MediaType.APPLICATION_JSON))
+			.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isCreated())
 			.andExpect(header().string("Location", "/api/cocktails/1"))
 			.andDo(print());
@@ -147,9 +145,9 @@ class CocktailControllerTest {
 			.bitter(true)
 			.sour(true)
 			.sweet(false)
-			.liquor(Arrays.asList("두강이"))
-			.liquorQuantity(Arrays.asList("두ml"))
-			.tag(Arrays.asList("두강맛"))
+			.liquor(Collections.singletonList("두강이"))
+			.liquorQuantity(Collections.singletonList("두ml"))
+			.tag(Collections.singletonList("두강맛"))
 			.special(new ArrayList<>())
 			.specialQuantity(new ArrayList<>())
 			.build();
@@ -203,7 +201,7 @@ class CocktailControllerTest {
 	@Test
 	void recommendCocktail() throws Exception {
 		CocktailDetailResponse blueHawaiiResponse = CocktailDetailResponse.of(blueHawaii);
-		given(cocktailService.recommend(any())).willReturn(Arrays.asList(blueHawaiiResponse));
+		given(cocktailService.recommend(any())).willReturn(Collections.singletonList(blueHawaiiResponse));
 
 		mockMvc.perform(get("/api/cocktails/recommend?answer=true&answer=false")
 			.accept(MediaType.APPLICATION_JSON))

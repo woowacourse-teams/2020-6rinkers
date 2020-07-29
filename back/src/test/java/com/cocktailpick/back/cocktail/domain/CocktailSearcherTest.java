@@ -3,9 +3,13 @@ package com.cocktailpick.back.cocktail.domain;
 import static org.assertj.core.api.Assertions.*;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
 
 class CocktailSearcherTest {
 	private CocktailSearcher cocktailSearcher;
@@ -15,6 +19,7 @@ class CocktailSearcherTest {
 		cocktailSearcher = new CocktailSearcher(10);
 	}
 
+	@DisplayName("시드 값에 따라 적절한 Cocktail이 뽑힌다.")
 	@Test
 	void findIn() {
 		Cocktail first = Cocktail.builder().name("두강 진").build();
@@ -24,5 +29,12 @@ class CocktailSearcherTest {
 		Cocktail cocktail = cocktailSearcher.findIn(Arrays.asList(first, second, third));
 
 		assertThat(cocktail.getName()).isEqualTo("토니 진");
+	}
+
+	@DisplayName("입력된 칵테일 목록이 빌 경우 예외 처리한다.")
+	@Test
+	void findInException() {
+		assertThatThrownBy(() -> cocktailSearcher.findIn(Collections.emptyList()))
+			.isInstanceOf(EntityNotFoundException.class);
 	}
 }

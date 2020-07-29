@@ -11,6 +11,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
+
 @ExtendWith({MockitoExtension.class})
 class EntityMapperTest {
 	@Mock
@@ -19,11 +21,10 @@ class EntityMapperTest {
 	@DisplayName("매핑 되어있지 않은 key로 조회 시 예외처리한다.")
 	@Test
 	void getWithException() {
-		given(map.get(any())).willReturn(null);
+		given(map.get(anyString())).willReturn(null);
 
-		EntityMapper<String, Object> entityMapper = new EntityMapper(map);
+		EntityMapper<String, Object> entityMapper = new EntityMapper<>(map);
 
-		assertThatThrownBy(() -> entityMapper.get("test")).isInstanceOf(RuntimeException.class);
-
+		assertThatThrownBy(() -> entityMapper.get("notContainedKey")).isInstanceOf(EntityNotFoundException.class);
 	}
 }
