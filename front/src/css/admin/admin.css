@@ -6,11 +6,11 @@
   font-size: 24px;
 }
 
-
 .admin {
   display: flex;
   width: 100%;
   height: 100%;
+  overflow: hidden;
 }
 
 .editFormContainer {
@@ -30,7 +30,7 @@
 }
 
 .fileButton {
-  margin: 0.2rem;
+  margin: .2rem;
 }
 
 .cocktailListContainer {

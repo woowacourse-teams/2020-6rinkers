@@ -41,7 +41,7 @@
 .title {
   justify-self: start;
   font-size: 24px;
-  margin-left: 0.5rem;
+  margin-left: .5rem;
   margin-right: 1.5rem;
   transition: 0.8s ease;
   cursor: pointer;
@@ -110,7 +110,7 @@
   .hamburgerIcon,
   .xIcon {
     width: 22px;
-    padding-top: 0.5rem;
+    padding-top: .5rem;
     cursor: pointer;
   }
 
@@ -141,7 +141,7 @@
   .serviceSliderItem {
     z-index: 7;
     font-size: 18px;
-    padding: 0.5rem;
+    padding: .5rem;
     cursor: pointer;
     color: var(--little-light-red);
   }

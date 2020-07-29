@@ -2,10 +2,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
-  bottom: 0;
   width: 100%;
   height: 70px;
+  order: 2;
 }
 
 .linkContainer {
@@ -16,7 +15,7 @@
   width: 100px;
   border: var(--light_black) 1px solid;
   border-radius: 10px;
-  margin-bottom: 0.5rem;
+  margin-bottom: .5rem;
 }
 
 .link > a {

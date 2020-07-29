@@ -1,0 +1,144 @@
+.cocktailSearchContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.searchContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  height: 15vh;
+  margin: 2rem 1rem 1rem 1rem;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  width: 60vw;
+  min-width: 250px;
+  height: 30px;
+  border-bottom: var(--little-light-black) 1px solid;
+}
+
+.search input {
+  height: 100%;
+  width: 100%;
+  margin-left: .3rem;
+  margin-right: .5rem;
+  font-size: 20px;
+  outline: none;
+  border: none;
+}
+
+.searchButtonContainer {
+  width: 28px;
+  height: 28px;
+  margin-right: .5rem;
+  cursor: pointer;
+}
+
+.tagsContainer {
+  background-color: gray;
+  margin: 1rem;
+  width: 100%;
+  height: 5vh;
+}
+
+.searchedCocktailsContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 300px);
+  gap: 2em;
+  margin-bottom: 2rem;
+  user-select: none;
+}
+
+.searchedCocktailContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 0 20px 0 var(--little-dark-white);
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+.searchedCocktailContainer:hover {
+  box-shadow: 0 0 20px 10px var(--little-dark-white);
+}
+
+.searchedCocktailName {
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem 1.5rem .2rem 1.5rem;
+  font-size: 18px;
+  border-bottom: var(--little-light-black) 1px solid;
+}
+
+.searchedCocktailImage {
+  display: flex;
+  justify-content: center;
+  margin: .5rem 0;
+  height: 280px;
+  width: 280px;
+}
+
+.searchedCocktailImage > img {
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+
+.searchedCocktailTags {
+  margin: 1rem 0;
+}
+
+@media screen and (max-width: 1024px) {
+  .searchedCocktailsContainer {
+    grid-template-columns: repeat(2, 280px);
+    justify-content: center;
+    width: 80vw;
+  }
+
+  .searchedCocktailContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 20px 0 var(--little-dark-white);
+  }
+
+  .searchedCocktailImage > img {
+    width: 250px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .searchedCocktailsContainer {
+    grid-template-columns: repeat(1, 280px);
+  }
+
+  .searchedCocktailImage {
+    display: flex;
+    justify-content: center;
+    margin: .5rem 0;
+    height: 220px;
+    width: 220px;
+  }
+
+  .searchedCocktailImage > img {
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+  }
+
+  .search {
+    width: 80vw;
+  }
+}
