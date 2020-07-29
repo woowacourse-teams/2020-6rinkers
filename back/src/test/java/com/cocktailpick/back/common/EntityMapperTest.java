@@ -25,6 +25,6 @@ class EntityMapperTest {
 
 		EntityMapper<String, Object> entityMapper = new EntityMapper<>(map);
 
-		assertThatThrownBy(() -> entityMapper.get("test")).isInstanceOf(EntityNotFoundException.class);
+		assertThatThrownBy(() -> entityMapper.get("notContainedKey")).isInstanceOf(EntityNotFoundException.class);
 	}
 }

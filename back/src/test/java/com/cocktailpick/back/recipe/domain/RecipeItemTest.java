@@ -11,11 +11,11 @@ import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.cocktail.domain.Flavor;
 
 class RecipeItemTest {
-	private RecipeItem recipeItem1;
+	private RecipeItem recipeItem;
 
 	@BeforeEach
 	void setUp() {
-		recipeItem1 = RecipeItem.builder()
+		recipeItem = RecipeItem.builder()
 			.ingredient("두강")
 			.quantity("10개")
 			.build();
@@ -24,12 +24,12 @@ class RecipeItemTest {
 	@DisplayName("item이 같은 Ingredient를 가지는 지 확인한다.")
 	@Test
 	void isSameIngredientWith() {
-		RecipeItem recipeItem2 = RecipeItem.builder()
+		RecipeItem comparedRecipeItem = RecipeItem.builder()
 			.ingredient("두강")
 			.quantity("20개")
 			.build();
 
-		assertThat(recipeItem1.isSameIngredientWith(recipeItem2)).isTrue();
+		assertThat(recipeItem.isSameIngredientWith(comparedRecipeItem)).isTrue();
 	}
 
 	@DisplayName("칵테일을 지정했을 때 편의 메서드가 정상적으로 동작하는 지 확인한다.")
@@ -57,11 +57,11 @@ class RecipeItemTest {
 			.origin("토니는 강하다.")
 			.build();
 
-		recipeItem1.setCocktail(blueHawaii);
-		recipeItem1.setCocktail(redHawaii);
+		recipeItem.setCocktail(blueHawaii);
+		recipeItem.setCocktail(redHawaii);
 
 		assertAll(
-			() -> assertThat(recipeItem1.getCocktail()).isEqualTo(redHawaii),
+			() -> assertThat(recipeItem.getCocktail()).isEqualTo(redHawaii),
 			() -> assertThat(blueHawaii.getRecipe().getRecipeItems()).isEmpty(),
 			() -> assertThat(redHawaii.getRecipe().getRecipeItems()).hasSize(1)
 		);
