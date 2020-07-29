@@ -2,24 +2,19 @@ import React, { useEffect, useState } from "react";
 import { fetchCocktail } from "../../api";
 import "../../css/info/detailInfo.css";
 import CircularBox from "../common/CircularBox";
-import RecipeItems from "./RecipeItems";
 
 const CocktailDetailSearch = ({ match }) => {
   const id = match.params.id;
-  const [cocktailData, setCocktailData] = useState({
-    cocktail: "",
-    tags: [],
-    recipe: [],
-  });
+  const [cocktail, setCocktail] = useState("");
+  const [tags, setTags] = useState([]);
+  const [recipe, setRecipe] = useState([]);
 
   const onLoadCocktail = async () => {
     const response = await fetchCocktail(id);
-    const data = response.data;
-    setCocktailData({
-      cocktail: data,
-      tags: data.tags,
-      recipe: data.recipe,
-    });
+    const cocktailData = response.data;
+    setCocktail(cocktailData);
+    setTags(cocktailData.tags);
+    setRecipe(cocktailData.recipe);
   };
 
   useEffect(() => {
@@ -28,31 +23,31 @@ const CocktailDetailSearch = ({ match }) => {
 
   return (
     <div className="detail-info-container">
-      <p className="cocktail-name">{cocktailData.cocktail.name}</p>
+      <p className="cocktail-name">{cocktail.name}</p>
       <div className="detail-info-image-container">
         <img
-          src={cocktailData.cocktail.imageUrl}
-          alt={cocktailData.cocktail.name}
+          src={cocktail.imageUrl}
+          alt={cocktail.name}
           className="detail-info-image"
         />
       </div>
-      <p className="cocktail-abv">도수 : {cocktailData.cocktail.abv}%</p>
-      {cocktailData.tags &&
-        cocktailData.tags.map((tag, index) => (
+      <p className="cocktail-abv">도수 : {cocktail.abv}%</p>
+      {tags &&
+        tags.map((tag, index) => (
           <CircularBox key={"tag" + index} text={tag.name} />
         ))}
       <div>
-        {cocktailData.cocktail.sweet ? (
+        {cocktail.sweet ? (
           <CircularBox text="달아요" />
         ) : (
           <CircularBox text="안달아요" />
         )}
-        {cocktailData.cocktail.sour ? (
+        {cocktail.sour ? (
           <CircularBox text="셔요" />
         ) : (
           <CircularBox text="안셔요" />
         )}
-        {cocktailData.cocktail.bitter ? (
+        {cocktail.bitter ? (
           <CircularBox text="써요" />
         ) : (
           <CircularBox text="안써요" />
@@ -66,19 +61,28 @@ const CocktailDetailSearch = ({ match }) => {
           </tr>
         </thead>
         <tbody>
-          {cocktailData.recipe &&
-            cocktailData.recipe.map((item, index) => (
-              <RecipeItems item={item} key={"recipeItem" + index} />
+          {recipe &&
+            recipe.map((item, index) => (
+              <tr key={"item" + index}>
+                <td>{item.ingredient}</td>
+                <td>
+                  {!isNaN(Number(item.quantity)) ? (
+                    <span>{item.quantity}ml</span>
+                  ) : (
+                    <span>{item.quantity}</span>
+                  )}
+                </td>
+              </tr>
             ))}
         </tbody>
       </table>
       <div className="origin">
         <h4>어원</h4>
-        <p>{cocktailData.cocktail.origin}</p>
+        <p>{cocktail.origin}</p>
       </div>
       <div className="description">
         <h4>특징</h4>
-        <p>{cocktailData.cocktail.description}</p>
+        <p>{cocktail.description}</p>
       </div>
     </div>
   );
