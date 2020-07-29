@@ -24,9 +24,9 @@ import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
 import com.cocktailpick.back.cocktail.dto.UserRecommendRequests;
 import com.cocktailpick.back.common.EntityMapper;
 import com.cocktailpick.back.common.csv.OpenCsvReader;
+import com.cocktailpick.back.common.domain.DailyDate;
 import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
 import com.cocktailpick.back.common.exceptions.ErrorCode;
-import com.cocktailpick.back.common.domain.DailyDate;
 import com.cocktailpick.back.common.util.NumberOfDaily;
 import com.cocktailpick.back.recipe.domain.RecipeItem;
 import com.cocktailpick.back.tag.domain.CocktailTag;
@@ -52,9 +52,7 @@ public class CocktailService {
 
 	@Transactional(readOnly = true)
 	public CocktailDetailResponse findCocktail(Long id) {
-		Cocktail cocktail = cocktailRepository.findById(id)
-			.orElseThrow(() -> new EntityNotFoundException(ErrorCode.COCKTAIL_NOT_FOUND));
-
+		Cocktail cocktail = findById(id);
 		return CocktailDetailResponse.of(cocktail);
 	}
 

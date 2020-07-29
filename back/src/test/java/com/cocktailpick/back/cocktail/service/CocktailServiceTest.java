@@ -8,6 +8,7 @@ import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,6 +33,7 @@ import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
 import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
 import com.cocktailpick.back.cocktail.dto.UserRecommendRequests;
+import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
 import com.cocktailpick.back.tag.domain.CocktailTag;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
@@ -54,11 +56,10 @@ public class CocktailServiceTest {
 
 	private Tag tag;
 
-	private Flavor flavor;
-
 	private Cocktail blueHawaii;
 
 	private CocktailRequest cocktailRequest;
+	private Flavor flavor;
 
 	@BeforeEach
 	void setUp() {
@@ -91,9 +92,9 @@ public class CocktailServiceTest {
 			.bitter(true)
 			.sour(true)
 			.sweet(false)
-			.liquor(Arrays.asList("두강이"))
-			.liquorQuantity(Arrays.asList("두ml"))
-			.tag(Arrays.asList("곰"))
+			.liquor(Collections.singletonList("두강이"))
+			.liquorQuantity(Collections.singletonList("두ml"))
+			.tag(Collections.singletonList("곰"))
 			.special(new ArrayList<>())
 			.specialQuantity(new ArrayList<>())
 			.build();
@@ -147,11 +148,19 @@ public class CocktailServiceTest {
 		);
 	}
 
+	@DisplayName("단일 조회 시 해당하는 id가 없으면 예외 처리한다")
+	@Test
+	void findCocktailException() {
+		when(cocktailRepository.findById(anyLong())).thenReturn(Optional.empty());
+
+		assertThatThrownBy(() -> cocktailService.findCocktail(0L))
+			.isInstanceOf(EntityNotFoundException.class);
+	}
+
 	@DisplayName("칵테일을 생성한다.")
 	@Test
 	void save() {
-		when(tagRepository.findByNameIn(anyList())).thenReturn(Arrays.asList(tag));
-
+		when(tagRepository.findByNameIn(anyList())).thenReturn(Collections.singletonList(tag));
 		when(cocktailRepository.save(any())).thenReturn(blueHawaii);
 
 		cocktailService.save(cocktailRequest);
@@ -162,19 +171,17 @@ public class CocktailServiceTest {
 	@DisplayName("칵테일을 수정한다.")
 	@Test
 	void update() {
-
-		Tag 곰 = new Tag("곰");
+		Tag bearTag = new Tag("곰");
 
 		when(cocktailRepository.findById(anyLong())).thenReturn(Optional.of(blueHawaii));
-		when(tagRepository.findByNameIn(anyList())).thenReturn(Arrays.asList(곰));
+		when(tagRepository.findByNameIn(anyList())).thenReturn(Collections.singletonList(bearTag));
 
 		cocktailService.updateCocktail(1L, cocktailRequest);
 
 		assertAll(
 			() -> assertThat(blueHawaii.getName()).isEqualTo(cocktailRequest.getName()),
-			() -> assertThat(blueHawaii.getDescription()).isEqualTo(
-				cocktailRequest.getDescription()),
-			() -> assertThat(blueHawaii.getTags()).isEqualTo(Arrays.asList(곰))
+			() -> assertThat(blueHawaii.getDescription()).isEqualTo(cocktailRequest.getDescription()),
+			() -> assertThat(blueHawaii.getTags()).isEqualTo(Collections.singletonList(bearTag))
 		);
 	}
 
@@ -191,7 +198,6 @@ public class CocktailServiceTest {
 	void saveAll() {
 		MultipartFile file = new MockMultipartFile("file", "칵테일.csv", "text/csv",
 			THREE_COCKTAILS_CSV_CONTENT.getBytes());
-
 		when(tagRepository.findAll()).thenReturn(FOUR_TAGS_FROM_TAG_CSV);
 
 		cocktailService.saveAll(file);
@@ -212,15 +218,6 @@ public class CocktailServiceTest {
 		when(cocktailRepository.findAll()).thenReturn(Arrays.asList(first, second, third));
 
 		assertThat(cocktailService.findCocktailOfToday().getName()).isEqualTo("토니 진");
-	}
-
-	@DisplayName("칵테일이 없을 경우 오늘의 칵테일 api 사용 시 예외처리한다.")
-	@Test
-	void findCocktailOfToday_WhenNoCocktails() {
-		when(cocktailRepository.findAll()).thenReturn(new ArrayList<>());
-
-		assertThatThrownBy(() -> cocktailService.findCocktailOfToday())
-			.isInstanceOf(RuntimeException.class);
 	}
 
 	@DisplayName("칵테일을 추천한다.")
