@@ -7,14 +7,12 @@ import dataToCocktailRequest from "../../../utils/admin/cocktailConverter";
 const EditFormContainer = ({ cocktail, updateCocktail, onResetCocktail }) => {
   const onChange = (e) => {
     const { value, name } = e.target;
-    console.log(value, name);
     updateCocktail(value, name);
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const result = createCocktail(dataToCocktailRequest(cocktail));
-    console.log(result);
+    createCocktail(dataToCocktailRequest(cocktail));
     onResetCocktail();
   };
 

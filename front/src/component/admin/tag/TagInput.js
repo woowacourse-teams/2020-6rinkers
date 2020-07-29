@@ -29,8 +29,7 @@ const TagInput = ({ tag, updateTag }) => {
   };
 
   const onSubmit = (e) => {
-    const result = createTag(dataToTagRequest(tag));
-    console.log(result);
+    createTag(dataToTagRequest(tag));
     onLoadTags();
     updateTag("");
   };
