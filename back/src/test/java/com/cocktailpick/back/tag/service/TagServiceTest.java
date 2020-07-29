@@ -57,7 +57,7 @@ public class TagServiceTest {
 	@Test
 	void addTag() {
 		TagRequest tagRequest = new TagRequest("새로운 태그");
-		when(tagRepository.save(any())).thenReturn(TagRequest.toTag(tagRequest));
+		when(tagRepository.save(any())).thenReturn(tagRequest.toTag());
 
 		tagService.addTag(tagRequest);
 

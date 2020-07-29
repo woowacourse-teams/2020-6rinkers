@@ -15,7 +15,7 @@ public class TagRequest {
 	@NotBlank
 	private String name;
 
-	public static Tag toTag(TagRequest tagRequest) {
-		return new Tag(tagRequest.getName());
+	public Tag toTag() {
+		return new Tag(name);
 	}
 }

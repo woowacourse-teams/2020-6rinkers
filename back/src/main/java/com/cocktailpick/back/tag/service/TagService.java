@@ -34,7 +34,7 @@ public class TagService {
 
 	@Transactional
 	public Long addTag(TagRequest tagRequest) {
-		Tag tag = tagRepository.save(TagRequest.toTag(tagRequest));
+		Tag tag = tagRepository.save(tagRequest.toTag());
 
 		return tag.getId();
 	}
