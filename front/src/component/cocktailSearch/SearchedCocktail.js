@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const SearchedCocktail = ({ cocktail }) => {
   return (
@@ -7,9 +8,11 @@ const SearchedCocktail = ({ cocktail }) => {
       data-search-cocktail={cocktail.id}
     >
       <div className="searchedCocktailName">{cocktail.name}</div>
-      <div className="searchedCocktailImage">
-        <img src={cocktail.imageUrl} alt={cocktail.name} />
-      </div>
+      <Link to={`/cocktail/${cocktail.id}`}>
+        <div className="searchedCocktailImage">
+          <img src={cocktail.imageUrl} alt={cocktail.name} />
+        </div>
+      </Link>
       <div className="searchedCocktailTags">태그 태그 태그 태그 태그</div>
     </div>
   );

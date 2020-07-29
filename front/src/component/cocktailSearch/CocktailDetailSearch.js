@@ -3,7 +3,8 @@ import { fetchCocktail } from "../../api";
 import "../../css/info/detailInfo.css";
 import CircularBox from "../common/CircularBox";
 
-const DetailInfo = ({ id }) => {
+const CocktailDetailSearch = ({ match }) => {
+  const id = match.params.id;
   const [cocktail, setCocktail] = useState("");
   const [tags, setTags] = useState([]);
   const [recipe, setRecipe] = useState([]);
@@ -12,13 +13,13 @@ const DetailInfo = ({ id }) => {
     const response = await fetchCocktail(id);
     const cocktailData = response.data;
     setCocktail(cocktailData);
-    setTags(cocktail.tags);
-    setRecipe(cocktail.recipe);
+    setTags(cocktailData.tags);
+    setRecipe(cocktailData.recipe);
   };
 
   useEffect(() => {
     onLoadCocktail(id);
-  }, [id]);
+  }, []);
 
   return (
     <div className="detail-info-container">
@@ -31,9 +32,10 @@ const DetailInfo = ({ id }) => {
         />
       </div>
       <p className="cocktail-abv">도수 : {cocktail.abv}%</p>
-      {tags.map((tag, index) => (
-        <CircularBox key={"tag" + index} text={tag.name} />
-      ))}
+      {tags &&
+        tags.map((tag, index) => (
+          <CircularBox key={"tag" + index} text={tag.name} />
+        ))}
       <div>
         {cocktail.sweet ? (
           <CircularBox text="달아요" />
@@ -52,22 +54,27 @@ const DetailInfo = ({ id }) => {
         )}
       </div>
       <table className="cocktail-recipe">
-        <tr>
-          <th>종류</th>
-          <th>양</th>
-        </tr>
-        {recipe.map((item, index) => (
-          <tr key={"item" + index}>
-            <td>{item.ingredient}</td>
-            <td>
-              {!Number.isNaN(item.quantity) ? (
-                <span>{item.quantity}ml</span>
-              ) : (
-                <span>{item.quantity}</span>
-              )}
-            </td>
+        <thead>
+          <tr>
+            <th>종류</th>
+            <th>양</th>
           </tr>
-        ))}
+        </thead>
+        <tbody>
+          {recipe &&
+            recipe.map((item, index) => (
+              <tr key={"item" + index}>
+                <td>{item.ingredient}</td>
+                <td>
+                  {!isNaN(Number(item.quantity)) ? (
+                    <span>{item.quantity}ml</span>
+                  ) : (
+                    <span>{item.quantity}</span>
+                  )}
+                </td>
+              </tr>
+            ))}
+        </tbody>
       </table>
       <div className="origin">
         <h4>어원</h4>
@@ -80,4 +87,4 @@ const DetailInfo = ({ id }) => {
     </div>
   );
 };
-export default DetailInfo;
+export default CocktailDetailSearch;
