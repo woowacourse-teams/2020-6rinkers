@@ -27,7 +27,7 @@ public class TagService {
 		tagRepository.saveAll(tags);
 	}
 
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<TagResponse> findAllTags() {
 		return TagResponse.listOf(tagRepository.findAll());
 	}
