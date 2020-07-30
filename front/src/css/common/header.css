@@ -74,6 +74,12 @@
   height: 100%;
 }
 
+.service a {
+  color: var(--little-light-red);
+  text-decoration: none;
+  height: 100%;
+}
+
 .serviceItem {
   display: flex;
   align-items: center;
@@ -86,6 +92,11 @@
 .serviceItem:hover {
   background-color: var(--little-light-red);
   transition: 0.1s ease;
+  color: var(--white);
+}
+
+.active {
+  background-color: var(--little-light-red);
   color: var(--white);
 }
 

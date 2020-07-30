@@ -55,6 +55,11 @@
   box-shadow: 0 0 23px 25px var(--more-light-red);
 }
 
+.homeRecommendation a {
+  color: black;
+  text-decoration: none;
+}
+
 .content {
   font-size: 20px;
 }

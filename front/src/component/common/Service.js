@@ -1,11 +1,20 @@
 import React from "react";
+import {NavLink} from "react-router-dom";
 
-const Service = (props) => {
+const Service = () => {
   return (
     <div className="service">
-      <div className="serviceItem searchCocktail">칵테일 찾기</div>
+      <NavLink
+        to="/cocktails/search"
+        className="serviceItem"
+        activeClassName="active"
+      >
+        칵테일 찾기
+      </NavLink>
       <div className="serviceItem searchBar">바 찾기</div>
-      <div className="serviceItem recommendation">칵테일 추천 받기</div>
+      <NavLink to="/recommend" className="serviceItem" activeClassName="active">
+        칵테일 추천 받기
+      </NavLink>
     </div>
   );
 };
