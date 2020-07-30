@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchCocktail } from "../../api";
-import "../../css/info/detailInfo.css";
 import CircularBox from "../common/CircularBox";
+import "../../css/cocktailSearch/cocktailDetailSearch.css";
 
 const CocktailDetailSearch = ({ match }) => {
   const id = match.params.id;
