@@ -28,6 +28,7 @@ import com.cocktailpick.back.cocktail.domain.Flavor;
 import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
+import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
 import com.cocktailpick.back.cocktail.service.CocktailService;
 import com.cocktailpick.back.tag.dto.TagResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -201,10 +202,14 @@ class CocktailControllerTest {
 	@Test
 	void recommendCocktail() throws Exception {
 		CocktailDetailResponse blueHawaiiResponse = CocktailDetailResponse.of(blueHawaii);
+		List<UserRecommendRequest> requests = Arrays.asList(new UserRecommendRequest(true), new UserRecommendRequest(true));
+
 		given(cocktailService.recommend(any())).willReturn(Collections.singletonList(blueHawaiiResponse));
 
-		mockMvc.perform(get("/api/cocktails/recommend?answer=true&answer=false")
-			.accept(MediaType.APPLICATION_JSON))
+		mockMvc.perform(post("/api/cocktails/recommend")
+			.accept(MediaType.APPLICATION_JSON)
+			.content(objectMapper.writeValueAsString(requests))
+			.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andDo(print());
 	}
