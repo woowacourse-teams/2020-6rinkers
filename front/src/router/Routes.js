@@ -6,6 +6,7 @@ import Footer from "../component/common/Footer";
 import AdminHeader from "../component/admin/AdminHeader";
 import Admin from "../component/admin/Admin";
 import CocktailSearch from "../component/cocktailSearch/CocktailSearch";
+import CocktailDetailSearch from "../component/cocktailSearch/CocktailDetailSearch";
 
 const Routes = () => {
   const checkAdmin = (location) => {
@@ -27,6 +28,7 @@ const Routes = () => {
         <Route exact path="/" component={Home} />
         <Route path="/admin" component={Admin} />
         <Route path="/cocktails/search" component={CocktailSearch} />
+        <Route path="/cocktail/:id" component={CocktailDetailSearch} />
       </Switch>
     </>
   );

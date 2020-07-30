@@ -1,0 +1,9 @@
+.circular-box {
+    display: inline-block;
+    margin: .2rem .2rem;
+    padding: 0 .5rem;
+    background-color: #a60000;
+    color: white;
+    border: solid 1px #a60000;
+    border-radius: 1rem;
+}
