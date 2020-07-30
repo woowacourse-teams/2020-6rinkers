@@ -95,7 +95,7 @@
   color: var(--white);
 }
 
-.active {
+a.nav-active {
   background-color: var(--little-light-red);
   color: var(--white);
 }
