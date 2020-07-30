@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class UserRecommendRequest {
-	private Boolean answer;
+	private boolean answer;
 }

@@ -150,9 +150,9 @@ public class CocktailService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<CocktailDetailResponse> recommend(UserRecommendRequests recommendRequests) {
-		List<Boolean> answers = recommendRequests.getUserRecommendRequests().stream()
-			.map(UserRecommendRequest::getAnswer)
+	public List<CocktailDetailResponse> recommend(List<UserRecommendRequest> recommendRequests) {
+		List<Boolean> answers = recommendRequests.stream()
+			.map(UserRecommendRequest::isAnswer)
 			.collect(Collectors.toList());
 
 		List<Tag> tags = getFilteringTags();
