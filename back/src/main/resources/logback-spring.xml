@@ -27,6 +27,7 @@
                 <maxHistory>30</maxHistory>
             </rollingPolicy>
         </appender>
+
         <appender name="ROLLING-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
                 <charset>UTF-8</charset>
@@ -68,6 +69,7 @@
                 <maxHistory>30</maxHistory>
             </rollingPolicy>
         </appender>
+
         <appender name="ROLLING-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
             <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
                 <charset>UTF-8</charset>
@@ -81,10 +83,10 @@
                 <maxHistory>30</maxHistory>
             </rollingPolicy>
         </appender>
+
         <root level="info">
             <appender-ref ref="ROLLING-FILE"/>
             <appender-ref ref="ERROR_FILE"/>
         </root>
     </springProfile>
-
 </configuration>

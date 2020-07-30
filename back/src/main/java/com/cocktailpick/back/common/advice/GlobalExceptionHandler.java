@@ -11,12 +11,13 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import com.cocktailpick.back.common.dto.ErrorResponse;
 import com.cocktailpick.back.common.exceptions.BusinessException;
 import com.cocktailpick.back.common.exceptions.ErrorCode;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
-	protected ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(
-		MethodArgumentNotValidException e) {
+	protected ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
 		ErrorResponse response = ErrorResponse.of(ErrorCode.INVALID_INPUT_VALUE,
 			e.getBindingResult());
 		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
@@ -45,6 +46,7 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(Exception.class)
 	protected ResponseEntity<ErrorResponse> handleException(Exception e) {
+		log.error(e.getMessage(), e);
 		ErrorResponse response = ErrorResponse.of(ErrorCode.INTERNAL_SERVER_ERROR);
 		return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
