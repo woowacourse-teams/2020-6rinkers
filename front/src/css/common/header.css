@@ -95,9 +95,9 @@
   color: var(--white);
 }
 
-a.nav-active {
+.navitem-active {
   background-color: var(--little-light-red);
-  color: var(--white);
+  color: var(--white) !important;
 }
 
 @media screen and (max-width: 700px) {
@@ -160,6 +160,7 @@ a.nav-active {
   .serviceSlider.active .serviceSliderItem {
     padding: 1rem;
     color: var(--little-light-red);
+    text-decoration: none;
   }
 
   .serviceSlider.active .serviceSliderItem:hover {
