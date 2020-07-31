@@ -11,8 +11,8 @@ const ResultSlide = ({ cocktail, key }) => {
           <img
             src={cocktail.imageUrl}
             alt={cocktail.name}
-            width="300px"
-            height="300px;"
+            width="70%"
+            height="100%;"
           />
         </div>
       </Link>
