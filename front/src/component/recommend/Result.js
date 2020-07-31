@@ -7,8 +7,10 @@ import "../../css/recommend/result.css";
 const Result = ({ cocktails }) => {
   const history = useHistory();
 
-  if (!cocktails) {
-    history.push("/question");
+  try {
+    cocktails.map();
+  } catch (e) {
+    history.push("/recommend");
   }
 
   return (
