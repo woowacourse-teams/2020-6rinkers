@@ -11,7 +11,7 @@ const Footer = (props) => {
           </a>
         </div>
         <div className="link instagram">
-          <a href="https://www.instagram.com/6rinkers/">
+          <a href="https://www.instagram.com/cocktail_pick/">
             <img src="/image/instagram_logo.png" alt="instagram logo" />
           </a>
         </div>
