@@ -20,6 +20,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -117,6 +119,24 @@ public class CocktailServiceTest {
 
 		assertThat(cocktails).extracting("name")
 			.containsExactly(peachCrush.getName(), martini.getName());
+	}
+
+	@DisplayName("정해진 수만큼 칵테일을 조회한다.")
+	@Test
+	void findPagedCocktails() {
+		Cocktail peachCrush = Cocktail.builder()
+			.name("피치 크러쉬")
+			.build();
+
+		Cocktail martini = Cocktail.builder()
+			.name("마티니")
+			.build();
+
+		Page<Cocktail> cocktailPage = new PageImpl<>(Arrays.asList(peachCrush, martini));
+
+		when(cocktailRepository.findByIdGreaterThan(anyLong(), any())).thenReturn(cocktailPage);
+
+		assertThat(cocktailService.findPagedCocktails(0, 2)).hasSize(2);
 	}
 
 	@DisplayName("단일 칵테일을 조회한다.")
