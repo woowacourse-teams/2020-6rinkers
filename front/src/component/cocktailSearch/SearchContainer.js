@@ -87,7 +87,6 @@ const SearchContainer = () => {
           <img className="searchButton" src="/image/search.svg" alt="search" />
         </div>
       </div>
-      <div className="tagsContainer">태그 보여주기 창</div>
     </div>
   );
 };
