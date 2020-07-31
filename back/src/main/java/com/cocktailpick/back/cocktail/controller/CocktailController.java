@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
-import com.cocktailpick.back.cocktail.dto.UserRecommendRequests;
+import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
 import com.cocktailpick.back.cocktail.service.CocktailService;
 
 @CrossOrigin("*")
@@ -75,9 +74,9 @@ public class CocktailController {
 		return ResponseEntity.created(URI.create("/api/cocktails")).build();
 	}
 
-	@GetMapping("/recommend")
+	@PostMapping("/recommend")
 	public ResponseEntity<List<CocktailDetailResponse>> recommend(
-		@ModelAttribute UserRecommendRequests recommendRequests) {
+		@RequestBody List<UserRecommendRequest> recommendRequests) {
 		List<CocktailDetailResponse> cocktailDetailResponses = cocktailService.recommend(recommendRequests);
 		return ResponseEntity.ok(cocktailDetailResponses);
 	}
