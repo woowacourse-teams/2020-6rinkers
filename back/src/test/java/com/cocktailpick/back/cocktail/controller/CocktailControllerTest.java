@@ -90,7 +90,6 @@ class CocktailControllerTest {
 	@DisplayName("칵테일을 전체 조회한다.")
 	@Test
 	void findCocktails() throws Exception {
-
 		List<CocktailResponse> cocktailResponses = Arrays.asList(
 			new CocktailResponse(1L, "싱가폴 슬링", "https://naver.com",
 				Collections.singletonList(new TagResponse("마지막 양심"))),
@@ -100,6 +99,23 @@ class CocktailControllerTest {
 		given(cocktailService.findAllCocktails()).willReturn(cocktailResponses);
 
 		mockMvc.perform(get("/api/cocktails")
+			.accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andDo(print());
+	}
+
+	@DisplayName("원하는 수만큼 페이징 된 칵테일을 조회한다.")
+	@Test
+	void findPagedCocktails() throws Exception {
+		List<CocktailResponse> cocktailResponses = Arrays.asList(
+			new CocktailResponse(1L, "싱가폴 슬링", "https://naver.com",
+				Collections.singletonList(new TagResponse("마지막 양심"))),
+			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
+				Arrays.asList(new TagResponse("쫄깃쫄깃"), new TagResponse("짭쪼름")))
+		);
+		given(cocktailService.findPagedCocktails(0, 2)).willReturn(cocktailResponses);
+
+		mockMvc.perform(get("/api/cocktails/pages?id=0&size=2")
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andDo(print());
@@ -121,7 +137,6 @@ class CocktailControllerTest {
 	@DisplayName("칵테일을 생성한다.")
 	@Test
 	void addCocktail() throws Exception {
-
 		given(cocktailService.save(any())).willReturn(1L);
 
 		mockMvc.perform(post("/api/cocktails")
