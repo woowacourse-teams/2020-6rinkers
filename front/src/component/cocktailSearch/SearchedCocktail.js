@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import CircularBox from "../common/CircularBox";
 
 const SearchedCocktail = ({ cocktail }) => {
   return (
@@ -13,7 +14,14 @@ const SearchedCocktail = ({ cocktail }) => {
           <img src={cocktail.imageUrl} alt={cocktail.name} />
         </div>
       </Link>
-      <div className="searchedCocktailTags">태그 태그 태그 태그 태그</div>
+      <div className="searchedCocktailTags">
+        {cocktail.tags &&
+          cocktail.tags
+            .splice(0, 4)
+            .map((tag, index) => (
+              <CircularBox key={"tag" + index} text={tag.name} />
+            ))}
+      </div>
     </div>
   );
 };
