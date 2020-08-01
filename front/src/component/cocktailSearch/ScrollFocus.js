@@ -9,7 +9,7 @@ const ScrollFocus = () => {
 
     document
       .getElementsByClassName("highLight")[0]
-      .scrollIntoView({ block: "center" });
+      .scrollIntoView({ block: "nearest"});
   });
 
   return <></>;
