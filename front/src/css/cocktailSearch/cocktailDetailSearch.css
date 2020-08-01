@@ -1,33 +1,35 @@
 .detail-info-container {
-    justify-content: center;
-    text-align: center;
-    margin: auto;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
 }
 
 .cocktail-name {
-    font-size: 1.5rem;
-    color: #a60000;
+  font-size: 1.5rem;
+  color: #a60000;
 }
 
 .detail-info-image-container {
-    width: 18rem;
-    height: 18rem;
-    display: inline-block;
+  width: 18rem;
+  height: 18rem;
+  display: inline-block;
 }
 
 .detail-info-image {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .cocktail-recipe {
-    margin: auto;
+  margin: auto;
 }
 
-.origin, .description {
-    text-align: left;
+.origin,
+.description {
+  text-align: left;
 }
 
-.origin > p, .description > p {
-    margin-left: 1rem;
+.origin > p,
+.description > p {
+  margin-left: 1rem;
 }

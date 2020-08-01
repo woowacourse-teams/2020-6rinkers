@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const client = axios.create({
-    baseURL: 'http://13.209.150.130:8080'
+  baseURL: "http://13.209.150.130:8080",
 });
 
 export const fetchAllCocktails = () => client.get("/api/cocktails");
@@ -11,14 +11,14 @@ export const createCocktail = (data) => client.post("/api/cocktails", data);
 export const createRecommend = (recommend) =>
   client.post(`/api/cocktails/recommend`, recommend);
 export const createCocktailsByCsv = (file) =>
-    client.post("/api/cocktails/upload/csv", file, {
-        headers: {
-            "Content-Type": "multipart/form-data",
-        },
-    });
+  client.post("/api/cocktails/upload/csv", file, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 export const createTagsByCsv = (file) =>
-    client.post("/api/tags/upload/csv", file, {
-        headers: {
-            "Content-Type": "multipart/form-data",
-        },
-    });
+  client.post("/api/tags/upload/csv", file, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
