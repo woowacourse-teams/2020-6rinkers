@@ -1,6 +1,7 @@
 package com.cocktailpick.back.cocktail.dto;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.tag.dto.TagResponse;
@@ -24,5 +25,11 @@ public class CocktailResponse {
 	public static CocktailResponse of(Cocktail cocktail) {
 		return new CocktailResponse(cocktail.getId(), cocktail.getName(), cocktail.getImageUrl(),
 			TagResponse.listOf(cocktail.getTags()));
+	}
+
+	public static List<CocktailResponse> ofList(List<Cocktail> cocktails) {
+		return cocktails.stream()
+			.map(CocktailResponse::of)
+			.collect(Collectors.toList());
 	}
 }
