@@ -1,11 +1,15 @@
 import React from "react";
-import InputContainer from "./InputContainer";
-import "../../css/admin/editFormContainer.css";
-import { createCocktail } from "../../api";
-import dataToCocktailRequest from "../../utils/admin/cocktailConverter";
-import FileUploadContainer from "./FileUplodeContainer";
+import CocktailInputContainer from "./CocktailInputContainer";
+import "../../../css/admin/editFormContainer.css";
+import { createCocktail } from "../../../api";
+import dataToCocktailRequest from "../../../utils/admin/cocktailConverter";
+import FileUploadContainer from "../common/FileUplodeContainer";
 
-const EditFormContainer = ({ cocktail, updateCocktail, onResetCocktail }) => {
+const CocktailEditFormContainer = ({
+  cocktail,
+  updateCocktail,
+  onResetCocktail,
+}) => {
   const onChange = (e) => {
     const { value, name } = e.target;
     console.log(value, name);
@@ -32,7 +36,7 @@ const EditFormContainer = ({ cocktail, updateCocktail, onResetCocktail }) => {
       </div>
       <div className="editForms">
         {Object.keys(cocktail).map((property, index) => (
-          <InputContainer
+          <CocktailInputContainer
             property={property}
             value={cocktail[property]}
             onChange={onChange}
@@ -50,4 +54,4 @@ const EditFormContainer = ({ cocktail, updateCocktail, onResetCocktail }) => {
   );
 };
 
-export default EditFormContainer;
+export default CocktailEditFormContainer;

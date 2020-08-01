@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { createCocktailsByCsv, createTagsByCsv } from "../../api";
+import { createCocktailsByCsv, createTagsByCsv } from "../../../api";
 
 const FileUploadContainer = () => {
   const [file, setFile] = useState({});

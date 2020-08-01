@@ -3,8 +3,8 @@ import { Route, Switch } from "react-router-dom";
 import Header from "../component/common/Header";
 import Home from "../component/home/Home";
 import Footer from "../component/common/Footer";
-import AdminHeader from "../component/admin/AdminHeader";
-import Admin from "../component/admin/Admin";
+import AdminHeader from "../component/admin/common/AdminHeader";
+import CocktailAdmin from "../component/admin/cocktail/CocktailAdmin";
 import CocktailSearch from "../component/cocktailSearch/CocktailSearch";
 import CocktailDetailSearch from "../component/cocktailSearch/CocktailDetailSearch";
 import Question from "../component/recommend/Question";
@@ -28,7 +28,7 @@ const Routes = ({ cocktails, setCocktails }) => {
       <Route render={({ location }) => checkAdmin(location)} />
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/admin" component={Admin} />
+        <Route path="/admin/cocktails" component={CocktailAdmin} />
         <Route path="/cocktails/search" component={CocktailSearch} />
         <Route path="/cocktail/:id" component={CocktailDetailSearch} />
         <Route path="/recommend">
