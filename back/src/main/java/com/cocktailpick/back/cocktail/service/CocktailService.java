@@ -210,4 +210,9 @@ public class CocktailService {
 		Cocktail cocktailOfToday = cocktailSearcher.findIn(cocktails);
 		return CocktailResponse.of(cocktailOfToday);
 	}
+
+	@Transactional(readOnly = true)
+	public List<CocktailResponse> containName(String name) {
+		return null;
+	}
 }

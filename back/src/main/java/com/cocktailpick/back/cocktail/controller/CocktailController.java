@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -86,5 +87,11 @@ public class CocktailController {
 		@RequestBody List<UserRecommendRequest> recommendRequests) {
 		List<CocktailDetailResponse> cocktailDetailResponses = cocktailService.recommend(recommendRequests);
 		return ResponseEntity.ok(cocktailDetailResponses);
+	}
+
+	@GetMapping("/contain")
+	public ResponseEntity<List<CocktailResponse>> containName(@RequestParam @NotNull String name) {
+		List<CocktailResponse> cocktailResponses = cocktailService.containName(name);
+		return ResponseEntity.ok(cocktailResponses);
 	}
 }
