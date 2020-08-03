@@ -3,7 +3,10 @@ package com.cocktailpick.back.tag.controller;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +20,7 @@ import com.cocktailpick.back.tag.dto.TagResponse;
 import com.cocktailpick.back.tag.service.TagService;
 import lombok.RequiredArgsConstructor;
 
+@CrossOrigin("*")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/tags")
@@ -36,7 +40,7 @@ public class TagController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Void> createTag(@RequestBody TagRequest tagRequest) {
+	public ResponseEntity<Void> createTag(@RequestBody @Valid TagRequest tagRequest) {
 		Long tagId = tagService.createTag(tagRequest);
 
 		return ResponseEntity.created(URI.create("/api/tags/" + tagId)).build();
