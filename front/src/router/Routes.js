@@ -32,7 +32,7 @@ const Routes = ({ cocktails, setCocktails }) => {
         <Route path="/admin/cocktails" component={CocktailAdmin} />
         <Route path="/admin/tags" component={TagAdmin} />
         <Route path="/cocktails/search" component={CocktailSearch} />
-        <Route path="/cocktail/:id" component={CocktailDetailSearch} />
+        <Route path="/cocktails/:id" component={CocktailDetailSearch} />
         <Route path="/recommend">
           <Question cocktails={cocktails} setCocktails={setCocktails} />
         </Route>

@@ -6,6 +6,7 @@
 
 .searchContainer {
   display: flex;
+  position: relative;
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -95,6 +96,34 @@
 
 .searchedCocktailTags {
   margin: 1rem 0;
+}
+
+.cocktailSearchInput {
+  margin-left: 8px;
+}
+
+.autoCocktailWords {
+  z-index: 100;
+  position: absolute;
+  top: 33px;
+  background-color: #FFFFFF;
+  width: inherit;
+  border-radius: 5px;
+  font-size: 16px;
+  box-shadow: 0 0 20px 0 rgba(0,0,0,0.2);
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  max-height: 240px;
+  cursor: default;
+}
+
+.autoCocktailWords .highLight {
+  background-color: rgba(166, 0, 0, 0.9);
+  color: white;
+}
+
+.autoCocktailWord {
+  padding: 8px;
 }
 
 @media screen and (max-width: 1024px) {

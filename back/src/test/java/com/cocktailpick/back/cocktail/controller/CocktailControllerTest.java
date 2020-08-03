@@ -228,4 +228,16 @@ class CocktailControllerTest {
 			.andExpect(status().isOk())
 			.andDo(print());
 	}
+
+	@DisplayName("특정 문자열을 포함하는 칵테일을 반환한다.")
+	@Test
+	void containName() throws Exception {
+		given(cocktailService.containName(anyString())).willReturn(anyList());
+
+		mockMvc.perform(get("/api/cocktails/contain")
+			.param("name", "두강")
+			.accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andDo(print());
+	}
 }

@@ -8,7 +8,7 @@ const SearchedCocktail = ({ cocktail }) => {
       data-search-cocktail={cocktail.id}
     >
       <div className="searchedCocktailName">{cocktail.name}</div>
-      <Link to={`/cocktail/${cocktail.id}`}>
+      <Link to={`/cocktails/${cocktail.id}`}>
         <div className="searchedCocktailImage">
           <img src={cocktail.imageUrl} alt={cocktail.name} />
         </div>

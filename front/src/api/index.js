@@ -9,6 +9,8 @@ export const fetchPagedCocktails = (id, size) =>
   client.get("/api/cocktails/pages", { params: { id, size } });
 export const fetchCocktail = (id) => client.get(`/api/cocktails/${id}`);
 export const fetchTodayCocktail = () => client.get("/api/cocktails/today");
+export const fetchCocktailsContaining = (name) =>
+  client.get(`api/cocktails/contain?name=${name}`);
 export const createCocktail = (data) => client.post("/api/cocktails", data);
 export const createTag = (data) => client.post("/api/tags", data);
 export const fetchAllTags = () => client.get("/api/tags");

@@ -298,4 +298,12 @@ public class CocktailServiceTest {
 		assertThat(cocktailService.recommend(recommendRequests.getUserRecommendRequests()))
 			.extracting("name").contains("d");
 	}
+
+	@Test
+	void containName() {
+		when(cocktailRepository.findByNameContaining("두강")).thenReturn(anyList());
+
+		List<CocktailResponse> cocktailResponses = cocktailService.containName("두강");
+		assertThat(cocktailResponses).isNotNull();
+	}
 }
