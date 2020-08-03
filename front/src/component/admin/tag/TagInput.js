@@ -41,7 +41,7 @@ const TagInput = ({ tag, updateTag }) => {
         value={tag}
         placeholder="추가할 태그명을 입력해주세요."
         onChange={onChange}
-        onKeyDown={onEnter}
+        onKeyPress={onEnter}
         style={inputStyle}
       />
       <button type="submit" onClick={onSubmit}>
