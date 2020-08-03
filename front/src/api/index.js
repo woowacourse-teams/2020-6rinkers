@@ -5,6 +5,8 @@ const client = axios.create({
 });
 
 export const fetchAllCocktails = () => client.get("/api/cocktails");
+export const fetchPagedCocktails = (id, size) =>
+  client.get("/api/cocktails/pages", { params: { id, size } });
 export const fetchCocktail = (id) => client.get(`/api/cocktails/${id}`);
 export const fetchTodayCocktail = () => client.get("/api/cocktails/today");
 export const createCocktail = (data) => client.post("/api/cocktails", data);

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,6 +38,12 @@ public class CocktailController {
 	@GetMapping
 	public ResponseEntity<List<CocktailResponse>> findCocktails() {
 		return ResponseEntity.ok(cocktailService.findAllCocktails());
+	}
+
+	@GetMapping("/pages")
+	public ResponseEntity<List<CocktailResponse>> findPagedCocktails(@RequestParam long id, @RequestParam int size) {
+		List<CocktailResponse> cocktailResponses = cocktailService.findPagedCocktails(id, size);
+		return ResponseEntity.ok(cocktailResponses);
 	}
 
 	@GetMapping("/{id}")

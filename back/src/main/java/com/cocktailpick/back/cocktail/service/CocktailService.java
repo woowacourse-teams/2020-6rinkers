@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,7 +23,6 @@ import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
 import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
-import com.cocktailpick.back.cocktail.dto.UserRecommendRequests;
 import com.cocktailpick.back.common.EntityMapper;
 import com.cocktailpick.back.common.csv.OpenCsvReader;
 import com.cocktailpick.back.common.domain.DailyDate;
@@ -46,6 +47,15 @@ public class CocktailService {
 	@Transactional(readOnly = true)
 	public List<CocktailResponse> findAllCocktails() {
 		return Collections.unmodifiableList(cocktailRepository.findAll().stream()
+			.map(CocktailResponse::of)
+			.collect(Collectors.toList()));
+	}
+
+	@Transactional(readOnly = true)
+	public List<CocktailResponse> findPagedCocktails(long id, int size) {
+		Pageable pageRequest = PageRequest.of(0, size);
+		List<Cocktail> cocktails = cocktailRepository.findByIdGreaterThan(id, pageRequest).getContent();
+		return Collections.unmodifiableList(cocktails.stream()
 			.map(CocktailResponse::of)
 			.collect(Collectors.toList()));
 	}
