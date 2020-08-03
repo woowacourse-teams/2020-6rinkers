@@ -10,32 +10,44 @@ const SearchContainer = () => {
   const [highLight, setHighLight] = useState(0);
   const [redirect, setRedirect] = useState("");
 
+  const focusDown = () => {
+    if (highLight === cocktails.length - 1) {
+      return;
+    }
+    setHighLight(highLight + 1);
+  };
+
+  const focusUp = () => {
+    if (highLight === 0) {
+      return;
+    }
+    setHighLight(highLight - 1);
+  };
+
+  const redirectWhenHasInput = () => {
+    if (cocktails.length === 0) {
+      return;
+    }
+    setRedirect(`/cocktails/${cocktails[highLight].id}`);
+  };
+
   const onKeyDown = (e) => {
     if (e.keyCode === DOWN || e.keyCode === UP || e.keyCode === ENTER) {
       e.preventDefault();
     }
 
     if (e.keyCode === DOWN) {
-      if (highLight === cocktails.length - 1) {
-        return;
-      }
-      setHighLight(highLight + 1);
+      focusDown();
       return;
     }
 
     if (e.keyCode === UP) {
-      if (highLight === 0) {
-        return;
-      }
-      setHighLight(highLight - 1);
+      focusUp();
       return;
     }
 
     if (e.keyCode === ENTER) {
-      if (cocktails.length === 0) {
-        return;
-      }
-      setRedirect(`/cocktails/${cocktails[highLight].id}`);
+      redirectWhenHasInput();
     }
   };
 
