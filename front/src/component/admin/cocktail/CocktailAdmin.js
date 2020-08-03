@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import EditFormContainer from "./EditFormContainer";
+import CocktailEditFormContainer from "./CocktailEditFormContainer";
 import CocktailListContainer from "./CocktailListContainer";
-import { DEFAULT_COCKTAIL_DATA } from "../../utils/admin/constant";
-import "../../css/admin/admin.css";
+import { DEFAULT_COCKTAIL_DATA } from "../../../utils/admin/constant";
+import "../../../css/admin/admin.css";
 
-const Admin = () => {
+const CocktailAdmin = () => {
   const [cocktail, setCocktail] = useState(DEFAULT_COCKTAIL_DATA);
 
   const onUpdateCocktail = (value, name) => {
@@ -21,7 +21,7 @@ const Admin = () => {
   return (
     <div className="admin">
       <div className="editFormContainer">
-        <EditFormContainer
+        <CocktailEditFormContainer
           cocktail={cocktail}
           updateCocktail={onUpdateCocktail}
           onResetCocktail={onResetCocktail}
@@ -34,4 +34,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default CocktailAdmin;

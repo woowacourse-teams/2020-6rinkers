@@ -15,7 +15,7 @@
   width: 100px;
   border: var(--light_black) 1px solid;
   border-radius: 10px;
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
 .link > a {

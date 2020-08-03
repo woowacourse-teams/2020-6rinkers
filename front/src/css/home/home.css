@@ -13,7 +13,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: .8rem;
+  padding: 0.8rem;
   cursor: pointer;
   box-shadow: 0 0 20px 0px var(--little-dark-white);
 }
@@ -42,7 +42,7 @@
 .homeRecommendation {
   display: flex;
   align-items: center;
-  height: .5rem;
+  height: 0.5rem;
   cursor: pointer;
   margin-bottom: 1rem;
   padding: 0 1rem;
@@ -70,10 +70,10 @@
     flex-direction: column;
     align-items: center;
     max-width: 75vw;
-    padding: .8rem;
+    padding: 0.8rem;
     cursor: pointer;
     box-shadow: 0 0 20px 0px var(--little-dark-white);
-    margin: .7rem 0;
+    margin: 0.7rem 0;
   }
 
   .todayCocktailContainer:hover {

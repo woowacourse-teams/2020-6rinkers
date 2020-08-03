@@ -1,6 +1,6 @@
 import React from "react";
 
-const InputContainer = ({ property, value, onChange, onEnter }) => {
+const CocktailInputContainer = ({ property, value, onChange, onEnter }) => {
   return (
     <div className="inputContainer">
       <div>{property}</div>
@@ -15,4 +15,4 @@ const InputContainer = ({ property, value, onChange, onEnter }) => {
   );
 };
 
-export default InputContainer;
+export default CocktailInputContainer;
