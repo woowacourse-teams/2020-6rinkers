@@ -7,8 +7,16 @@ import "../../css/recommend/result.css";
 const Result = ({ cocktails }) => {
   const history = useHistory();
 
-  if (!cocktails) {
-    history.push("/question");
+  if (cocktails.length === 0) {
+    return (
+      <div className="no-result-container">
+        <h2>아쉽게도 결과가 없네요</h2>
+        <h1>😥</h1>
+        <button className="btn-result-main" onClick={() => history.push("/")}>
+          메인으로 돌아가기
+        </button>
+      </div>
+    );
   }
 
   return (

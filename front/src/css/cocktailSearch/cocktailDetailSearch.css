@@ -2,6 +2,7 @@
   justify-content: center;
   text-align: center;
   margin: auto;
+  user-select: none;
 }
 
 .cocktail-name {

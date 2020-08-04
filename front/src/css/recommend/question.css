@@ -28,3 +28,7 @@
   font-size: large;
   padding: 0.2rem 0.5rem;
 }
+
+.answer-button:focus {
+  outline: 0;
+}

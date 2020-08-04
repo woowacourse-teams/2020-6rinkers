@@ -1,5 +1,148 @@
-.result-container {
-  width: 60%;
+.no-result-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 60vw;
+  height: 60vh;
   margin: auto;
   text-align: center;
+  user-select: none;
+}
+
+.no-result-container > h2 {
+  padding: 2rem;
+}
+
+.no-result-container > h1 {
+  padding: 3rem;
+}
+
+.btn-result-main {
+  color: white;
+  font-size: 15px;
+  background-color: var(--little-light-red);
+  margin: 1rem 0;
+  padding: 0.3rem 0.6rem;
+  border-radius: 10px;
+  border: 0;
+  outline: 0;
+  user-select: none;
+}
+
+.result-container {
+  width: 60vw;
+  height: 60vh;
+  margin: auto;
+  text-align: center;
+  user-select: none;
+}
+
+.result-container > div {
+  height: 100%;
+}
+
+.carousel-initialized,
+.carousel-track,
+.carousel-row,
+.carousel-item {
+  height: 100% !important;
+}
+
+.result-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+.result-slide a {
+  display: flex;
+  justify-content: center;
+}
+
+.result-cocktail-name {
+  font-size: 20px;
+  margin-bottom: 2rem;
+}
+
+.result-cocktail-image {
+  width: 30vw;
+  margin-bottom: 1rem;
+}
+
+.result-cocktail-description {
+  display: flex;
+  justify-content: center;
+  text-align: justify;
+  width: 70%;
+  padding: 1rem 2rem 0 2rem;
+  border-top: var(--little-light-red) 1px solid;
+  overflow: auto !important;
+}
+
+@media screen and (max-width: 700px) {
+  .result-container {
+    height: 70vh;
+    width: 90vw;
+  }
+
+  .no-result-container {
+    height: 70vh;
+    width: 90vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .no-result-container > h2 {
+    padding: 1rem;
+  }
+
+  .no-result-container > h1 {
+    padding: 2rem;
+  }
+
+  .result-container > div {
+    height: 100%;
+  }
+
+  .carousel-initialized,
+  .carousel-track,
+  .carousel-row,
+  .carousel-item {
+    height: 100% !important;
+  }
+
+  .result-slide {
+    height: 100% !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .result-cocktail-name {
+    margin: 1rem 0 0 0;
+  }
+
+  .result-cocktail-image {
+    width: 80vw;
+  }
+
+  .result-cocktail-description {
+    display: flex;
+    justify-content: center;
+    width: 80vw;
+    height: 110px;
+    padding: 1rem 3vw 0 3vw;
+    text-align: justify;
+    border-top: var(--little-light-red) 1px solid;
+    overflow: auto !important;
+  }
+
+  .carousel-item.active {
+    height: 100% !important;
+  }
 }

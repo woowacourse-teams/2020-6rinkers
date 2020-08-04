@@ -106,11 +106,11 @@
   z-index: 100;
   position: absolute;
   top: 33px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   width: inherit;
   border-radius: 5px;
   font-size: 16px;
-  box-shadow: 0 0 20px 0 rgba(0,0,0,0.2);
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
   overflow-y: scroll;
   scroll-behavior: smooth;
   max-height: 240px;

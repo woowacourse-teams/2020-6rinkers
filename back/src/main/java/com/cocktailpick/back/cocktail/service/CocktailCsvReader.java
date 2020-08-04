@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 public class CocktailCsvReader {
-	private static final String TRUE_VALUE = "1";
+	private static final String TRUE_VALUE = "1.0";
 
 	private static final int NAME_INDEX = 0;
 	private static final int ABV_INDEX = 1;

@@ -12,6 +12,6 @@
 
 ## 정보
 
-- [@인스타그램 주소](https://instagram.com/6rinkers)
+- [@인스타그램 주소](https://instagram.com/cocktail_pick)
 - 이메일 주소 : 6rinkers@gmail.com  
 - [깃허브 레포지토리](https://github.com/woowacourse-teams/2020-6rinkers/)
