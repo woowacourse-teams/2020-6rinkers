@@ -7,28 +7,36 @@ import ScrollFocus from "./ScrollFocus";
 
 const SearchContainer = () => {
   const [cocktails, setCocktails] = useState([]);
-  const [highLight, setHighLight] = useState(0);
+  const [highLightIndex, setHighLightIndex] = useState(-1);
   const [redirect, setRedirect] = useState("");
 
+  const isNotFocus = (index) => {
+    return index === -1;
+  };
+
+  const focusOut = () => {
+    setHighLightIndex(-1);
+  };
+
   const focusDown = () => {
-    if (highLight === cocktails.length - 1) {
+    if (highLightIndex === cocktails.length - 1) {
       return;
     }
-    setHighLight(highLight + 1);
+    setHighLightIndex(highLightIndex + 1);
   };
 
   const focusUp = () => {
-    if (highLight === 0) {
+    if (isNotFocus(highLightIndex)) {
       return;
     }
-    setHighLight(highLight - 1);
+    setHighLightIndex(highLightIndex - 1);
   };
 
   const redirectWhenHasInput = () => {
     if (cocktails.length === 0) {
       return;
     }
-    setRedirect(`/cocktails/${cocktails[highLight].id}`);
+    setRedirect(`/cocktails/${cocktails[highLightIndex].id}`);
   };
 
   const onKeyDown = (e) => {
@@ -62,7 +70,7 @@ const SearchContainer = () => {
     const response = await fetchCocktailsContaining(word);
     const autoCompleted = response.data;
     setCocktails(autoCompleted);
-    setHighLight(0);
+    focusOut();
   };
 
   return redirect ? (
@@ -77,11 +85,12 @@ const SearchContainer = () => {
           placeholder="검색어를 입력하세요."
           onChange={onChange}
           onKeyDown={onKeyDown}
+          onMouseDown={focusOut}
         />
         <AutoCocktailWords
           cocktails={cocktails}
-          highLight={highLight}
-          updateHighLight={setHighLight}
+          highLight={highLightIndex}
+          updateHighLight={setHighLightIndex}
         />
         <div className="searchButtonContainer">
           <img className="searchButton" src="/image/search.svg" alt="search" />
