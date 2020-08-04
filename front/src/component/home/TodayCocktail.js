@@ -16,7 +16,7 @@ const TodayCocktail = () => {
   return (
     <div className="todayCocktailContainer">
       <div className="todayCocktailTitle">오늘의 칵테일</div>
-      <Link to={`/cocktail/${todayCocktail.id}`}>
+      <Link to={`/cocktails/${todayCocktail.id}`}>
         <div className="todayCocktailImage">
           <img src={todayCocktail.imageUrl} alt={todayCocktail.name} />
         </div>
