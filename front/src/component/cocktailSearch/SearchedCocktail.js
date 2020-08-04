@@ -17,7 +17,7 @@ const SearchedCocktail = ({ cocktail }) => {
       <div className="searchedCocktailTags">
         {cocktail.tags &&
           cocktail.tags
-            .splice(0, 4)
+            .slice(0, 4)
             .map((tag, index) => (
               <CircularBox key={"tag" + index} text={tag.name} />
             ))}
