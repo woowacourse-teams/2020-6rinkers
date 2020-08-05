@@ -52,9 +52,10 @@ public class CocktailService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<CocktailResponse> findPagedCocktails(long id, int size) {
+	public List<CocktailResponse> findPagedCocktails(String contain, long id, int size) {
 		Pageable pageRequest = PageRequest.of(0, size);
-		List<Cocktail> cocktails = cocktailRepository.findByIdGreaterThan(id, pageRequest).getContent();
+		List<Cocktail> cocktails = cocktailRepository.findByNameContainingAndIdGreaterThan(contain, id, pageRequest)
+			.getContent();
 		return Collections.unmodifiableList(cocktails.stream()
 			.map(CocktailResponse::of)
 			.collect(Collectors.toList()));

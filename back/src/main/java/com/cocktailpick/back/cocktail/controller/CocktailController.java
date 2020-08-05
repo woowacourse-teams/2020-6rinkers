@@ -42,8 +42,9 @@ public class CocktailController {
 	}
 
 	@GetMapping("/pages")
-	public ResponseEntity<List<CocktailResponse>> findPagedCocktails(@RequestParam long id, @RequestParam int size) {
-		List<CocktailResponse> cocktailResponses = cocktailService.findPagedCocktails(id, size);
+	public ResponseEntity<List<CocktailResponse>> findPagedCocktails(@RequestParam(defaultValue = "") String contain,
+		@RequestParam long id, @RequestParam int size) {
+		List<CocktailResponse> cocktailResponses = cocktailService.findPagedCocktails(contain, id, size);
 		return ResponseEntity.ok(cocktailResponses);
 	}
 

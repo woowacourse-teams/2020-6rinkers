@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CocktailRepository extends JpaRepository<Cocktail, Long> {
-	Page<Cocktail> findByIdGreaterThan(long id, Pageable pageRequest);
+	Page<Cocktail> findByNameContainingAndIdGreaterThan(String contain, long id, Pageable pageRequest);
 
-	List<Cocktail> findByNameContaining(String name);
+	List<Cocktail> findByNameContaining(String contain);
 }

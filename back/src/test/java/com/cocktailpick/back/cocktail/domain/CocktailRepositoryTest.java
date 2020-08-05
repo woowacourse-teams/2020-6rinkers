@@ -96,7 +96,7 @@ public class CocktailRepositoryTest {
 		cocktailRepository.saveAll(Arrays.asList(blueHawaii, martini, ginTonic));
 
 		Pageable pageRequest = PageRequest.of(0, 2);
-		assertThat(cocktailRepository.findByIdGreaterThan(1, pageRequest).getContent()).hasSize(
+		assertThat(cocktailRepository.findByNameContainingAndIdGreaterThan("", 1, pageRequest).getContent()).hasSize(
 			pageRequest.getPageSize());
 	}
 
@@ -104,7 +104,7 @@ public class CocktailRepositoryTest {
 	@Test
 	void findByIdGreaterThan_whenNoData_returnEmptyList() {
 		Pageable pageRequest = PageRequest.of(0, 2);
-		assertThat(cocktailRepository.findByIdGreaterThan(1, pageRequest).getContent()).hasSize(0);
+		assertThat(cocktailRepository.findByNameContainingAndIdGreaterThan("", 1, pageRequest).getContent()).hasSize(0);
 	}
 
 	@DisplayName("칵테일이 삭제될 경우 recipeItem도 삭제한다.")

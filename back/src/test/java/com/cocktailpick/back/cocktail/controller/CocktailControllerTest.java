@@ -113,7 +113,7 @@ class CocktailControllerTest {
 			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
 				Arrays.asList(new TagResponse("쫄깃쫄깃"), new TagResponse("짭쪼름")))
 		);
-		given(cocktailService.findPagedCocktails(0, 2)).willReturn(cocktailResponses);
+		given(cocktailService.findPagedCocktails("", 0, 2)).willReturn(cocktailResponses);
 
 		mockMvc.perform(get("/api/cocktails/pages?id=0&size=2")
 			.accept(MediaType.APPLICATION_JSON))
