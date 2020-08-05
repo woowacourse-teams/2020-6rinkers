@@ -2,6 +2,7 @@ package com.cocktailpick.back.common.csv;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -29,7 +30,7 @@ public class OpenCsvReader implements CsvReader {
 
 	private static InputStreamReader createInputStreamReader(MultipartFile file) {
 		try {
-			return new InputStreamReader(file.getInputStream());
+			return new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8);
 		} catch (IOException e) {
 			throw new InvalidValueException(ErrorCode.INVALID_INPUT_VALUE);
 		}

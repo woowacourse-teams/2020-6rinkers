@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const client = axios.create({
-  baseURL: "http://13.209.150.130:8080",
+  baseURL: "http://3.34.230.110",
 });
 
 export const fetchAllCocktails = () => client.get("/api/cocktails");
