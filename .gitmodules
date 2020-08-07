@@ -1,0 +1,3 @@
+[submodule "back/src/main/resources/config"]
+	path = back/src/main/resources/config
+	url = https://github.com/ParkDooWon/6rinkers-config
