@@ -117,7 +117,7 @@
   cursor: default;
 }
 
-.autoCocktailWords .highLight {
+.autoCocktailWords .highlight {
   background-color: rgba(166, 0, 0, 0.9);
   color: white;
 }

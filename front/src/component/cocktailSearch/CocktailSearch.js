@@ -1,38 +1,42 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import SearchedCocktails from "./SearchedCocktails";
 import "../../css/cocktailSearch/cocktailSearch.css";
 import SearchContainer from "./SearchContainer";
-import { fetchPagedCocktails } from "../../api";
+import {fetchPagedCocktails} from "../../api";
 
 const CocktailSearch = () => {
   const [loading, setLoading] = useState(false);
-  const [cocktails, setCocktails] = useState([
-    {
-      id: 0,
-      name: "블루하와이",
-      imageUrl: "/image/blue-hawai.png",
-    },
-  ]);
-
+  const [cocktails, setCocktails] = useState([]);
   const [lastCocktailId, setLastCocktailId] = useState(0);
+  const [searchWord, setSearchWord] = useState("");
 
   const toggleLoading = async () => {
     await setLoading(!loading);
   };
 
-  const onInitialLoadCocktails = async () => {
-    const response = await fetchPagedCocktails(lastCocktailId, 15);
+  const initCocktails = async () => {
+    const response = await fetchPagedCocktails({
+      contain: searchWord,
+      id: 0,
+      size: 15,
+    });
     const content = response.data;
 
     setCocktails(content);
-    setLastCocktailId(content[content.length - 1].id);
+    setLastCocktailId(!content.length || content[content.length - 1].id);
   };
 
   const onLoadCocktails = async (size) => {
     if (loading) {
       return;
     }
-    const response = await fetchPagedCocktails(lastCocktailId, size);
+
+    const response = await fetchPagedCocktails({
+      contain: searchWord,
+      id: lastCocktailId,
+      size: size,
+    });
+
     const content = response.data;
     setCocktails(cocktails.concat(content));
     setLastCocktailId(cocktails[cocktails.length - 1].id);
@@ -44,7 +48,7 @@ const CocktailSearch = () => {
 
     if (
       document.documentElement.scrollTop +
-        document.documentElement.clientHeight >=
+      document.documentElement.clientHeight >=
       document.documentElement.scrollHeight - threshold
     ) {
       await toggleLoading();
@@ -53,19 +57,23 @@ const CocktailSearch = () => {
     }
   }, [cocktails, lastCocktailId]);
 
+  const updateSearchWord = (word) => {
+    setSearchWord(word);
+  };
+
   useEffect(() => {
     window.addEventListener("scroll", infiniteScroll, true);
     return () => window.removeEventListener("scroll", infiniteScroll, true);
   }, [infiniteScroll]);
 
   useEffect(() => {
-    onInitialLoadCocktails();
-  }, []);
+    initCocktails();
+  }, [searchWord]);
 
   return (
     <div className="cocktailSearchContainer">
-      <SearchContainer />
-      <SearchedCocktails cocktails={cocktails} />
+      <SearchContainer onUpdateSearchWord={updateSearchWord}/>
+      <SearchedCocktails cocktails={cocktails}/>
     </div>
   );
 };

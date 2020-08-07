@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 
 const ScrollFocus = () => {
   useEffect(() => {
-    const highLighted = document.getElementsByClassName("highLight")[0];
+    const highLighted = document.getElementsByClassName("highlight")[0];
     if (!highLighted) {
       return;
     }

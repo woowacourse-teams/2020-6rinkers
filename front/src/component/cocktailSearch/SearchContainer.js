@@ -1,42 +1,56 @@
-import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import React, {useRef, useState} from "react";
+import {Redirect} from "react-router-dom";
 import AutoCocktailWords from "./AutoCocktailWords";
-import { fetchCocktailsContaining } from "../../api";
-import { UP, DOWN, ENTER } from "../../constants/keyCode";
+import {fetchCocktailsContaining} from "../../api";
+import {DOWN, ENTER, ESC, UP} from "../../constants/keyCode";
 import ScrollFocus from "./ScrollFocus";
 
-const SearchContainer = () => {
+const SearchContainer = ({onUpdateSearchWord}) => {
   const [cocktails, setCocktails] = useState([]);
-  const [highLightIndex, setHighLightIndex] = useState(-1);
+  const [highlight, setHighlightIndex] = useState(-1);
   const [redirect, setRedirect] = useState("");
+  const [autoBox, setAutoBox] = useState(true);
+  const searchInput = useRef();
 
   const isNotFocus = (index) => {
     return index === -1;
   };
 
-  const focusOut = () => {
-    setHighLightIndex(-1);
+  const onBlur = () => {
+    setAutoBox(false);
   };
 
-  const focusDown = () => {
-    if (highLightIndex === cocktails.length - 1) {
-      return;
-    }
-    setHighLightIndex(highLightIndex + 1);
+  const highlightOut = () => {
+    setHighlightIndex(-1);
+    setAutoBox(true);
   };
 
-  const focusUp = () => {
-    if (isNotFocus(highLightIndex)) {
+  const highlightDown = () => {
+    if (highlight === cocktails.length - 1) {
       return;
     }
-    setHighLightIndex(highLightIndex - 1);
+    setHighlightIndex(highlight + 1);
   };
 
-  const redirectWhenHasInput = () => {
-    if (cocktails.length === 0) {
+  const highlightUp = () => {
+    if (isNotFocus(highlight)) {
       return;
     }
-    setRedirect(`/cocktails/${cocktails[highLightIndex].id}`);
+    setHighlightIndex(highlight - 1);
+  };
+
+  const search = () => {
+    if (isNotFocus(highlight)) {
+      onUpdateSearchWord(searchInput.current.value);
+      setAutoBox(false);
+      return;
+    }
+
+    if (cocktails.length === 0 || autoBox === false) {
+      return;
+    }
+
+    setRedirect(`/cocktails/${cocktails[highlight].id}`);
   };
 
   const onKeyDown = (e) => {
@@ -45,17 +59,21 @@ const SearchContainer = () => {
     }
 
     if (e.keyCode === DOWN) {
-      focusDown();
+      highlightDown();
       return;
     }
 
     if (e.keyCode === UP) {
-      focusUp();
+      highlightUp();
       return;
     }
 
     if (e.keyCode === ENTER) {
-      redirectWhenHasInput();
+      search();
+    }
+
+    if (e.keyCode === ESC) {
+      setAutoBox(false);
     }
   };
 
@@ -70,14 +88,17 @@ const SearchContainer = () => {
     const response = await fetchCocktailsContaining(word);
     const autoCompleted = response.data;
     setCocktails(autoCompleted);
-    focusOut();
+    setAutoBox(true);
+    highlightOut();
   };
 
+  const onMouseDown = () => search();
+
   return redirect ? (
-    <Redirect push to={redirect} />
+    <Redirect push to={redirect}/>
   ) : (
     <div className="searchContainer">
-      <ScrollFocus />
+      <ScrollFocus/>
       <div className="search">
         <input
           className="cocktailSearchInput"
@@ -85,15 +106,19 @@ const SearchContainer = () => {
           placeholder="검색어를 입력하세요."
           onChange={onChange}
           onKeyDown={onKeyDown}
-          onMouseDown={focusOut}
+          onMouseDown={highlightOut}
+          onBlur={onBlur}
+          ref={searchInput}
         />
-        <AutoCocktailWords
-          cocktails={cocktails}
-          highLight={highLightIndex}
-          updateHighLight={setHighLightIndex}
-        />
-        <div className="searchButtonContainer">
-          <img className="searchButton" src="/image/search.svg" alt="search" />
+        {!autoBox || (
+          <AutoCocktailWords
+            cocktails={cocktails}
+            highlight={highlight}
+            updateHighlight={setHighlightIndex}
+          />
+        )}
+        <div className="searchButtonContainer" onMouseDown={onMouseDown}>
+          <img className="searchButton" src="/image/search.svg" alt="search"/>
         </div>
       </div>
     </div>

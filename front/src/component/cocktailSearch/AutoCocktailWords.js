@@ -1,13 +1,13 @@
 import React from "react";
 import AutoCocktailWord from "./AutoCocktailWord";
 
-const AutoCocktailWords = ({ cocktails, highLight, updateHighLight }) => {
+const AutoCocktailWords = ({cocktails, highlight, updateHighlight}) => {
   const onMouseOver = (e) => {
     const index = parseInt(e.target.dataset.index);
     if (isNaN(index)) {
       return;
     }
-    updateHighLight(index);
+    updateHighlight(index);
   };
 
   return (
@@ -16,7 +16,7 @@ const AutoCocktailWords = ({ cocktails, highLight, updateHighLight }) => {
         <AutoCocktailWord
           key={cocktail.id}
           cocktail={cocktail}
-          highLight={highLight === index}
+          highlight={highlight === index}
           index={index}
         />
       ))}
