@@ -3,11 +3,10 @@ import {Redirect} from "react-router-dom";
 import AutoCocktailWords from "./AutoCocktailWords";
 import {fetchCocktailsContaining} from "../../api";
 import {DOWN, ENTER, ESC, UP} from "../../constants/keyCode";
-import ScrollFocus from "./ScrollFocus";
 
 const SearchContainer = ({onUpdateSearchWord}) => {
   const [cocktails, setCocktails] = useState([]);
-  const [highlight, setHighlightIndex] = useState(-1);
+  const [highlightIndex, setHighlightIndex] = useState(-1);
   const [redirect, setRedirect] = useState("");
   const [autoBox, setAutoBox] = useState(true);
   const searchInput = useRef();
@@ -26,21 +25,21 @@ const SearchContainer = ({onUpdateSearchWord}) => {
   };
 
   const highlightDown = () => {
-    if (highlight === cocktails.length - 1) {
+    if (highlightIndex === cocktails.length - 1) {
       return;
     }
-    setHighlightIndex(highlight + 1);
+    setHighlightIndex(highlightIndex + 1);
   };
 
   const highlightUp = () => {
-    if (isNotFocus(highlight)) {
+    if (isNotFocus(highlightIndex)) {
       return;
     }
-    setHighlightIndex(highlight - 1);
+    setHighlightIndex(highlightIndex - 1);
   };
 
   const search = () => {
-    if (isNotFocus(highlight)) {
+    if (isNotFocus(highlightIndex)) {
       onUpdateSearchWord(searchInput.current.value);
       setAutoBox(false);
       return;
@@ -50,7 +49,7 @@ const SearchContainer = ({onUpdateSearchWord}) => {
       return;
     }
 
-    setRedirect(`/cocktails/${cocktails[highlight].id}`);
+    setRedirect(`/cocktails/${cocktails[highlightIndex].id}`);
   };
 
   const onKeyDown = (e) => {
@@ -92,13 +91,10 @@ const SearchContainer = ({onUpdateSearchWord}) => {
     highlightOut();
   };
 
-  const onMouseDown = () => search();
-
   return redirect ? (
     <Redirect push to={redirect}/>
   ) : (
     <div className="searchContainer">
-      <ScrollFocus/>
       <div className="search">
         <input
           className="cocktailSearchInput"
@@ -113,11 +109,12 @@ const SearchContainer = ({onUpdateSearchWord}) => {
         {!autoBox || (
           <AutoCocktailWords
             cocktails={cocktails}
-            highlight={highlight}
+            highlightIndex={highlightIndex}
             updateHighlight={setHighlightIndex}
+            onMouseDown={search}
           />
         )}
-        <div className="searchButtonContainer" onMouseDown={onMouseDown}>
+        <div className="searchButtonContainer" onMouseDown={search}>
           <img className="searchButton" src="/image/search.svg" alt="search"/>
         </div>
       </div>

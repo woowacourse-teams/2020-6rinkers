@@ -1,13 +1,13 @@
 import React, {useEffect} from "react";
 
-const ScrollFocus = () => {
+const ScrollFocus = ({refOfHighlight}) => {
   useEffect(() => {
-    const highLighted = document.getElementsByClassName("highlight")[0];
+    const highLighted = refOfHighlight.current;
     if (!highLighted) {
       return;
     }
 
-    highLighted.scrollIntoView({ block: "nearest" });
+    highLighted.scrollIntoView({block: "nearest"});
   });
 
   return <></>;
