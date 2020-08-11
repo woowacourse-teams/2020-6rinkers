@@ -47,3 +47,18 @@ operation::cocktails/recommend[snippets='http-request,http-response,request-fiel
 === 단어가 포함된 칵테일 조회
 
 operation::cocktails/contain[snippets='http-request,http-response,request-parameters,response-fields']
+
+[[resources-tags-upload]]
+=== 태그 업로드
+
+operation::tags/upload[snippets='http-request,http-response,request-parts']
+
+[[resources-tags-findAll]]
+=== 태그 전체 조회
+
+operation::tags/findAll[snippets='http-request,http-response,response-fields']
+
+[[resources-tags-create]]
+=== 태그 생성
+
+operation::tags/create[snippets='http-request,http-response,request-fields']
