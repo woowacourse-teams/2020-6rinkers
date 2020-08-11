@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const client = axios.create({
-  baseURL: `http://${process.env.REACT_APP_HOST}`,
+  baseURL: `//${process.env.REACT_APP_HOST}`,
 });
 
 export const fetchAllCocktails = () => client.get("/api/cocktails");
