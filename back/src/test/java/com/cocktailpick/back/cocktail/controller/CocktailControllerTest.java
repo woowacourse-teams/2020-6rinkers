@@ -18,11 +18,11 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.filter.CharacterEncodingFilter;
 
+import com.cocktailpick.back.cocktail.docs.CocktailDocumentation;
 import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.cocktail.domain.Flavor;
 import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
@@ -30,15 +30,14 @@ import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
 import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
 import com.cocktailpick.back.cocktail.service.CocktailService;
+import com.cocktailpick.back.common.documentation.Documentation;
 import com.cocktailpick.back.tag.dto.TagResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(controllers = {CocktailController.class})
-class CocktailControllerTest {
+class CocktailControllerTest extends Documentation {
 	@MockBean
 	private CocktailService cocktailService;
-
-	private MockMvc mockMvc;
 
 	private Cocktail blueHawaii;
 
@@ -47,11 +46,9 @@ class CocktailControllerTest {
 	private ObjectMapper objectMapper;
 
 	@BeforeEach
-	public void setUp(WebApplicationContext webApplicationContext) {
-		this.mockMvc = MockMvcBuilders
-			.webAppContextSetup(webApplicationContext)
-			.addFilters(new CharacterEncodingFilter("UTF-8", true))
-			.build();
+	public void setUp(WebApplicationContext webApplicationContext,
+		RestDocumentationContextProvider restDocumentationContextProvider) {
+		super.setUp(webApplicationContext, restDocumentationContextProvider);
 
 		Flavor flavor = Flavor.builder()
 			.bitter(true)
@@ -101,7 +98,8 @@ class CocktailControllerTest {
 		mockMvc.perform(get("/api/cocktails")
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
-			.andDo(print());
+			.andDo(print())
+			.andDo(CocktailDocumentation.findCocktails());
 	}
 
 	@DisplayName("원하는 수만큼 페이징 된 칵테일을 조회한다.")
@@ -115,23 +113,27 @@ class CocktailControllerTest {
 		);
 		given(cocktailService.findPagedCocktails("", 0, 2)).willReturn(cocktailResponses);
 
-		mockMvc.perform(get("/api/cocktails/pages?id=0&size=2")
+		mockMvc.perform(get("/api/cocktails/pages")
+			.param("id", "0")
+			.param("size", "2")
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
-			.andDo(print());
+			.andDo(print())
+			.andDo(CocktailDocumentation.findPagedCocktails());
 	}
 
 	@DisplayName("칵테일을 단일 조회한다.")
 	@Test
 	void findCocktail() throws Exception {
 		CocktailDetailResponse cocktailDetailResponse = CocktailDetailResponse.of(blueHawaii);
-
+		cocktailDetailResponse = cocktailDetailResponse.withId(1L);
 		given(cocktailService.findCocktail(anyLong())).willReturn(cocktailDetailResponse);
 
-		mockMvc.perform(get("/api/cocktails/1")
+		mockMvc.perform(RestDocumentationRequestBuilders.get("/api/cocktails/{id}", 1L)
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
-			.andDo(print());
+			.andDo(print())
+			.andDo(CocktailDocumentation.findCocktail());
 	}
 
 	@DisplayName("칵테일을 생성한다.")
@@ -144,7 +146,8 @@ class CocktailControllerTest {
 			.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isCreated())
 			.andExpect(header().string("Location", "/api/cocktails/1"))
-			.andDo(print());
+			.andDo(print())
+			.andDo(CocktailDocumentation.createCocktail());
 	}
 
 	@DisplayName("칵테일을 수정한다.")
@@ -168,11 +171,12 @@ class CocktailControllerTest {
 			.specialQuantity(new ArrayList<>())
 			.build();
 
-		mockMvc.perform(put("/api/cocktails/1")
+		mockMvc.perform(RestDocumentationRequestBuilders.put("/api/cocktails/{id}", 1L)
 			.contentType(MediaType.APPLICATION_JSON)
 			.content(objectMapper.writeValueAsString(updateCocktailRequest)))
 			.andExpect(status().isOk())
-			.andDo(print());
+			.andDo(print())
+			.andDo(CocktailDocumentation.updateCocktail());
 	}
 
 	@DisplayName("csv 파일로 칵테일을 저장한다.")
@@ -186,8 +190,8 @@ class CocktailControllerTest {
 			.contentType(MediaType.MULTIPART_FORM_DATA))
 			.andExpect(status().isCreated())
 			.andExpect(header().string("Location", "/api/cocktails"))
-			.andDo(print());
-
+			.andDo(print())
+			.andDo(CocktailDocumentation.upload());
 	}
 
 	@DisplayName("칵테일을 삭제한다.")
@@ -195,29 +199,33 @@ class CocktailControllerTest {
 	void deleteCocktail() throws Exception {
 		doNothing().when(cocktailService).deleteCocktail(any());
 
-		mockMvc.perform(delete("/api/cocktails/1"))
+		mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/cocktails/{id}", 1L))
 			.andExpect(status().isNoContent())
-			.andDo(print());
+			.andDo(print())
+			.andDo(CocktailDocumentation.deleteCocktail());
 	}
 
 	@DisplayName("오늘의 칵테일을 조회한다.")
 	@Test
 	void findCocktailOfToday() throws Exception {
-		when(cocktailService.findCocktailOfToday()).thenReturn(
-			CocktailResponse.of(blueHawaii));
+		CocktailResponse cocktailResponse = CocktailResponse.of(blueHawaii).withId(1L);
+		when(cocktailService.findCocktailOfToday()).thenReturn(cocktailResponse);
 
 		mockMvc.perform(get("/api/cocktails/today"))
 			.andExpect(status().isOk())
 			.andExpect(jsonPath("$.name").value(blueHawaii.getName()))
 			.andExpect(jsonPath("$.imageUrl").value(blueHawaii.getImageUrl()))
-			.andDo(print());
+			.andDo(print())
+			.andDo(CocktailDocumentation.findTodayCocktail());
 	}
 
 	@DisplayName("칵테일을 추천한다.")
 	@Test
 	void recommendCocktail() throws Exception {
 		CocktailDetailResponse blueHawaiiResponse = CocktailDetailResponse.of(blueHawaii);
-		List<UserRecommendRequest> requests = Arrays.asList(new UserRecommendRequest(true), new UserRecommendRequest(true));
+		blueHawaiiResponse = blueHawaiiResponse.withId(1L);
+		List<UserRecommendRequest> requests = Arrays.asList(new UserRecommendRequest(true),
+			new UserRecommendRequest(true));
 
 		given(cocktailService.recommend(any())).willReturn(Collections.singletonList(blueHawaiiResponse));
 
@@ -226,18 +234,21 @@ class CocktailControllerTest {
 			.content(objectMapper.writeValueAsString(requests))
 			.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
-			.andDo(print());
+			.andDo(print())
+			.andDo(CocktailDocumentation.recommendCocktail());
 	}
 
 	@DisplayName("특정 문자열을 포함하는 칵테일을 반환한다.")
 	@Test
 	void containName() throws Exception {
-		given(cocktailService.findByNameContaining(anyString())).willReturn(anyList());
+		CocktailResponse cocktailResponse = CocktailResponse.of(blueHawaii).withId(1L);
+		given(cocktailService.containName(anyString())).willReturn(Collections.singletonList(cocktailResponse));
 
 		mockMvc.perform(get("/api/cocktails/auto-complete")
 			.param("contain", "두강")
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
-			.andDo(print());
+			.andDo(print())
+			.andDo(CocktailDocumentation.contain());
 	}
 }

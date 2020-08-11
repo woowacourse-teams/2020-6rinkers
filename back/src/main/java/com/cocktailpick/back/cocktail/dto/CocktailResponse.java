@@ -9,11 +9,13 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.With;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class CocktailResponse {
+	@With(value = AccessLevel.PUBLIC)
 	private Long id;
 
 	private String name;

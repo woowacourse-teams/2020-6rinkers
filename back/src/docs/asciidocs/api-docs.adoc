@@ -1,0 +1,49 @@
+[[resources-cocktails-create]]
+=== 칵테일 생성
+
+operation::cocktails/create[snippets='http-request,http-response,request-fields']
+
+[[resources-cocktails-findAll]]
+=== 칵테일 전체 조회
+
+operation::cocktails/findAll[snippets='http-request,http-response,response-fields']
+
+[[resources-cocktails-find]]
+=== 칵테일 단일 조회
+
+operation::cocktails/find[snippets='http-request,http-response,response-fields']
+
+[[resources-cocktails-update]]
+=== 칵테일 수정
+
+operation::cocktails/update[snippets='http-request,http-response,request-fields']
+
+[[resources-cocktails-delete]]
+=== 칵테일 삭제
+
+operation::cocktails/delete[snippets='http-request,http-response']
+
+[[resources-cocktails-findPagedCocktails]]
+=== 칵테일 페이지 조회
+
+operation::cocktails/findPagedCocktails[snippets='http-request,http-response,request-parameters']
+
+[[resources-cocktails-upload]]
+=== 칵테일 csv 파일 업로드
+
+operation::cocktails/upload[snippets='http-request,http-response,request-parts']
+
+[[resources-cocktails-today]]
+=== 오늘의 칵테일 조회
+
+operation::cocktails/findTodayCocktail[snippets='http-request,http-response,response-fields']
+
+[[resources-cocktails-recommend]]
+=== 칵테일 추천
+
+operation::cocktails/recommend[snippets='http-request,http-response,request-fields,response-fields']
+
+[[resources-cocktails-contain]]
+=== 단어가 포함된 칵테일 조회
+
+operation::cocktails/contain[snippets='http-request,http-response,request-parameters,response-fields']
