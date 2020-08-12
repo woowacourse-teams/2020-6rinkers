@@ -1,8 +1,8 @@
 import React from "react";
 
-const CocktailItem = ({ cocktail }) => {
+const CocktailItem = ({ cocktail, updateFromSelectedCocktail }) => {
   return (
-    <div className="cocktailItem">
+    <div className="cocktailItem" data-cocktail-id={cocktail.id} onClick={updateFromSelectedCocktail}>
       <img src={cocktail.imageUrl} alt={cocktail.name} />
       {cocktail.name}
     </div>

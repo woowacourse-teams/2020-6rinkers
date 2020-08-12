@@ -3,7 +3,11 @@ import { fetchAllCocktails } from "../../../api";
 import CocktailItem from "./CocktailItem";
 import "../../../css/admin/cocktailListContainer.css";
 
-const CocktailListContainer = ({ cocktail }) => {
+const CocktailListContainer = ({
+  cocktail,
+  updateFromSelectedCocktail,
+  onSetCocktailEdit,
+}) => {
   const [cocktails, setCocktails] = useState([]);
 
   const onLoadCocktails = async () => {
@@ -19,7 +23,11 @@ const CocktailListContainer = ({ cocktail }) => {
   return (
     <div className="cocktailsList">
       {cocktails.map((item, index) => (
-        <CocktailItem cocktail={item} key={"cocktail" + index} />
+        <CocktailItem
+          cocktail={item}
+          updateFromSelectedCocktail={updateFromSelectedCocktail}
+          key={"cocktail" + index}
+        />
       ))}
     </div>
   );

@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import CocktailEditFormContainer from "./CocktailEditFormContainer";
+import { fetchCocktail } from "../../../api";
+import { convertCocktailToInputData } from "../../../utils/admin/cocktailConverter";
 import CocktailListContainer from "./CocktailListContainer";
-import { DEFAULT_COCKTAIL_DATA } from "../../../utils/admin/constant";
+import {
+  DEFAULT_COCKTAIL_DATA,
+  EMPTY_COCKTAIL_DATA,
+} from "../../../utils/admin/constant";
 import "../../../css/admin/admin.css";
 
 const CocktailAdmin = () => {
@@ -14,8 +19,24 @@ const CocktailAdmin = () => {
     });
   };
 
+  const updateFromSelectedCocktail = async (e) => {
+    console.log(e.currentTarget.dataset.cocktailId);
+    const selectedCocktail = await fetchCocktail(
+      e.currentTarget.dataset.cocktailId
+    );
+    const inputCocktail = convertCocktailToInputData(
+      selectedCocktail["data"]
+    );
+    console.log(inputCocktail);
+    setCocktail(inputCocktail);
+  };
+
   const onResetCocktail = () => {
-    setCocktail(DEFAULT_COCKTAIL_DATA);
+    setCocktail(EMPTY_COCKTAIL_DATA);
+  };
+
+  const onSetCocktailEdit = (selectedCocktail) => {
+    setCocktail(cocktail);
   };
 
   return (
@@ -28,7 +49,11 @@ const CocktailAdmin = () => {
         />
       </div>
       <div className="cocktailListContainer">
-        <CocktailListContainer cocktail={cocktail} />
+        <CocktailListContainer
+          cocktail={cocktail}
+          updateFromSelectedCocktail={updateFromSelectedCocktail}
+          onSetCocktailEdit={onSetCocktailEdit}
+        />
       </div>
     </div>
   );
