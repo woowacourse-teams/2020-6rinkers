@@ -2,7 +2,7 @@ import React from "react";
 import CocktailInputContainer from "./CocktailInputContainer";
 import "../../../css/admin/editFormContainer.css";
 import { createCocktail } from "../../../api";
-import dataToCocktailRequest from "../../../utils/admin/cocktailConverter";
+import { convertDataToCocktailRequest } from "../../../utils/admin/cocktailConverter";
 import FileUploadContainer from "../common/FileUplodeContainer";
 
 const CocktailEditFormContainer = ({
@@ -17,7 +17,7 @@ const CocktailEditFormContainer = ({
 
   const onSubmit = (e) => {
     e.preventDefault();
-    createCocktail(dataToCocktailRequest(cocktail));
+    const result = createCocktail(convertDataToCocktailRequest(cocktail));
     onResetCocktail();
   };
 

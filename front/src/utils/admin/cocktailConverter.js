@@ -2,7 +2,7 @@ const splitAndTrim = (data, delimiter) => {
   return data.split(delimiter).map((tag) => tag.trim());
 };
 
-const dataToCocktailRequest = (data) => {
+export const convertDataToCocktailRequest = (data) => {
   const cocktailRequest = {
     name: data.name,
     abv: parseFloat(data.abv),

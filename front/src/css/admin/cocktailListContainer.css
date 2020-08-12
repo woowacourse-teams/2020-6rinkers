@@ -1,4 +1,4 @@
-.cocktailsListContainer {
+.cocktailsList {
   display: flex;
   flex-direction: column;
 }

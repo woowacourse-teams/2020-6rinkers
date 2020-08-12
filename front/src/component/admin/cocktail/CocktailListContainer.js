@@ -17,7 +17,7 @@ const CocktailListContainer = ({ cocktail }) => {
   }, [cocktail]);
 
   return (
-    <div className="cocktailsListContainer">
+    <div className="cocktailsList">
       {cocktails.map((item, index) => (
         <CocktailItem cocktail={item} key={"cocktail" + index} />
       ))}
