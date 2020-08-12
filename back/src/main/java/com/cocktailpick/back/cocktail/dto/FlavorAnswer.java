@@ -1,6 +1,6 @@
 package com.cocktailpick.back.cocktail.dto;
 
-import com.cocktailpick.back.cocktail.domain.UserAnswer;
+import com.cocktailpick.back.cocktail.domain.UserPreferenceAnswer;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class FlavorAnswer {
-	private UserAnswer sweetAnswer;
-	private UserAnswer sourAnswer;
-	private UserAnswer bitterAnswer;
+	private UserPreferenceAnswer sweetAnswer;
+	private UserPreferenceAnswer sourAnswer;
+	private UserPreferenceAnswer bitterAnswer;
 }

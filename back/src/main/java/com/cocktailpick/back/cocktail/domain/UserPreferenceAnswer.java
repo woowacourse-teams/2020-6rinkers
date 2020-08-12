@@ -1,5 +1,5 @@
 package com.cocktailpick.back.cocktail.domain;
 
-public enum UserAnswer {
+public enum UserPreferenceAnswer {
 	YES, NO, SOSO;
 }
