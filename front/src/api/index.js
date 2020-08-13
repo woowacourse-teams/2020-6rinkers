@@ -10,7 +10,7 @@ export const fetchPagedCocktails = ({contain, id, size}) =>
 export const fetchCocktail = (id) => client.get(`/api/cocktails/${id}`);
 export const fetchTodayCocktail = () => client.get("/api/cocktails/today");
 export const fetchCocktailsContaining = (contain) =>
-  client.get(`api/cocktails/auto_complete`, {params: {contain}});
+  client.get(`api/cocktails/auto-complete`, {params: {contain}});
 export const createCocktail = (data) => client.post("/api/cocktails", data);
 export const createTag = (data) => client.post("/api/tags", data);
 export const fetchAllTags = () => client.get("/api/tags");

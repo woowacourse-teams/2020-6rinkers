@@ -234,7 +234,7 @@ class CocktailControllerTest {
 	void containName() throws Exception {
 		given(cocktailService.containName(anyString())).willReturn(anyList());
 
-		mockMvc.perform(get("/api/cocktails/auto_complete")
+		mockMvc.perform(get("/api/cocktails/auto-complete")
 			.param("contain", "두강")
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())

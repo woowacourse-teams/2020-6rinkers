@@ -90,7 +90,7 @@ public class CocktailController {
 		return ResponseEntity.ok(cocktailDetailResponses);
 	}
 
-	@GetMapping("/auto_complete")
+	@GetMapping("/auto-complete")
 	public ResponseEntity<List<CocktailResponse>> containName(@RequestParam @NotBlank String contain) {
 		List<CocktailResponse> cocktailResponses = cocktailService.containName(contain);
 		return ResponseEntity.ok(cocktailResponses);
