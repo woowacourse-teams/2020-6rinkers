@@ -34,11 +34,15 @@ const FileUploadContainer = () => {
   return (
     <div className="fileUpload">
       <input type="file" name="file" onChange={(e) => handleFile(e)} />
-      <button className="fileButton" type="button" onClick={onUploadTagFile}>
+      <button
+        className="fileUploadButton"
+        type="button"
+        onClick={onUploadTagFile}
+      >
         태그 CSV 파일 업로드
       </button>
       <button
-        className="fileButton"
+        className="fileUploadButton"
         type="button"
         onClick={onUploadCocktailFile}
       >

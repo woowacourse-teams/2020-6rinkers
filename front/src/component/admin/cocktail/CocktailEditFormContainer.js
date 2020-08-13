@@ -1,7 +1,11 @@
 import React from "react";
 import CocktailInputContainer from "./CocktailInputContainer";
 import "../../../css/admin/editFormContainer.css";
-import { createCocktail, updateCocktail } from "../../../api";
+import {
+  createCocktail,
+  deleteAllCocktail,
+  updateCocktail,
+} from "../../../api";
 import { convertDataToCocktailRequest } from "../../../utils/admin/cocktailConverter";
 import FileUploadContainer from "../common/FileUplodeContainer";
 
@@ -34,11 +38,22 @@ const CocktailEditFormContainer = ({
     }
   };
 
+  const deleteAllCocktails = () => {
+    if (window.confirm("정말로 실행하시겠습니까?")) deleteAllCocktail();
+  };
+
   return (
     <>
       <div className="fileUploadContainer">
         <FileUploadContainer />
       </div>
+      <button
+        className="cocktailsDeleteBtn"
+        type="button"
+        onClick={deleteAllCocktails}
+      >
+        모든 칵테일 삭제하기
+      </button>
       <div className="editForms">
         {Object.keys(cocktail).map((property, index) => (
           <CocktailInputContainer
