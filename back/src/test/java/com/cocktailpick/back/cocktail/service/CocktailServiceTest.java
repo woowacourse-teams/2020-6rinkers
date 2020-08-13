@@ -217,6 +217,14 @@ public class CocktailServiceTest {
 		verify(cocktailRepository).deleteById(1L);
 	}
 
+	@DisplayName("모든 칵테일을 삭제한다.")
+	@Test
+	void deleteAllCocktails() {
+		cocktailService.deleteAllCocktails();
+
+		verify(cocktailRepository).deleteAll();
+	}
+
 	@DisplayName("csv 파일로 칵테일을 저장한다.")
 	@Test
 	void saveAll() {

@@ -28,6 +28,12 @@ operation::cocktails/update[snippets='http-request,http-response,request-fields'
 
 operation::cocktails/delete[snippets='http-request,http-response']
 
+[[resources-cocktails-deleteAll]]
+=== 모든 칵테일 삭제
+
+operation::cocktails/deleteAll[snippets='http-request,http-response']
+
+
 [[resources-cocktails-findPagedCocktails]]
 === 칵테일 페이지 조회
 

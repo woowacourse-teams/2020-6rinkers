@@ -94,6 +94,10 @@ public class CocktailDocumentation {
 			));
 	}
 
+	public static RestDocumentationResultHandler deleteAllCocktails() {
+		return document("cocktails/deleteAll");
+	}
+
 	public static RestDocumentationResultHandler findPagedCocktails() {
 		return document("cocktails/findPagedCocktails",
 			requestParameters(
