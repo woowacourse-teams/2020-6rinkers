@@ -232,7 +232,7 @@ class CocktailControllerTest {
 	@DisplayName("특정 문자열을 포함하는 칵테일을 반환한다.")
 	@Test
 	void containName() throws Exception {
-		given(cocktailService.containName(anyString())).willReturn(anyList());
+		given(cocktailService.findByNameContaining(anyString())).willReturn(anyList());
 
 		mockMvc.perform(get("/api/cocktails/auto-complete")
 			.param("contain", "두강")

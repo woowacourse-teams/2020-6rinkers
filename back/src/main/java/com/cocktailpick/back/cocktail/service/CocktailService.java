@@ -213,7 +213,7 @@ public class CocktailService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<CocktailResponse> containName(String name) {
+	public List<CocktailResponse> findByNameContaining(String name) {
 		List<Cocktail> cocktailsContainingName = cocktailRepository.findByNameContaining(name);
 		return CocktailResponse.ofList(cocktailsContainingName);
 	}

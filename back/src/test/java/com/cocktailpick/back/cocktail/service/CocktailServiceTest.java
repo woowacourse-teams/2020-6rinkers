@@ -303,7 +303,7 @@ public class CocktailServiceTest {
 	void containName() {
 		when(cocktailRepository.findByNameContaining("두강")).thenReturn(anyList());
 
-		List<CocktailResponse> cocktailResponses = cocktailService.containName("두강");
+		List<CocktailResponse> cocktailResponses = cocktailService.findByNameContaining("두강");
 		assertThat(cocktailResponses).isNotNull();
 	}
 }
