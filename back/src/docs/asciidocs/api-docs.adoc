@@ -1,3 +1,8 @@
+[[resources-ping]]
+=== 핑
+
+operation::ping[snippets='http-request,http-response']
+
 [[resources-cocktails-create]]
 === 칵테일 생성
 
@@ -62,3 +67,4 @@ operation::tags/findAll[snippets='http-request,http-response,response-fields']
 === 태그 생성
 
 operation::tags/create[snippets='http-request,http-response,request-fields']
+

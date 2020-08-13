@@ -1,4 +1,4 @@
-package com.cocktailpick.back.common;
+package com.cocktailpick.back.common.domain;
 
 import java.util.Date;
 

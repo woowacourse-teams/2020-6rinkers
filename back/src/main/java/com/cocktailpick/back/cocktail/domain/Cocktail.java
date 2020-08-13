@@ -6,7 +6,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 
-import com.cocktailpick.back.common.BaseEntity;
+import com.cocktailpick.back.common.domain.BaseEntity;
 import com.cocktailpick.back.recipe.domain.Recipe;
 import com.cocktailpick.back.tag.domain.CocktailTags;
 import com.cocktailpick.back.tag.domain.Tag;
