@@ -150,7 +150,7 @@ public class CocktailDocumentation {
 	public static RestDocumentationResultHandler contain() {
 		return document("cocktails/contain",
 			requestParameters(
-				parameterWithName("name").description("조회시, 포함되는 단어")
+				parameterWithName("contain").description("조회시, 포함되는 단어")
 			),
 			responseFields(
 				fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("칵테일 ID"),

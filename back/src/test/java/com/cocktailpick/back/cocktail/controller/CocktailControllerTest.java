@@ -242,7 +242,8 @@ class CocktailControllerTest extends Documentation {
 	@Test
 	void containName() throws Exception {
 		CocktailResponse cocktailResponse = CocktailResponse.of(blueHawaii).withId(1L);
-		given(cocktailService.containName(anyString())).willReturn(Collections.singletonList(cocktailResponse));
+		given(cocktailService.findByNameContaining(anyString())).willReturn(
+			Collections.singletonList(cocktailResponse));
 
 		mockMvc.perform(get("/api/cocktails/auto-complete")
 			.param("contain", "두강")
