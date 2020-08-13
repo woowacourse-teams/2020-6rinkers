@@ -1,34 +1,55 @@
-import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
+import React, {useRef, useState} from "react";
+import {Redirect} from "react-router-dom";
 import AutoCocktailWords from "./AutoCocktailWords";
-import { fetchCocktailsContaining } from "../../api";
-import { UP, DOWN, ENTER } from "../../constants/keyCode";
-import ScrollFocus from "./ScrollFocus";
+import {fetchCocktailsContaining} from "../../api";
+import {DOWN, ENTER, ESC, UP} from "../../constants/keyCode";
 
-const SearchContainer = () => {
+const SearchContainer = ({onUpdateSearchWord}) => {
   const [cocktails, setCocktails] = useState([]);
-  const [highLight, setHighLight] = useState(0);
+  const [highlightIndex, setHighlightIndex] = useState(-1);
   const [redirect, setRedirect] = useState("");
+  const [autoBox, setAutoBox] = useState(true);
+  const searchInput = useRef();
 
-  const focusDown = () => {
-    if (highLight === cocktails.length - 1) {
-      return;
-    }
-    setHighLight(highLight + 1);
+  const isNotFocus = (index) => {
+    return index === -1;
   };
 
-  const focusUp = () => {
-    if (highLight === 0) {
-      return;
-    }
-    setHighLight(highLight - 1);
+  const onBlur = () => {
+    setAutoBox(false);
   };
 
-  const redirectWhenHasInput = () => {
-    if (cocktails.length === 0) {
+  const highlightOut = () => {
+    setHighlightIndex(-1);
+    setAutoBox(true);
+  };
+
+  const highlightDown = () => {
+    if (highlightIndex === cocktails.length - 1) {
       return;
     }
-    setRedirect(`/cocktails/${cocktails[highLight].id}`);
+    setHighlightIndex(highlightIndex + 1);
+  };
+
+  const highlightUp = () => {
+    if (isNotFocus(highlightIndex)) {
+      return;
+    }
+    setHighlightIndex(highlightIndex - 1);
+  };
+
+  const search = () => {
+    if (isNotFocus(highlightIndex)) {
+      onUpdateSearchWord(searchInput.current.value);
+      setAutoBox(false);
+      return;
+    }
+
+    if (cocktails.length === 0 || autoBox === false) {
+      return;
+    }
+
+    setRedirect(`/cocktails/${cocktails[highlightIndex].id}`);
   };
 
   const onKeyDown = (e) => {
@@ -37,17 +58,21 @@ const SearchContainer = () => {
     }
 
     if (e.keyCode === DOWN) {
-      focusDown();
+      highlightDown();
       return;
     }
 
     if (e.keyCode === UP) {
-      focusUp();
+      highlightUp();
       return;
     }
 
     if (e.keyCode === ENTER) {
-      redirectWhenHasInput();
+      search();
+    }
+
+    if (e.keyCode === ESC) {
+      setAutoBox(false);
     }
   };
 
@@ -62,14 +87,14 @@ const SearchContainer = () => {
     const response = await fetchCocktailsContaining(word);
     const autoCompleted = response.data;
     setCocktails(autoCompleted);
-    setHighLight(0);
+    setAutoBox(true);
+    highlightOut();
   };
 
   return redirect ? (
-    <Redirect push to={redirect} />
+    <Redirect push to={redirect}/>
   ) : (
     <div className="searchContainer">
-      <ScrollFocus />
       <div className="search">
         <input
           className="cocktailSearchInput"
@@ -77,14 +102,20 @@ const SearchContainer = () => {
           placeholder="검색어를 입력하세요."
           onChange={onChange}
           onKeyDown={onKeyDown}
+          onMouseDown={highlightOut}
+          onBlur={onBlur}
+          ref={searchInput}
         />
-        <AutoCocktailWords
-          cocktails={cocktails}
-          highLight={highLight}
-          updateHighLight={setHighLight}
-        />
-        <div className="searchButtonContainer">
-          <img className="searchButton" src="/image/search.svg" alt="search" />
+        {!autoBox || (
+          <AutoCocktailWords
+            cocktails={cocktails}
+            highlightIndex={highlightIndex}
+            updateHighlight={setHighlightIndex}
+            onMouseDown={search}
+          />
+        )}
+        <div className="searchButtonContainer" onMouseDown={search}>
+          <img className="searchButton" src="/image/search.svg" alt="search"/>
         </div>
       </div>
     </div>

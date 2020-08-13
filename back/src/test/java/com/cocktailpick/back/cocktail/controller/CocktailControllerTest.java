@@ -113,7 +113,7 @@ class CocktailControllerTest {
 			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
 				Arrays.asList(new TagResponse("쫄깃쫄깃"), new TagResponse("짭쪼름")))
 		);
-		given(cocktailService.findPagedCocktails(0, 2)).willReturn(cocktailResponses);
+		given(cocktailService.findPagedCocktails("", 0, 2)).willReturn(cocktailResponses);
 
 		mockMvc.perform(get("/api/cocktails/pages?id=0&size=2")
 			.accept(MediaType.APPLICATION_JSON))
@@ -232,10 +232,10 @@ class CocktailControllerTest {
 	@DisplayName("특정 문자열을 포함하는 칵테일을 반환한다.")
 	@Test
 	void containName() throws Exception {
-		given(cocktailService.containName(anyString())).willReturn(anyList());
+		given(cocktailService.findByNameContaining(anyString())).willReturn(anyList());
 
-		mockMvc.perform(get("/api/cocktails/contain")
-			.param("name", "두강")
+		mockMvc.perform(get("/api/cocktails/auto-complete")
+			.param("contain", "두강")
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andDo(print());
