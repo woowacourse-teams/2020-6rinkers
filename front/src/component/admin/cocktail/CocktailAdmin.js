@@ -24,9 +24,7 @@ const CocktailAdmin = () => {
     const selectedCocktail = await fetchCocktail(
       e.currentTarget.dataset.cocktailId
     );
-    const inputCocktail = convertCocktailToInputData(
-      selectedCocktail["data"]
-    );
+    const inputCocktail = convertCocktailToInputData(selectedCocktail["data"]);
     console.log(inputCocktail);
     setCocktail(inputCocktail);
   };
@@ -44,7 +42,7 @@ const CocktailAdmin = () => {
       <div className="editFormContainer">
         <CocktailEditFormContainer
           cocktail={cocktail}
-          updateCocktail={onUpdateCocktail}
+          onUpdateCocktail={onUpdateCocktail}
           onResetCocktail={onResetCocktail}
         />
       </div>

@@ -7,12 +7,12 @@ import FileUploadContainer from "../common/FileUplodeContainer";
 
 const CocktailEditFormContainer = ({
   cocktail,
-  updateCocktail,
+  onUpdateCocktail,
   onResetCocktail,
 }) => {
   const onChange = (e) => {
     const { value, name } = e.target;
-    updateCocktail(value, name);
+    onUpdateCocktail(value, name);
   };
 
   const onSubmit = (e) => {

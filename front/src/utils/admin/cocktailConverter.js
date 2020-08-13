@@ -21,6 +21,10 @@ export const convertDataToCocktailRequest = (data) => {
   return cocktailRequest;
 };
 
+const tagsToInputTags = (tags) => {
+  return tags.map((e) => e.name).join(",");
+};
+
 export const convertCocktailToInputData = (cocktail) => {
   const inputData = {
     id: cocktail.id,
@@ -33,14 +37,10 @@ export const convertCocktailToInputData = (cocktail) => {
     sweet: cocktail.sweet ? 1 : 0,
     sour: cocktail.sour ? 1 : 0,
     bitter: cocktail.bitter ? 1 : 0,
-    liquor: cocktail.recipe.map(e => e.ingredient).join(","),
-    liquorQuantity: cocktail.recipe.map(e => e.quantity).join(","),
+    liquor: cocktail.recipe.map((e) => e.ingredient).join(","),
+    liquorQuantity: cocktail.recipe.map((e) => e.quantity).join(","),
     special: "",
     specialQuantity: "",
   };
   return inputData;
 };
-
-const tagsToInputTags = (tags) => {
-  return tags.map(e => e.name).join(",");
-}
