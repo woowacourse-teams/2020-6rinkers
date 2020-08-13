@@ -4,33 +4,21 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.filter.CharacterEncodingFilter;
+
+import com.cocktailpick.back.common.docs.PingDocumentation;
+import com.cocktailpick.back.common.documentation.Documentation;
 
 @WebMvcTest(controllers = PingController.class)
-class PingControllerTest {
-
-	private MockMvc mockMvc;
-
-	@BeforeEach
-	void setUp(WebApplicationContext webApplicationContext) {
-		this.mockMvc = MockMvcBuilders
-			.webAppContextSetup(webApplicationContext)
-			.addFilter(new CharacterEncodingFilter("UTF-8", true))
-			.build();
-	}
+class PingControllerTest extends Documentation {
 
 	@Test
 	void ping() throws Exception {
 		this.mockMvc
 			.perform(get("/api/ping"))
 			.andExpect(status().isOk())
-			.andExpect(content().string("pong"))
-			.andDo(print());
+			.andDo(print())
+			.andDo(PingDocumentation.ping());
 	}
 }
