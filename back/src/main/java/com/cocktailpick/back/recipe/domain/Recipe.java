@@ -40,6 +40,10 @@ public class Recipe {
 		recipe.add(recipeItem);
 	}
 
+	public void clear() {
+		recipe.clear();
+	}
+
 	private boolean isContainRecipeItem(RecipeItem recipeItem) {
 		return recipe.stream()
 			.anyMatch(item -> item.isSameIngredientWith(recipeItem));

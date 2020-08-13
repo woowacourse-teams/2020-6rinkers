@@ -31,7 +31,6 @@ import com.cocktailpick.back.common.exceptions.ErrorCode;
 import com.cocktailpick.back.common.util.NumberOfDaily;
 import com.cocktailpick.back.recipe.domain.RecipeItem;
 import com.cocktailpick.back.tag.domain.CocktailTag;
-import com.cocktailpick.back.tag.domain.CocktailTags;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
 import lombok.AccessLevel;
@@ -85,13 +84,10 @@ public class CocktailService {
 	public void updateCocktail(Long id, CocktailRequest cocktailRequest) {
 		Cocktail cocktail = findById(id);
 		Cocktail requestCocktail = cocktailRequest.toCocktail();
-
+		List<RecipeItem> recipeItems = cocktailRequest.toRecipeItems();
 		List<Tag> tags = tagRepository.findByNameIn(cocktailRequest.getTag());
-		CocktailTags cocktailTags = tags.stream()
-			.map(tag -> CocktailTag.associate(cocktail, tag))
-			.collect(Collectors.collectingAndThen(Collectors.toList(), CocktailTags::new));
 
-		cocktail.update(requestCocktail, cocktailTags);
+		cocktail.update(requestCocktail, tags, recipeItems);
 	}
 
 	private Cocktail findById(Long id) {
