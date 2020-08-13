@@ -6,6 +6,7 @@
 .cocktailItem {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   border-bottom: var(--little-light-black) solid 2px;
 }
 
@@ -19,4 +20,15 @@
 
 .cocktailName {
   margin-left: 0.5rem;
+}
+
+.delete {
+  height: 100%;
+  border: black 1px solid;
+  margin-right: 0.5rem;
+  padding: 0.3rem;
+}
+
+.delete:hover {
+  background-color: gray;
 }

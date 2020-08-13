@@ -20,21 +20,15 @@ const CocktailAdmin = () => {
   };
 
   const updateFromSelectedCocktail = async (e) => {
-    console.log(e.currentTarget.dataset.cocktailId);
     const selectedCocktail = await fetchCocktail(
       e.currentTarget.dataset.cocktailId
     );
-    const inputCocktail = convertCocktailToInputData(selectedCocktail["data"]);
-    console.log(inputCocktail);
+    const inputCocktail = convertCocktailToInputData(selectedCocktail.data);
     setCocktail(inputCocktail);
   };
 
   const onResetCocktail = () => {
     setCocktail(EMPTY_COCKTAIL_DATA);
-  };
-
-  const onSetCocktailEdit = (selectedCocktail) => {
-    setCocktail(cocktail);
   };
 
   return (
@@ -50,7 +44,6 @@ const CocktailAdmin = () => {
         <CocktailListContainer
           cocktail={cocktail}
           updateFromSelectedCocktail={updateFromSelectedCocktail}
-          onSetCocktailEdit={onSetCocktailEdit}
         />
       </div>
     </div>
