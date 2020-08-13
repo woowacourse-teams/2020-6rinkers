@@ -72,6 +72,12 @@ public class CocktailController {
 		return ResponseEntity.noContent().build();
 	}
 
+	@DeleteMapping
+	public ResponseEntity<Void> deleteAllCocktails() {
+		cocktailService.deleteAllCocktails();
+		return ResponseEntity.noContent().build();
+	}
+
 	@GetMapping("/today")
 	public ResponseEntity<CocktailResponse> findCocktailOfToday() {
 		return ResponseEntity.ok(cocktailService.findCocktailOfToday());
