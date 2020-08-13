@@ -134,9 +134,9 @@ public class CocktailServiceTest {
 
 		Page<Cocktail> cocktailPage = new PageImpl<>(Arrays.asList(peachCrush, martini));
 
-		when(cocktailRepository.findByIdGreaterThan(anyLong(), any())).thenReturn(cocktailPage);
+		when(cocktailRepository.findByNameContainingAndIdGreaterThan(any(), anyLong(), any())).thenReturn(cocktailPage);
 
-		assertThat(cocktailService.findPagedCocktails(0, 2)).hasSize(2);
+		assertThat(cocktailService.findPagedCocktails("", 0, 2)).hasSize(2);
 	}
 
 	@DisplayName("단일 칵테일을 조회한다.")
@@ -303,7 +303,7 @@ public class CocktailServiceTest {
 	void containName() {
 		when(cocktailRepository.findByNameContaining("두강")).thenReturn(anyList());
 
-		List<CocktailResponse> cocktailResponses = cocktailService.containName("두강");
+		List<CocktailResponse> cocktailResponses = cocktailService.findByNameContaining("두강");
 		assertThat(cocktailResponses).isNotNull();
 	}
 }

@@ -4,8 +4,8 @@
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
     <property name="LOG_FILE" value="logback"/>
-    <property name="LOG_PATH" value="./back/logs/debug"/>
-    <property name="LOG_ERROR_PATH" value="./back/logs/error"/>
+    <property name="LOG_PATH" value="./logs/debug"/>
+    <property name="LOG_ERROR_PATH" value="./logs/error"/>
     <property name="LOG_FILE_PROD" value="logback-prod"/>
 
     <springProfile name="dev">

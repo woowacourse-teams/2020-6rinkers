@@ -105,7 +105,7 @@
 .autoCocktailWords {
   z-index: 100;
   position: absolute;
-  top: 33px;
+  top: 66px;
   background-color: #ffffff;
   width: inherit;
   border-radius: 5px;
@@ -117,7 +117,7 @@
   cursor: default;
 }
 
-.autoCocktailWords .highLight {
+.autoCocktailWords .highlight {
   background-color: rgba(166, 0, 0, 0.9);
   color: white;
 }

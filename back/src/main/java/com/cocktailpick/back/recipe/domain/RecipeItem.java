@@ -5,7 +5,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.cocktailpick.back.cocktail.domain.Cocktail;
-import com.cocktailpick.back.common.BaseEntity;
+import com.cocktailpick.back.common.domain.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

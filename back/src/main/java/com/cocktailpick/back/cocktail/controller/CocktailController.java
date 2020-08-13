@@ -4,7 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -42,8 +42,9 @@ public class CocktailController {
 	}
 
 	@GetMapping("/pages")
-	public ResponseEntity<List<CocktailResponse>> findPagedCocktails(@RequestParam long id, @RequestParam int size) {
-		List<CocktailResponse> cocktailResponses = cocktailService.findPagedCocktails(id, size);
+	public ResponseEntity<List<CocktailResponse>> findPagedCocktails(@RequestParam(defaultValue = "") String contain,
+		@RequestParam long id, @RequestParam int size) {
+		List<CocktailResponse> cocktailResponses = cocktailService.findPagedCocktails(contain, id, size);
 		return ResponseEntity.ok(cocktailResponses);
 	}
 
@@ -89,9 +90,10 @@ public class CocktailController {
 		return ResponseEntity.ok(cocktailDetailResponses);
 	}
 
-	@GetMapping("/contain")
-	public ResponseEntity<List<CocktailResponse>> containName(@RequestParam @NotNull String name) {
-		List<CocktailResponse> cocktailResponses = cocktailService.containName(name);
+	@GetMapping("/auto-complete")
+	public ResponseEntity<List<CocktailResponse>> findByNameContaining(
+		@RequestParam @NotBlank String contain) {
+		List<CocktailResponse> cocktailResponses = cocktailService.findByNameContaining(contain);
 		return ResponseEntity.ok(cocktailResponses);
 	}
 }

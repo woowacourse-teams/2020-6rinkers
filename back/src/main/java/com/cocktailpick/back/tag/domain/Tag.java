@@ -3,7 +3,7 @@ package com.cocktailpick.back.tag.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
-import com.cocktailpick.back.common.BaseEntity;
+import com.cocktailpick.back.common.domain.BaseEntity;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
