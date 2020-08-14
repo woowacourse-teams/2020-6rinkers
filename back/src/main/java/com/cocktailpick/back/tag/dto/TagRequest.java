@@ -3,6 +3,7 @@ package com.cocktailpick.back.tag.dto;
 import javax.validation.constraints.NotBlank;
 
 import com.cocktailpick.back.tag.domain.Tag;
+import com.cocktailpick.back.tag.domain.TagType;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,7 +16,10 @@ public class TagRequest {
 	@NotBlank
 	private String name;
 
+	@NotBlank
+	private String tagType;
+
 	public Tag toTag() {
-		return new Tag(name);
+		return new Tag(name, TagType.of(tagType));
 	}
 }

@@ -61,7 +61,7 @@ class TagControllerTest extends Documentation {
 	@DisplayName("태그를 생성한다.")
 	@Test
 	void createTag() throws Exception {
-		TagRequest tagRequest = new TagRequest("새로운 태그");
+		TagRequest tagRequest = new TagRequest("새로운 태그", "CONCEPT");
 		when(tagService.createTag(any())).thenReturn(1L);
 
 		mockMvc.perform(post("/api/tags")

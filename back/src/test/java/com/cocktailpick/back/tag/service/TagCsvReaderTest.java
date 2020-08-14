@@ -11,14 +11,16 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cocktailpick.back.common.csv.OpenCsvReader;
+import com.cocktailpick.back.tag.Fixtures;
 import com.cocktailpick.back.tag.domain.Tag;
+import com.cocktailpick.back.tag.domain.TagType;
 
 class TagCsvReaderTest {
 	private MultipartFile multipartFile;
 
 	@BeforeEach
 	void setUp() {
-		String content = "태그\n두강\n두중\n두약";
+		String content = Fixtures.THREE_TAGS_CSV_CONTENT;
 		multipartFile = new MockMultipartFile("file", "태그.csv", "text/csv",
 			content.getBytes());
 	}
@@ -32,8 +34,11 @@ class TagCsvReaderTest {
 		assertAll(
 			() -> assertThat(actual).hasSize(3),
 			() -> assertThat(actual.get(0).getName()).isEqualTo("두강"),
+			() -> assertThat(actual.get(0).getTagType()).isEqualTo(TagType.CONCEPT),
 			() -> assertThat(actual.get(1).getName()).isEqualTo("두중"),
-			() -> assertThat(actual.get(2).getName()).isEqualTo("두약")
+			() -> assertThat(actual.get(1).getTagType()).isEqualTo(TagType.ABV),
+			() -> assertThat(actual.get(2).getName()).isEqualTo("두약"),
+			() -> assertThat(actual.get(2).getTagType()).isEqualTo(TagType.INGREDIENT)
 		);
 	}
 }
