@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { createTag, fetchAllTags } from "../../../api";
 import dataToTagRequest from "../../../utils/admin/tagConverter";
@@ -13,21 +13,23 @@ const TagInputContainer = styled.div`
   border-bottom: 1px solid gray;
 `;
 
-const TagInput = ({ tag, updateTag }) => {
-  const onChange = (e) => {
-    updateTag(e.target.value);
+const Button = styled.button`
+  margin-left: 1.2rem;
+`;
+
+const TagInput = ({ tagName, tagType, setTagName, setTagType }) => {
+  const onTagNameChange = (e) => {
+    setTagName(e.target.value);
   };
 
-  const onEnter = (e) => {
-    if (e.key === "Enter") {
-      onSubmit(e);
-    }
+  const onTagTypeChange = (e) => {
+    setTagType(e.target.value);
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    createTag(dataToTagRequest(tag));
-    updateTag("");
+    createTag(dataToTagRequest(tagName, tagType));
+    setTagName("");
   };
 
   const inputStyle = {
@@ -38,15 +40,23 @@ const TagInput = ({ tag, updateTag }) => {
     <TagInputContainer>
       <input
         className="tagInput"
-        value={tag}
+        value={tagName}
         placeholder="추가할 태그명을 입력해주세요."
-        onChange={onChange}
-        onKeyPress={onEnter}
+        onChange={onTagNameChange}
         style={inputStyle}
       />
-      <button type="submit" onClick={onSubmit}>
+      <select onChange={onTagTypeChange}>
+        <option value="X">태그 타입 선택</option>
+        <option value="도수">도수</option>
+        <option value="재료">재료</option>
+        <option value="맛">맛</option>
+        <option value="식감">식감</option>
+        <option value="컨셉">컨셉</option>
+        <option value="꺼릴만한 것">꺼릴만한 것</option>
+      </select>
+      <Button type="submit" onClick={onSubmit}>
         등록
-      </button>
+      </Button>
     </TagInputContainer>
   );
 };
