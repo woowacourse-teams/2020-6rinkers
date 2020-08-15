@@ -9,7 +9,7 @@ import TagAdmin from "../component/admin/tag/TagAdmin";
 import CocktailSearch from "../component/cocktailSearch/CocktailSearch";
 import CocktailDetailSearch from "../component/cocktailSearch/CocktailDetailSearch";
 import Question from "../component/recommend/Question";
-import Result from "../component/recommend/Result";
+import Result from "../component/result/Result";
 
 const Routes = ({ cocktails, setCocktails }) => {
   const checkAdmin = (location) => {
