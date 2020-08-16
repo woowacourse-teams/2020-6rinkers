@@ -236,65 +236,6 @@ public class CocktailServiceTest {
 		assertThat(cocktailService.findCocktailOfToday().getName()).isEqualTo("토니 진");
 	}
 
-	// @DisplayName("칵테일을 추천한다.")
-	// @Test
-	// void recommend() {
-	// 	Cocktail cocktail1 = Cocktail.builder()
-	// 		.name("a")
-	// 		.abv(10)
-	// 		.flavor(flavor)
-	// 		.build();
-	// 	Cocktail cocktail2 = Cocktail.builder()
-	// 		.name("b")
-	// 		.abv(20)
-	// 		.flavor(flavor)
-	// 		.build();
-	// 	Cocktail cocktail3 = Cocktail.builder()
-	// 		.name("c")
-	// 		.abv(30)
-	// 		.flavor(flavor)
-	// 		.build();
-	// 	Cocktail cocktail4 = Cocktail.builder()
-	// 		.name("d")
-	// 		.abv(40)
-	// 		.flavor(flavor)
-	// 		.build();
-	//
-	// 	List<Cocktail> cocktails = Arrays.asList(cocktail1, cocktail2, cocktail3, cocktail4);
-	// 	String[] tagNames = {"도수가 높은", "단맛", "신맛", "쓴맛", "탄산", "매운 맛", "커피", "초코", "코코넛", "우유"};
-	// 	List<Tag> tags = Arrays.stream(tagNames)
-	// 		.map(Tag::new)
-	// 		.collect(Collectors.toList());
-	//
-	// 	CocktailTag.associate(cocktail1, tags.get(0));  //도수가 높은
-	// 	CocktailTag.associate(cocktail1, tags.get(1));  //단맛
-	// 	CocktailTag.associate(cocktail1, tags.get(4));  //탄산
-	// 	CocktailTag.associate(cocktail1, tags.get(7));  //초코
-	//
-	// 	CocktailTag.associate(cocktail2, tags.get(2));  //신맛
-	// 	CocktailTag.associate(cocktail2, tags.get(3));  //쓴맛
-	// 	CocktailTag.associate(cocktail2, tags.get(5));  //매운맛
-	//
-	// 	CocktailTag.associate(cocktail3, tags.get(2));  //신맛
-	// 	CocktailTag.associate(cocktail3, tags.get(3));  //쓴맛
-	// 	CocktailTag.associate(cocktail3, tags.get(7));  //초코
-	//
-	// 	CocktailTag.associate(cocktail4, tags.get(3));  //쓴맛
-	// 	CocktailTag.associate(cocktail4, tags.get(5));  //탄산
-	// 	CocktailTag.associate(cocktail4, tags.get(8));  //코코넛
-	//
-	// 	when(tagRepository.findByNameIn(anyList())).thenReturn(tags);
-	// 	when(cocktailRepository.findAll()).thenReturn(cocktails);
-	//
-	// 	UserRecommendRequests recommendRequests =
-	// 		Stream.of(true, true, false, true, false, true, true, false, true, false)
-	// 			.map(UserRecommendRequest::new)
-	// 			.collect(Collectors.collectingAndThen(Collectors.toList(), UserRecommendRequests::new));
-	//
-	// 	assertThat(cocktailService.recommend(recommendRequests.getUserRecommendRequests()))
-	// 		.extracting("name").contains("d");
-	// }
-
 	@Test
 	void containName() {
 		when(cocktailRepository.findByNameContaining("두강")).thenReturn(anyList());
