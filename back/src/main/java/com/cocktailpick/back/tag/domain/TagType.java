@@ -2,6 +2,8 @@ package com.cocktailpick.back.tag.domain;
 
 import java.util.Arrays;
 
+import com.cocktailpick.back.common.exceptions.ErrorCode;
+import com.cocktailpick.back.common.exceptions.InvalidValueException;
 import lombok.Getter;
 
 @Getter
@@ -23,6 +25,6 @@ public enum TagType {
 		return Arrays.stream(TagType.values())
 			.filter(type -> type.tagType.equals(tagType))
 			.findFirst()
-			.orElseThrow(IllegalArgumentException::new);
+			.orElseThrow(() -> new InvalidValueException(ErrorCode.TAG_TYPE_NOT_FOUND));
 	}
 }
