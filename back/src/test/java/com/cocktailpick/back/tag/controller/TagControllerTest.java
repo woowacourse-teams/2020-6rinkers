@@ -46,8 +46,8 @@ class TagControllerTest extends Documentation {
 	@DisplayName("모든 태그를 조회한다.")
 	@Test
 	void findAllTags() throws Exception {
-		TagResponse tagResponse1 = new TagResponse("탄산");
-		TagResponse tagResponse2 = new TagResponse("초코");
+		TagResponse tagResponse1 = new TagResponse("탄산", "재료");
+		TagResponse tagResponse2 = new TagResponse("초코", "재료");
 		List<TagResponse> tagResponses = Arrays.asList(tagResponse1, tagResponse2);
 		when(tagService.findAllTags()).thenReturn(tagResponses);
 

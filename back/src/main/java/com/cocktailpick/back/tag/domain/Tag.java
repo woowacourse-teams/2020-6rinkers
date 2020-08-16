@@ -25,4 +25,8 @@ public class Tag extends BaseEntity {
 	public boolean isSameName(Tag tag) {
 		return this.name.equals(tag.name);
 	}
+
+	public String getTagType() {
+		return tagType.getTagType();
+	}
 }

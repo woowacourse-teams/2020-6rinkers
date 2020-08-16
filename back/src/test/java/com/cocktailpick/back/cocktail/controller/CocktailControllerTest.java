@@ -89,9 +89,9 @@ class CocktailControllerTest extends Documentation {
 	void findCocktails() throws Exception {
 		List<CocktailResponse> cocktailResponses = Arrays.asList(
 			new CocktailResponse(1L, "싱가폴 슬링", "https://naver.com",
-				Collections.singletonList(new TagResponse("마지막 양심"))),
+				Collections.singletonList(new TagResponse("마지막 양심", "컨셉"))),
 			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
-				Arrays.asList(new TagResponse("쫄깃쫄깃"), new TagResponse("짭쪼름")))
+				Arrays.asList(new TagResponse("쫄깃쫄깃", "식감"), new TagResponse("짭쪼름", "맛")))
 		);
 		given(cocktailService.findAllCocktails()).willReturn(cocktailResponses);
 
@@ -107,9 +107,9 @@ class CocktailControllerTest extends Documentation {
 	void findPagedCocktails() throws Exception {
 		List<CocktailResponse> cocktailResponses = Arrays.asList(
 			new CocktailResponse(1L, "싱가폴 슬링", "https://naver.com",
-				Collections.singletonList(new TagResponse("마지막 양심"))),
+				Collections.singletonList(new TagResponse("마지막 양심", "컨셉"))),
 			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
-				Arrays.asList(new TagResponse("쫄깃쫄깃"), new TagResponse("짭쪼름")))
+				Arrays.asList(new TagResponse("쫄깃쫄깃", "식감"), new TagResponse("짭쪼름", "맛")))
 		);
 		given(cocktailService.findPagedCocktails("", 0, 2)).willReturn(cocktailResponses);
 

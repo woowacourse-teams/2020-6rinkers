@@ -2,6 +2,9 @@ package com.cocktailpick.back.tag.domain;
 
 import java.util.Arrays;
 
+import lombok.Getter;
+
+@Getter
 public enum TagType {
 	ABV("도수"),
 	INGREDIENT("재료"),

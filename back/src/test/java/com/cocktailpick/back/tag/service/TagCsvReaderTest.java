@@ -34,11 +34,11 @@ class TagCsvReaderTest {
 		assertAll(
 			() -> assertThat(actual).hasSize(3),
 			() -> assertThat(actual.get(0).getName()).isEqualTo("두강"),
-			() -> assertThat(actual.get(0).getTagType()).isEqualTo(TagType.CONCEPT),
+			() -> assertThat(actual.get(0).getTagType()).isEqualTo(TagType.CONCEPT.getTagType()),
 			() -> assertThat(actual.get(1).getName()).isEqualTo("두중"),
-			() -> assertThat(actual.get(1).getTagType()).isEqualTo(TagType.ABV),
+			() -> assertThat(actual.get(1).getTagType()).isEqualTo(TagType.ABV.getTagType()),
 			() -> assertThat(actual.get(2).getName()).isEqualTo("두약"),
-			() -> assertThat(actual.get(2).getTagType()).isEqualTo(TagType.INGREDIENT)
+			() -> assertThat(actual.get(2).getTagType()).isEqualTo(TagType.INGREDIENT.getTagType())
 		);
 	}
 }
