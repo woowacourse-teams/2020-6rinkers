@@ -17,6 +17,7 @@ import com.cocktailpick.back.recipe.domain.RecipeItemRepository;
 import com.cocktailpick.back.tag.domain.CocktailTag;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
+import com.cocktailpick.back.tag.domain.TagType;
 
 @DataJpaTest
 public class CocktailRepositoryTest {
@@ -37,7 +38,7 @@ public class CocktailRepositoryTest {
 
 	@BeforeEach
 	void setUp() {
-		tag = new Tag("두강맛");
+		tag = new Tag("두강맛", TagType.FLAVOR);
 
 		tagRepository.save(tag);
 

@@ -15,13 +15,15 @@ import lombok.NoArgsConstructor;
 public class TagResponse {
 	private String name;
 
-	private static TagResponse of(Tag tag) {
-		return new TagResponse(tag.getName());
-	}
+	private String tagType;
 
 	public static List<TagResponse> listOf(List<Tag> tags) {
 		return tags.stream()
 			.map(TagResponse::of)
 			.collect(Collectors.toList());
+	}
+
+	private static TagResponse of(Tag tag) {
+		return new TagResponse(tag.getName(), tag.getTagType());
 	}
 }

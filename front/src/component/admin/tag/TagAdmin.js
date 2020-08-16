@@ -21,17 +21,19 @@ const TagContainer = styled.div`
 `;
 
 const TagAdmin = () => {
-  const [tag, setTag] = useState("");
-
-  const updateTag = (value) => {
-    setTag(value);
-  };
+  const [tagName, setTagName] = useState("");
+  const [tagType, setTagType] = useState("");
 
   return (
     <Container>
       <TagContainer>
-        <TagInput tag={tag} updateTag={updateTag} />
-        <TagList tag={tag} />
+        <TagInput
+          tagName={tagName}
+          tagType={tagType}
+          setTagName={setTagName}
+          setTagType={setTagType}
+        />
+        <TagList tagName={tagName} />
       </TagContainer>
     </Container>
   );

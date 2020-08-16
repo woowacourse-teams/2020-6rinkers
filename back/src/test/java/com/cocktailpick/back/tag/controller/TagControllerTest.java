@@ -46,8 +46,8 @@ class TagControllerTest extends Documentation {
 	@DisplayName("모든 태그를 조회한다.")
 	@Test
 	void findAllTags() throws Exception {
-		TagResponse tagResponse1 = new TagResponse("탄산");
-		TagResponse tagResponse2 = new TagResponse("초코");
+		TagResponse tagResponse1 = new TagResponse("탄산", "재료");
+		TagResponse tagResponse2 = new TagResponse("초코", "재료");
 		List<TagResponse> tagResponses = Arrays.asList(tagResponse1, tagResponse2);
 		when(tagService.findAllTags()).thenReturn(tagResponses);
 
@@ -61,7 +61,7 @@ class TagControllerTest extends Documentation {
 	@DisplayName("태그를 생성한다.")
 	@Test
 	void createTag() throws Exception {
-		TagRequest tagRequest = new TagRequest("새로운 태그");
+		TagRequest tagRequest = new TagRequest("새로운 태그", "CONCEPT");
 		when(tagService.createTag(any())).thenReturn(1L);
 
 		mockMvc.perform(post("/api/tags")

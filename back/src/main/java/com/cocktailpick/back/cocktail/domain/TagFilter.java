@@ -1,5 +1,8 @@
 package com.cocktailpick.back.cocktail.domain;
 
+import lombok.Generated;
+
+@Generated
 public enum TagFilter {
 	HIGH_ABV("도수가 높은"),
 	SWEET("단맛"),

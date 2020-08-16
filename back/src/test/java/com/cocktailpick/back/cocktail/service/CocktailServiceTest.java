@@ -11,8 +11,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -33,12 +31,10 @@ import com.cocktailpick.back.cocktail.domain.Flavor;
 import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
-import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
-import com.cocktailpick.back.cocktail.dto.UserRecommendRequests;
 import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
-import com.cocktailpick.back.tag.domain.CocktailTag;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
+import com.cocktailpick.back.tag.domain.TagType;
 
 @ExtendWith(MockitoExtension.class)
 public class CocktailServiceTest {
@@ -68,7 +64,7 @@ public class CocktailServiceTest {
 		cocktailService = new CocktailService(cocktailRepository, tagRepository,
 			cocktailFindStrategyFactory);
 
-		tag = new Tag("두강맛");
+		tag = new Tag("두강맛", TagType.FLAVOR);
 
 		flavor = Flavor.builder()
 			.bitter(true)
@@ -191,7 +187,7 @@ public class CocktailServiceTest {
 	@DisplayName("칵테일을 수정한다.")
 	@Test
 	void update() {
-		Tag bearTag = new Tag("곰");
+		Tag bearTag = new Tag("곰", TagType.CONCEPT);
 
 		when(cocktailRepository.findById(anyLong())).thenReturn(Optional.of(blueHawaii));
 		when(tagRepository.findByNameIn(anyList())).thenReturn(Collections.singletonList(bearTag));
@@ -238,65 +234,6 @@ public class CocktailServiceTest {
 		when(cocktailRepository.findAll()).thenReturn(Arrays.asList(first, second, third));
 
 		assertThat(cocktailService.findCocktailOfToday().getName()).isEqualTo("토니 진");
-	}
-
-	@DisplayName("칵테일을 추천한다.")
-	@Test
-	void recommend() {
-		Cocktail cocktail1 = Cocktail.builder()
-			.name("a")
-			.abv(10)
-			.flavor(flavor)
-			.build();
-		Cocktail cocktail2 = Cocktail.builder()
-			.name("b")
-			.abv(20)
-			.flavor(flavor)
-			.build();
-		Cocktail cocktail3 = Cocktail.builder()
-			.name("c")
-			.abv(30)
-			.flavor(flavor)
-			.build();
-		Cocktail cocktail4 = Cocktail.builder()
-			.name("d")
-			.abv(40)
-			.flavor(flavor)
-			.build();
-
-		List<Cocktail> cocktails = Arrays.asList(cocktail1, cocktail2, cocktail3, cocktail4);
-		String[] tagNames = {"도수가 높은", "단맛", "신맛", "쓴맛", "탄산", "매운 맛", "커피", "초코", "코코넛", "우유"};
-		List<Tag> tags = Arrays.stream(tagNames)
-			.map(Tag::new)
-			.collect(Collectors.toList());
-
-		CocktailTag.associate(cocktail1, tags.get(0));  //도수가 높은
-		CocktailTag.associate(cocktail1, tags.get(1));  //단맛
-		CocktailTag.associate(cocktail1, tags.get(4));  //탄산
-		CocktailTag.associate(cocktail1, tags.get(7));  //초코
-
-		CocktailTag.associate(cocktail2, tags.get(2));  //신맛
-		CocktailTag.associate(cocktail2, tags.get(3));  //쓴맛
-		CocktailTag.associate(cocktail2, tags.get(5));  //매운맛
-
-		CocktailTag.associate(cocktail3, tags.get(2));  //신맛
-		CocktailTag.associate(cocktail3, tags.get(3));  //쓴맛
-		CocktailTag.associate(cocktail3, tags.get(7));  //초코
-
-		CocktailTag.associate(cocktail4, tags.get(3));  //쓴맛
-		CocktailTag.associate(cocktail4, tags.get(5));  //탄산
-		CocktailTag.associate(cocktail4, tags.get(8));  //코코넛
-
-		when(tagRepository.findByNameIn(anyList())).thenReturn(tags);
-		when(cocktailRepository.findAll()).thenReturn(cocktails);
-
-		UserRecommendRequests recommendRequests =
-			Stream.of(true, true, false, true, false, true, true, false, true, false)
-				.map(UserRecommendRequest::new)
-				.collect(Collectors.collectingAndThen(Collectors.toList(), UserRecommendRequests::new));
-
-		assertThat(cocktailService.recommend(recommendRequests.getUserRecommendRequests()))
-			.extracting("name").contains("d");
 	}
 
 	@Test
