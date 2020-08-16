@@ -2,8 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const TagItemContainer = styled.div`
-  padding-top: 20px;
-  padding-bottom: 20px;
+  display: flex;
   border-bottom: 1px solid gray;
   width: 100%;
   text-align: center;
@@ -12,8 +11,26 @@ const TagItemContainer = styled.div`
   }
 `;
 
+const TagName = styled.div`
+  flex-grow: 1;
+  width: 10%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+`;
+
+const TagType = styled.div`
+  flex-grow: 1;
+  padding-top: 20px;
+  padding-bottom: 20px;
+`;
+
 const TagItem = ({ tag }) => {
-  return <TagItemContainer>{tag}</TagItemContainer>;
+  return (
+    <TagItemContainer>
+      <TagName>{tag.name}</TagName>
+      <TagType>{tag.tagType}</TagType>
+    </TagItemContainer>
+  );
 };
 
 export default TagItem;
