@@ -25,11 +25,16 @@ import org.springframework.web.context.WebApplicationContext;
 import com.cocktailpick.back.cocktail.docs.CocktailDocumentation;
 import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.cocktail.domain.Flavor;
+import com.cocktailpick.back.cocktail.dto.AbvAnswer;
 import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
-import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
+import com.cocktailpick.back.cocktail.dto.FlavorAnswer;
+import com.cocktailpick.back.cocktail.dto.RecommendRequest;
+import com.cocktailpick.back.cocktail.dto.TagPreferenceAnswer;
+import com.cocktailpick.back.cocktail.service.CocktailRecommendService;
 import com.cocktailpick.back.cocktail.service.CocktailService;
+import com.cocktailpick.back.cocktail.vo.UserPreferenceAnswer;
 import com.cocktailpick.back.common.documentation.Documentation;
 import com.cocktailpick.back.tag.dto.TagResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -38,6 +43,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 class CocktailControllerTest extends Documentation {
 	@MockBean
 	private CocktailService cocktailService;
+
+	@MockBean
+	private CocktailRecommendService cocktailRecommendService;
 
 	private Cocktail blueHawaii;
 
@@ -235,14 +243,27 @@ class CocktailControllerTest extends Documentation {
 	void recommendCocktail() throws Exception {
 		CocktailDetailResponse blueHawaiiResponse = CocktailDetailResponse.of(blueHawaii);
 		blueHawaiiResponse = blueHawaiiResponse.withId(1L);
-		List<UserRecommendRequest> requests = Arrays.asList(new UserRecommendRequest(true),
-			new UserRecommendRequest(true));
+		AbvAnswer abvAnswer = new AbvAnswer(100, 0);
+		List<TagPreferenceAnswer> moodAnswers = Collections.singletonList(
+			new TagPreferenceAnswer(10L, UserPreferenceAnswer.YES));
+		List<TagPreferenceAnswer> preferenceAnswers = Arrays.asList(
+			new TagPreferenceAnswer(5L, UserPreferenceAnswer.YES),
+			new TagPreferenceAnswer(6L, UserPreferenceAnswer.YES)
+		);
+		List<TagPreferenceAnswer> nonPreferenceAnswers = Collections.singletonList(
+			new TagPreferenceAnswer(11L, UserPreferenceAnswer.NO));
+		FlavorAnswer flavorAnswer = new FlavorAnswer(UserPreferenceAnswer.SOSO, UserPreferenceAnswer.SOSO,
+			UserPreferenceAnswer.SOSO);
 
-		given(cocktailService.recommend(any())).willReturn(Collections.singletonList(blueHawaiiResponse));
+		RecommendRequest recommendRequest = new RecommendRequest(abvAnswer, moodAnswers, flavorAnswer,
+			preferenceAnswers,
+			nonPreferenceAnswers);
+
+		given(cocktailRecommendService.recommend(any())).willReturn(Collections.singletonList(blueHawaiiResponse));
 
 		mockMvc.perform(post("/api/cocktails/recommend")
 			.accept(MediaType.APPLICATION_JSON)
-			.content(objectMapper.writeValueAsString(requests))
+			.content(objectMapper.writeValueAsString(recommendRequest))
 			.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andDo(print())

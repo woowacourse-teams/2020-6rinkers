@@ -23,18 +23,18 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
-import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
+import com.cocktailpick.back.cocktail.dto.RecommendRequest;
+import com.cocktailpick.back.cocktail.service.CocktailRecommendService;
 import com.cocktailpick.back.cocktail.service.CocktailService;
+import lombok.RequiredArgsConstructor;
 
 @CrossOrigin("*")
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/cocktails")
 public class CocktailController {
 	private final CocktailService cocktailService;
-
-	public CocktailController(CocktailService cocktailService) {
-		this.cocktailService = cocktailService;
-	}
+	private final CocktailRecommendService cocktailRecommendService;
 
 	@GetMapping
 	public ResponseEntity<List<CocktailResponse>> findCocktails() {
@@ -90,9 +90,8 @@ public class CocktailController {
 	}
 
 	@PostMapping("/recommend")
-	public ResponseEntity<List<CocktailDetailResponse>> recommend(
-		@RequestBody List<UserRecommendRequest> recommendRequests) {
-		List<CocktailDetailResponse> cocktailDetailResponses = cocktailService.recommend(recommendRequests);
+	public ResponseEntity<List<CocktailDetailResponse>> recommend(@RequestBody RecommendRequest recommendRequests) {
+		List<CocktailDetailResponse> cocktailDetailResponses = cocktailRecommendService.recommend(recommendRequests);
 		return ResponseEntity.ok(cocktailDetailResponses);
 	}
 

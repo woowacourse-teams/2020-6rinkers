@@ -1,6 +1,7 @@
 package com.cocktailpick.back.cocktail.dto;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.recipe.dto.RecipeItemResponse;
@@ -52,5 +53,11 @@ public class CocktailDetailResponse {
 			cocktail.isBitter(),
 			RecipeItemResponse.listOf(cocktail.getRecipe())
 		);
+	}
+
+	public static List<CocktailDetailResponse> listOf(List<Cocktail> recommend) {
+		return recommend.stream()
+			.map(CocktailDetailResponse::of)
+			.collect(Collectors.toList());
 	}
 }

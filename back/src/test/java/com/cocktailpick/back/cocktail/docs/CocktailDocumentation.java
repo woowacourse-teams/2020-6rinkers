@@ -137,7 +137,25 @@ public class CocktailDocumentation {
 	public static RestDocumentationResultHandler recommendCocktail() {
 		return document("cocktails/recommend",
 			requestFields(
-				fieldWithPath("[].answer").type(JsonFieldType.BOOLEAN).description("사용자 답변")
+				fieldWithPath("abvAnswer").type(JsonFieldType.OBJECT).description("술 도수 선호 답변"),
+				fieldWithPath("abvAnswer.max").type(JsonFieldType.NUMBER).description("술 도수 최대값"),
+				fieldWithPath("abvAnswer.min").type(JsonFieldType.NUMBER).description("술 도수 최소값"),
+				fieldWithPath("moodAnswers").type(JsonFieldType.ARRAY).description("분위기 선호 답변"),
+				fieldWithPath("moodAnswers.[].tagId").type(JsonFieldType.NUMBER).description("해당하는 분위기 태그 id"),
+				fieldWithPath("moodAnswers.[].userPreferenceAnswer").type(JsonFieldType.STRING)
+					.description("해당하는 분위기에 대한 선호도"),
+				fieldWithPath("flavorAnswer").type(JsonFieldType.OBJECT).description("맛 선호 답변"),
+				fieldWithPath("flavorAnswer.sweetAnswer").type(JsonFieldType.STRING).description("단맛 선호 답변"),
+				fieldWithPath("flavorAnswer.sourAnswer").type(JsonFieldType.STRING).description("신맛 선호 답변"),
+				fieldWithPath("flavorAnswer.bitterAnswer").type(JsonFieldType.STRING).description("쓴맛 선호 답변"),
+				fieldWithPath("preferenceAnswers").type(JsonFieldType.ARRAY).description("선호 재료 답변"),
+				fieldWithPath("preferenceAnswers.[].tagId").type(JsonFieldType.NUMBER).description("해당하는 재료 태그 id"),
+				fieldWithPath("preferenceAnswers.[].userPreferenceAnswer").type(JsonFieldType.STRING)
+					.description("해당하는 재료에 대한 선호도"),
+				fieldWithPath("nonPreferenceAnswers").type(JsonFieldType.ARRAY).description("비선호 재료 답변"),
+				fieldWithPath("nonPreferenceAnswers.[].tagId").type(JsonFieldType.NUMBER).description("해당하는 재료 태그 id"),
+				fieldWithPath("nonPreferenceAnswers.[].userPreferenceAnswer").type(JsonFieldType.STRING)
+					.description("해당하는 재료에 대한 선호도")
 			),
 			responseFields(
 				fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("추천된 칵테일 ID"),

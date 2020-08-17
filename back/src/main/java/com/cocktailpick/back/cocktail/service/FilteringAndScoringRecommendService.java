@@ -19,7 +19,7 @@ public class FilteringAndScoringRecommendService {
 		RecommendRequest recommendRequest) {
 		RecommendedCocktails recommendedCocktails = filterByAbv(RecommendedCocktails.of(cocktails),
 			recommendRequest.getAbvAnswer());
-		recommendedCocktails = filterByDislike(recommendedCocktails, recommendRequest.getNonPreferenceAnswer(),
+		recommendedCocktails = filterByDislike(recommendedCocktails, recommendRequest.getNonPreferenceAnswers(),
 			entityMapper);
 		recommendedCocktails = addScoreByFlavor(recommendedCocktails, recommendRequest.getFlavorAnswer());
 		recommendedCocktails = addScoreByPreference(recommendedCocktails, recommendRequest.getMoodAnswers(),
