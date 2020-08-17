@@ -1,0 +1,74 @@
+.title {
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: #222;
+  padding: 20px 0;
+}
+
+.abv {
+  display: flex;
+  justify-content: space-between;
+  line-height: 1;
+  color: var(--black);
+}
+
+.min-abv,
+.max-abv {
+  display: flex;
+  align-items: center;
+  font-size: 3rem;
+  margin: 1rem;
+}
+
+.abv-value {
+  min-width: 3.7rem;
+}
+
+.soju,
+.riceWine,
+.whisky {
+  height: 3rem;
+}
+
+.sliderArea {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.rc-slider-rail,
+.rc-slider-step,
+.rc-slider-track,
+.rc-slider-track-1 {
+  height: 10px !important;
+  background-color: var(--light-red) !important;
+}
+.rc-slider-dot {
+  height: 14px !important;
+  width: 14px !important;
+}
+
+.rc-slider-handle {
+  height: 20px !important;
+  width: 20px !important;
+  border: solid 2px var(--light-red) !important;
+}
+
+.rc-slider-handle-click-focused,
+.rc-slider-handle-dragging {
+  user-focus: none !important;
+  user-select: none !important;
+  outline: none !important;
+  border-color: var(--little-light-red) !important;
+  box-shadow: 0 0 0 3px var(--little-light-red) !important;
+}
+
+.rc-slider-mark {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rc-slider-mark-text,
+.rc-slider-mark-text-active {
+  font-size: 1.5rem;
+}
