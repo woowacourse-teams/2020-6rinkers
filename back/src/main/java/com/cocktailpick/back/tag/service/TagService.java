@@ -39,6 +39,11 @@ public class TagService {
 		return TagResponse.listOf(tagRepository.findAll());
 	}
 
+	@Transactional(readOnly = true)
+	public List<Tag> findAll() {
+		return tagRepository.findAll();
+	}
+
 	@Transactional
 	public Long createTag(TagRequest tagRequest) {
 		Tag tag = tagRepository.save(tagRequest.toTag());

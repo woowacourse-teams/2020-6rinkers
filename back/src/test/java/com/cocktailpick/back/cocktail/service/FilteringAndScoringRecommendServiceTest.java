@@ -16,7 +16,6 @@ import org.junit.jupiter.api.Test;
 import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.cocktail.domain.Flavor;
 import com.cocktailpick.back.cocktail.dto.AbvAnswer;
-import com.cocktailpick.back.cocktail.dto.CocktailResponse;
 import com.cocktailpick.back.cocktail.dto.FlavorAnswer;
 import com.cocktailpick.back.cocktail.dto.RecommendRequest;
 import com.cocktailpick.back.cocktail.dto.TagPreferenceAnswer;
@@ -26,7 +25,7 @@ import com.cocktailpick.back.tag.domain.CocktailTag;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagType;
 
-class CocktailRecommendServiceTest {
+class FilteringAndScoringRecommendServiceTest {
 	private Flavor flavor;
 
 	private Cocktail cocktail1;
@@ -135,11 +134,11 @@ class CocktailRecommendServiceTest {
 		RecommendRequest recommendRequest = new RecommendRequest(abvAnswer, moodAnswer, flavorAnswer, preferenceAnswers,
 			nonPreferenceAnswers);
 
-		List<CocktailResponse> cocktailResponses = filteringAndScoringRecommendService.recommend(cocktails,
+		List<Cocktail> recommendedCocktails = filteringAndScoringRecommendService.recommend(cocktails,
 			entityMapper,
 			recommendRequest);
 
-		assertThat(cocktailResponses).isNotEmpty();
+		assertThat(recommendedCocktails).isNotEmpty();
 	}
 
 	@DisplayName("지정한 도수에 맞게 칵테일을 필터링한다.")

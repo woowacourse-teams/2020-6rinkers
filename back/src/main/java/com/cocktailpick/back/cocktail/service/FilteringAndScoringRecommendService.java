@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.cocktail.domain.RecommendedCocktails;
 import com.cocktailpick.back.cocktail.dto.AbvAnswer;
-import com.cocktailpick.back.cocktail.dto.CocktailResponse;
 import com.cocktailpick.back.cocktail.dto.FlavorAnswer;
 import com.cocktailpick.back.cocktail.dto.RecommendRequest;
 import com.cocktailpick.back.cocktail.dto.TagPreferenceAnswer;
@@ -16,7 +15,7 @@ import com.cocktailpick.back.tag.domain.Tag;
 
 @Service
 public class FilteringAndScoringRecommendService {
-	public List<CocktailResponse> recommend(List<Cocktail> cocktails, EntityMapper<Long, Tag> entityMapper,
+	public List<Cocktail> recommend(List<Cocktail> cocktails, EntityMapper<Long, Tag> entityMapper,
 		RecommendRequest recommendRequest) {
 		RecommendedCocktails recommendedCocktails = filterByAbv(RecommendedCocktails.of(cocktails),
 			recommendRequest.getAbvAnswer());
@@ -27,7 +26,7 @@ public class FilteringAndScoringRecommendService {
 			entityMapper);
 		recommendedCocktails = addScoreByPreference(recommendedCocktails, recommendRequest.getPreferenceAnswers(),
 			entityMapper);
-		return CocktailResponse.listOf(recommendedCocktails.getSortedCocktailsByScore());
+		return recommendedCocktails.getSortedCocktailsByScore();
 	}
 
 	private RecommendedCocktails filterByAbv(RecommendedCocktails recommendedCocktails, AbvAnswer abvAnswer) {
