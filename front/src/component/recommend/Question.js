@@ -33,8 +33,9 @@ const Question = ({ setCocktails }) => {
     setCocktails(response.data);
   };
 
-  const addLastAnswer = async (answer) => {
-    setAnswers([...answers, answer]);
+  const addLastAnswer = async (type, answer) => {
+    const wrappedAnswer = { [type]: answer };
+    setAnswers([...answers, wrappedAnswer]);
     await getCocktails(answers);
     history.push("/result");
   };
