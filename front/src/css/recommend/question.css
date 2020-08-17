@@ -1,34 +1,93 @@
 .question-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 60%;
+  height: 100%;
   text-align: center;
   margin: auto;
-}
-
-.question-number {
-  text-align: left;
-  font-size: x-large;
+  user-select: none;
 }
 
 .question {
   margin: 10vh 0;
-  font-size: x-large;
+  font-size: 1.5rem;
+  border: solid 1px var(--red);
+  border-radius: 10px;
+  background-color: transparent;
+  padding: 0.5rem 0.8rem;
 }
 
-.question-answer-button-wrapper {
-  display: flex;
-  justify-content: space-around;
-  align-content: space-around;
+.tag-name {
+  font-size: 1rem;
+  border: solid 1px var(--red);
+  border-radius: 10px;
+  background-color: transparent;
+  margin: 1rem 0.5rem 2rem 0.5rem;
+  padding: 0.5rem 0.8rem;
 }
 
 .answer-button {
-  border: solid 1px #a60000;
+  border: solid 1px var(--red);
   border-radius: 10px;
   background-color: transparent;
-  margin: 3rem;
+  margin: 1rem 0.5rem 2rem 0.5rem;
   font-size: large;
-  padding: 0.2rem 0.5rem;
+  padding: 0.5rem 0.8rem;
 }
 
 .answer-button:focus {
   outline: 0;
+}
+
+.checked {
+  background-color: var(--little-light-red);
+  color: var(--white);
+}
+
+.next-stage {
+  font-family: inherit;
+  font-size: 1rem;
+  border: none;
+  margin: 2rem 0.5rem 3rem 0.5rem;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border-radius: 10px;
+}
+
+.next-stage:hover {
+  color: var(--red);
+}
+
+@media screen and (max-width: 700px) {
+  .question-container {
+    width: 80%;
+    text-align: center;
+    margin: auto;
+  }
+
+  .question {
+    font-size: 1rem;
+    border: solid 1px var(--red);
+    border-radius: 10px;
+    background-color: transparent;
+    padding: 0.5rem 0.8rem;
+  }
+
+  .tag-name {
+    font-size: 1.4rem;
+  }
+
+  .answer-button {
+    border: solid 1px var(--red);
+    border-radius: 10px;
+    background-color: transparent;
+    margin: 0.5rem 0.3rem 1rem 0.3rem;
+    font-size: medium;
+    padding: 0.3rem 0.4rem;
+  }
+
+  .checked {
+    background-color: var(--little-light-red);
+    color: var(--white);
+  }
 }

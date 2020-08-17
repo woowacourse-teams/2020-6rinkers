@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { questions } from "./stageInformation";
+import { questions } from "./const";
 import { useHistory } from "react-router-dom";
 import { createRecommend } from "../../api";
 import Dislike from "./Dislike";
@@ -8,17 +8,18 @@ import Concept from "./Concept";
 import Abv from "./Abv";
 import Ingredient from "./Ingredient";
 import Taste from "./Taste";
-import NextStage from "./NextStage";
 import "../../css/recommend/question.css";
-
 
 const Question = ({ setCocktails }) => {
   const [answers, setAnswers] = useState([]);
   const [stage, setStage] = useState(1);
   const [question, setQuestion] = useState(questions[stage - 1]);
 
-  const addAnswer = (answer) => {
-    setAnswers([...answers, { answer }]);
+  const addAnswer = (type, answer) => {
+    const wrappedAnswer = { [type]: answer };
+    if (stage !== 0) {
+      setAnswers([...answers, wrappedAnswer]);
+    }
     setStage(stage + 1);
     setQuestion(questions[stage]);
   };
@@ -36,31 +37,36 @@ const Question = ({ setCocktails }) => {
     history.push("/result");
   };
 
-  const renderQuestion = () => {
+  const renderAnswer = () => {
     switch (stage) {
       case 1:
-        return <Intro />;
+        return <Intro addAnswer={addAnswer} />;
       case 2:
-        return <Concept question={question} />;
+        return <Concept addAnswer={addAnswer} />;
       case 3:
-        return <Abv question={question} />;
+        return <Abv addAnswer={addAnswer} />;
       case 4:
-        return <Ingredient question={question} />;
+        return <Ingredient addAnswer={addAnswer} />;
       case 5:
-        return <Taste question={question} />;
+        return <Taste addAnswer={addAnswer} />;
       case 6:
-        return <Dislike question={question} />;
+        return <Dislike addAnswer={addLastAnswer} />;
     }
   };
 
   return (
     <div className="question-container">
-      {renderQuestion()}
-      {stage !== 6 ? (
-        <NextStage addAnswer={addAnswer} />
-      ) : (
-        <NextStage addAnswer={addLastAnswer} />
-      )}
+      <div className="question">
+        {question.split("\n").map((line, index) => {
+          return (
+            <span key={`question-${index}`}>
+              {line}
+              <br />
+            </span>
+          );
+        })}
+      </div>
+      {renderAnswer()}
     </div>
   );
 };
