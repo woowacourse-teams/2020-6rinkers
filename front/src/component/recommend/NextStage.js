@@ -1,9 +1,11 @@
-import React from 'react';
+import React from "react";
 
-function NextStage({addAnswer}) {
-    return (
-        <button className="next-stage" onClick={addAnswer}>완료</button>
-    );
+function NextStage({ type, answer, addAnswer, saying }) {
+  return (
+    <button className="next-stage" onClick={() => addAnswer(type, answer)}>
+      {saying}
+    </button>
+  );
 }
 
 export default NextStage;
