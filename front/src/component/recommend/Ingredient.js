@@ -36,10 +36,10 @@ const Ingredient = ({ addAnswer }) => {
   return (
     <div>
       {ingredients &&
-        ingredients.map((concept, index) => {
+        ingredients.map((ingredient, index) => {
           return (
             <Tag
-              name={concept}
+              name={ingredient}
               key={`key-${index}`}
               answer={answer}
               onChangeAnswer={onChangeAnswer}
