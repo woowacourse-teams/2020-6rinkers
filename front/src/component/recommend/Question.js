@@ -10,14 +10,16 @@ import Ingredient from "./Ingredient";
 import Taste from "./Taste";
 import "../../css/recommend/question.css";
 
+const INITIAL_STAGE = 1;
+
 const Question = ({ setCocktails }) => {
   const [answers, setAnswers] = useState([]);
-  const [stage, setStage] = useState(1);
+  const [stage, setStage] = useState(INITIAL_STAGE);
   const [question, setQuestion] = useState(questions[stage - 1]);
 
   const addAnswer = (type, answer) => {
     const wrappedAnswer = { [type]: answer };
-    if (stage !== 0) {
+    if (stage !== INITIAL_STAGE) {
       setAnswers([...answers, wrappedAnswer]);
     }
     setStage(stage + 1);
@@ -39,7 +41,7 @@ const Question = ({ setCocktails }) => {
 
   const renderAnswer = () => {
     switch (stage) {
-      case 1:
+      case INITIAL_STAGE:
         return <Intro addAnswer={addAnswer} />;
       case 2:
         return <Concept addAnswer={addAnswer} />;
