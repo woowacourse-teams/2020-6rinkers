@@ -93,6 +93,10 @@ public class Cocktail extends BaseTimeEntity {
 		cocktailTags.deleteCocktailTag(cocktailTag);
 	}
 
+	public boolean containsTag(Tag tag) {
+		return !this.notContainsTag(tag);
+	}
+
 	public boolean notContainsTag(Tag tag) {
 		return cocktailTags.notContainsTag(tag);
 	}
@@ -111,5 +115,9 @@ public class Cocktail extends BaseTimeEntity {
 
 	public boolean isBitter() {
 		return flavor.isBitter();
+	}
+
+	public boolean isAbvBetween(int max, int min) {
+		return abv >= min && abv <= max;
 	}
 }
