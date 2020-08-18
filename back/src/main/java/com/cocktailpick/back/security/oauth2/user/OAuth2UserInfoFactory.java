@@ -11,6 +11,6 @@ public class OAuth2UserInfoFactory {
 			return new GoogleOAuth2UserInfo(attributes);
 		}
 		throw new OAuth2AuthenticationProcessingException(
-			"Sorry! Login with " + registrationId + " is not supported yet.");
+			registrationId + " 로그인은 지원하지 않습니다.");
 	}
 }
