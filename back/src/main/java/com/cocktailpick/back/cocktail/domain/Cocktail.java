@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.SequenceGenerator;
 
 import com.cocktailpick.back.common.domain.BaseTimeEntity;
 import com.cocktailpick.back.recipe.domain.Recipe;
@@ -25,7 +26,8 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Cocktail extends BaseTimeEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cocktail_sequence_gen")
+	@SequenceGenerator(name = "cocktail_sequence_gen", sequenceName = "cocktail_sequence")
 	private Long id;
 
 	private String name;

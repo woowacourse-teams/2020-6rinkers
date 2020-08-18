@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 
 import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.common.domain.BaseTimeEntity;
@@ -19,7 +20,8 @@ import lombok.NoArgsConstructor;
 @Entity
 public class RecipeItem extends BaseTimeEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "recipe_item_sequence_gen")
+	@SequenceGenerator(name = "recipe_item_sequence_gen", sequenceName = "recipe_item_sequence")
 	private Long id;
 
 	private String ingredient;
