@@ -36,7 +36,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 		} catch (AuthenticationException ex) {
 			throw ex;
 		} catch (Exception ex) {
-			// Throwing an instance of AuthenticationException will trigger the OAuth2AuthenticationFailureHandler
 			throw new InternalAuthenticationServiceException(ex.getMessage(), ex.getCause());
 		}
 	}
@@ -45,7 +44,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 		OAuth2UserInfo oAuth2UserInfo = OAuth2UserInfoFactory.getOAuth2UserInfo(
 			oAuth2UserRequest.getClientRegistration().getRegistrationId(), oAuth2User.getAttributes());
 		if (StringUtils.isEmpty(oAuth2UserInfo.getEmail())) {
-			throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
+			throw new OAuth2AuthenticationProcessingException("OAuth2 provider에 이메일이 없습니다.");
 		}
 
 		Optional<User> userOptional = userRepository.findByEmail(oAuth2UserInfo.getEmail());
@@ -54,9 +53,8 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 			user = userOptional.get();
 			if (!user.getProvider()
 				.equals(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()))) {
-				throw new OAuth2AuthenticationProcessingException("Looks like you're signed up with " +
-					user.getProvider() + " account. Please use your " + user.getProvider() +
-					" account to login.");
+				throw new OAuth2AuthenticationProcessingException(user.getProvider() + " 로 로그인하셨네요." + user.getProvider() +
+					" 계정으로 로그인 해주세요.");
 			}
 			user = updateExistingUser(user, oAuth2UserInfo);
 		} else {
