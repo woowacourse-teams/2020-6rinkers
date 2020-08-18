@@ -15,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
 import com.cocktailpick.back.common.documentation.Documentation;
 import com.cocktailpick.back.tag.docs.TagDocumentation;
@@ -83,11 +84,11 @@ class TagControllerTest extends Documentation {
 		TagRequest tagRequest = new TagRequest("update name", "CONCEPT");
 		when(tagService.update(anyLong(), any())).thenReturn(new Tag("", TagType.CONCEPT));
 
-		mockMvc.perform(put("/api/tags/1")
+		mockMvc.perform(RestDocumentationRequestBuilders.put("/api/tags/{id}", 1L)
 			.contentType(MediaType.APPLICATION_JSON)
 			.content(objectMapper.writeValueAsString(tagRequest)))
 			.andExpect(status().isOk())
-			.andDo(print());
+			.andDo(print()).andDo(TagDocumentation.update());
 	}
 
 	@DisplayName("태그를 삭제한다.")
@@ -95,8 +96,8 @@ class TagControllerTest extends Documentation {
 	void deleteTag() throws Exception {
 		doNothing().when(tagService).delete(anyLong());
 
-		mockMvc.perform(delete("/api/tags/1"))
+		mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/tags/{id}", 1L))
 			.andExpect(status().isNoContent())
-			.andDo(print());
+			.andDo(print()).andDo(TagDocumentation.delete());
 	}
 }
