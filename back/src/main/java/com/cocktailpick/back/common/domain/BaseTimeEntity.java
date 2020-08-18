@@ -1,6 +1,6 @@
 package com.cocktailpick.back.common.domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
@@ -16,8 +16,8 @@ import lombok.Getter;
 @MappedSuperclass
 public abstract class BaseTimeEntity {
 	@CreatedDate
-	private Date createdDate;
+	private LocalDateTime createdDate;
 
 	@LastModifiedDate
-	private Date updatedDate;
+	private LocalDateTime updatedDate;
 }
