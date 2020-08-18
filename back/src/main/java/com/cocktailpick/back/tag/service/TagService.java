@@ -7,6 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cocktailpick.back.common.csv.OpenCsvReader;
+import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
+import com.cocktailpick.back.common.exceptions.ErrorCode;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
 import com.cocktailpick.back.tag.dto.TagRequest;
@@ -37,5 +39,19 @@ public class TagService {
 		Tag tag = tagRepository.save(tagRequest.toTag());
 
 		return tag.getId();
+	}
+
+	@Transactional
+	public Tag update(Long id, TagRequest tagRequest) {
+		Tag tag = tagRepository.findById(id)
+			.orElseThrow(() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND));
+		tag.update(tagRequest.getName());
+
+		return tag;
+	}
+
+	@Transactional
+	public void delete(Long id) {
+		tagRepository.deleteById(id);
 	}
 }

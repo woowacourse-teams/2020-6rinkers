@@ -1,9 +1,11 @@
 package com.cocktailpick.back.tag.service;
 
 import static com.cocktailpick.back.tag.Fixtures.*;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -63,5 +65,24 @@ public class TagServiceTest {
 		tagService.createTag(tagRequest);
 
 		verify(tagRepository).save(any());
+	}
+
+	@DisplayName("태그를 수정한다.")
+	@Test
+	void update() {
+		Tag tag = new Tag("Before Tag", TagType.CONCEPT);
+		TagRequest tagRequest = new TagRequest("After Tag", "CONCEPT");
+		when(tagRepository.findById(1L)).thenReturn(Optional.of(tag));
+
+		Tag updatedTag = tagService.update(1L, tagRequest);
+		assertThat(updatedTag.getName()).isEqualTo(tagRequest.getName());
+	}
+
+	@DisplayName("태그를 삭제한다.")
+	@Test
+	void delete() {
+		tagService.delete(1L);
+
+		verify(tagRepository).deleteById(1L);
 	}
 }

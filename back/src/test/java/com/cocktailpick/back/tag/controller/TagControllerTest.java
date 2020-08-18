@@ -18,6 +18,8 @@ import org.springframework.mock.web.MockMultipartFile;
 
 import com.cocktailpick.back.common.documentation.Documentation;
 import com.cocktailpick.back.tag.docs.TagDocumentation;
+import com.cocktailpick.back.tag.domain.Tag;
+import com.cocktailpick.back.tag.domain.TagType;
 import com.cocktailpick.back.tag.dto.TagRequest;
 import com.cocktailpick.back.tag.dto.TagResponse;
 import com.cocktailpick.back.tag.service.TagService;
@@ -27,6 +29,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 class TagControllerTest extends Documentation {
 	@MockBean
 	private TagService tagService;
+
+	private final ObjectMapper objectMapper = new ObjectMapper();
 
 	@DisplayName("태그 csv 파일을 저장한다.")
 	@Test
@@ -66,10 +70,33 @@ class TagControllerTest extends Documentation {
 
 		mockMvc.perform(post("/api/tags")
 			.contentType(MediaType.APPLICATION_JSON)
-			.content(new ObjectMapper().writeValueAsString(tagRequest)))
+			.content(objectMapper.writeValueAsString(tagRequest)))
 			.andExpect(status().isCreated())
 			.andExpect(header().string("Location", "/api/tags/1"))
 			.andDo(print())
 			.andDo(TagDocumentation.create());
+	}
+
+	@DisplayName("태그를 수정한다.")
+	@Test
+	void update() throws Exception {
+		TagRequest tagRequest = new TagRequest("update name", "CONCEPT");
+		when(tagService.update(anyLong(), any())).thenReturn(new Tag("", TagType.CONCEPT));
+
+		mockMvc.perform(put("/api/tags/1")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content(objectMapper.writeValueAsString(tagRequest)))
+			.andExpect(status().isOk())
+			.andDo(print());
+	}
+
+	@DisplayName("태그를 삭제한다.")
+	@Test
+	void deleteTag() throws Exception {
+		doNothing().when(tagService).delete(anyLong());
+
+		mockMvc.perform(delete("/api/tags/1"))
+			.andExpect(status().isNoContent())
+			.andDo(print());
 	}
 }
