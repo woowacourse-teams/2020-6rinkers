@@ -45,7 +45,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 		String targetUrl = determineTargetUrl(request, response, authentication);
 
 		if (response.isCommitted()) {
-			logger.debug("Response has already been committed. Unable to redirect to " + targetUrl);
+			logger.debug("응답이 이미 전송되었습니다." + targetUrl + "로 리다이렉트가 불가능합니다.");
 			return;
 		}
 
@@ -60,7 +60,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 
 		if (redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {
 			throw new BadRequestException(
-				"Sorry! We've got an Unauthorized Redirect URI and can't proceed with the authentication");
+				"인증되지 않은 리다이렉트 URI를 받았고, 인증을 진행할 수 없습니다.");
 		}
 
 		String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
@@ -83,7 +83,6 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 		return appProperties.getOauth2().getAuthorizedRedirectUris()
 			.stream()
 			.anyMatch(authorizedRedirectUri -> {
-				// Only validate host and port. Let the clients use different paths if they want to
 				URI authorizedURI = URI.create(authorizedRedirectUri);
 				return authorizedURI.getHost().equalsIgnoreCase(clientRedirectUri.getHost())
 					&& authorizedURI.getPort() == clientRedirectUri.getPort();
