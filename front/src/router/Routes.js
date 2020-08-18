@@ -11,8 +11,18 @@ import CocktailDetailSearch from "../component/cocktailSearch/CocktailDetailSear
 import Question from "../component/recommend/Question";
 import Result from "../component/result/Result";
 import Bar from "../component/bar/Bar";
+import Result from "../component/recommend/Result";
+import OAuth2RedirectHandler from "../oauth2/OAuth2RedirectHandler";
+import Login from "../component/user/Login";
 
-const Routes = ({ cocktails, setCocktails }) => {
+const Routes = ({
+  cocktails,
+  setCocktails,
+  authenticated,
+  currentUser,
+  loading,
+  handleLogout,
+}) => {
   const checkAdminForHeader = (location) => {
     if (location.pathname.split("/")[1] !== "admin") {
       return (
@@ -51,7 +61,12 @@ const Routes = ({ cocktails, setCocktails }) => {
           <Route path="/result">
             <Result cocktails={cocktails} />
           </Route>
-        </Switch>
+        <Route path="/oauth2/redirect" component={OAuth2RedirectHandler} />
+        <Route
+          path="/login"
+          render={(props) => <Login authenticated={authenticated} {...props} />}
+        />
+      </Switch>
       </div>
       <Route render={({ location }) => checkAdminForFooter(location)} />
     </>
