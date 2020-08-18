@@ -2,7 +2,7 @@ import React, {useRef, useState} from "react";
 import {Redirect} from "react-router-dom";
 import AutoCocktailWords from "./AutoCocktailWords";
 import {fetchCocktailsContaining} from "../../api";
-import {DOWN, ENTER, ESC, UP} from "../../constants/keyCode";
+import {DOWN, ENTER, ESC, UP} from "../../constants";
 
 const SearchContainer = ({onUpdateSearchWord}) => {
   const [cocktails, setCocktails] = useState([]);
