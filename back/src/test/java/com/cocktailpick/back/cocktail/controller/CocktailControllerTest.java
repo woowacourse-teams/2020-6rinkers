@@ -205,6 +205,17 @@ class CocktailControllerTest extends Documentation {
 			.andDo(CocktailDocumentation.deleteCocktail());
 	}
 
+	@DisplayName("모든 칵테일을 삭제한다.")
+	@Test
+	void deleteAllCocktails() throws Exception {
+		doNothing().when(cocktailService).deleteAllCocktails();
+
+		mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/cocktails"))
+			.andExpect(status().isNoContent())
+			.andDo(print())
+			.andDo(CocktailDocumentation.deleteAllCocktails());
+	}
+
 	@DisplayName("오늘의 칵테일을 조회한다.")
 	@Test
 	void findCocktailOfToday() throws Exception {

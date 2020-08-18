@@ -47,12 +47,12 @@ const TagInput = ({ tagName, tagType, setTagName, setTagType }) => {
       />
       <select onChange={onTagTypeChange}>
         <option value="X">태그 타입 선택</option>
-        <option value="도수">도수</option>
-        <option value="재료">재료</option>
-        <option value="맛">맛</option>
-        <option value="식감">식감</option>
-        <option value="컨셉">컨셉</option>
-        <option value="꺼릴만한 것">꺼릴만한 것</option>
+        <option value="ABV">도수</option>
+        <option value="INGREDIENT">재료</option>
+        <option value="TASTE">맛</option>
+        <option value="TEXTURE">식감</option>
+        <option value="CONCEPT">컨셉</option>
+        <option value="DISLIKE">꺼릴만한 것</option>
       </select>
       <Button type="submit" onClick={onSubmit}>
         등록

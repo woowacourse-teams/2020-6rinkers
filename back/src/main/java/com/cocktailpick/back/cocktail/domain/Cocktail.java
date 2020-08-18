@@ -8,6 +8,8 @@ import javax.persistence.Lob;
 
 import com.cocktailpick.back.common.domain.BaseEntity;
 import com.cocktailpick.back.recipe.domain.Recipe;
+import com.cocktailpick.back.recipe.domain.RecipeItem;
+import com.cocktailpick.back.tag.domain.CocktailTag;
 import com.cocktailpick.back.tag.domain.CocktailTags;
 import com.cocktailpick.back.tag.domain.Tag;
 import lombok.AccessLevel;
@@ -52,14 +54,30 @@ public class Cocktail extends BaseEntity {
 		this.flavor = flavor;
 	}
 
-	public void update(Cocktail requestCocktail, CocktailTags cocktailTags) {
+	public void update(Cocktail requestCocktail, List<Tag> tags, List<RecipeItem> recipeItems) {
+		updateCocktailTags(tags);
+		updateRecipe(recipeItems);
+
 		this.name = requestCocktail.name;
 		this.abv = requestCocktail.abv;
 		this.description = requestCocktail.description;
 		this.origin = requestCocktail.origin;
 		this.flavor = requestCocktail.flavor;
 		this.imageUrl = requestCocktail.imageUrl;
-		this.cocktailTags = cocktailTags;
+	}
+
+	private void updateCocktailTags(List<Tag> tags) {
+		this.cocktailTags.clear();
+		for (Tag tag : tags) {
+			CocktailTag.associate(this, tag);
+		}
+	}
+
+	private void updateRecipe(List<RecipeItem> recipeItems) {
+		this.recipe.clear();
+		for (RecipeItem recipeItem : recipeItems) {
+			recipeItem.setCocktail(this);
+		}
 	}
 
 	public boolean notContainsTag(Tag tag) {

@@ -8,12 +8,12 @@ import lombok.Getter;
 
 @Getter
 public enum TagType {
-	ABV("도수"),
-	INGREDIENT("재료"),
-	FLAVOR("맛"),
-	TEXTURE("식감"),
-	CONCEPT("컨셉"),
-	DISLIKE("꺼릴만한 것");
+	ABV("ABV"),
+	INGREDIENT("INGREDIENT"),
+	FLAVOR("FLAVOR"),
+	TEXTURE("TEXTURE"),
+	CONCEPT("CONCEPT"),
+	DISLIKE("DISLIKE");
 
 	private final String tagType;
 

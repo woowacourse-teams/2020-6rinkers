@@ -19,7 +19,7 @@ public class TagTest {
 
 	@DisplayName("태그 타입을 반환한다.")
 	@ParameterizedTest
-	@CsvSource({"ABV,도수", "FLAVOR,맛", "TEXTURE,식감", "CONCEPT,컨셉", "INGREDIENT,재료", "DISLIKE,꺼릴만한 것"})
+	@CsvSource({"ABV,ABV", "FLAVOR,FLAVOR", "TEXTURE,TEXTURE", "CONCEPT,CONCEPT", "INGREDIENT,INGREDIENT", "DISLIKE,DISLIKE"})
 	void getTagTypeTest(TagType tagType, String expect) {
 		Tag tag = new Tag("태그명", tagType);
 
