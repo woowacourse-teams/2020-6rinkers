@@ -33,7 +33,6 @@ import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
 import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
 import com.cocktailpick.back.recipe.domain.RecipeItem;
-import com.cocktailpick.back.tag.domain.CocktailTag;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
 import com.cocktailpick.back.tag.domain.TagType;
@@ -205,7 +204,8 @@ public class CocktailServiceTest {
 			() -> assertThat(blueHawaii.getName()).isEqualTo(cocktailRequest.getName()),
 			() -> assertThat(blueHawaii.getDescription()).isEqualTo(cocktailRequest.getDescription()),
 			() -> assertThat(blueHawaii.getTags()).isEqualTo(Collections.singletonList(bearTag)),
-			() -> assertThat(blueHawaii.getRecipe().getRecipeItems().get(0)).isEqualTo(recipeItem)
+			() -> assertThat(blueHawaii.getRecipe().getRecipeItems().get(0).getIngredient()).isEqualTo(
+				recipeItem.getIngredient())
 		);
 	}
 
