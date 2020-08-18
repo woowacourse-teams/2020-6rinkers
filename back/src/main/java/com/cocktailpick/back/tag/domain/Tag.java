@@ -10,13 +10,12 @@ import javax.persistence.Id;
 
 import com.cocktailpick.back.common.domain.BaseTimeEntity;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 public class Tag extends BaseTimeEntity {
 	@Id
@@ -28,6 +27,13 @@ public class Tag extends BaseTimeEntity {
 
 	@Enumerated(EnumType.STRING)
 	private TagType tagType;
+
+	@Builder
+	private Tag(Long id, String name, TagType tagType) {
+		this.id = id;
+		this.name = name;
+		this.tagType = tagType;
+	}
 
 	public static Tag of(String name, TagType tagType) {
 		return new Tag(null, name, tagType);
