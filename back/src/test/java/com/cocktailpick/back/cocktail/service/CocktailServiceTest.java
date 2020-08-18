@@ -66,7 +66,7 @@ public class CocktailServiceTest {
 		cocktailService = new CocktailService(cocktailRepository, tagRepository,
 			cocktailFindStrategyFactory);
 
-		tag = Tag.of("두강맛", TagType.FLAVOR);
+		tag = Tag.builder().name("두강맛").tagType(TagType.FLAVOR).build();
 
 		flavor = Flavor.builder()
 			.bitter(true)
@@ -189,7 +189,7 @@ public class CocktailServiceTest {
 	@DisplayName("칵테일을 수정한다.")
 	@Test
 	void update() {
-		Tag bearTag = Tag.of("곰", TagType.CONCEPT);
+		Tag bearTag = Tag.builder().name("곰").tagType(TagType.CONCEPT).build();
 
 		RecipeItem recipeItem = RecipeItem.builder()
 			.ingredient("두강이")

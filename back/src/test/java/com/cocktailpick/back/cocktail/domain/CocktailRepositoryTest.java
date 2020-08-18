@@ -38,7 +38,10 @@ public class CocktailRepositoryTest {
 
 	@BeforeEach
 	void setUp() {
-		tag = Tag.of("두강맛", TagType.FLAVOR);
+		tag = Tag.builder()
+			.name("두강맛")
+			.tagType(TagType.FLAVOR)
+			.build();
 
 		tagRepository.save(tag);
 

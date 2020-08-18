@@ -35,10 +35,6 @@ public class Tag extends BaseTimeEntity {
 		this.tagType = tagType;
 	}
 
-	public static Tag of(String name, TagType tagType) {
-		return new Tag(null, name, tagType);
-	}
-
 	public boolean isSameName(Tag tag) {
 		return this.name.equals(tag.name);
 	}
