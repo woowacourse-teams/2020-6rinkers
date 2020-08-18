@@ -20,6 +20,7 @@ public class TagDocumentation {
 	public static RestDocumentationResultHandler findTags() {
 		return document("tags/findAll",
 			responseFields(
+				fieldWithPath("[].tagId").type(JsonFieldType.NUMBER).description("태그 ID"),
 				fieldWithPath("[].name").type(JsonFieldType.STRING).description("태그 이름"),
 				fieldWithPath("[].tagType").type(JsonFieldType.STRING).description("태그 타입")
 			)

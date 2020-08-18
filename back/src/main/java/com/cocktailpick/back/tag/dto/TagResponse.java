@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class TagResponse {
+	private Long tagId;
+
 	private String name;
 
 	private String tagType;
@@ -24,6 +26,6 @@ public class TagResponse {
 	}
 
 	private static TagResponse of(Tag tag) {
-		return new TagResponse(tag.getName(), tag.getTagType());
+		return new TagResponse(tag.getId(), tag.getName(), tag.getTagType());
 	}
 }
