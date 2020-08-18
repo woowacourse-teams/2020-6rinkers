@@ -45,8 +45,8 @@ public class TagServiceTest {
 	@DisplayName("모든 태그를 조회한다.")
 	@Test
 	void findAllTags() {
-		Tag tag1 = new Tag("초코", TagType.FLAVOR);
-		Tag tag2 = new Tag("탄산", TagType.INGREDIENT);
+		Tag tag1 = Tag.builder().name("초코").tagType(TagType.FLAVOR).build();
+		Tag tag2 = Tag.builder().name("탄산").tagType(TagType.INGREDIENT).build();
 		when(tagRepository.findAll()).thenReturn(Arrays.asList(tag1, tag2));
 
 		tagService.findAllTags();
