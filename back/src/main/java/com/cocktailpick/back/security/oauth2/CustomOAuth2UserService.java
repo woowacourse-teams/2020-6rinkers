@@ -17,6 +17,7 @@ import com.cocktailpick.back.security.UserPrincipal;
 import com.cocktailpick.back.security.oauth2.user.OAuth2UserInfo;
 import com.cocktailpick.back.security.oauth2.user.OAuth2UserInfoFactory;
 import com.cocktailpick.back.user.domain.AuthProvider;
+import com.cocktailpick.back.user.domain.Role;
 import com.cocktailpick.back.user.domain.User;
 import com.cocktailpick.back.user.domain.UserRepository;
 
@@ -73,6 +74,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 		user.setName(oAuth2UserInfo.getName());
 		user.setEmail(oAuth2UserInfo.getEmail());
 		user.setImageUrl(oAuth2UserInfo.getImageUrl());
+		user.setRole(Role.ROLE_USER);
 		return userRepository.save(user);
 	}
 
