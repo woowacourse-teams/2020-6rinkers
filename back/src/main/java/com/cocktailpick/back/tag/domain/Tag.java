@@ -4,38 +4,23 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
 
-import com.cocktailpick.back.common.domain.BaseTimeEntity;
+import com.cocktailpick.back.common.domain.BaseEntity;
 import lombok.AccessLevel;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@SequenceGenerator(name = "tag_sequence_gen", sequenceName = "tag_sequence")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
-public class Tag extends BaseTimeEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tag_sequence_gen")
-	private Long id;
-
+public class Tag extends BaseEntity {
 	@Column(name = "name")
 	private String name;
 
 	@Enumerated(EnumType.STRING)
 	private TagType tagType;
-
-	@Builder
-	private Tag(Long id, String name, TagType tagType) {
-		this.id = id;
-		this.name = name;
-		this.tagType = tagType;
-	}
 
 	public boolean isSameName(Tag tag) {
 		return this.name.equals(tag.name);

@@ -4,13 +4,9 @@ import java.util.List;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.SequenceGenerator;
 
-import com.cocktailpick.back.common.domain.BaseTimeEntity;
+import com.cocktailpick.back.common.domain.BaseEntity;
 import com.cocktailpick.back.recipe.domain.Recipe;
 import com.cocktailpick.back.recipe.domain.RecipeItem;
 import com.cocktailpick.back.tag.domain.CocktailTag;
@@ -24,12 +20,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Cocktail extends BaseTimeEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cocktail_sequence_gen")
-	@SequenceGenerator(name = "cocktail_sequence_gen", sequenceName = "cocktail_sequence")
-	private Long id;
-
+public class Cocktail extends BaseEntity {
 	private String name;
 
 	private double abv;

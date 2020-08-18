@@ -1,15 +1,11 @@
 package com.cocktailpick.back.recipe.domain;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
 
 import com.cocktailpick.back.cocktail.domain.Cocktail;
-import com.cocktailpick.back.common.domain.BaseTimeEntity;
+import com.cocktailpick.back.common.domain.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,12 +14,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class RecipeItem extends BaseTimeEntity {
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "recipe_item_sequence_gen")
-	@SequenceGenerator(name = "recipe_item_sequence_gen", sequenceName = "recipe_item_sequence")
-	private Long id;
-
+public class RecipeItem extends BaseEntity {
 	private String ingredient;
 
 	private String quantity;

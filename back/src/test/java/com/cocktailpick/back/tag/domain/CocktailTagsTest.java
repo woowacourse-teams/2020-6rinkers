@@ -19,7 +19,7 @@ class CocktailTagsTest {
 
 	@BeforeEach
 	void setUp() {
-		tag = Tag.builder().name("두강맛").tagType(TagType.FLAVOR).build();
+		tag = new Tag("두강맛", TagType.FLAVOR);
 
 		flavor = Flavor.builder()
 			.bitter(true)

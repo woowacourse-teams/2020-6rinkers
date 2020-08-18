@@ -19,10 +19,7 @@ public class TagCsvReader {
 	public List<Tag> getTags() {
 		List<String[]> tags = csvReader.readAll();
 		return tags.stream()
-			.map(line -> Tag.builder()
-				.name(line[NAME_COLUMN_INDEX].trim())
-				.tagType(TagType.of(line[TAG_TYPE_COLUMN_INDEX].trim()))
-				.build())
+			.map(line -> new Tag(line[NAME_COLUMN_INDEX].trim(), TagType.of(line[TAG_TYPE_COLUMN_INDEX].trim())))
 			.collect(Collectors.toList());
 	}
 }

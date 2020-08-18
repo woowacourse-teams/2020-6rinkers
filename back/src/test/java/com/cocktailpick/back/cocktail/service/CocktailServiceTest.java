@@ -33,6 +33,7 @@ import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
 import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
 import com.cocktailpick.back.recipe.domain.RecipeItem;
+import com.cocktailpick.back.tag.domain.CocktailTag;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
 import com.cocktailpick.back.tag.domain.TagType;
@@ -65,7 +66,7 @@ public class CocktailServiceTest {
 		cocktailService = new CocktailService(cocktailRepository, tagRepository,
 			cocktailFindStrategyFactory);
 
-		tag = Tag.builder().name("두강맛").tagType(TagType.FLAVOR).build();
+		tag = new Tag("두강맛", TagType.FLAVOR);
 
 		flavor = Flavor.builder()
 			.bitter(true)
@@ -188,7 +189,7 @@ public class CocktailServiceTest {
 	@DisplayName("칵테일을 수정한다.")
 	@Test
 	void update() {
-		Tag bearTag = Tag.builder().name("곰").tagType(TagType.CONCEPT).build();
+		Tag bearTag = new Tag("곰", TagType.CONCEPT);
 
 		RecipeItem recipeItem = RecipeItem.builder()
 			.ingredient("두강이")
@@ -204,8 +205,7 @@ public class CocktailServiceTest {
 			() -> assertThat(blueHawaii.getName()).isEqualTo(cocktailRequest.getName()),
 			() -> assertThat(blueHawaii.getDescription()).isEqualTo(cocktailRequest.getDescription()),
 			() -> assertThat(blueHawaii.getTags()).isEqualTo(Collections.singletonList(bearTag)),
-			() -> assertThat(blueHawaii.getRecipe().getRecipeItems().get(0).getIngredient()).isEqualTo(
-				recipeItem.getIngredient())
+			() -> assertThat(blueHawaii.getRecipe().getRecipeItems().get(0)).isEqualTo(recipeItem)
 		);
 	}
 
