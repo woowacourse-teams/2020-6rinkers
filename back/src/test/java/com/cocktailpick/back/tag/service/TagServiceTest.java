@@ -57,7 +57,7 @@ public class TagServiceTest {
 	@DisplayName("태그를 생성한다.")
 	@Test
 	void createTag() {
-		TagRequest tagRequest = new TagRequest("새로운 태그", "컨셉");
+		TagRequest tagRequest = new TagRequest("새로운 태그", "CONCEPT");
 		when(tagRepository.save(any())).thenReturn(tagRequest.toTag());
 
 		tagService.createTag(tagRequest);

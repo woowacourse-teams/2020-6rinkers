@@ -9,7 +9,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 public class TagTypeTest {
 	@DisplayName("입력한 태그 타입이 나오는지 확인한다.")
 	@ParameterizedTest
-	@CsvSource({"도수,ABV", "컨셉,CONCEPT", "맛,FLAVOR", "재료,INGREDIENT", "식감,TEXTURE", "꺼릴만한 것,DISLIKE"})
+	@CsvSource({"ABV,ABV", "CONCEPT,CONCEPT", "FLAVOR,FLAVOR", "INGREDIENT,INGREDIENT", "TEXTURE,TEXTURE", "DISLIKE,DISLIKE"})
 	void ofTest(String inputTagType, TagType expect) {
 		assertThat(TagType.of(inputTagType)).isEqualTo(expect);
 	}
