@@ -1,5 +1,7 @@
 package com.cocktailpick.back.user.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,6 +13,8 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.security.core.GrantedAuthority;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
@@ -47,4 +51,10 @@ public class User {
 	private AuthProvider provider;
 
 	private String providerId;
+
+	private Role role;
+
+	public String getRoleName() {
+		return role.name();
+	}
 }
