@@ -20,6 +20,6 @@ public class TagRequest {
 	private String tagType;
 
 	public Tag toTag() {
-		return new Tag(name, TagType.of(tagType));
+		return Tag.of(name, TagType.of(tagType));
 	}
 }

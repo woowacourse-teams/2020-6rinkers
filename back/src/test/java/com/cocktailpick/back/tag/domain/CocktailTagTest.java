@@ -31,7 +31,7 @@ class CocktailTagTest {
 			.origin("두원이는 강하다.")
 			.build();
 
-		tag = new Tag("to-doo", TagType.CONCEPT);
+		tag = Tag.of("to-doo", TagType.CONCEPT);
 	}
 
 	@DisplayName("cocktail과 tag를 연결한다.")
@@ -61,7 +61,7 @@ class CocktailTagTest {
 		CocktailTag tag2 = new CocktailTag();
 
 		tag1.setTag(tag);
-		tag2.setTag(new Tag("will", TagType.CONCEPT));
+		tag2.setTag(Tag.of("will", TagType.CONCEPT));
 
 		assertThat(tag1.isSameNameWith(tag2)).isFalse();
 	}

@@ -11,8 +11,8 @@ public class TagTest {
 	@ParameterizedTest
 	@CsvSource({"초코,초코,true", "탄산,분위기있는,false", "연인과함께,연인과함께,true", "부드러운,부드러울뻔한,false"})
 	void isSameNameTest(String name1, String name2, boolean expect) {
-		Tag tag1 = new Tag(name1, TagType.CONCEPT);
-		Tag tag2 = new Tag(name2, TagType.CONCEPT);
+		Tag tag1 = Tag.of(name1, TagType.CONCEPT);
+		Tag tag2 = Tag.of(name2, TagType.CONCEPT);
 
 		assertThat(tag1.isSameName(tag2)).isEqualTo(expect);
 	}
@@ -21,7 +21,7 @@ public class TagTest {
 	@ParameterizedTest
 	@CsvSource({"ABV,ABV", "FLAVOR,FLAVOR", "TEXTURE,TEXTURE", "CONCEPT,CONCEPT", "INGREDIENT,INGREDIENT", "DISLIKE,DISLIKE"})
 	void getTagTypeTest(TagType tagType, String expect) {
-		Tag tag = new Tag("태그명", tagType);
+		Tag tag = Tag.of("태그명", tagType);
 
 		assertThat(tag.getTagType()).isEqualTo(expect);
 	}
