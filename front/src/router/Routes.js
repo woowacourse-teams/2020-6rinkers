@@ -17,7 +17,6 @@ const Routes = ({ cocktails, setCocktails }) => {
       return (
         <>
           <Header />
-          <Footer />
         </>
       );
     }
@@ -27,19 +26,22 @@ const Routes = ({ cocktails, setCocktails }) => {
   return (
     <>
       <Route render={({ location }) => checkAdmin(location)} />
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/admin/cocktails" component={CocktailAdmin} />
-        <Route path="/admin/tags" component={TagAdmin} />
-        <Route path="/cocktails/search" component={CocktailSearch} />
-        <Route path="/cocktails/:id" component={CocktailDetailSearch} />
-        <Route path="/recommend">
-          <Question cocktails={cocktails} setCocktails={setCocktails} />
-        </Route>
-        <Route path="/result">
-          <Result cocktails={cocktails} />
-        </Route>
-      </Switch>
+      <div className="contentWrapper">
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route path="/admin/cocktails" component={CocktailAdmin} />
+          <Route path="/admin/tags" component={TagAdmin} />
+          <Route path="/cocktails/search" component={CocktailSearch} />
+          <Route path="/cocktails/:id" component={CocktailDetailSearch} />
+          <Route path="/recommend">
+            <Question cocktails={cocktails} setCocktails={setCocktails} />
+          </Route>
+          <Route path="/result">
+            <Result cocktails={cocktails} />
+          </Route>
+        </Switch>
+      </div>
+      <Footer />
     </>
   );
 };

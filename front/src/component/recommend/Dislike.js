@@ -53,7 +53,7 @@ const Dislike = ({ addAnswer }) => {
   };
 
   return (
-    <div>
+    <div className="dislike-container">
       {dislikes &&
         dislikes.map((dislike, index) => {
           return (

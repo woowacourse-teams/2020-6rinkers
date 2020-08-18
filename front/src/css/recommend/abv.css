@@ -6,6 +6,12 @@
   padding: 20px 0;
 }
 
+.abv-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
 .abv {
   display: flex;
   justify-content: space-between;

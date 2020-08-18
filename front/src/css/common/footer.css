@@ -26,9 +26,9 @@
 
 .github > a > img {
   margin-left: 4px;
-  max-width: 29px;
+  width: 29px;
 }
 
 .instagram > a > img {
-  max-width: 32px;
+  width: 32px;
 }

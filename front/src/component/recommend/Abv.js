@@ -20,7 +20,7 @@ const Abv = ({ addAnswer }) => {
   };
 
   return (
-    <div>
+    <div className="abv-container">
       <div className="abv">
         <div className="min-abv">
           <div className="abv-value">{abvs[0]}</div>
