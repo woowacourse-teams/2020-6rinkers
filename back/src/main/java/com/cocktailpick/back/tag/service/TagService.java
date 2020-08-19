@@ -56,10 +56,10 @@ public class TagService {
 	@Transactional
 	public void delete(Long id) {
 		List<CocktailTag> cocktailTags = cocktailTagRepository.findByTagId(id);
-		cocktailTags.forEach(cocktailTag -> {
+		for (CocktailTag cocktailTag : cocktailTags) {
 			cocktailTag.setTag(null);
 			cocktailTag.getCocktail().deleteCocktailTag(cocktailTag);
-		});
+		}
 
 		tagRepository.deleteById(id);
 	}
