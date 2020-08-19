@@ -58,11 +58,11 @@ function SocialLogin() {
     <div className="social-login">
       <a className="social-btn" href={GOOGLE_AUTH_URL}>
         <img src="image/google-logo.png" alt="Google" />
-        <p>Log in with Google</p>
+        <p>Google로 로그인하기</p>
       </a>
       <a className="social-btn" href={FACEBOOK_AUTH_URL}>
         <img src="image/fb-logo.png" alt="Facebook" />
-        <p>Log in with Facebook</p>
+        <p>Facebook으로 로그인하기</p>
       </a>
     </div>
   );
@@ -112,7 +112,7 @@ const LoginForm = () => {
           type="email"
           name="email"
           className="form-control"
-          placeholder="Email"
+          placeholder="이메일"
           value={email}
           onChange={onChange}
           required
@@ -123,7 +123,7 @@ const LoginForm = () => {
           type="password"
           name="password"
           className="form-control"
-          placeholder="Password"
+          placeholder="비밀번호"
           value={password}
           onChange={onChange}
           required
@@ -131,7 +131,7 @@ const LoginForm = () => {
       </div>
       <div className="form-item">
         <button type="submit" className="btn-primary">
-          Login
+          로그인
         </button>
       </div>
     </form>
