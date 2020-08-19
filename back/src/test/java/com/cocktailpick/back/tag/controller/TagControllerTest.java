@@ -85,7 +85,7 @@ class TagControllerTest extends Documentation {
 		mockMvc.perform(RestDocumentationRequestBuilders.put("/api/tags/{id}", 1L)
 			.contentType(MediaType.APPLICATION_JSON)
 			.content(objectMapper.writeValueAsString(tagRequest)))
-			.andExpect(status().isOk())
+			.andExpect(status().isNoContent())
 			.andDo(print()).andDo(TagDocumentation.update());
 	}
 

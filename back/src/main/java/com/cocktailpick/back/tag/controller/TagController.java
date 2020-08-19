@@ -53,7 +53,7 @@ public class TagController {
 	public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody @Valid TagRequest tagRequest) {
 		tagService.update(id, tagRequest);
 
-		return ResponseEntity.ok().build();
+		return ResponseEntity.noContent().build();
 	}
 
 	@DeleteMapping("{id}")
