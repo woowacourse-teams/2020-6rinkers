@@ -78,9 +78,10 @@
   font-family: inherit;
   font-size: 1rem;
   border: none;
-  margin: 2rem 0.5rem 3rem 0.5rem;
+  margin: 2rem 0.5rem 1rem 0.5rem;
   padding: 0.5rem 1rem 0.5rem 1rem;
   border-radius: 10px;
+  background-color: var(--little-dark-white);
 }
 
 .next-stage:hover {
@@ -95,11 +96,16 @@
   }
 
   .question {
+    width: 100%;
     font-size: 1rem;
     border: solid 1px var(--red);
     border-radius: 10px;
     background-color: transparent;
     padding: 0.5rem 0.8rem;
+  }
+
+  .bartender {
+    height: 150px;
   }
 
   .tag-name {
