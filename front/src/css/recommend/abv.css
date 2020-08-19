@@ -7,9 +7,12 @@
 }
 
 .abv-container {
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  align-items: center;
+  margin: 4rem 0;
 }
 
 .abv {
@@ -22,24 +25,25 @@
 .min-abv,
 .max-abv {
   display: flex;
+  width: 245px;
   align-items: center;
-  font-size: 3rem;
-  margin: 1rem;
+  font-size: 4rem;
+  padding: 2.5rem;
 }
 
 .abv-value {
-  min-width: 3.7rem;
+  width: 6rem;
 }
 
 .soju,
 .riceWine,
 .whisky {
-  height: 3rem;
+  height: 4rem;
 }
 
 .sliderArea {
   width: 300px;
-  margin: 0 auto;
+  margin: 1rem auto 3rem auto;
 }
 
 .rc-slider-rail,
@@ -77,4 +81,41 @@
 .rc-slider-mark-text,
 .rc-slider-mark-text-active {
   font-size: 1.5rem;
+}
+
+@media screen and (max-width: 700px) {
+  .abv-container {
+    width: 100%;
+    margin: 0;
+
+  }
+
+  .abv {
+    width: 100%;
+  }
+
+  .min-abv,
+  .max-abv {
+    width: auto;
+    display: flex;
+    align-items: center;
+    font-size: 3rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .abv-value {
+    width: 3.7rem;
+  }
+
+  .soju,
+  .riceWine,
+  .whisky {
+    height: 3rem;
+  }
+
+  .sliderArea {
+    width: 100%;
+    margin: 1rem auto 3rem auto;
+  }
 }
