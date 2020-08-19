@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import NextStage from "./NextStage";
 import Toggle from "./Toggle";
 
@@ -7,7 +7,6 @@ const Dislike = ({ addAnswer }) => {
   const [answer, setAnswer] = useState({});
 
   useEffect(() => {
-
     const updateDislikes = async () => {
       // api
       await setDislikes([
