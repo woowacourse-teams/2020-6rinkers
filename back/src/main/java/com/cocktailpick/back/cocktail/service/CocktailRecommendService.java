@@ -8,23 +8,24 @@ import java.util.function.Function;
 import org.springframework.stereotype.Service;
 
 import com.cocktailpick.back.cocktail.domain.Cocktail;
+import com.cocktailpick.back.cocktail.domain.CocktailRepository;
 import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.RecommendRequest;
 import com.cocktailpick.back.common.EntityMapper;
 import com.cocktailpick.back.tag.domain.Tag;
-import com.cocktailpick.back.tag.service.TagService;
+import com.cocktailpick.back.tag.domain.TagRepository;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Service
 public class CocktailRecommendService {
-	private final CocktailService cocktailService;
-	private final TagService tagService;
+	private final CocktailRepository cocktailRepository;
+	private final TagRepository tagRepository;
 	private final FilteringAndScoringRecommendService filteringAndScoringRecommendService;
 
 	public List<CocktailDetailResponse> recommend(RecommendRequest recommendRequest) {
-		List<Cocktail> cocktails = cocktailService.findAll();
-		EntityMapper<Long, Tag> entityMapper = tagService.findAll()
+		List<Cocktail> cocktails = cocktailRepository.findAll();
+		EntityMapper<Long, Tag> entityMapper = tagRepository.findAll()
 			.stream()
 			.collect(collectingAndThen(toMap(Tag::getId, Function.identity()), EntityMapper::new));
 		List<Cocktail> recommend = filteringAndScoringRecommendService.recommend(cocktails, entityMapper,

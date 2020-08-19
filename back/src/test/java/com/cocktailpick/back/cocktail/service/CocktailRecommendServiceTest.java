@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.cocktailpick.back.cocktail.domain.Cocktail;
+import com.cocktailpick.back.cocktail.domain.CocktailRepository;
 import com.cocktailpick.back.cocktail.domain.Flavor;
 import com.cocktailpick.back.cocktail.dto.AbvAnswer;
 import com.cocktailpick.back.cocktail.dto.FlavorAnswer;
@@ -23,18 +24,18 @@ import com.cocktailpick.back.cocktail.dto.TagPreferenceAnswer;
 import com.cocktailpick.back.cocktail.vo.UserPreferenceAnswer;
 import com.cocktailpick.back.tag.domain.CocktailTag;
 import com.cocktailpick.back.tag.domain.Tag;
+import com.cocktailpick.back.tag.domain.TagRepository;
 import com.cocktailpick.back.tag.domain.TagType;
-import com.cocktailpick.back.tag.service.TagService;
 
 @ExtendWith(MockitoExtension.class)
 class CocktailRecommendServiceTest {
 	private CocktailRecommendService cocktailRecommendService;
 
 	@Mock
-	private CocktailService cocktailService;
+	private CocktailRepository cocktailRepository;
 
 	@Mock
-	private TagService tagService;
+	private TagRepository tagRepository;
 
 	@Mock
 	private FilteringAndScoringRecommendService filteringAndScoringRecommendService;
@@ -55,7 +56,7 @@ class CocktailRecommendServiceTest {
 
 	@BeforeEach
 	void setUp() {
-		cocktailRecommendService = new CocktailRecommendService(cocktailService, tagService,
+		cocktailRecommendService = new CocktailRecommendService(cocktailRepository, tagRepository,
 			filteringAndScoringRecommendService);
 
 		flavor = Flavor.builder()
@@ -124,8 +125,8 @@ class CocktailRecommendServiceTest {
 	@DisplayName("사용자에게 칵테일을 추찬한다.")
 	@Test
 	void recommend() {
-		when(cocktailService.findAll()).thenReturn(cocktails);
-		when(tagService.findAll()).thenReturn(tags);
+		when(cocktailRepository.findAll()).thenReturn(cocktails);
+		when(tagRepository.findAll()).thenReturn(tags);
 		when(filteringAndScoringRecommendService.recommend(anyList(), any(), any())).thenReturn(
 			Arrays.asList(cocktail2, cocktail4));
 
