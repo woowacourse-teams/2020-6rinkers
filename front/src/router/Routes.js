@@ -14,6 +14,7 @@ import Bar from "../component/bar/Bar";
 import Result from "../component/recommend/Result";
 import OAuth2RedirectHandler from "../oauth2/OAuth2RedirectHandler";
 import Login from "../component/user/Login";
+import Signup from "../component/user/Signup";
 
 const Routes = ({
   cocktails,
@@ -65,6 +66,12 @@ const Routes = ({
         <Route
           path="/login"
           render={(props) => <Login authenticated={authenticated} {...props} />}
+        />
+        <Route
+          path="/signup"
+          render={(props) => (
+            <Signup authenticated={authenticated} {...props} />
+          )}
         />
       </Switch>
       </div>
