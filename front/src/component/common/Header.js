@@ -3,7 +3,7 @@ import "../../css/common/header.css";
 import Nav from "./Nav";
 import MobileNav from "./MoblieNav";
 
-const Header = () => {
+const Header = ({ authenticated, handleLogout }) => {
   const [slider, setSlider] = useState(false);
 
   const toggleSlider = () => {
@@ -12,7 +12,7 @@ const Header = () => {
 
   return (
     <div className="headerContainer">
-      <Nav />
+      <Nav authenticated={authenticated} handleLogout={handleLogout} />
       {slider && <div className="cover" onClick={toggleSlider} />}
       <MobileNav toggleSlider={toggleSlider} slider={slider} />
     </div>

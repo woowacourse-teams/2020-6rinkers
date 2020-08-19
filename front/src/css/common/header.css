@@ -73,7 +73,9 @@
 .service {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: 100%;
+  width: -webkit-fill-available;
 }
 
 .service a {
@@ -100,6 +102,12 @@
 .navitem-active {
   background-color: var(--little-light-red);
   color: var(--white) !important;
+}
+
+.options {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
 }
 
 @media screen and (max-width: 700px) {
