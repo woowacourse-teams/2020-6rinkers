@@ -17,18 +17,6 @@
 }
 
 .or-separator {
-  border-bottom: 1px solid #eeeeee;
-  padding: 10px 0;
-  position: relative;
-  display: block;
-  margin-top: 20px;
-  margin-bottom: 30px;
-  font-size: 1em;
-}
-
-.or-separator {
-  border-bottom: 1px solid #eee;
-  padding: 10px 0;
   position: relative;
   display: block;
   margin-top: 20px;
@@ -51,7 +39,7 @@
   font-size: 1em;
   justify-content: center;
   align-items: center;
-  margin: 0.8em 0;
+  margin: .5em 0;
   border-radius: 5px;
 }
 
