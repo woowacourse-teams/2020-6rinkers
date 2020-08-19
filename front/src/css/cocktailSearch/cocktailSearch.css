@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 100%;
 }
 
 .searchContainer {
@@ -11,7 +12,7 @@
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  height: 15vh;
+  min-height: 15vh;
   margin: 2rem 1rem 1rem 1rem;
 }
 
@@ -51,6 +52,7 @@
 .searchedCocktailsContainer {
   display: grid;
   grid-template-columns: repeat(3, 300px);
+  grid-auto-rows: minmax(auto, 410px);
   gap: 2em;
   margin-bottom: 2rem;
   user-select: none;
@@ -170,5 +172,6 @@
 
   .search {
     width: 80vw;
+    height: 2rem;
   }
 }
