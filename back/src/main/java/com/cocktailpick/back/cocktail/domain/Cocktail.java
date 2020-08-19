@@ -118,6 +118,6 @@ public class Cocktail extends BaseTimeEntity {
 	}
 
 	public boolean isAbvBetween(int max, int min) {
-		return abv >= min && abv <= max;
+		return (abv >= min) && (abv <= max);
 	}
 }

@@ -25,9 +25,11 @@ public class CocktailRecommendService {
 
 	public List<CocktailDetailResponse> recommend(RecommendRequest recommendRequest) {
 		List<Cocktail> cocktails = cocktailRepository.findAll();
+
 		EntityMapper<Long, Tag> entityMapper = tagRepository.findAll()
 			.stream()
 			.collect(collectingAndThen(toMap(Tag::getId, Function.identity()), EntityMapper::new));
+
 		List<Cocktail> recommend = filteringAndScoringRecommendService.recommend(cocktails, entityMapper,
 			recommendRequest);
 

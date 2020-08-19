@@ -27,6 +27,6 @@ public class RecommendedCocktail {
 
 	public boolean isDislike(CocktailMatchingStrategy cocktailMatchingStrategy,
 		UserPreferenceAnswer userPreferenceAnswer) {
-		return cocktailMatchingStrategy.match(cocktail) && userPreferenceAnswer == UserPreferenceAnswer.NO;
+		return cocktailMatchingStrategy.match(cocktail) && (userPreferenceAnswer == UserPreferenceAnswer.NO);
 	}
 }
