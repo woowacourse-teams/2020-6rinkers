@@ -46,7 +46,7 @@
 
 .toggles {
   display: grid;
-  grid-template-columns: repeat(2, 11rem);
+  grid-template-columns: repeat(3, 11rem);
 }
 
 .tag-name {
@@ -126,5 +126,10 @@
   .checked {
     background-color: var(--little-light-red);
     color: var(--white);
+  }
+
+  .toggles {
+    display: grid;
+    grid-template-columns: repeat(2, 8.5rem);
   }
 }
