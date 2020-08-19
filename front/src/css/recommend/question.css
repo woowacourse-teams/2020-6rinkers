@@ -103,7 +103,7 @@
     border: solid 1px var(--red);
     border-radius: 10px;
     background-color: transparent;
-    padding: 0.5rem 0.8rem;
+    padding: 0.5rem 0.5rem;
   }
 
   .bartender {
