@@ -13,9 +13,14 @@ const ServiceSlider = ({ slider, toggleSlider }) => {
       >
         칵테일 찾기
       </NavLink>
-      <div className="serviceSliderItem searchBar" onClick={toggleSlider}>
+      <NavLink
+        to="/bars"
+        className="serviceSliderItem"
+        activeClassName="navitem-active"
+        onClick={toggleSlider}
+      >
         바 찾기
-      </div>
+      </NavLink>
       <NavLink
         to="/recommend"
         className="serviceSliderItem"

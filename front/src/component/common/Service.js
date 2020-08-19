@@ -11,7 +11,13 @@ const Service = () => {
       >
         칵테일 찾기
       </NavLink>
-      <div className="serviceItem searchBar">바 찾기</div>
+      <NavLink
+        to="/bars"
+        className="serviceItem"
+        activeClassName="navitem-active"
+      >
+        바 찾기
+      </NavLink>
       <NavLink
         to="/recommend"
         className="serviceItem"
