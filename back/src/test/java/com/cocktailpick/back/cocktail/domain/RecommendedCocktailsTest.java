@@ -93,8 +93,7 @@ class RecommendedCocktailsTest {
 		recommendedCocktails = recommendedCocktails.eliminate(
 			cocktail -> cocktail == cocktail1 || cocktail == cocktail3);
 
-		assertThat(recommendedCocktails).extracting("recommendedCocktails").asInstanceOf(InstanceOfAssertFactories.LIST)
-			.extracting("cocktail")
+		assertThat(recommendedCocktails.getSortedCocktailsByScore())
 			.containsExactly(cocktail4, cocktail2);
 	}
 }
