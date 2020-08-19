@@ -65,4 +65,15 @@ class CocktailTagTest {
 
 		assertThat(tag1.isSameNameWith(tag2)).isFalse();
 	}
+
+	@Test
+	void getTagId() {
+		Tag tag = Tag.builder()
+			.id(0L).build();
+
+		CocktailTag cocktailTag = new CocktailTag();
+		cocktailTag.setTag(tag);
+
+		assertThat(cocktailTag.getTagId()).isEqualTo(0L);
+	}
 }

@@ -120,4 +120,8 @@ public class Cocktail extends BaseTimeEntity {
 	public boolean isAbvBetween(int max, int min) {
 		return (abv >= min) && (abv <= max);
 	}
+
+	public boolean containTagIds(List<Long> tagIds) {
+		return cocktailTags.containTagIds(tagIds);
+	}
 }

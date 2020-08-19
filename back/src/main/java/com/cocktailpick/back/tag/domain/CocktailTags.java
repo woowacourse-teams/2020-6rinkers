@@ -39,9 +39,9 @@ public class CocktailTags {
 		cocktailTags.add(cocktailTag);
 	}
 
-	private boolean isContainCocktailTag(CocktailTag cocktailTag) {
+	private boolean isContainCocktailTag(CocktailTag other) {
 		return cocktailTags.stream()
-			.anyMatch(tag -> tag.isSameNameWith(cocktailTag));
+			.anyMatch(cocktailTag -> cocktailTag.equals(other));
 	}
 
 	public boolean notContainsTag(Tag tag) {
@@ -55,5 +55,16 @@ public class CocktailTags {
 
 	public void deleteCocktailTag(CocktailTag cocktailTag) {
 		cocktailTags.remove(cocktailTag);
+	}
+
+	public boolean containTagIds(List<Long> tagIds) {
+		return tagIds.stream()
+			.allMatch(this::containTagId);
+	}
+
+	private boolean containTagId(Long tagId) {
+		return cocktailTags.stream()
+			.map(CocktailTag::getTagId)
+			.anyMatch(oneTagId -> oneTagId.equals(tagId));
 	}
 }

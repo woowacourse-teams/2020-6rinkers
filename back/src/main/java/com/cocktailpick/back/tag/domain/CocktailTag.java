@@ -55,4 +55,8 @@ public class CocktailTag extends BaseTimeEntity {
 	public boolean containsTag(Tag tag) {
 		return this.tag.isSameName(tag);
 	}
+
+	public Long getTagId() {
+		return tag.getId();
+	}
 }
