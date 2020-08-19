@@ -26,7 +26,7 @@ const Routes = ({
     if (location.pathname.split("/")[1] !== "admin") {
       return (
         <>
-          <Header />
+          <Header authenticated={authenticated} currentUser={currentUser} handleLogout={handleLogout}/>
           <Footer />
         </>
       );
