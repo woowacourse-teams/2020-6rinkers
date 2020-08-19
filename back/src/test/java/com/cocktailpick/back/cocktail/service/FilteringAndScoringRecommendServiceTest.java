@@ -41,6 +41,11 @@ class FilteringAndScoringRecommendServiceTest {
 	private EntityMapper<Long, Tag> entityMapper;
 
 	private List<Cocktail> cocktails;
+	private AbvAnswer abvAnswer;
+	private List<TagPreferenceAnswer> moodAnswer;
+	private List<TagPreferenceAnswer> preferenceAnswers;
+	private List<TagPreferenceAnswer> nonPreferenceAnswers;
+	private FlavorAnswer flavorAnswer;
 
 	@BeforeEach
 	void setUp() {
@@ -112,6 +117,13 @@ class FilteringAndScoringRecommendServiceTest {
 		CocktailTag.associate(cocktail4, tags.get(9));  //연인과 함께
 
 		cocktails = Arrays.asList(cocktail1, cocktail2, cocktail3, cocktail4);
+
+		abvAnswer = new AbvAnswer(100, 0);
+		moodAnswer = Collections.emptyList();
+		preferenceAnswers = Collections.emptyList();
+		nonPreferenceAnswers = Collections.emptyList();
+		flavorAnswer = new FlavorAnswer(UserPreferenceAnswer.SOSO, UserPreferenceAnswer.SOSO,
+			UserPreferenceAnswer.SOSO);
 	}
 
 	@DisplayName("사용자의 추천 질문 응답에 맞게 적절한 칵테일을 추천한다.")
@@ -145,11 +157,6 @@ class FilteringAndScoringRecommendServiceTest {
 	@Test
 	void recommendCocktailsWithinAbv() {
 		AbvAnswer abvAnswer = new AbvAnswer(10, 0);
-		List<TagPreferenceAnswer> moodAnswer = Collections.emptyList();
-		List<TagPreferenceAnswer> preferenceAnswers = Collections.emptyList();
-		List<TagPreferenceAnswer> nonPreferenceAnswers = Collections.emptyList();
-		FlavorAnswer flavorAnswer = new FlavorAnswer(UserPreferenceAnswer.SOSO, UserPreferenceAnswer.SOSO,
-			UserPreferenceAnswer.SOSO);
 
 		RecommendRequest recommendRequest = new RecommendRequest(abvAnswer, moodAnswer, flavorAnswer, preferenceAnswers,
 			nonPreferenceAnswers);
@@ -162,13 +169,8 @@ class FilteringAndScoringRecommendServiceTest {
 	@DisplayName("필터링 대상 태그를 이용해 칵테일을 필터링한다.")
 	@Test
 	void recommendCocktailsWithNonPreference() {
-		AbvAnswer abvAnswer = new AbvAnswer(100, 0);
-		List<TagPreferenceAnswer> moodAnswer = Collections.emptyList();
-		List<TagPreferenceAnswer> preferenceAnswers = Collections.emptyList();
 		List<TagPreferenceAnswer> nonPreferenceAnswers = Collections.singletonList(
 			new TagPreferenceAnswer(8L, UserPreferenceAnswer.NO));
-		FlavorAnswer flavorAnswer = new FlavorAnswer(UserPreferenceAnswer.SOSO, UserPreferenceAnswer.SOSO,
-			UserPreferenceAnswer.SOSO);
 
 		RecommendRequest recommendRequest = new RecommendRequest(abvAnswer, moodAnswer, flavorAnswer, preferenceAnswers,
 			nonPreferenceAnswers);
@@ -181,16 +183,11 @@ class FilteringAndScoringRecommendServiceTest {
 	@DisplayName("사용자의 선호를 이용해 추천 칵테일을 정렬하고 상위 3개의 칵테일 보여준다.")
 	@Test
 	void recommendCocktailsWithPreference() {
-		AbvAnswer abvAnswer = new AbvAnswer(100, 0);
-		List<TagPreferenceAnswer> moodAnswer = Collections.emptyList();
 		List<TagPreferenceAnswer> preferenceAnswers = Arrays.asList(
 			new TagPreferenceAnswer(5L, UserPreferenceAnswer.YES),
 			new TagPreferenceAnswer(6L, UserPreferenceAnswer.YES),
 			new TagPreferenceAnswer(11L, UserPreferenceAnswer.NO)
 		);
-		List<TagPreferenceAnswer> nonPreferenceAnswers = Collections.emptyList();
-		FlavorAnswer flavorAnswer = new FlavorAnswer(UserPreferenceAnswer.SOSO, UserPreferenceAnswer.SOSO,
-			UserPreferenceAnswer.SOSO);
 
 		RecommendRequest recommendRequest = new RecommendRequest(abvAnswer, moodAnswer, flavorAnswer, preferenceAnswers,
 			nonPreferenceAnswers);
@@ -203,13 +200,8 @@ class FilteringAndScoringRecommendServiceTest {
 	@DisplayName("사용자의 분위기 선호를 이용해 추천 칵테일을 정렬하고 상위 3개의 칵테일 보여준다.")
 	@Test
 	void recommendCocktailsWithMoodPreference() {
-		AbvAnswer abvAnswer = new AbvAnswer(100, 0);
 		List<TagPreferenceAnswer> moodAnswer = Collections.singletonList(
 			new TagPreferenceAnswer(10L, UserPreferenceAnswer.NO));
-		List<TagPreferenceAnswer> preferenceAnswers = Collections.emptyList();
-		List<TagPreferenceAnswer> nonPreferenceAnswers = Collections.emptyList();
-		FlavorAnswer flavorAnswer = new FlavorAnswer(UserPreferenceAnswer.SOSO, UserPreferenceAnswer.SOSO,
-			UserPreferenceAnswer.SOSO);
 
 		RecommendRequest recommendRequest = new RecommendRequest(abvAnswer, moodAnswer, flavorAnswer, preferenceAnswers,
 			nonPreferenceAnswers);
@@ -235,10 +227,6 @@ class FilteringAndScoringRecommendServiceTest {
 
 		List<Cocktail> cocktails = Arrays.asList(cocktail1, cocktail2, newCocktail3, cocktail4);
 
-		AbvAnswer abvAnswer = new AbvAnswer(100, 0);
-		List<TagPreferenceAnswer> moodAnswer = Collections.emptyList();
-		List<TagPreferenceAnswer> preferenceAnswers = Collections.emptyList();
-		List<TagPreferenceAnswer> nonPreferenceAnswers = Collections.emptyList();
 		FlavorAnswer flavorAnswer = new FlavorAnswer(UserPreferenceAnswer.NO, UserPreferenceAnswer.NO,
 			UserPreferenceAnswer.NO);
 
