@@ -9,6 +9,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cocktailpick.back.common.csv.OpenCsvReader;
 import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
 import com.cocktailpick.back.common.exceptions.ErrorCode;
+import com.cocktailpick.back.tag.domain.CocktailTag;
+import com.cocktailpick.back.tag.domain.CocktailTagRepository;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
 import com.cocktailpick.back.tag.dto.TagRequest;
@@ -20,6 +22,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class TagService {
 	private final TagRepository tagRepository;
+
+	private final CocktailTagRepository cocktailTagRepository;
 
 	@Transactional
 	public void saveAll(MultipartFile file) {
@@ -52,6 +56,12 @@ public class TagService {
 
 	@Transactional
 	public void delete(Long id) {
+		List<CocktailTag> cocktailTags = cocktailTagRepository.findByTagId(id);
+		cocktailTags.forEach(cocktailTag -> {
+			cocktailTag.setTag(null);
+			cocktailTag.getCocktail().deleteCocktailTag(cocktailTag);
+		});
+
 		tagRepository.deleteById(id);
 	}
 }

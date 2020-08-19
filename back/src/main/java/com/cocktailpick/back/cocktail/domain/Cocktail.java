@@ -89,6 +89,10 @@ public class Cocktail extends BaseTimeEntity {
 		}
 	}
 
+	public void deleteCocktailTag(CocktailTag cocktailTag) {
+		cocktailTags.deleteCocktailTag(cocktailTag);
+	}
+
 	public boolean notContainsTag(Tag tag) {
 		return cocktailTags.notContainsTag(tag);
 	}

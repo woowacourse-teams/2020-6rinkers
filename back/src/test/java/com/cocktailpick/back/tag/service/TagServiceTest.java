@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cocktailpick.back.tag.domain.CocktailTagRepository;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
 import com.cocktailpick.back.tag.domain.TagType;
@@ -28,9 +29,12 @@ public class TagServiceTest {
 	@Mock
 	private TagRepository tagRepository;
 
+	@Mock
+	private CocktailTagRepository cocktailTagRepository;
+
 	@BeforeEach
 	void setUp() {
-		tagService = new TagService(tagRepository);
+		tagService = new TagService(tagRepository, cocktailTagRepository);
 	}
 
 	@DisplayName("태그 csv 파일을 저장한다.")

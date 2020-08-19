@@ -52,4 +52,8 @@ public class CocktailTags {
 	public void clear() {
 		cocktailTags.clear();
 	}
+
+	public void deleteCocktailTag(CocktailTag cocktailTag) {
+		cocktailTags.remove(cocktailTag);
+	}
 }
