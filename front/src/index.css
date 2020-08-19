@@ -16,8 +16,7 @@
   line-height: 1.5;
 }
 
-html,
-body {
+html {
   width: 100%;
   height: 100%;
   margin: 0;
@@ -30,6 +29,9 @@ body {
   color: var(--little-light-black);
 }
 
+body {
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -37,14 +39,23 @@ code {
 
 #root {
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
 }
 
 .App {
   width: 100%;
-  height: 100%;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.contentWrapper {
   display: flex;
   flex-direction: column;
+  margin: auto;
+  width: 100%;
+  order: 1;
+  flex-grow: 2;
 }
 
 ul {
