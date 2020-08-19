@@ -14,6 +14,7 @@
   font-size: 1.3rem;
   border-bottom: solid 1px var(--red);
   width: 50%;
+  min-width: 500px;
   padding: 0.5rem 0.8rem;
 }
 
@@ -97,6 +98,7 @@
 
   .question {
     width: 100%;
+    min-width: 0;
     font-size: 1rem;
     border: solid 1px var(--red);
     border-radius: 10px;
