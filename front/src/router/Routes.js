@@ -12,7 +12,7 @@ import Question from "../component/recommend/Question";
 import Result from "../component/result/Result";
 
 const Routes = ({ cocktails, setCocktails }) => {
-  const checkAdmin = (location) => {
+  const checkAdminForHeader = (location) => {
     if (location.pathname.split("/")[1] !== "admin") {
       return (
         <>
@@ -23,9 +23,19 @@ const Routes = ({ cocktails, setCocktails }) => {
     return <AdminHeader />;
   };
 
+  const checkAdminForFooter = (location) => {
+    if (location.pathname.split("/")[1] !== "admin") {
+      return (
+          <>
+            <Footer />
+          </>
+      );
+    }
+  };
+
   return (
     <>
-      <Route render={({ location }) => checkAdmin(location)} />
+      <Route render={({ location }) => checkAdminForHeader(location)} />
       <div className="contentWrapper">
         <Switch>
           <Route exact path="/" component={Home} />
@@ -41,7 +51,7 @@ const Routes = ({ cocktails, setCocktails }) => {
           </Route>
         </Switch>
       </div>
-      <Footer />
+      <Route render={({ location }) => checkAdminForFooter(location)} />
     </>
   );
 };
