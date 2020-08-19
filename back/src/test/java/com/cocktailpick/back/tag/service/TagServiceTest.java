@@ -74,7 +74,7 @@ public class TagServiceTest {
 	@DisplayName("태그를 수정한다.")
 	@Test
 	void update() {
-		Tag tag = new Tag("Before Tag", TagType.CONCEPT);
+		Tag tag = Tag.builder().id(1L).name("Before Tag").tagType(TagType.CONCEPT).build();
 		TagRequest tagRequest = new TagRequest("After Tag", "CONCEPT");
 		when(tagRepository.findById(1L)).thenReturn(Optional.of(tag));
 
