@@ -41,8 +41,9 @@ public class Tag extends BaseTimeEntity {
 		return this.name.equals(tag.name);
 	}
 
-	public void update(String updateName) {
+	public void update(String updateName, TagType tagType) {
 		this.name = updateName;
+		this.tagType = tagType;
 	}
 
 	public String getTagType() {

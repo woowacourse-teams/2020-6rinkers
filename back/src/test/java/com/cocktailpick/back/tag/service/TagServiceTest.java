@@ -78,8 +78,8 @@ public class TagServiceTest {
 		TagRequest tagRequest = new TagRequest("After Tag", "CONCEPT");
 		when(tagRepository.findById(1L)).thenReturn(Optional.of(tag));
 
-		Tag updatedTag = tagService.update(1L, tagRequest);
-		assertThat(updatedTag.getName()).isEqualTo(tagRequest.getName());
+		tagService.update(1L, tagRequest);
+		assertThat(tag.getName()).isEqualTo(tagRequest.getName());
 	}
 
 	@DisplayName("태그를 삭제한다.")

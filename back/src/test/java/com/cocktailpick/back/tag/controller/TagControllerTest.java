@@ -19,8 +19,6 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 
 import com.cocktailpick.back.common.documentation.Documentation;
 import com.cocktailpick.back.tag.docs.TagDocumentation;
-import com.cocktailpick.back.tag.domain.Tag;
-import com.cocktailpick.back.tag.domain.TagType;
 import com.cocktailpick.back.tag.dto.TagRequest;
 import com.cocktailpick.back.tag.dto.TagResponse;
 import com.cocktailpick.back.tag.service.TagService;
@@ -82,7 +80,7 @@ class TagControllerTest extends Documentation {
 	@Test
 	void update() throws Exception {
 		TagRequest tagRequest = new TagRequest("update name", "CONCEPT");
-		when(tagService.update(anyLong(), any())).thenReturn(new Tag("", TagType.CONCEPT));
+		doNothing().when(tagService).update(anyLong(), any());
 
 		mockMvc.perform(RestDocumentationRequestBuilders.put("/api/tags/{id}", 1L)
 			.contentType(MediaType.APPLICATION_JSON)

@@ -13,6 +13,7 @@ import com.cocktailpick.back.tag.domain.CocktailTag;
 import com.cocktailpick.back.tag.domain.CocktailTagRepository;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
+import com.cocktailpick.back.tag.domain.TagType;
 import com.cocktailpick.back.tag.dto.TagRequest;
 import com.cocktailpick.back.tag.dto.TagResponse;
 import lombok.AccessLevel;
@@ -46,12 +47,10 @@ public class TagService {
 	}
 
 	@Transactional
-	public Tag update(Long id, TagRequest tagRequest) {
+	public void update(Long id, TagRequest tagRequest) {
 		Tag tag = tagRepository.findById(id)
 			.orElseThrow(() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND));
-		tag.update(tagRequest.getName());
-
-		return tag;
+		tag.update(tagRequest.getName(), TagType.of(tagRequest.getTagType()));
 	}
 
 	@Transactional
