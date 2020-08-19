@@ -28,16 +28,24 @@
   height: 300px;
 }
 
-/*.dislike-container {*/
-/*  display: flex;*/
-/*  flex-direction: column;*/
-/*}*/
+.dislike-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+}
 
 .tag-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+}
+
+.toggles {
+  display: grid;
+  grid-template-columns: repeat(2, 11rem);
 }
 
 .tag-name {

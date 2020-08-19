@@ -53,17 +53,19 @@ const Dislike = ({ addAnswer }) => {
 
   return (
     <div className="dislike-container">
-      {dislikes &&
-        dislikes.map((dislike, index) => {
-          return (
-            <Toggle
-              name={dislike}
-              key={`key-${index}`}
-              answer={answer}
-              onToggleAnswer={onToggleAnswer}
-            />
-          );
-        })}
+      <div className="toggles">
+        {dislikes &&
+          dislikes.map((dislike, index) => {
+            return (
+              <Toggle
+                name={dislike}
+                key={`key-${index}`}
+                answer={answer}
+                onToggleAnswer={onToggleAnswer}
+              />
+            );
+          })}
+      </div>
       <NextStage
         type="nonPreferenceAnswer"
         answer={answer}
