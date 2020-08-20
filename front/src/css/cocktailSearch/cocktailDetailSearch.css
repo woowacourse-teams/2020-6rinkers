@@ -32,6 +32,13 @@
   padding: 0.3rem 0;
 }
 
+.tags-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 400px;
+}
+
 .recipe-container {
   display: flex;
   justify-content: center;
