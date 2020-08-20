@@ -1,9 +1,11 @@
 package com.cocktailpick.back.tag.service;
 
 import static com.cocktailpick.back.tag.Fixtures.*;
+import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -14,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cocktailpick.back.tag.domain.CocktailTagRepository;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
 import com.cocktailpick.back.tag.domain.TagType;
@@ -26,9 +29,12 @@ public class TagServiceTest {
 	@Mock
 	private TagRepository tagRepository;
 
+	@Mock
+	private CocktailTagRepository cocktailTagRepository;
+
 	@BeforeEach
 	void setUp() {
-		tagService = new TagService(tagRepository);
+		tagService = new TagService(tagRepository, cocktailTagRepository);
 	}
 
 	@DisplayName("태그 csv 파일을 저장한다.")
@@ -63,5 +69,24 @@ public class TagServiceTest {
 		tagService.createTag(tagRequest);
 
 		verify(tagRepository).save(any());
+	}
+
+	@DisplayName("태그를 수정한다.")
+	@Test
+	void update() {
+		Tag tag = Tag.builder().id(1L).name("Before Tag").tagType(TagType.CONCEPT).build();
+		TagRequest tagRequest = new TagRequest("After Tag", "CONCEPT");
+		when(tagRepository.findById(1L)).thenReturn(Optional.of(tag));
+
+		tagService.update(1L, tagRequest);
+		assertThat(tag.getName()).isEqualTo(tagRequest.getName());
+	}
+
+	@DisplayName("태그를 삭제한다.")
+	@Test
+	void delete() {
+		tagService.delete(1L);
+
+		verify(tagRepository).deleteById(1L);
 	}
 }

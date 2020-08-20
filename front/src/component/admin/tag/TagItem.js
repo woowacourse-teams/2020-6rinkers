@@ -1,4 +1,5 @@
 import React from "react";
+import { deleteTag } from "../../../api";
 import styled from "styled-components";
 
 const TagItemContainer = styled.div`
@@ -24,11 +25,18 @@ const TagType = styled.div`
   padding-bottom: 20px;
 `;
 
+const onClick = (e) => {
+  deleteTag(e.target.dataset.tagId);
+};
+
 const TagItem = ({ tag }) => {
   return (
     <TagItemContainer>
       <TagName>{tag.name}</TagName>
       <TagType>{tag.tagType}</TagType>
+      <button data-tag-id={tag.tagId} onClick={onClick}>
+        삭제
+      </button>
     </TagItemContainer>
   );
 };

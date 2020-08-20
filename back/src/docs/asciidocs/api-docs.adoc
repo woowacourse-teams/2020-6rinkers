@@ -74,3 +74,12 @@ operation::tags/findAll[snippets='http-request,http-response,response-fields']
 
 operation::tags/create[snippets='http-request,http-response,request-fields']
 
+[[resources-tags-update]]
+=== 태그 수정
+
+operation::tags/update[snippets='http-request,http-response,path-parameters,request-fields']
+
+[[resources-tags-delete]]
+=== 태그 삭제
+
+operation::tags/delete[snippets='http-request,http-response,path-parameters']

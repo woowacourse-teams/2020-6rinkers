@@ -7,8 +7,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cocktailpick.back.common.csv.OpenCsvReader;
+import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
+import com.cocktailpick.back.common.exceptions.ErrorCode;
+import com.cocktailpick.back.tag.domain.CocktailTag;
+import com.cocktailpick.back.tag.domain.CocktailTagRepository;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
+import com.cocktailpick.back.tag.domain.TagType;
 import com.cocktailpick.back.tag.dto.TagRequest;
 import com.cocktailpick.back.tag.dto.TagResponse;
 import lombok.AccessLevel;
@@ -18,6 +23,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class TagService {
 	private final TagRepository tagRepository;
+
+	private final CocktailTagRepository cocktailTagRepository;
 
 	@Transactional
 	public void saveAll(MultipartFile file) {
@@ -37,5 +44,23 @@ public class TagService {
 		Tag tag = tagRepository.save(tagRequest.toTag());
 
 		return tag.getId();
+	}
+
+	@Transactional
+	public void update(Long id, TagRequest tagRequest) {
+		Tag tag = tagRepository.findById(id)
+			.orElseThrow(() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND));
+		tag.update(tagRequest.getName(), TagType.of(tagRequest.getTagType()));
+	}
+
+	@Transactional
+	public void delete(Long id) {
+		List<CocktailTag> cocktailTags = cocktailTagRepository.findByTagId(id);
+		for (CocktailTag cocktailTag : cocktailTags) {
+			cocktailTag.setTag(null);
+			cocktailTag.getCocktail().deleteCocktailTag(cocktailTag);
+		}
+
+		tagRepository.deleteById(id);
 	}
 }
