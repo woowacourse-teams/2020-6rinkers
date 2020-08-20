@@ -39,6 +39,11 @@
   max-width: 400px;
 }
 
+.abv-and-taste-container {
+  display: flex;
+  justify-content: center;
+}
+
 .recipe-container {
   display: flex;
   justify-content: center;
