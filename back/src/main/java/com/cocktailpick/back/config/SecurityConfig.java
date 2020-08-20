@@ -3,6 +3,7 @@ package com.cocktailpick.back.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -77,6 +78,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
+			.headers()
+			.frameOptions()
+			.disable()
+			.and()
 			.cors()
 			.and()
 			.sessionManagement()
@@ -105,8 +110,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.permitAll()
 			.antMatchers("/auth/**", "/oauth2/**")
 			.permitAll()
+			.antMatchers(HttpMethod.POST, "/**/upload/csv")
+			.hasRole("ADMIN")
+			.antMatchers(HttpMethod.POST, "/api/cocktails")
+			.hasRole("ADMIN")
+			.antMatchers(HttpMethod.PUT, "/api/cocktails/**")
+			.hasRole("ADMIN")
+			.antMatchers(HttpMethod.DELETE, "/api/cocktails/**")
+			.hasRole("ADMIN")
 			.anyRequest()
-			.authenticated()
+			.permitAll()
 			.and()
 			.oauth2Login()
 			.authorizationEndpoint()

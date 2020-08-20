@@ -7,7 +7,7 @@ import {
   GOOGLE_AUTH_URL,
 } from "../../constants";
 import { login } from "../../utils/APIUtils";
-import "../../css/Login.css";
+import "../../css/user/login.css";
 
 const Login = (props) => {
   const location = useLocation();
