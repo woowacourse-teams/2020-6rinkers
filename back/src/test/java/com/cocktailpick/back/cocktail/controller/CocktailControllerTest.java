@@ -119,15 +119,16 @@ class CocktailControllerTest extends Documentation {
 			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
 				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")))
 		);
-		given(cocktailService.findPageContainingWord("", 0, 2)).willReturn(cocktailResponses);
+		given(cocktailService.findPageContainingWord("블루", 0, 2)).willReturn(cocktailResponses);
 
-		mockMvc.perform(get("/api/cocktails/pages/name")
+		mockMvc.perform(get("/api/cocktails/contain-word")
+			.param("contain", "블루")
 			.param("id", "0")
 			.param("size", "2")
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andDo(print())
-			.andDo(CocktailDocumentation.findPagedCocktails());
+			.andDo(CocktailDocumentation.findPagedCocktailsContainingWord());
 	}
 
 	@DisplayName("칵테일을 단일 조회한다.")
@@ -161,23 +162,35 @@ class CocktailControllerTest extends Documentation {
 	@DisplayName("특정 태그가 포함된 칵테일을 원하는 수 만큼 조회한다.")
 	@Test
 	void findPageFilteredByTags() throws Exception {
-		mockMvc.perform((get("/api/cocktails/pages/tags"))
+		List<CocktailResponse> cocktailResponses = Arrays.asList(
+			new CocktailResponse(1L, "싱가폴 슬링", "https://naver.com",
+				Collections.singletonList(new TagResponse("마지막 양심", "컨셉"))),
+			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
+				Arrays.asList(new TagResponse("쫄깃쫄깃", "식감"), new TagResponse("짭쪼름", "맛")))
+		);
+
+		given(cocktailService.findPageFilteredByTags(anyList(), anyLong(), anyInt())).willReturn(cocktailResponses);
+
+		mockMvc.perform((get("/api/cocktails/contain-tags"))
 			.param("tagIds", "1", "2", "3")
 			.param("id", "0")
 			.param("size", "15")
 			.accept(MediaType.APPLICATION_JSON))
-			.andExpect(status().isOk());
+			.andExpect(status().isOk())
+			.andDo(print())
+			.andDo(CocktailDocumentation.findPagedCocktailsFilteredByTag());
 	}
 
 	@DisplayName("태그 목록을 넣지 않았을 때 칵테일을 원하는 수 만큼 조회한다.")
 	@Test
 	void findPageFilteredByTags_WhenContainIsNull() throws Exception {
-		mockMvc.perform((get("/api/cocktails/pages/tags"))
+		mockMvc.perform((get("/api/cocktails/contain-tags"))
 			.param("tagIds", (String)null)
 			.param("id", "0")
 			.param("size", "15")
 			.accept(MediaType.APPLICATION_JSON))
-			.andExpect(status().isOk());
+			.andExpect(status().isOk())
+			.andDo(print());
 	}
 
 	@DisplayName("칵테일을 수정한다.")
@@ -304,6 +317,6 @@ class CocktailControllerTest extends Documentation {
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andDo(print())
-			.andDo(CocktailDocumentation.contain());
+			.andDo(CocktailDocumentation.cocktailAutoComplete());
 	}
 }

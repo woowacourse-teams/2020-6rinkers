@@ -41,7 +41,7 @@ public class CocktailController {
 		return ResponseEntity.ok(cocktailService.findAllCocktails());
 	}
 
-	@GetMapping("/pages/name")
+	@GetMapping("/contain-word")
 	public ResponseEntity<List<CocktailResponse>> findPageContainingWord(
 		@RequestParam(defaultValue = "") String contain,
 		@RequestParam long id, @RequestParam int size) {
@@ -49,7 +49,7 @@ public class CocktailController {
 		return ResponseEntity.ok(cocktailResponses);
 	}
 
-	@GetMapping("/pages/tags")
+	@GetMapping("/contain-tags")
 	public ResponseEntity<List<CocktailResponse>> findPageFilteredByTags(
 		@RequestParam(defaultValue = "") List<Long> tagIds, @RequestParam long id,
 		@RequestParam int size) {
