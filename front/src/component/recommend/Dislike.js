@@ -5,7 +5,7 @@ import { fetchDislikeTags } from "../../api";
 
 const Dislike = ({ addAnswer }) => {
   const [dislikes, setDislikes] = useState([]);
-  const [answer, setAnswer] = useState({});
+  const [answer, setAnswer] = useState([]);
 
   useEffect(() => {
     const updateDislikes = async () => {
@@ -22,17 +22,28 @@ const Dislike = ({ addAnswer }) => {
     }
     const updateAnswer = async () => {
       await setAnswer(
-        dislikes.reduce((o, key) => ({ ...o, [key.tagId]: "YES" }), {})
+        answer.concat(
+          dislikes.map((dislike) => ({
+            tagId: dislike.tagId,
+            userPreferenceAnswer: "YES",
+          }))
+        )
       );
     };
     updateAnswer();
   }, [dislikes]);
 
-  const onToggleAnswer = (name) => {
-    setAnswer({
-      ...answer,
-      [name]: answer[name] === "YES" ? "NO" : "YES",
-    });
+  const onToggleAnswer = (tagId) => {
+    const clonedAnswer = [...answer];
+    const targetAnswer = clonedAnswer.find((each) => each.tagId === tagId);
+    targetAnswer.userPreferenceAnswer =
+      targetAnswer.userPreferenceAnswer === "YES" ? "NO" : "YES";
+    setAnswer(clonedAnswer);
+  };
+
+  const checkClicked = (tagId) => {
+    const targetAnswer = answer.find((each) => each.tagId === tagId);
+    return targetAnswer ? targetAnswer.userPreferenceAnswer : "";
   };
 
   return (
@@ -45,14 +56,14 @@ const Dislike = ({ addAnswer }) => {
                 name={dislike.name}
                 tagId={dislike.tagId}
                 key={`key-${index}`}
-                answer={answer}
+                answer={checkClicked(dislike.tagId)}
                 onToggleAnswer={onToggleAnswer}
               />
             );
           })}
       </div>
       <NextStage
-        type="nonPreferenceAnswer"
+        type="nonPreferenceAnswers"
         answer={answer}
         addAnswer={addAnswer}
         saying="칵테일 추천 받기"

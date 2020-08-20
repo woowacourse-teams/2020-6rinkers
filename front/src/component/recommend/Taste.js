@@ -29,7 +29,7 @@ const Taste = ({ addAnswer }) => {
             name={taste.name}
             tagId={taste.tagId}
             key={`key-${index}`}
-            answer={answer}
+            answer={answer[taste.tagId]}
             onChangeAnswer={onChangeAnswer}
           />
         );

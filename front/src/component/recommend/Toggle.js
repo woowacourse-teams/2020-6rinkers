@@ -4,7 +4,7 @@ function Toggle({ name, tagId, answer, onToggleAnswer }) {
   return (
     <div
       onClick={() => onToggleAnswer(tagId)}
-      className={answer[tagId] === "NO" ? "tag-name checked" : "tag-name"}
+      className={answer === "NO" ? "tag-name checked" : "tag-name"}
     >
       {name}
     </div>

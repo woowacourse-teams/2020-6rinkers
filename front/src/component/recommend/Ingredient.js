@@ -5,10 +5,9 @@ import { fetchThreeRandomIngredientTags } from "../../api";
 
 const Ingredient = ({ addAnswer }) => {
   const [ingredients, setIngredients] = useState([]);
-  const [answer, setAnswer] = useState({});
+  const [answer, setAnswer] = useState([]);
 
   useEffect(() => {
-    // api
     const updateIngredients = async () => {
       const response = await fetchThreeRandomIngredientTags();
       const data = response["data"];
@@ -23,17 +22,27 @@ const Ingredient = ({ addAnswer }) => {
     }
     const updateAnswer = async () => {
       await setAnswer(
-        ingredients.reduce((o, key) => ({ ...o, [key.tagId]: "SOSO" }), {})
+        answer.concat(
+          ingredients.map((ingredient) => ({
+            tagId: ingredient.tagId,
+            userPreferenceAnswer: "SOSO",
+          }))
+        )
       );
     };
     updateAnswer();
   }, [ingredients]);
 
-  const onChangeAnswer = (name, userAnswer) => {
-    setAnswer({
-      ...answer,
-      [name]: userAnswer,
-    });
+  const onChangeAnswer = (tagId, userAnswer) => {
+    const clonedAnswer = [...answer];
+    const targetAnswer = clonedAnswer.find((each) => each.tagId === tagId);
+    targetAnswer.userPreferenceAnswer = userAnswer;
+    setAnswer(clonedAnswer);
+  };
+
+  const checkClicked = (tagId) => {
+    const targetAnswer = answer.find((each) => each.tagId === tagId);
+    return targetAnswer ? targetAnswer.userPreferenceAnswer : "";
   };
 
   return (
@@ -45,7 +54,7 @@ const Ingredient = ({ addAnswer }) => {
               name={ingredient.name}
               tagId={ingredient.tagId}
               key={`key-${index}`}
-              answer={answer}
+              answer={checkClicked(ingredient.tagId)}
               onChangeAnswer={onChangeAnswer}
             />
           );

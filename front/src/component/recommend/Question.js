@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { questions } from "./const";
 import { useHistory } from "react-router-dom";
 import { createRecommend } from "../../api";
@@ -13,14 +13,14 @@ import "../../css/recommend/question.css";
 const INITIAL_STAGE = 1;
 
 const Question = ({ setCocktails }) => {
-  const [answers, setAnswers] = useState([]);
+  const [answers, setAnswers] = useState({});
   const [stage, setStage] = useState(INITIAL_STAGE);
   const [question, setQuestion] = useState(questions[stage - 1]);
 
   const addAnswer = (type, answer) => {
     const wrappedAnswer = { [type]: answer };
     if (stage !== INITIAL_STAGE) {
-      setAnswers([...answers, wrappedAnswer]);
+      setAnswers({ ...answers, ...wrappedAnswer });
     }
     setStage(stage + 1);
     setQuestion(questions[stage]);
@@ -28,17 +28,25 @@ const Question = ({ setCocktails }) => {
 
   const history = useHistory();
 
-  const getCocktails = async () => {
-    const response = await createRecommend(answers);
-    setCocktails(response.data);
+  const addLastAnswer = (type, answer) => {
+    const wrappedAnswer = { [type]: answer };
+    setAnswers(() => ({ ...answers, ...wrappedAnswer }));
   };
 
-  const addLastAnswer = async (type, answer) => {
-    const wrappedAnswer = { [type]: answer };
-    setAnswers([...answers, wrappedAnswer]);
-    await getCocktails(answers);
+  const recommendCocktails = async () => {
+    const response = await createRecommend(answers);
+    setCocktails(response.data);
     history.push("/result");
   };
+
+  useEffect(() => {
+    const recommend = async () => {
+      await recommendCocktails();
+    };
+    if (Object.keys(answers).length === 5) {
+      recommend();
+    }
+  }, [answers]);
 
   const renderAnswer = () => {
     switch (stage) {

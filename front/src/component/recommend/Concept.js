@@ -5,7 +5,7 @@ import { fetchThreeRandomConceptTags } from "../../api";
 
 const Concept = ({ addAnswer }) => {
   const [concepts, setConcepts] = useState([]);
-  const [answer, setAnswer] = useState({});
+  const [answer, setAnswer] = useState([]);
 
   useEffect(() => {
     const updateConcepts = async () => {
@@ -22,17 +22,27 @@ const Concept = ({ addAnswer }) => {
     }
     const updateAnswer = async () => {
       await setAnswer(
-        concepts.reduce((o, key) => ({ ...o, [key.tagId]: "SOSO" }), {})
+        answer.concat(
+          concepts.map((concept) => ({
+            tagId: concept.tagId,
+            userPreferenceAnswer: "SOSO",
+          }))
+        )
       );
     };
     updateAnswer();
   }, [concepts]);
 
-  const onChangeAnswer = (name, userAnswer) => {
-    setAnswer({
-      ...answer,
-      [name]: userAnswer,
-    });
+  const onChangeAnswer = (tagId, userAnswer) => {
+    const clonedAnswer = [...answer];
+    const targetAnswer = clonedAnswer.find((each) => each.tagId === tagId);
+    targetAnswer.userPreferenceAnswer = userAnswer;
+    setAnswer(clonedAnswer);
+  };
+
+  const checkClicked = (tagId) => {
+    const targetAnswer = answer.find((each) => each.tagId === tagId);
+    return targetAnswer ? targetAnswer.userPreferenceAnswer : "";
   };
 
   return (
@@ -44,7 +54,7 @@ const Concept = ({ addAnswer }) => {
               name={concept.name}
               tagId={concept.tagId}
               key={`key-${index}`}
-              answer={answer}
+              answer={checkClicked(concept.tagId)}
               onChangeAnswer={onChangeAnswer}
             />
           );
