@@ -3,69 +3,22 @@ import "./index.css";
 import Alert from "react-s-alert";
 import Routes from "./router/Routes";
 import { getCurrentUser } from "./utils/APIUtils";
-import { ACCESS_TOKEN } from "./constants";
+import { ACCESS_TOKEN, USER_PROTOTYPE } from "./constants";
+import "react-s-alert/dist/s-alert-default.css";
+import "react-s-alert/dist/s-alert-css-effects/slide.css";
 
 const App = () => {
   const [cocktails, setCocktails] = useState([]);
-  const [user, setUser] = useState({
-    authenticated: false,
-    currentUser: null,
-    loading: false,
-  });
-
-  const { authenticated, currentUser, loading } = user;
-
-  const loadCurrentlyLoggedInUser = () => {
-    setUser({
-      loading: true,
-    });
-
-    getCurrentUser()
-      .then((response) => {
-        setUser({
-          currentUser: response,
-          authenticated: true,
-          loading: false,
-        });
-      })
-      .catch((error) => {
-        setUser({
-          loading: false,
-        });
-      });
-  };
-
-  useEffect(loadCurrentlyLoggedInUser, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem(ACCESS_TOKEN);
-    setUser({
-      authenticated: false,
-      currentUser: null,
-    });
-    Alert.success("You're safely logged out!");
-  };
-
-  if (loading) {
-    return (
-      <div
-        className="loading-indicator"
-        style={{ display: "block", textAlign: "center", marginTop: "30px" }}
-      >
-        Loading...
-      </div>
-    );
-  }
 
   return (
     <div className="App">
-      <Routes
-        cocktails={cocktails}
-        setCocktails={setCocktails}
-        authenticated={authenticated}
-        currentUser={currentUser}
-        loading={loading}
-        handleLogout={handleLogout}
+      <Routes cocktails={cocktails} setCocktails={setCocktails} />
+      <Alert
+        stack={{ limit: 3 }}
+        timeout={3000}
+        position="top-right"
+        effect="slide"
+        offset={65}
       />
     </div>
   );

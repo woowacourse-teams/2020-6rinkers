@@ -1,4 +1,5 @@
 import axios from "axios";
+import { ACCESS_TOKEN } from "../constants";
 
 const client = axios.create({
   baseURL: `//${process.env.REACT_APP_HOST}`,
@@ -34,11 +35,13 @@ export const createCocktailsByCsv = (file) =>
   client.post("/api/cocktails/upload/csv", file, {
     headers: {
       "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
     },
   });
 export const createTagsByCsv = (file) =>
   client.post("/api/tags/upload/csv", file, {
     headers: {
       "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
     },
   });

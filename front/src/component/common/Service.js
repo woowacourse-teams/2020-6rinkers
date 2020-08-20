@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const Service = ({ authenticated, handleLogout }) => {
+const Service = ({ authenticated, currentUser, handleLogout }) => {
   return (
     <div className="service">
       <div className="options">
@@ -31,7 +31,7 @@ const Service = ({ authenticated, handleLogout }) => {
         {authenticated ? (
           <>
             <NavLink to="/profile" className="serviceItem">
-              프로필
+              {currentUser.name}
             </NavLink>
             <a onClick={handleLogout} className="serviceItem">
               로그아웃

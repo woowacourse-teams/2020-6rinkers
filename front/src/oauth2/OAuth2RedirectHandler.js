@@ -23,7 +23,7 @@ const OAuth2RedirectHandler = () => {
     return (
       <Redirect
         to={{
-          pathname: "/profile",
+          pathname: "/",
           state: { from: location },
         }}
       />

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Redirect, useLocation } from "react-router-dom";
 import CocktailEditFormContainer from "./CocktailEditFormContainer";
 import { fetchCocktail } from "../../../api";
 import { convertCocktailToInputData } from "../../../utils/admin/cocktailConverter";
@@ -9,7 +10,7 @@ import {
 } from "../../../utils/admin/constant";
 import "../../../css/admin/admin.css";
 
-const CocktailAdmin = () => {
+const CocktailAdmin = ({ role }) => {
   const [cocktail, setCocktail] = useState(DEFAULT_COCKTAIL_DATA);
 
   const onUpdateCocktail = (value, name) => {
@@ -30,6 +31,27 @@ const CocktailAdmin = () => {
   const onResetCocktail = () => {
     setCocktail(EMPTY_COCKTAIL_DATA);
   };
+
+  const location = useLocation();
+  if (!role) {
+    return (
+      <Redirect
+        to={{
+          pathname: "/",
+          state: { from: location.pathname },
+        }}
+      />
+    );
+  } else if (role !== "ROLE_ADMIN") {
+    return (
+      <Redirect
+        to={{
+          pathname: "/",
+          state: { from: location.pathname },
+        }}
+      />
+    );
+  }
 
   return (
     <div className="admin">
