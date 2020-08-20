@@ -67,7 +67,7 @@
 }
 
 .result-cocktail-image {
-  width: 30vw;
+  width: 500px;
   margin-bottom: 1rem;
 }
 
@@ -128,7 +128,7 @@
   }
 
   .result-cocktail-image {
-    width: 80vw;
+    width: 100%;
   }
 
   .result-cocktail-description {
@@ -144,5 +144,9 @@
 
   .carousel-item.active {
     height: 100% !important;
+  }
+
+  .carousel-arrow {
+    -webkit-tap-highlight-color: transparent;
   }
 }
