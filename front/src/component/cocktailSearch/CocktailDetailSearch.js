@@ -4,6 +4,9 @@ import CircularBox from "../common/CircularBox";
 import "../../css/cocktailSearch/cocktailDetailSearch.css";
 import RecipeItems from "./RecipeItems";
 
+const LIGHT_BLUE = "rgba(28, 30, 170, 0.8)";
+const LIGHT_GREEN = "rgba(70, 170, 24, 0.8)";
+
 const CocktailDetailSearch = ({ match }) => {
   const id = match.params.id;
   const [cocktailData, setCocktailData] = useState({
@@ -36,49 +39,50 @@ const CocktailDetailSearch = ({ match }) => {
           className="detail-info-image"
         />
       </div>
-      <p className="cocktail-abv">도수 : {cocktailData.cocktail.abv}%</p>
-      {cocktailData.tags &&
-        cocktailData.tags.map((tag, index) => (
-          <CircularBox key={"tag" + index} text={tag.name} />
-        ))}
-      <div>
+      <div className="tags-container">
+        {cocktailData.tags &&
+          cocktailData.tags.map((tag, index) => (
+            <CircularBox key={"tag" + index} text={tag.name} />
+          ))}
+      </div>
+      <div className="abv-and-taste-container">
+        {cocktailData.cocktail.abv && (
+          <CircularBox
+            text={cocktailData.cocktail.abv + "%"}
+            color={LIGHT_BLUE}
+          />
+        )}
         {cocktailData.cocktail.sweet ? (
-          <CircularBox text="달아요" />
+          <CircularBox text="달아요" color={LIGHT_GREEN} />
         ) : (
-          <CircularBox text="안달아요" />
+          <CircularBox text="안달아요" color={LIGHT_GREEN} />
         )}
         {cocktailData.cocktail.sour ? (
-          <CircularBox text="셔요" />
+          <CircularBox text="셔요" color={LIGHT_GREEN} />
         ) : (
-          <CircularBox text="안셔요" />
+          <CircularBox text="안셔요" color={LIGHT_GREEN} />
         )}
         {cocktailData.cocktail.bitter ? (
-          <CircularBox text="써요" />
+          <CircularBox text="써요" color={LIGHT_GREEN} />
         ) : (
-          <CircularBox text="안써요" />
+          <CircularBox text="안써요" color={LIGHT_GREEN} />
         )}
       </div>
-      <table className="cocktail-recipe">
-        <thead>
-          <tr>
-            <th>종류</th>
-            <th>양</th>
-          </tr>
-        </thead>
-        <tbody>
-          {cocktailData.recipe &&
-            cocktailData.recipe.map((item, index) => (
-              <RecipeItems item={item} key={"recipeItem" + index} />
-            ))}
-        </tbody>
-      </table>
-      <div className="origin">
-        <h4>어원</h4>
-        <p>{cocktailData.cocktail.origin}</p>
+      <div className="recipe-container">
+        {cocktailData.recipe &&
+          cocktailData.recipe.map((item, index) => (
+            <RecipeItems item={item} key={"recipeItem" + index} />
+          ))}
       </div>
-      <div className="description">
-        <h4>특징</h4>
-        <p>{cocktailData.cocktail.description}</p>
+      <div className="text-container">
+        <div className="origin">
+          <h4>어원</h4>
+          <p>{cocktailData.cocktail.origin}</p>
+        </div>
+        <div className="description">
+          <h4>특징</h4>
+          <p>{cocktailData.cocktail.description}</p>
+        </div>
       </div>
     </div>
   );

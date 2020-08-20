@@ -8,6 +8,9 @@
   --more-light-red: rgba(166, 0, 0, 0.2);
   --white: #ffffff;
   --little-dark-white: #eeeeee;
+  --light-blue: rgba(28, 30, 170, 0.8);
+  --light-green: rgba(70, 170, 24, 0.8);
+  --light-purple: rgba(157, 13, 182, 0.8);
 }
 
 * {
