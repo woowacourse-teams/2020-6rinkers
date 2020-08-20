@@ -62,29 +62,25 @@ public class TagService {
 
 	@Transactional
 	public Long createTag(TagRequest tagRequest) {
-		Tag tag = tagRequest.toTag();
-		List<Tag> allTags = tagRepository.findAll();
-		validateTag(tag, allTags);
+		validateTag(tagRequest);
+		Tag tag = tagRepository.save(tagRequest.toTag());
 
-		return tagRepository.save(tag).getId();
+		return tag.getId();
 	}
 
 	@Transactional
 	public void update(Long id, TagRequest tagRequest) {
-		Tag tag = tagRequest.toTag();
-		List<Tag> allTags = tagRepository.findAll();
-		validateTag(tag, allTags);
-		Tag targetTag = tagRepository.findById(id)
+		validateTag(tagRequest);
+		Tag tag = tagRepository.findById(id)
 			.orElseThrow(() -> new EntityNotFoundException(ErrorCode.TAG_NOT_FOUND));
 
-		targetTag.update(tagRequest.getName(), TagType.of(tagRequest.getTagType()));
+		tag.update(tagRequest.getName(), TagType.of(tagRequest.getTagType()));
 	}
 
-	private void validateTag(Tag tag, List<Tag> allTags) {
-		boolean isDuplicated = allTags.stream()
-			.anyMatch(it -> it.isSameName(tag));
+	private void validateTag(TagRequest tagRequest) {
+		boolean isPresent = tagRepository.findByName(tagRequest.getName()).isPresent();
 
-		if (isDuplicated) {
+		if (isPresent) {
 			throw new InvalidValueException(ErrorCode.TAG_DUPLICATED);
 		}
 	}

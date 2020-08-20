@@ -34,7 +34,9 @@ const TagInput = ({ tag, setTag }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    createTag(dataToTagRequest(tag.name, tag.type));
+    createTag(dataToTagRequest(tag.name, tag.type))
+      .then(() => alert("성공적으로 태그를 생성했습니다."))
+      .catch((error) => alert(error));
     setTag({
       ...tag,
       name: "",

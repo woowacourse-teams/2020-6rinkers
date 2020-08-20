@@ -99,7 +99,8 @@ public class TagServiceTest {
 	void update() {
 		Tag tag = Tag.builder().id(1L).name("Before Tag").tagType(TagType.CONCEPT).build();
 		TagRequest tagRequest = new TagRequest("After Tag", "CONCEPT");
-		when(tagRepository.findById(1L)).thenReturn(Optional.of(tag));
+		when(tagRepository.findByName(anyString())).thenReturn(Optional.empty());
+		when(tagRepository.findById(any())).thenReturn(Optional.of(tag));
 
 		tagService.update(1L, tagRequest);
 		assertThat(tag.getName()).isEqualTo(tagRequest.getName());
