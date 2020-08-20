@@ -6,6 +6,7 @@
   width: 100%;
   height: 100%;
   user-select: none;
+  margin-top: 5rem;
 }
 
 .todayCocktailContainer {
@@ -43,8 +44,8 @@
   align-items: center;
   height: 0.5rem;
   cursor: pointer;
-  margin-bottom: 1rem;
   padding: 0 1rem;
+  margin: 8rem 0 1rem 0;
 }
 
 .homeRecommendation:hover {
@@ -64,6 +65,10 @@
 }
 
 @media screen and (max-width: 700px) {
+  .home {
+    margin-top: 1rem;
+  }
+
   .todayCocktailContainer {
     display: flex;
     flex-direction: column;
@@ -94,7 +99,7 @@
   }
 
   .homeRecommendation {
-    margin-top: 1rem;
+    margin-top: 2rem;
   }
 
   .homeRecommendation:hover {
