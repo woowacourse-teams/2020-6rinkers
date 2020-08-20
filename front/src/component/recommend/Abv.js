@@ -6,7 +6,7 @@ import "../../css/recommend/abv.css";
 import NextStage from "./NextStage";
 
 const Abv = ({ addAnswer }) => {
-  const [abvs, setAbvs] = useState([0, 80]);
+  const [abvs, setAbvs] = useState([0, 55]);
 
   const changeValues = (data) => {
     setAbvs(data);
@@ -35,11 +35,11 @@ const Abv = ({ addAnswer }) => {
         <Range
           marks={{
             0: "무알콜",
-            80: "80",
+            55: "55",
           }}
           min={0}
-          max={80}
-          defaultValue={[0, 80]}
+          max={55}
+          defaultValue={[0, 55]}
           allowCross={false}
           onChange={changeValues}
         />

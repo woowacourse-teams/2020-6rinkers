@@ -19,16 +19,16 @@ export const abvToImageConverter = (value) => {
   if (value >= 18 && value < 25) {
     return <img className="soju" src="/image/soju.png" alt="소주" />;
   }
-  if (value >= 25 && value < 40) {
+  if (value >= 25 && value < 33) {
     return "🍸";
   }
-  if (value >= 40 && value < 55) {
+  if (value >= 33 && value < 43) {
     return <img className="whisky" src="/image/whisky.png" alt="위스키" />;
   }
-  if (value >= 55 && value < 65) {
+  if (value >= 43 && value < 53) {
     return "💣";
   }
-  if (value >= 60) {
+  if (value >= 53) {
     return "💀";
   }
   return value;
