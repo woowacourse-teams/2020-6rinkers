@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 import Tag from "./Tag";
 import NextStage from "./NextStage";
+import { fetchThreeRandomConceptTags } from "../../api";
 
 const Concept = ({ addAnswer }) => {
   const [concepts, setConcepts] = useState([]);
   const [answer, setAnswer] = useState({});
 
   useEffect(() => {
-    // api
     const updateConcepts = async () => {
-      await setConcepts(["분위기 있는", "기분전환이 필요할 때", "애인과 함께"]);
+      const response = await fetchThreeRandomConceptTags();
+      const data = response["data"];
+      console.log(data);
+      await setConcepts(data);
     };
     updateConcepts();
   }, []);
@@ -20,7 +23,7 @@ const Concept = ({ addAnswer }) => {
     }
     const updateAnswer = async () => {
       await setAnswer(
-        concepts.reduce((o, key) => ({ ...o, [key]: "SOSO" }), {})
+        concepts.reduce((o, key) => ({ ...o, [key.tagId]: "SOSO" }), {})
       );
     };
     updateAnswer();
@@ -39,7 +42,8 @@ const Concept = ({ addAnswer }) => {
         concepts.map((concept, index) => {
           return (
             <Tag
-              name={concept}
+              name={concept.name}
+              tagId={concept.tagId}
               key={`key-${index}`}
               answer={answer}
               onChangeAnswer={onChangeAnswer}
