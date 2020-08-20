@@ -12,14 +12,13 @@
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  min-height: 15vh;
-  margin: 2rem 1rem 1rem 1rem;
+  margin: 5rem 1rem 5rem 1rem;
 }
 
 .search {
   display: flex;
   align-items: center;
-  width: 60vw;
+  width: 500px;
   min-width: 250px;
   height: 30px;
   border-bottom: var(--little-light-black) 1px solid;
@@ -107,10 +106,10 @@
 .autoCocktailWords {
   z-index: 100;
   position: absolute;
-  top: 66px;
+  top: 100%;
   background-color: #ffffff;
   width: inherit;
-  border-radius: 5px;
+  border-radius: 2px;
   font-size: 16px;
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
   overflow-y: scroll;
@@ -156,6 +155,10 @@
     grid-template-columns: repeat(1, 280px);
   }
 
+  .searchContainer {
+    margin: 2rem 1rem 3rem 1rem;
+  }
+
   .searchedCocktailImage {
     display: flex;
     justify-content: center;
@@ -171,7 +174,7 @@
   }
 
   .search {
-    width: 80vw;
+    width: 280px;
     height: 2rem;
   }
 }
