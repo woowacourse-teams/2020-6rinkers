@@ -1,7 +1,6 @@
 package com.cocktailpick.back.cocktail.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -18,11 +17,9 @@ import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.cocktail.domain.CocktailFindStrategyFactory;
 import com.cocktailpick.back.cocktail.domain.CocktailRepository;
 import com.cocktailpick.back.cocktail.domain.CocktailSearcher;
-import com.cocktailpick.back.cocktail.domain.TagFilter;
 import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
-import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
 import com.cocktailpick.back.common.EntityMapper;
 import com.cocktailpick.back.common.csv.OpenCsvReader;
 import com.cocktailpick.back.common.domain.DailyDate;
@@ -48,6 +45,11 @@ public class CocktailService {
 		return Collections.unmodifiableList(cocktailRepository.findAll().stream()
 			.map(CocktailResponse::of)
 			.collect(Collectors.toList()));
+	}
+
+	@Transactional(readOnly = true)
+	public List<Cocktail> findAll() {
+		return cocktailRepository.findAll();
 	}
 
 	@Transactional(readOnly = true)
@@ -160,48 +162,6 @@ public class CocktailService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<CocktailDetailResponse> recommend(List<UserRecommendRequest> recommendRequests) {
-		List<Boolean> answers = recommendRequests.stream()
-			.map(UserRecommendRequest::isAnswer)
-			.collect(Collectors.toList());
-
-		List<Tag> tags = getFilteringTags();
-		List<Cocktail> filteredCocktails = recommendCocktails(answers, tags);
-
-		return filteredCocktails.stream()
-			.map(CocktailDetailResponse::of)
-			.collect(Collectors.toList());
-	}
-
-	private List<Tag> getFilteringTags() {
-		List<String> names = Arrays.stream(TagFilter.values())
-			.map(TagFilter::getName)
-			.collect(Collectors.toList());
-
-		return tagRepository.findByNameIn(names);
-	}
-
-	private List<Cocktail> recommendCocktails(List<Boolean> answers, List<Tag> tags) {
-		List<Cocktail> allCocktails = cocktailRepository.findAll();
-
-		List<Cocktail> filteredCocktails = new ArrayList<>(allCocktails);
-
-		for (int i = 0; i < answers.size(); i++) {
-			filteredCocktails = filter(filteredCocktails, tags.get(i), answers.get(i));
-		}
-		return filteredCocktails;
-	}
-
-	private List<Cocktail> filter(List<Cocktail> cocktails, Tag tag, Boolean answer) {
-		if (answer) {
-			return cocktails;
-		}
-		return cocktails.stream()
-			.filter(cocktail -> cocktail.notContainsTag(tag))
-			.collect(Collectors.toList());
-	}
-
-	@Transactional(readOnly = true)
 	public CocktailResponse findCocktailOfToday() {
 		DailyDate dailyDate = DailyDate.of(new Date());
 		CocktailSearcher cocktailSearcher = cocktailFindStrategyFactory.createCocktailSearcher(
@@ -216,6 +176,6 @@ public class CocktailService {
 	@Transactional(readOnly = true)
 	public List<CocktailResponse> findByNameContaining(String name) {
 		List<Cocktail> cocktailsContainingName = cocktailRepository.findByNameContaining(name);
-		return CocktailResponse.ofList(cocktailsContainingName);
+		return CocktailResponse.listOf(cocktailsContainingName);
 	}
 }
