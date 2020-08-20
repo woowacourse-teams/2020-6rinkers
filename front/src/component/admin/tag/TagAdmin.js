@@ -21,6 +21,7 @@ const TagContainer = styled.div`
 `;
 
 const TagAdmin = () => {
+  const [tagId, setTagId] = useState("");
   const [tagName, setTagName] = useState("");
   const [tagType, setTagType] = useState("");
 
@@ -28,12 +29,18 @@ const TagAdmin = () => {
     <Container>
       <TagContainer>
         <TagInput
+          tagId={tagId}
           tagName={tagName}
           tagType={tagType}
           setTagName={setTagName}
           setTagType={setTagType}
         />
-        <TagList tagName={tagName} />
+        <TagList
+          tagName={tagName}
+          setTagId={setTagId}
+          setTagName={setTagName}
+          setTagType={setTagType}
+        />
       </TagContainer>
     </Container>
   );

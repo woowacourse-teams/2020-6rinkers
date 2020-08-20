@@ -9,7 +9,7 @@ const TagListContainer = styled.div`
   overflow: auto !important;
 `;
 
-const TagList = (tag) => {
+const TagList = ({ tag, setTagId, setTagName, setTagType }) => {
   const [tags, setTags] = useState([]);
 
   const onLoadTags = async () => {
@@ -25,7 +25,13 @@ const TagList = (tag) => {
     <TagListContainer>
       <TagHeader />
       {tags.map((tag, index) => (
-        <TagItem tag={tag} key={index} />
+        <TagItem
+          tag={tag}
+          setTagId={setTagId}
+          setTagName={setTagName}
+          setTagType={setTagType}
+          key={index}
+        />
       ))}
     </TagListContainer>
   );

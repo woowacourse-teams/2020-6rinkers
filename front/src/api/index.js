@@ -18,6 +18,7 @@ export const deleteCocktail = (id) => client.delete(`/api/cocktails/${id}`);
 export const deleteAllCocktail = () => client.delete("/api/cocktails");
 
 export const createTag = (data) => client.post("/api/tags", data);
+export const updateTag = (id, data) => client.put(`/api/tags/${id}`, data);
 export const deleteTag = (id) => client.delete(`/api/tags/${id}`);
 export const fetchAllTags = () => client.get("/api/tags");
 
