@@ -59,24 +59,13 @@ public class CocktailService {
 			.collect(Collectors.toList()));
 	}
 
+	@Transactional(readOnly = true)
 	public List<CocktailResponse> findPageFilteredByTags(List<Long> tagIds, long id, int size) {
 		List<Cocktail> cocktails = cocktailRepository.findByIdGreaterThan(id);
 
-		List<Cocktail> filtered = cocktails.stream()
-			.filter(cocktail -> cocktail.containTagIds(tagIds))
-			.collect(Collectors.toList());
-
-		return pageCocktailsBySize(filtered, size);
-	}
-
-	private List<CocktailResponse> pageCocktailsBySize(List<Cocktail> cocktails, int size) {
-		if (cocktails.size() >= size) {
-			return cocktails.subList(0, size).stream()
-				.map(CocktailResponse::of)
-				.collect(Collectors.toList());
-		}
-
 		return cocktails.stream()
+			.filter(cocktail -> cocktail.containTagIds(tagIds))
+			.limit(size)
 			.map(CocktailResponse::of)
 			.collect(Collectors.toList());
 	}
