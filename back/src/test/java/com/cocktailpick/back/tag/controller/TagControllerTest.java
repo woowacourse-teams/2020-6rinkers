@@ -46,15 +46,17 @@ class TagControllerTest extends Documentation {
 			.andDo(TagDocumentation.upload());
 	}
 
-	@DisplayName("모든 태그를 조회한다.")
+	@DisplayName("조건에 맞는 태그를 조회한다.")
 	@Test
-	void findAllTags() throws Exception {
+	void findTags() throws Exception {
 		TagResponse tagResponse1 = new TagResponse(1L, "탄산", "재료");
 		TagResponse tagResponse2 = new TagResponse(2L, "초코", "재료");
 		List<TagResponse> tagResponses = Arrays.asList(tagResponse1, tagResponse2);
-		when(tagService.findAllTags()).thenReturn(tagResponses);
+		when(tagService.findTags(any(), any())).thenReturn(tagResponses);
 
 		mockMvc.perform(get("/api/tags")
+			.param("tagType", "INGREDIENT")
+			.param("size", "2")
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andDo(print())

@@ -64,10 +64,10 @@ operation::cocktails/contain[snippets='http-request,http-response,request-parame
 
 operation::tags/upload[snippets='http-request,http-response,request-parts']
 
-[[resources-tags-findAll]]
+[[resources-tags-findTags]]
 === 태그 전체 조회
 
-operation::tags/findAll[snippets='http-request,http-response,response-fields']
+operation::tags/findTags[snippets='http-request,http-response,request-parameters,response-fields']
 
 [[resources-tags-create]]
 === 태그 생성
