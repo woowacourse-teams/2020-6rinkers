@@ -4,15 +4,9 @@ import "../../css/cocktailSearch/cocktailSearch.css";
 import SearchContainer from "./SearchContainer";
 import { fetchPagedCocktails } from "../../api";
 
-const CocktailSearch = ({history}) => {
-  const [loading, setLoading] = useState(false);
+const CocktailSearch = () => {
   const [cocktails, setCocktails] = useState([]);
-  const [lastCocktailId, setLastCocktailId] = useState(0);
   const [searchWord, setSearchWord] = useState("");
-
-  const toggleLoading = async () => {
-    await setLoading(!loading);
-  };
 
   const initCocktails = async () => {
     const response = await fetchPagedCocktails({
@@ -23,27 +17,22 @@ const CocktailSearch = ({history}) => {
     const content = response.data;
 
     setCocktails(content);
-    setLastCocktailId(!content.length || content[content.length - 1].id);
   };
 
   const onLoadCocktails = async (size) => {
-    if (loading) {
-      return;
-    }
-
     const response = await fetchPagedCocktails({
       contain: searchWord,
-      id: lastCocktailId,
+      id: cocktails.slice(-1).pop().id,
       size: size,
     });
 
     const content = response.data;
-    setCocktails(cocktails.concat(content));
-    try {
-      setLastCocktailId(cocktails[cocktails.length - 1].id);
-    } catch (e) {
-      history.go(0);
+    if (content.length === 0) {
+      return false;
     }
+
+    await setCocktails(cocktails.concat(content));
+    return true;
   };
 
   const infiniteScroll = useCallback(async () => {
@@ -55,15 +44,17 @@ const CocktailSearch = ({history}) => {
         document.documentElement.clientHeight >=
       document.documentElement.scrollHeight - threshold
     ) {
-      await toggleLoading();
-      try {
-        setLastCocktailId(cocktails[cocktails.length - 1].id);
-      } catch (e) {
-        history.go(0);
+      window.removeEventListener("scroll", infiniteScroll, true);
+
+      const isReceive = await onLoadCocktails(size);
+      if (isReceive) {
+        window.scrollTo({
+          top: document.documentElement.scrollHeight - threshold * 2,
+        });
       }
-      await onLoadCocktails(size);
+      window.addEventListener("scroll", infiniteScroll, true);
     }
-  }, [cocktails, lastCocktailId]);
+  }, [cocktails]);
 
   const updateSearchWord = (word) => {
     setSearchWord(word);
