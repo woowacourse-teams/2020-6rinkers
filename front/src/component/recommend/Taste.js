@@ -9,9 +9,9 @@ const Taste = ({ addAnswer }) => {
     { tagId: "bitterAnswer", name: "쓴맛" },
   ];
   const [answer, setAnswer] = useState({
-    sweetAnswer: "",
-    sourAnswer: "",
-    bitterAnswer: "",
+    sweetAnswer: "SOSO",
+    sourAnswer: "SOSO",
+    bitterAnswer: "SOSO",
   });
 
   const onChangeAnswer = (name, userAnswer) => {
