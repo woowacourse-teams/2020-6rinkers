@@ -17,24 +17,35 @@ const Button = styled.button`
   margin-left: 1.2rem;
 `;
 
-const TagInput = ({ tagId, tagName, tagType, setTagName, setTagType }) => {
+const TagInput = ({ tag, setTag }) => {
   const onTagNameChange = (e) => {
-    setTagName(e.target.value);
+    setTag({
+      ...tag,
+      name: e.target.value,
+    });
   };
 
   const onTagTypeChange = (e) => {
-    setTagType(e.target.value);
+    setTag({
+      ...tag,
+      type: e.target.value,
+    });
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    createTag(dataToTagRequest(tagName, tagType));
-    setTagName("");
+    createTag(dataToTagRequest(tag.name, tag.type));
+    setTag({
+      ...tag,
+      name: "",
+    });
   };
 
   const onUpdate = (e) => {
     e.preventDefault();
-    updateTag(tagId, dataToTagRequest(tagName, tagType));
+    updateTag(tag.id, dataToTagRequest(tag.name, tag.type))
+      .then(() => alert("성공적으로 태그를 수정했습니다."))
+      .catch((error) => alert(error));
   };
 
   const inputStyle = {
@@ -45,12 +56,12 @@ const TagInput = ({ tagId, tagName, tagType, setTagName, setTagType }) => {
     <TagInputContainer>
       <input
         className="tagInput"
-        value={tagName}
+        value={tag.name}
         placeholder="추가할 태그명을 입력해주세요."
         onChange={onTagNameChange}
         style={inputStyle}
       />
-      <select value={tagType} onChange={onTagTypeChange}>
+      <select value={tag.type} onChange={onTagTypeChange}>
         <option value="X">태그 타입 선택</option>
         <option value="ABV">도수</option>
         <option value="INGREDIENT">재료</option>

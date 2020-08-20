@@ -9,7 +9,7 @@ const TagListContainer = styled.div`
   overflow: auto !important;
 `;
 
-const TagList = ({ tag, setTagId, setTagName, setTagType }) => {
+const TagList = ({ tagName, setTag }) => {
   const [tags, setTags] = useState([]);
 
   const onLoadTags = async () => {
@@ -19,19 +19,13 @@ const TagList = ({ tag, setTagId, setTagName, setTagType }) => {
 
   useEffect(() => {
     onLoadTags();
-  }, [tag]);
+  }, [tagName]);
 
   return (
     <TagListContainer>
       <TagHeader />
       {tags.map((tag, index) => (
-        <TagItem
-          tag={tag}
-          setTagId={setTagId}
-          setTagName={setTagName}
-          setTagType={setTagType}
-          key={index}
-        />
+        <TagItem tag={tag} setTag={setTag} key={index} />
       ))}
     </TagListContainer>
   );
