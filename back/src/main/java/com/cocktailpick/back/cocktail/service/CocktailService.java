@@ -48,11 +48,6 @@ public class CocktailService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<Cocktail> findAll() {
-		return cocktailRepository.findAll();
-	}
-
-	@Transactional(readOnly = true)
 	public List<CocktailResponse> findPagedCocktails(String contain, long id, int size) {
 		Pageable pageRequest = PageRequest.of(0, size);
 		List<Cocktail> cocktails = cocktailRepository.findByNameContainingAndIdGreaterThan(contain, id, pageRequest)

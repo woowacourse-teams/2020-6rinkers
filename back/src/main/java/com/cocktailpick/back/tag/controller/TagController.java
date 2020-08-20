@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cocktailpick.back.tag.domain.TagType;
 import com.cocktailpick.back.tag.dto.TagRequest;
 import com.cocktailpick.back.tag.dto.TagResponse;
 import com.cocktailpick.back.tag.service.TagService;
@@ -38,8 +40,9 @@ public class TagController {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<TagResponse>> findTags() {
-		return ResponseEntity.ok(tagService.findAllTags());
+	public ResponseEntity<List<TagResponse>> findTags(@RequestParam(required = false) TagType tagType,
+		@RequestParam(required = false) Integer size, @RequestParam(defaultValue = "false") boolean random) {
+		return ResponseEntity.ok(tagService.findTags(tagType, size, random));
 	}
 
 	@PostMapping

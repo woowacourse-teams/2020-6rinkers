@@ -18,7 +18,12 @@ public class TagDocumentation {
 	}
 
 	public static RestDocumentationResultHandler findTags() {
-		return document("tags/findAll",
+		return document("tags/findTags",
+			requestParameters(
+				parameterWithName("tagType").description("조회할 태그 타입"),
+				parameterWithName("size").description("조회할 태그의 수"),
+				parameterWithName("random").description("조회할 태그의 순서를 랜덤으로 할 지에 대한 여부")
+			),
 			responseFields(
 				fieldWithPath("[].tagId").type(JsonFieldType.NUMBER).description("조회된 태그 ID"),
 				fieldWithPath("[].name").type(JsonFieldType.STRING).description("조회된 태그 이름"),

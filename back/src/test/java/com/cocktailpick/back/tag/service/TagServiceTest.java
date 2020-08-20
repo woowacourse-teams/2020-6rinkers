@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -55,9 +56,31 @@ public class TagServiceTest {
 		Tag tag2 = Tag.builder().name("탄산").tagType(TagType.INGREDIENT).build();
 		when(tagRepository.findAll()).thenReturn(Arrays.asList(tag1, tag2));
 
-		tagService.findAllTags();
+		tagService.findTags(null, null, false);
 
 		verify(tagRepository).findAll();
+	}
+
+	@DisplayName("타입에 맞는 태그를 조회한다.")
+	@Test
+	void findTagsByTagType() {
+		Tag tag1 = Tag.builder().name("초코").tagType(TagType.FLAVOR).build();
+		Tag tag2 = Tag.builder().name("탄산").tagType(TagType.INGREDIENT).build();
+		when(tagRepository.findByTagType(TagType.INGREDIENT)).thenReturn(Collections.singletonList(tag2));
+
+		tagService.findTags(TagType.INGREDIENT, null, false);
+
+		verify(tagRepository).findByTagType(TagType.INGREDIENT);
+	}
+
+	@DisplayName("지정한 수만큼 태그를 조회한다.")
+	@Test
+	void findTags() {
+		Tag tag1 = Tag.builder().name("초코").tagType(TagType.FLAVOR).build();
+		Tag tag2 = Tag.builder().name("탄산").tagType(TagType.INGREDIENT).build();
+		when(tagRepository.findAll()).thenReturn(Arrays.asList(tag1, tag2));
+
+		assertThat(tagService.findTags(null, 1, false)).hasSize(1);
 	}
 
 	@DisplayName("태그를 생성한다.")

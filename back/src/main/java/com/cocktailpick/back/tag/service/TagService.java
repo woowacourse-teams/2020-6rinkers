@@ -1,6 +1,9 @@
 package com.cocktailpick.back.tag.service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,13 +38,25 @@ public class TagService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<TagResponse> findAllTags() {
-		return TagResponse.listOf(tagRepository.findAll());
+	public List<TagResponse> findTags(TagType tagType, Integer size, boolean random) {
+		List<Tag> tags = Optional.ofNullable(tagType)
+			.map(tagRepository::findByTagType)
+			.orElseGet(tagRepository::findAll);
+		if (random) {
+			Collections.shuffle(tags);
+		}
+		return TagResponse.listOf(findTagsBySize(tags, size));
 	}
 
-	@Transactional(readOnly = true)
-	public List<Tag> findAll() {
-		return tagRepository.findAll();
+	private List<Tag> findTagsBySize(List<Tag> tags, Integer size) {
+		if (Objects.isNull(size) || isSizeOver(tags, size)) {
+			return tags;
+		}
+		return tags.subList(0, size);
+	}
+
+	private boolean isSizeOver(List<Tag> tags, Integer size) {
+		return size >= tags.size();
 	}
 
 	@Transactional
