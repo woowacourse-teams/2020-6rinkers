@@ -3,7 +3,11 @@ import Tag from "./Tag";
 import NextStage from "./NextStage";
 
 const Taste = ({ addAnswer }) => {
-  const tastes = ["sweetAnswer", "sourAnswer", "bitterAnswer"];
+  const tastes = [
+    { tagId: "sweetAnswer", name: "단맛" },
+    { tagId: "sourAnswer", name: "신맛" },
+    { tagId: "bitterAnswer", name: "쓴맛" },
+  ];
   const [answer, setAnswer] = useState({
     sweetAnswer: "",
     sourAnswer: "",
@@ -19,10 +23,11 @@ const Taste = ({ addAnswer }) => {
 
   return (
     <div>
-      {tastes.map((concept, index) => {
+      {tastes.map((taste, index) => {
         return (
           <Tag
-            name={concept}
+            name={taste.name}
+            tagId={taste.tagId}
             key={`key-${index}`}
             answer={answer}
             onChangeAnswer={onChangeAnswer}
