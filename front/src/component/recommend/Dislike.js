@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import NextStage from "./NextStage";
 import Toggle from "./Toggle";
+import { fetchDislikeTags } from "../../api";
 
 const Dislike = ({ addAnswer }) => {
   const [dislikes, setDislikes] = useState([]);
@@ -8,26 +9,9 @@ const Dislike = ({ addAnswer }) => {
 
   useEffect(() => {
     const updateDislikes = async () => {
-      // api
-      await setDislikes([
-        "달걀",
-        "민트",
-        "생강",
-        "소금 리밍",
-        "아몬드",
-        "압상트",
-        "에너지드링크",
-        "올리브",
-        "와인",
-        "우유",
-        "초코",
-        "카페인",
-        "커피",
-        "콜라",
-        "크림",
-        "토마토",
-        "후추",
-      ]);
+      const response = await fetchDislikeTags();
+      const data = response["data"];
+      await setDislikes(data);
     };
     updateDislikes();
   }, []);
@@ -38,7 +22,7 @@ const Dislike = ({ addAnswer }) => {
     }
     const updateAnswer = async () => {
       await setAnswer(
-        dislikes.reduce((o, key) => ({ ...o, [key]: "YES" }), {})
+        dislikes.reduce((o, key) => ({ ...o, [key.tagId]: "YES" }), {})
       );
     };
     updateAnswer();
@@ -58,7 +42,8 @@ const Dislike = ({ addAnswer }) => {
           dislikes.map((dislike, index) => {
             return (
               <Toggle
-                name={dislike}
+                name={dislike.name}
+                tagId={dislike.tagId}
                 key={`key-${index}`}
                 answer={answer}
                 onToggleAnswer={onToggleAnswer}
