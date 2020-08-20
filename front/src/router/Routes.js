@@ -27,9 +27,9 @@ const Routes = ({ cocktails, setCocktails }) => {
   const checkAdminForFooter = (location) => {
     if (location.pathname.split("/")[1] !== "admin") {
       return (
-          <>
-            <Footer />
-          </>
+        <>
+          <Footer />
+        </>
       );
     }
   };
