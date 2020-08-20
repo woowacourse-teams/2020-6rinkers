@@ -130,6 +130,6 @@
 
   .toggles {
     display: grid;
-    grid-template-columns: repeat(2, 8.5rem);
+    grid-template-columns: repeat(2, 9rem);
   }
 }
