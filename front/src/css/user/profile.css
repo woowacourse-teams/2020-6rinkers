@@ -1,0 +1,14 @@
+.profile-container {
+  display: block;
+  text-align: center;
+}
+.admin-page-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-info-wrapper {
+  text-align: center;
+  font-size: 60px;
+  font-weight: bold;
+}

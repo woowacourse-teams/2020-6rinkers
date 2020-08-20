@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Redirect, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import TagInput from "./TagInput";
 import TagList from "./TagList";
@@ -23,6 +24,27 @@ const TagContainer = styled.div`
 const TagAdmin = () => {
   const [tagName, setTagName] = useState("");
   const [tagType, setTagType] = useState("");
+
+  const location = useLocation();
+  if (!role) {
+    return (
+      <Redirect
+        to={{
+          pathname: "/",
+          state: { from: location.pathname },
+        }}
+      />
+    );
+  } else if (role !== "ROLE_ADMIN") {
+    return (
+      <Redirect
+        to={{
+          pathname: "/",
+          state: { from: location.pathname },
+        }}
+      />
+    );
+  }
 
   return (
     <Container>

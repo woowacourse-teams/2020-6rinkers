@@ -3,7 +3,7 @@ import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
 import Alert from "react-s-alert";
 import { GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL } from "../../constants";
 import { signup } from "../../utils/APIUtils";
-import "../../css/Signup.css";
+import "../../css/user/signup.css";
 
 const Signup = (props) => {
   const location = useLocation();
