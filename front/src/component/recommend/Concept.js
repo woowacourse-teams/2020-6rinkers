@@ -11,7 +11,6 @@ const Concept = ({ addAnswer }) => {
     const updateConcepts = async () => {
       const response = await fetchThreeRandomConceptTags();
       const data = response["data"];
-      console.log(data);
       await setConcepts(data);
     };
     updateConcepts();

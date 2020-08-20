@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Tag from "./Tag";
 import NextStage from "./NextStage";
+import { fetchThreeRandomIngredientTags } from "../../api";
 
 const Ingredient = ({ addAnswer }) => {
   const [ingredients, setIngredients] = useState([]);
@@ -9,7 +10,9 @@ const Ingredient = ({ addAnswer }) => {
   useEffect(() => {
     // api
     const updateIngredients = async () => {
-      await setIngredients(["라임", "레몬", "맥주"]);
+      const response = await fetchThreeRandomIngredientTags();
+      const data = response["data"];
+      await setIngredients(data);
     };
     updateIngredients();
   }, []);
@@ -20,7 +23,7 @@ const Ingredient = ({ addAnswer }) => {
     }
     const updateAnswer = async () => {
       await setAnswer(
-        ingredients.reduce((o, key) => ({ ...o, [key]: "SOSO" }), {})
+        ingredients.reduce((o, key) => ({ ...o, [key.tagId]: "SOSO" }), {})
       );
     };
     updateAnswer();
@@ -39,7 +42,8 @@ const Ingredient = ({ addAnswer }) => {
         ingredients.map((ingredient, index) => {
           return (
             <Tag
-              name={ingredient}
+              name={ingredient.name}
+              tagId={ingredient.tagId}
               key={`key-${index}`}
               answer={answer}
               onChangeAnswer={onChangeAnswer}
