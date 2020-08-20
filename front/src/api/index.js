@@ -20,6 +20,7 @@ export const deleteAllCocktail = () => client.delete("/api/cocktails");
 export const createTag = (data) => client.post("/api/tags", data);
 export const deleteTag = (id) => client.delete(`/api/tags/${id}`);
 export const fetchAllTags = () => client.get("/api/tags");
+export const fetchThreeRandomConceptTags = () => client.get("/api/tags?tagType=CONCEPT&size=3&random=true");
 
 export const createRecommend = (recommend) =>
   client.post(`/api/cocktails/recommend`, recommend);
