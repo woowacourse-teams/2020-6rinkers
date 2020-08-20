@@ -41,8 +41,8 @@ public class TagController {
 
 	@GetMapping
 	public ResponseEntity<List<TagResponse>> findTags(@RequestParam(required = false) TagType tagType,
-		@RequestParam(required = false) Integer size) {
-		return ResponseEntity.ok(tagService.findTags(tagType, size));
+		@RequestParam(required = false) Integer size, @RequestParam(defaultValue = "false") boolean random) {
+		return ResponseEntity.ok(tagService.findTags(tagType, size, random));
 	}
 
 	@PostMapping

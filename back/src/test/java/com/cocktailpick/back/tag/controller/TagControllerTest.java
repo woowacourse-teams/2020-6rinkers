@@ -52,11 +52,12 @@ class TagControllerTest extends Documentation {
 		TagResponse tagResponse1 = new TagResponse(1L, "탄산", "재료");
 		TagResponse tagResponse2 = new TagResponse(2L, "초코", "재료");
 		List<TagResponse> tagResponses = Arrays.asList(tagResponse1, tagResponse2);
-		when(tagService.findTags(any(), any())).thenReturn(tagResponses);
+		when(tagService.findTags(any(), any(), anyBoolean())).thenReturn(tagResponses);
 
 		mockMvc.perform(get("/api/tags")
 			.param("tagType", "INGREDIENT")
 			.param("size", "2")
+			.param("random", "false")
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andDo(print())

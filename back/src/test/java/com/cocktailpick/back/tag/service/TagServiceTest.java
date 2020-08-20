@@ -56,7 +56,7 @@ public class TagServiceTest {
 		Tag tag2 = Tag.builder().name("탄산").tagType(TagType.INGREDIENT).build();
 		when(tagRepository.findAll()).thenReturn(Arrays.asList(tag1, tag2));
 
-		tagService.findTags(null, null);
+		tagService.findTags(null, null, false);
 
 		verify(tagRepository).findAll();
 	}
@@ -68,7 +68,7 @@ public class TagServiceTest {
 		Tag tag2 = Tag.builder().name("탄산").tagType(TagType.INGREDIENT).build();
 		when(tagRepository.findByTagType(TagType.INGREDIENT)).thenReturn(Collections.singletonList(tag2));
 
-		tagService.findTags(TagType.INGREDIENT, null);
+		tagService.findTags(TagType.INGREDIENT, null, false);
 
 		verify(tagRepository).findByTagType(TagType.INGREDIENT);
 	}
@@ -80,7 +80,7 @@ public class TagServiceTest {
 		Tag tag2 = Tag.builder().name("탄산").tagType(TagType.INGREDIENT).build();
 		when(tagRepository.findAll()).thenReturn(Arrays.asList(tag1, tag2));
 
-		assertThat(tagService.findTags(null, 1)).hasSize(1);
+		assertThat(tagService.findTags(null, 1, false)).hasSize(1);
 	}
 
 	@DisplayName("태그를 생성한다.")

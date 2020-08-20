@@ -38,24 +38,25 @@ public class TagService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<TagResponse> findTags(TagType tagType, Integer size) {
+	public List<TagResponse> findTags(TagType tagType, Integer size, boolean random) {
 		List<Tag> tags = Optional.ofNullable(tagType)
 			.map(tagRepository::findByTagType)
 			.orElseGet(tagRepository::findAll);
+		if (random) {
+			Collections.shuffle(tags);
+		}
 		return TagResponse.listOf(findTagsBySize(tags, size));
 	}
 
 	private List<Tag> findTagsBySize(List<Tag> tags, Integer size) {
-		if (Objects.isNull(size) || size >= tags.size()) {
+		if (Objects.isNull(size) || isSizeOver(tags, size)) {
 			return tags;
 		}
-		Collections.shuffle(tags);
 		return tags.subList(0, size);
 	}
 
-	@Transactional(readOnly = true)
-	public List<Tag> findAll() {
-		return tagRepository.findAll();
+	private boolean isSizeOver(List<Tag> tags, Integer size) {
+		return size >= tags.size();
 	}
 
 	@Transactional
