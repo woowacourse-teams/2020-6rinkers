@@ -28,7 +28,7 @@ class CocktailTest {
 		CocktailTag.associate(cocktail, zeroId);
 		CocktailTag.associate(cocktail, oneId);
 
-		assertThat(cocktail.containTagIds(Arrays.asList(0L, 1L)));
+		assertThat(cocktail.containTagIds(Arrays.asList(0L, 1L))).isTrue();
 	}
 
 	@DisplayName("칵테일이 태그 목록을 전부 포함하지 않는 경우를 확인한다.")
@@ -47,6 +47,6 @@ class CocktailTest {
 		CocktailTag.associate(cocktail, zeroId);
 		CocktailTag.associate(cocktail, oneId);
 
-		assertThat(cocktail.containTagIds(Arrays.asList(0L, 3L)));
+		assertThat(cocktail.containTagIds(Arrays.asList(0L, 3L))).isFalse();
 	}
 }

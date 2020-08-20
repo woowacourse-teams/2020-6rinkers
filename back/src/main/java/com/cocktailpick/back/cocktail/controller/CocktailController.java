@@ -51,7 +51,7 @@ public class CocktailController {
 
 	@GetMapping("/pages/tags")
 	public ResponseEntity<List<CocktailResponse>> findPageFilteredByTags(
-		@RequestParam(required = false, defaultValue = "") List<Long> tagIds, @RequestParam long id,
+		@RequestParam(defaultValue = "") List<Long> tagIds, @RequestParam long id,
 		@RequestParam int size) {
 		List<CocktailResponse> cocktailResponses = cocktailService.findPageFilteredByTags(tagIds, id, size);
 		return ResponseEntity.ok(cocktailResponses);

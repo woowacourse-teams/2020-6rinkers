@@ -162,7 +162,7 @@ class CocktailControllerTest extends Documentation {
 	@Test
 	void findPageFilteredByTags() throws Exception {
 		mockMvc.perform((get("/api/cocktails/pages/tags"))
-			.param("contain", "달달한", "씁쓸한", "신")
+			.param("tagIds", "1", "2", "3")
 			.param("id", "0")
 			.param("size", "15")
 			.accept(MediaType.APPLICATION_JSON))
@@ -173,6 +173,7 @@ class CocktailControllerTest extends Documentation {
 	@Test
 	void findPageFilteredByTags_WhenContainIsNull() throws Exception {
 		mockMvc.perform((get("/api/cocktails/pages/tags"))
+			.param("tagIds", (String)null)
 			.param("id", "0")
 			.param("size", "15")
 			.accept(MediaType.APPLICATION_JSON))
