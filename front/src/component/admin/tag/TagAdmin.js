@@ -21,7 +21,7 @@ const TagContainer = styled.div`
   overflow: auto !important;
 `;
 
-const TagAdmin = () => {
+const TagAdmin = ({ role }) => {
   const [tagName, setTagName] = useState("");
   const [tagType, setTagType] = useState("");
 
