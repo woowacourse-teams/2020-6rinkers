@@ -35,7 +35,7 @@ const TagItem = ({ tag, setTag }) => {
       });
   };
 
-  const onUpdateClick = () => {
+  const onUpdateInputHandle = () => {
     setTag({
       id: tag.tagId,
       name: tag.name,
@@ -44,7 +44,7 @@ const TagItem = ({ tag, setTag }) => {
   };
 
   return (
-    <TagItemContainer onClick={onUpdateClick}>
+    <TagItemContainer onClick={onUpdateInputHandle}>
       <TagName>{tag.name}</TagName>
       <TagType>{tag.tagType}</TagType>
       <button data-tag-id={tag.tagId} onClick={onDeleteClick}>
