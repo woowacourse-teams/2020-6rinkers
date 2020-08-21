@@ -2,10 +2,11 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: 80vh;
+  height: 100%;
   align-items: center;
   justify-content: center;
   user-select: none;
+  padding: 3rem 0 0 0;
 }
 
 .cocktail-name {
@@ -85,7 +86,7 @@
   }
 
   .detail-info-container {
-    /*width: 90%;*/
+    padding: 1rem 0 0 0;
     height: 100%;
   }
 
