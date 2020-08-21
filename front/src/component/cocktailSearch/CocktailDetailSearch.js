@@ -10,7 +10,7 @@ const LIGHT_GREEN = "rgba(70, 170, 24, 0.8)";
 const CocktailDetailSearch = ({ match }) => {
   const id = match.params.id;
   const [cocktailData, setCocktailData] = useState({
-    cocktail: "",
+    cocktail: {},
     tags: [],
     recipe: [],
   });
@@ -46,9 +46,13 @@ const CocktailDetailSearch = ({ match }) => {
           ))}
       </div>
       <div className="abv-and-taste-container">
-        {cocktailData.cocktail.abv && (
+        {cocktailData.cocktail.abv >= 0 && (
           <CircularBox
-            text={cocktailData.cocktail.abv + "%"}
+            text={
+              cocktailData.cocktail.abv === 0
+                ? "무알콜"
+                : cocktailData.cocktail.abv + "%"
+            }
             color={LIGHT_BLUE}
           />
         )}
