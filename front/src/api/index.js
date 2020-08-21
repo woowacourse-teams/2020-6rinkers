@@ -1,12 +1,12 @@
 import axios from "axios";
 
 const client = axios.create({
-  baseURL: `//${process.env.REACT_APP_HOST}`,
+  baseURL: `http://127.0.0.1:8080`,
 });
 
 export const fetchAllCocktails = () => client.get("/api/cocktails");
 export const fetchPagedCocktails = ({contain, id, size}) =>
-  client.get("/api/cocktails/pages/name", {params: {contain, id, size}});
+  client.get("/api/cocktails/contain-word", {params: {contain, id, size}});
 export const fetchCocktail = (id) => client.get(`/api/cocktails/${id}`);
 export const fetchTodayCocktail = () => client.get("/api/cocktails/today");
 export const fetchCocktailsContaining = (contain) =>

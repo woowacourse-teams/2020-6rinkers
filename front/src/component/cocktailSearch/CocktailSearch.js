@@ -6,6 +6,7 @@ import { fetchPagedCocktails } from "../../api";
 
 const CocktailSearch = () => {
   const [cocktails, setCocktails] = useState([]);
+  const [tabIndex, setTabIndex] = useState(0);
   const [searchWord, setSearchWord] = useState("");
 
   const initCocktails = async () => {
@@ -60,6 +61,17 @@ const CocktailSearch = () => {
     setSearchWord(word);
   };
 
+  const tabs = [
+    {
+      title: "이름으로 검색",
+      content: <SearchContainer onUpdateSearchWord={updateSearchWord} />,
+    },
+    {
+      title: "태그로 검색",
+      content: "태그로 검색한드아아아아아아",
+    },
+  ];
+
   useEffect(() => {
     window.addEventListener("scroll", infiniteScroll, true);
     return () => window.removeEventListener("scroll", infiniteScroll, true);
@@ -71,7 +83,24 @@ const CocktailSearch = () => {
 
   return (
     <div className="cocktailSearchContainer">
-      <SearchContainer onUpdateSearchWord={updateSearchWord} />
+      <div>
+        <button>
+          {tabs.map((tab, index) => {
+            return (
+              <button
+                className={index === tabIndex ? "clickedTab" : "unClickedTab"}
+                data-index={index}
+                onClick={(e) =>
+                  setTabIndex(Number(e.currentTarget.dataset.index))
+                }
+              >
+                {tab.title}
+              </button>
+            );
+          })}
+        </button>
+      </div>
+      <div>{tabs[tabIndex].content}</div>
       <SearchedCocktails cocktails={cocktails} />
     </div>
   );
