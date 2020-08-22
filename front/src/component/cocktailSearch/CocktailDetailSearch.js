@@ -3,7 +3,7 @@ import { fetchCocktail } from "../../api";
 import CircularBox from "../common/CircularBox";
 import "../../css/cocktailSearch/cocktailDetailSearch.css";
 import RecipeItems from "./RecipeItems";
-import {LIGHT_BLUE, LIGHT_GREEN} from "../../constants/Color";
+import {DARK_GREEN, DARK_BLUE} from "../../constants/Color";
 
 
 const CocktailDetailSearch = ({ match }) => {
@@ -52,23 +52,23 @@ const CocktailDetailSearch = ({ match }) => {
                 ? "무알콜"
                 : cocktailData.cocktail.abv + "%"
             }
-            color={LIGHT_BLUE}
+            color={DARK_GREEN}
           />
         )}
         {cocktailData.cocktail.sweet ? (
-          <CircularBox text="달아요" color={LIGHT_GREEN} />
+          <CircularBox text="달아요" color={DARK_BLUE} />
         ) : (
-          <CircularBox text="안달아요" color={LIGHT_GREEN} />
+          <CircularBox text="안달아요" color={DARK_BLUE} />
         )}
         {cocktailData.cocktail.sour ? (
-          <CircularBox text="셔요" color={LIGHT_GREEN} />
+          <CircularBox text="셔요" color={DARK_BLUE} />
         ) : (
-          <CircularBox text="안셔요" color={LIGHT_GREEN} />
+          <CircularBox text="안셔요" color={DARK_BLUE} />
         )}
         {cocktailData.cocktail.bitter ? (
-          <CircularBox text="써요" color={LIGHT_GREEN} />
+          <CircularBox text="써요" color={DARK_BLUE} />
         ) : (
-          <CircularBox text="안써요" color={LIGHT_GREEN} />
+          <CircularBox text="안써요" color={DARK_BLUE} />
         )}
       </div>
       <div className="recipe-container">

@@ -1,6 +1,6 @@
 import React from "react";
 import CircularBox from "../common/CircularBox";
-import {LIGHT_PURPLE} from "../../constants/Color";
+import {GOLD} from "../../constants/Color";
 
 
 const RecipeItems = ({ item }) => {
@@ -13,7 +13,7 @@ const RecipeItems = ({ item }) => {
 
   const result = ingredient + " / " + quantity;
 
-  return <CircularBox text={result} color={LIGHT_PURPLE} />;
+  return <CircularBox text={result} color={GOLD} />;
 };
 
 export default RecipeItems;
