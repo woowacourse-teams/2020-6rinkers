@@ -25,16 +25,29 @@ const TagType = styled.div`
   padding-bottom: 20px;
 `;
 
-const onClick = (e) => {
-  deleteTag(e.target.dataset.tagId);
-};
+const TagItem = ({ tag, setTag }) => {
+  const onDeleteClick = (e) => {
+    e.preventDefault();
+    deleteTag(e.target.dataset.tagId)
+      .then(() => alert("성공적으로 삭제했습니다!"))
+      .catch((error) => {
+        alert(error);
+      });
+  };
 
-const TagItem = ({ tag }) => {
+  const onUpdateInputHandle = () => {
+    setTag({
+      id: tag.tagId,
+      name: tag.name,
+      type: tag.tagType,
+    });
+  };
+
   return (
-    <TagItemContainer>
+    <TagItemContainer onClick={onUpdateInputHandle}>
       <TagName>{tag.name}</TagName>
       <TagType>{tag.tagType}</TagType>
-      <button data-tag-id={tag.tagId} onClick={onClick}>
+      <button data-tag-id={tag.tagId} onClick={onDeleteClick}>
         삭제
       </button>
     </TagItemContainer>

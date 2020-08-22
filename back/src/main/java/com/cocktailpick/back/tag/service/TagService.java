@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cocktailpick.back.common.csv.OpenCsvReader;
 import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
 import com.cocktailpick.back.common.exceptions.ErrorCode;
+import com.cocktailpick.back.common.exceptions.InvalidValueException;
 import com.cocktailpick.back.tag.domain.CocktailTag;
 import com.cocktailpick.back.tag.domain.CocktailTagRepository;
 import com.cocktailpick.back.tag.domain.Tag;
@@ -61,6 +62,7 @@ public class TagService {
 
 	@Transactional
 	public Long createTag(TagRequest tagRequest) {
+		validateTag(tagRequest);
 		Tag tag = tagRepository.save(tagRequest.toTag());
 
 		return tag.getId();
@@ -68,9 +70,19 @@ public class TagService {
 
 	@Transactional
 	public void update(Long id, TagRequest tagRequest) {
+		validateTag(tagRequest);
 		Tag tag = tagRepository.findById(id)
-			.orElseThrow(() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND));
+			.orElseThrow(() -> new EntityNotFoundException(ErrorCode.TAG_NOT_FOUND));
+
 		tag.update(tagRequest.getName(), TagType.of(tagRequest.getTagType()));
+	}
+
+	private void validateTag(TagRequest tagRequest) {
+		boolean isPresent = tagRepository.findByName(tagRequest.getName()).isPresent();
+
+		if (isPresent) {
+			throw new InvalidValueException(ErrorCode.TAG_DUPLICATED);
+		}
 	}
 
 	@Transactional
