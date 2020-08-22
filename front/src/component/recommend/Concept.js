@@ -7,29 +7,30 @@ const Concept = ({ addAnswer }) => {
   const [concepts, setConcepts] = useState([]);
   const [answer, setAnswer] = useState([]);
 
+  const updateConcepts = async () => {
+    const response = await fetchThreeRandomConceptTags();
+    const data = response["data"];
+    await setConcepts(data);
+  };
   useEffect(() => {
-    const updateConcepts = async () => {
-      const response = await fetchThreeRandomConceptTags();
-      const data = response["data"];
-      await setConcepts(data);
-    };
     updateConcepts();
   }, []);
 
-  useEffect(() => {
+  const updateAnswer = async () => {
     if (concepts.length === 0) {
       return;
     }
-    const updateAnswer = async () => {
-      await setAnswer(
-        answer.concat(
-          concepts.map((concept) => ({
-            tagId: concept.tagId,
-            userPreferenceAnswer: "SOSO",
-          }))
-        )
-      );
-    };
+    await setAnswer(
+      answer.concat(
+        concepts.map((concept) => ({
+          tagId: concept.tagId,
+          userPreferenceAnswer: "SOSO",
+        }))
+      )
+    );
+  };
+
+  useEffect(() => {
     updateAnswer();
   }, [concepts]);
 

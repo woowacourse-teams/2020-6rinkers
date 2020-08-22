@@ -7,29 +7,31 @@ const Dislike = ({ addAnswer }) => {
   const [dislikes, setDislikes] = useState([]);
   const [answer, setAnswer] = useState([]);
 
+  const updateDislikes = async () => {
+    const response = await fetchDislikeTags();
+    const data = response["data"];
+    await setDislikes(data);
+  };
+
   useEffect(() => {
-    const updateDislikes = async () => {
-      const response = await fetchDislikeTags();
-      const data = response["data"];
-      await setDislikes(data);
-    };
     updateDislikes();
   }, []);
 
-  useEffect(() => {
+  const updateAnswer = async () => {
     if (dislikes.length === 0) {
       return;
     }
-    const updateAnswer = async () => {
-      await setAnswer(
-        answer.concat(
-          dislikes.map((dislike) => ({
-            tagId: dislike.tagId,
-            userPreferenceAnswer: "YES",
-          }))
-        )
-      );
-    };
+    await setAnswer(
+      answer.concat(
+        dislikes.map((dislike) => ({
+          tagId: dislike.tagId,
+          userPreferenceAnswer: "YES",
+        }))
+      )
+    );
+  };
+
+  useEffect(() => {
     updateAnswer();
   }, [dislikes]);
 

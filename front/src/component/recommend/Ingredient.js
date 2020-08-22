@@ -7,29 +7,31 @@ const Ingredient = ({ addAnswer }) => {
   const [ingredients, setIngredients] = useState([]);
   const [answer, setAnswer] = useState([]);
 
+  const updateIngredients = async () => {
+    const response = await fetchThreeRandomIngredientTags();
+    const data = response["data"];
+    await setIngredients(data);
+  };
+
   useEffect(() => {
-    const updateIngredients = async () => {
-      const response = await fetchThreeRandomIngredientTags();
-      const data = response["data"];
-      await setIngredients(data);
-    };
     updateIngredients();
   }, []);
 
-  useEffect(() => {
+  const updateAnswer = async () => {
     if (ingredients.length === 0) {
       return;
     }
-    const updateAnswer = async () => {
-      await setAnswer(
-        answer.concat(
-          ingredients.map((ingredient) => ({
-            tagId: ingredient.tagId,
-            userPreferenceAnswer: "SOSO",
-          }))
-        )
-      );
-    };
+    await setAnswer(
+      answer.concat(
+        ingredients.map((ingredient) => ({
+          tagId: ingredient.tagId,
+          userPreferenceAnswer: "SOSO",
+        }))
+      )
+    );
+  };
+
+  useEffect(() => {
     updateAnswer();
   }, [ingredients]);
 
