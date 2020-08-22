@@ -22,9 +22,10 @@ const Result = ({ cocktails }) => {
   return (
     <div className="result-container">
       <Slider>
-        {cocktails.map((cocktail) => (
-          <ResultSlide cocktail={cocktail} key={cocktail.id} />
-        ))}
+        {cocktails &&
+          cocktails.map((cocktail) => (
+            <ResultSlide cocktail={cocktail} key={cocktail.id} />
+          ))}
       </Slider>
     </div>
   );

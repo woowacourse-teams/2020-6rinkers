@@ -1,10 +1,10 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import SearchedCocktails from "./SearchedCocktails";
 import "../../css/cocktailSearch/cocktailSearch.css";
 import SearchContainer from "./SearchContainer";
-import {fetchPagedCocktails} from "../../api";
+import { fetchPagedCocktails } from "../../api";
 
-const CocktailSearch = () => {
+const CocktailSearch = ({history}) => {
   const [loading, setLoading] = useState(false);
   const [cocktails, setCocktails] = useState([]);
   const [lastCocktailId, setLastCocktailId] = useState(0);
@@ -39,7 +39,11 @@ const CocktailSearch = () => {
 
     const content = response.data;
     setCocktails(cocktails.concat(content));
-    setLastCocktailId(cocktails[cocktails.length - 1].id);
+    try {
+      setLastCocktailId(cocktails[cocktails.length - 1].id);
+    } catch (e) {
+      history.go(0);
+    }
   };
 
   const infiniteScroll = useCallback(async () => {
@@ -48,11 +52,15 @@ const CocktailSearch = () => {
 
     if (
       document.documentElement.scrollTop +
-      document.documentElement.clientHeight >=
+        document.documentElement.clientHeight >=
       document.documentElement.scrollHeight - threshold
     ) {
       await toggleLoading();
-      setLastCocktailId(cocktails[cocktails.length - 1].id);
+      try {
+        setLastCocktailId(cocktails[cocktails.length - 1].id);
+      } catch (e) {
+        history.go(0);
+      }
       await onLoadCocktails(size);
     }
   }, [cocktails, lastCocktailId]);
@@ -72,8 +80,8 @@ const CocktailSearch = () => {
 
   return (
     <div className="cocktailSearchContainer">
-      <SearchContainer onUpdateSearchWord={updateSearchWord}/>
-      <SearchedCocktails cocktails={cocktails}/>
+      <SearchContainer onUpdateSearchWord={updateSearchWord} />
+      <SearchedCocktails cocktails={cocktails} />
     </div>
   );
 };

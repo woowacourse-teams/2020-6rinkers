@@ -78,3 +78,6 @@ gradlew
 gradlew.bat
 
 .DS_Store
+
+logs/
+logs/**

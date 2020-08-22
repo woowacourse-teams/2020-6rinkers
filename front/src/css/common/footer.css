@@ -6,6 +6,7 @@
   height: 70px;
   order: 2;
   user-select: none;
+  flex-shrink: 0;
 }
 
 .linkContainer {
@@ -26,9 +27,9 @@
 
 .github > a > img {
   margin-left: 4px;
-  max-width: 29px;
+  width: 29px;
 }
 
 .instagram > a > img {
-  max-width: 32px;
+  width: 32px;
 }

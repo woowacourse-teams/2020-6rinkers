@@ -4,6 +4,8 @@
   align-items: center;
   user-select: none;
   height: 55px;
+  order: 0;
+  flex-shrink: 0;
 }
 
 .adminHeaderContainer {

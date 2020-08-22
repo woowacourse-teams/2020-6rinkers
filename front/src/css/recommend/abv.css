@@ -1,0 +1,121 @@
+.title {
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: #222;
+  padding: 20px 0;
+}
+
+.abv-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  margin: 4rem 0;
+}
+
+.abv {
+  display: flex;
+  justify-content: space-between;
+  line-height: 1;
+  color: var(--black);
+}
+
+.min-abv,
+.max-abv {
+  display: flex;
+  width: 245px;
+  align-items: center;
+  font-size: 4rem;
+  padding: 2.5rem;
+}
+
+.abv-value {
+  width: 6rem;
+}
+
+.soju,
+.riceWine,
+.whisky {
+  height: 4rem;
+}
+
+.sliderArea {
+  width: 300px;
+  margin: 1rem auto 3rem auto;
+}
+
+.rc-slider-rail,
+.rc-slider-step,
+.rc-slider-track,
+.rc-slider-track-1 {
+  height: 10px !important;
+  background-color: var(--light-red) !important;
+}
+.rc-slider-dot {
+  height: 14px !important;
+  width: 14px !important;
+}
+
+.rc-slider-handle {
+  height: 20px !important;
+  width: 20px !important;
+  border: solid 2px var(--light-red) !important;
+}
+
+.rc-slider-handle-click-focused,
+.rc-slider-handle-dragging {
+  user-focus: none !important;
+  user-select: none !important;
+  outline: none !important;
+  border-color: var(--little-light-red) !important;
+  box-shadow: 0 0 0 3px var(--little-light-red) !important;
+}
+
+.rc-slider-mark {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rc-slider-mark-text,
+.rc-slider-mark-text-active {
+  font-size: 1.5rem;
+}
+
+@media screen and (max-width: 700px) {
+  .abv-container {
+    width: 100%;
+    margin: 0;
+
+  }
+
+  .abv {
+    width: 100%;
+  }
+
+  .min-abv,
+  .max-abv {
+    width: auto;
+    display: flex;
+    align-items: center;
+    font-size: 3rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .abv-value {
+    width: 3.7rem;
+  }
+
+  .soju,
+  .riceWine,
+  .whisky {
+    height: 3rem;
+  }
+
+  .sliderArea {
+    width: 100%;
+    margin: 1rem auto 3rem auto;
+  }
+}
