@@ -1,7 +1,7 @@
 import React from "react";
 import CircularBox from "../common/CircularBox";
+import {LIGHT_PURPLE} from "../../constants/Color";
 
-const LIGHT_PURPLE = "rgba(157, 13, 182, 0.8)";
 
 const RecipeItems = ({ item }) => {
   const isRecipeLiquor = (item) => {

@@ -3,9 +3,8 @@ import { fetchCocktail } from "../../api";
 import CircularBox from "../common/CircularBox";
 import "../../css/cocktailSearch/cocktailDetailSearch.css";
 import RecipeItems from "./RecipeItems";
+import {LIGHT_BLUE, LIGHT_GREEN} from "../../constants/Color";
 
-const LIGHT_BLUE = "rgba(28, 30, 170, 0.8)";
-const LIGHT_GREEN = "rgba(70, 170, 24, 0.8)";
 
 const CocktailDetailSearch = ({ match }) => {
   const id = match.params.id;
