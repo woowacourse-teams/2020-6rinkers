@@ -52,6 +52,17 @@ class UserControllerTest {
 			.build();
 	}
 
+	@DisplayName("즐겨찾기를 조회한다.")
+	@Test
+	void findFavorites() throws Exception {
+		when(userService.findFavorites(any())).thenReturn(anyList());
+
+		mockMvc.perform(get("/api/user/me/favorites")
+			.accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andDo(print());
+	}
+
 	@DisplayName("즐겨찾기를 추가한다.")
 	@Test
 	void addFavorite() throws Exception {
