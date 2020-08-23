@@ -87,12 +87,22 @@ class UserControllerTest extends DocumentationWithSecurity {
 	void addFavorite() throws Exception {
 		when(userService.addFavorite(any(), any())).thenReturn(1L);
 
-		mockMvc.perform(post("/api/user/me/cocktails")
+		mockMvc.perform(post("/api/user/me/favorites")
 			.contentType(MediaType.APPLICATION_JSON)
 			.content(objectMapper.writeValueAsString(new FavoriteRequest(1L)))
 		)
 			.andExpect(status().isCreated())
 			.andExpect(header().string("Location", "/api/user/me/favorites/1"))
+			.andDo(print());
+	}
+
+	@DisplayName("즐겨찾기를 삭제한다.")
+	@Test
+	void deleteFavorite() throws Exception {
+		doNothing().when(userService).deleteFavorite(any(), anyLong());
+
+		mockMvc.perform(delete("/api/user/me/favorites/{id}", 1L))
+			.andExpect(status().isNoContent())
 			.andDo(print());
 	}
 }
