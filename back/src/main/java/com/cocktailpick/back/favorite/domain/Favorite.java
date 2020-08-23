@@ -36,6 +36,7 @@ public class Favorite extends BaseTimeEntity {
 
 	public void setUser(User user) {
 		this.user = user;
+		user.getFavorites().addFavorite(this);
 	}
 
 	public void setCocktail(Cocktail cocktail) {
