@@ -59,7 +59,6 @@ const Routes = ({ cocktails, setCocktails }) => {
   };
 
   useEffect(loadCurrentlyLoggedInUser, []);
-  console.log(currentUser);
 
   if (loading) {
     return (
