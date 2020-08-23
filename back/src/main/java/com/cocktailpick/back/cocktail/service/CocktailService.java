@@ -26,6 +26,7 @@ import com.cocktailpick.back.common.domain.DailyDate;
 import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
 import com.cocktailpick.back.common.exceptions.ErrorCode;
 import com.cocktailpick.back.common.util.NumberOfDaily;
+import com.cocktailpick.back.favorite.domain.Favorites;
 import com.cocktailpick.back.recipe.domain.RecipeItem;
 import com.cocktailpick.back.tag.domain.CocktailTag;
 import com.cocktailpick.back.tag.domain.Tag;
@@ -42,9 +43,13 @@ public class CocktailService {
 
 	@Transactional(readOnly = true)
 	public List<CocktailResponse> findAllCocktails() {
-		return Collections.unmodifiableList(cocktailRepository.findAll().stream()
-			.map(CocktailResponse::of)
-			.collect(Collectors.toList()));
+		return Collections.unmodifiableList(CocktailResponse.listOf(cocktailRepository.findAll(), Favorites.empty()));
+	}
+
+	@Transactional(readOnly = true)
+	public List<CocktailResponse> findCocktailsWithFavorite(Favorites favorites) {
+		List<Cocktail> cocktails = cocktailRepository.findAll();
+		return CocktailResponse.listOf(cocktails, favorites);
 	}
 
 	@Transactional(readOnly = true)
@@ -52,15 +57,28 @@ public class CocktailService {
 		Pageable pageRequest = PageRequest.of(0, size);
 		List<Cocktail> cocktails = cocktailRepository.findByNameContainingAndIdGreaterThan(contain, id, pageRequest)
 			.getContent();
-		return Collections.unmodifiableList(cocktails.stream()
-			.map(CocktailResponse::of)
-			.collect(Collectors.toList()));
+		return Collections.unmodifiableList(CocktailResponse.listOf(cocktails, Favorites.empty()));
+	}
+
+	@Transactional(readOnly = true)
+	public List<CocktailResponse> findPagedCocktailsWithFavorite(String contain, long id, int size,
+		Favorites favorites) {
+		Pageable pageRequest = PageRequest.of(0, size);
+		List<Cocktail> cocktails = cocktailRepository.findByNameContainingAndIdGreaterThan(contain, id, pageRequest)
+			.getContent();
+		return Collections.unmodifiableList(CocktailResponse.listOf(cocktails, favorites));
 	}
 
 	@Transactional(readOnly = true)
 	public CocktailDetailResponse findCocktail(Long id) {
 		Cocktail cocktail = findById(id);
-		return CocktailDetailResponse.of(cocktail);
+		return CocktailDetailResponse.of(cocktail, false);
+	}
+
+	@Transactional(readOnly = true)
+	public CocktailDetailResponse findCocktailWithFavorite(Long id, Favorites favorites) {
+		Cocktail cocktail = findById(id);
+		return CocktailDetailResponse.of(cocktail, favorites.isContainCocktail(cocktail));
 	}
 
 	@Transactional
@@ -165,12 +183,12 @@ public class CocktailService {
 		List<Cocktail> cocktails = cocktailRepository.findAll();
 
 		Cocktail cocktailOfToday = cocktailSearcher.findIn(cocktails);
-		return CocktailResponse.of(cocktailOfToday);
+		return CocktailResponse.of(cocktailOfToday, false);
 	}
 
 	@Transactional(readOnly = true)
 	public List<CocktailResponse> findByNameContaining(String name) {
 		List<Cocktail> cocktailsContainingName = cocktailRepository.findByNameContaining(name);
-		return CocktailResponse.listOf(cocktailsContainingName);
+		return CocktailResponse.listOf(cocktailsContainingName, Favorites.empty());
 	}
 }

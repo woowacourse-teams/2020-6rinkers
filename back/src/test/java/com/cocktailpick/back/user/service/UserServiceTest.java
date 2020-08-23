@@ -14,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.cocktail.domain.CocktailRepository;
 import com.cocktailpick.back.favorite.domain.Favorite;
+import com.cocktailpick.back.favorite.domain.Favorites;
 import com.cocktailpick.back.favorite.dto.FavoriteRequest;
 import com.cocktailpick.back.favorite.service.FavoriteRepository;
 import com.cocktailpick.back.user.domain.User;
@@ -43,6 +44,7 @@ public class UserServiceTest {
 		userService = new UserService(userRepository, favoriteRepository, cocktailRepository);
 		user = User.builder()
 			.name("toney")
+			.favorites(Favorites.empty())
 			.build();
 		cocktail = Cocktail.builder()
 			.id(1L)

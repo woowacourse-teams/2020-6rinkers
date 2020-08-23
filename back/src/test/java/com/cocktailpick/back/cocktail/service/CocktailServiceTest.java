@@ -32,6 +32,7 @@ import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
 import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
+import com.cocktailpick.back.favorite.domain.Favorites;
 import com.cocktailpick.back.recipe.domain.RecipeItem;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
@@ -133,7 +134,7 @@ public class CocktailServiceTest {
 
 		when(cocktailRepository.findByNameContainingAndIdGreaterThan(any(), anyLong(), any())).thenReturn(cocktailPage);
 
-		assertThat(cocktailService.findPagedCocktails("", 0, 2)).hasSize(2);
+		assertThat(cocktailService.findPagedCocktailsWithFavorite("", 0, 2, Favorites.empty())).hasSize(2);
 	}
 
 	@DisplayName("단일 칵테일을 조회한다.")
