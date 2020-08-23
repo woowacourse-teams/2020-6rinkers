@@ -33,7 +33,7 @@ import com.cocktailpick.back.security.oauth2.OAuth2AuthenticationSuccessHandler;
 )
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
-	private CustomUserDetailsService customUserDetailsService;
+	private CustomUserDetailsService userDetailsService;
 
 	@Autowired
 	private CustomOAuth2UserService customOAuth2UserService;
@@ -60,7 +60,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
 		authenticationManagerBuilder
-			.userDetailsService(customUserDetailsService)
+			.userDetailsService(userDetailsService)
 			.passwordEncoder(passwordEncoder());
 	}
 
