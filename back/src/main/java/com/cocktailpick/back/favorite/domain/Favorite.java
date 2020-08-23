@@ -17,7 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Getter
 @Entity
 public class Favorite extends BaseTimeEntity {
@@ -33,4 +33,12 @@ public class Favorite extends BaseTimeEntity {
 	@ManyToOne
 	@JoinColumn(name = "cocktail_id")
 	private Cocktail cocktail;
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public void setCocktail(Cocktail cocktail) {
+		this.cocktail = cocktail;
+	}
 }

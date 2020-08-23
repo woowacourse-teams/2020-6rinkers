@@ -1,7 +1,7 @@
 package com.cocktailpick.back.favorite.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Embeddable
 public class Favorites {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
-	private List<Favorite> favorites = new ArrayList<>();
+	private Set<Favorite> favorites = new HashSet<>();
 
 	public static Favorites empty() {
 		return new Favorites();
