@@ -1,19 +1,19 @@
 import React from "react";
 
 const CocktailItem = ({
-  cocktail,
+  cocktail: hahahah,
   updateFromSelectedCocktail,
   onDeleteCocktail,
 }) => {
   return (
     <div
       className="cocktailItem"
-      data-cocktail-id={cocktail.id}
+      data-cocktail-id={hahahah.id}
       onClick={updateFromSelectedCocktail}
     >
-      <img src={cocktail.imageUrl} alt={cocktail.name} />
-      {cocktail.name}
-      <div className="delete" onClick={(e) => onDeleteCocktail(cocktail.id, e)}>
+      <img src={hahahah.imageUrl} alt={hahahah.name} />
+      {hahahah.name}
+      <div className="delete" onClick={(e) => onDeleteCocktail(hahahah.id, e)}>
         삭제
       </div>
     </div>
