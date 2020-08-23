@@ -37,6 +37,7 @@ import com.cocktailpick.back.cocktail.service.CocktailRecommendService;
 import com.cocktailpick.back.cocktail.service.CocktailService;
 import com.cocktailpick.back.cocktail.vo.UserPreferenceAnswer;
 import com.cocktailpick.back.common.documentation.DocumentationWithSecurity;
+import com.cocktailpick.back.favorite.domain.Favorites;
 import com.cocktailpick.back.tag.dto.TagResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -98,9 +99,9 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 	void findCocktails() throws Exception {
 		List<CocktailResponse> cocktailResponses = Arrays.asList(
 			new CocktailResponse(1L, "싱가폴 슬링", "https://naver.com",
-				Collections.singletonList(new TagResponse(1L, "마지막 양심", "컨셉"))),
+				Collections.singletonList(new TagResponse(1L, "마지막 양심", "컨셉")), false),
 			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
-				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")))
+				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")), false)
 		);
 		given(cocktailService.findAllCocktails()).willReturn(cocktailResponses);
 
@@ -116,11 +117,12 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 	void findPageContainingWord() throws Exception {
 		List<CocktailResponse> cocktailResponses = Arrays.asList(
 			new CocktailResponse(1L, "싱가폴 슬링", "https://naver.com",
-				Collections.singletonList(new TagResponse(1L, "마지막 양심", "컨셉"))),
+				Collections.singletonList(new TagResponse(1L, "마지막 양심", "컨셉")), false),
 			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
-				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")))
+				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")), false)
 		);
-		given(cocktailService.findPageContainingWord("블루", 0, 2)).willReturn(cocktailResponses);
+		given(cocktailService.findPagedCocktailsWithFavorite("블루", 0, 2, Favorites.empty())).willReturn(
+			cocktailResponses);
 
 		mockMvc.perform(get("/api/cocktails/contain-word")
 			.param("contain", "블루")
@@ -135,7 +137,7 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 	@DisplayName("칵테일을 단일 조회한다.")
 	@Test
 	void findCocktail() throws Exception {
-		CocktailDetailResponse cocktailDetailResponse = CocktailDetailResponse.of(blueHawaii);
+		CocktailDetailResponse cocktailDetailResponse = CocktailDetailResponse.of(blueHawaii, false);
 		cocktailDetailResponse = cocktailDetailResponse.withId(1L);
 		given(cocktailService.findCocktail(anyLong())).willReturn(cocktailDetailResponse);
 
@@ -167,9 +169,9 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 	void findPageFilteredByTags() throws Exception {
 		List<CocktailResponse> cocktailResponses = Arrays.asList(
 			new CocktailResponse(1L, "싱가폴 슬링", "https://naver.com",
-				Collections.singletonList(new TagResponse(0L, "마지막 양심", "컨셉"))),
+				Collections.singletonList(new TagResponse(0L, "마지막 양심", "컨셉")), false),
 			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
-				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")))
+				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")), false)
 		);
 
 		given(cocktailService.findPageFilteredByTags(anyList(), anyLong(), anyInt())).willReturn(cocktailResponses);
@@ -273,7 +275,7 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 	@DisplayName("오늘의 칵테일을 조회한다.")
 	@Test
 	void findCocktailOfToday() throws Exception {
-		CocktailResponse cocktailResponse = CocktailResponse.of(blueHawaii).withId(1L);
+		CocktailResponse cocktailResponse = CocktailResponse.of(blueHawaii, false).withId(1L);
 		when(cocktailService.findCocktailOfToday()).thenReturn(cocktailResponse);
 
 		mockMvc.perform(get("/api/cocktails/today"))
@@ -287,7 +289,7 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 	@DisplayName("칵테일을 추천한다.")
 	@Test
 	void recommendCocktail() throws Exception {
-		CocktailDetailResponse blueHawaiiResponse = CocktailDetailResponse.of(blueHawaii);
+		CocktailDetailResponse blueHawaiiResponse = CocktailDetailResponse.of(blueHawaii, false);
 		blueHawaiiResponse = blueHawaiiResponse.withId(1L);
 		AbvAnswer abvAnswer = new AbvAnswer(100, 0);
 		List<TagPreferenceAnswer> moodAnswers = Collections.singletonList(
@@ -305,7 +307,8 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 			preferenceAnswers,
 			nonPreferenceAnswers);
 
-		given(cocktailRecommendService.recommend(any())).willReturn(Collections.singletonList(blueHawaiiResponse));
+		given(cocktailRecommendService.recommendWithFavorite(any(), any())).willReturn(
+			Collections.singletonList(blueHawaiiResponse));
 
 		mockMvc.perform(post("/api/cocktails/recommend")
 			.accept(MediaType.APPLICATION_JSON)
@@ -319,7 +322,7 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 	@DisplayName("특정 문자열을 포함하는 칵테일을 반환한다.")
 	@Test
 	void containName() throws Exception {
-		CocktailResponse cocktailResponse = CocktailResponse.of(blueHawaii).withId(1L);
+		CocktailResponse cocktailResponse = CocktailResponse.of(blueHawaii, false).withId(1L);
 		given(cocktailService.findByNameContaining(anyString())).willReturn(
 			Collections.singletonList(cocktailResponse));
 

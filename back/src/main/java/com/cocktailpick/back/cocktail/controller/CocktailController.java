@@ -26,6 +26,11 @@ import com.cocktailpick.back.cocktail.dto.CocktailResponse;
 import com.cocktailpick.back.cocktail.dto.RecommendRequest;
 import com.cocktailpick.back.cocktail.service.CocktailRecommendService;
 import com.cocktailpick.back.cocktail.service.CocktailService;
+import com.cocktailpick.back.common.exceptions.ResourceNotFoundException;
+import com.cocktailpick.back.security.CurrentUser;
+import com.cocktailpick.back.security.UserPrincipal;
+import com.cocktailpick.back.user.domain.User;
+import com.cocktailpick.back.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 @CrossOrigin("*")
@@ -35,18 +40,30 @@ import lombok.RequiredArgsConstructor;
 public class CocktailController {
 	private final CocktailService cocktailService;
 	private final CocktailRecommendService cocktailRecommendService;
+	private final UserRepository userRepository;
 
 	@GetMapping
-	public ResponseEntity<List<CocktailResponse>> findCocktails() {
+	public ResponseEntity<List<CocktailResponse>> findCocktails(@CurrentUser UserPrincipal userPrincipal) {
+		if (userPrincipal != null) {
+			User user = userRepository.findById(userPrincipal.getId())
+				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
+
+			return ResponseEntity.ok(cocktailService.findCocktailsWithFavorite(user.getFavorites()));
+		}
 		return ResponseEntity.ok(cocktailService.findAllCocktails());
 	}
 
 	@GetMapping("/contain-word")
-	public ResponseEntity<List<CocktailResponse>> findPageContainingWord(
-		@RequestParam(defaultValue = "") String contain,
-		@RequestParam long id, @RequestParam int size) {
-		List<CocktailResponse> cocktailResponses = cocktailService.findPageContainingWord(contain, id, size);
-		return ResponseEntity.ok(cocktailResponses);
+	public ResponseEntity<List<CocktailResponse>> findPageContainingWord(@CurrentUser UserPrincipal userPrincipal,
+		@RequestParam(defaultValue = "") String contain, @RequestParam long id, @RequestParam int size) {
+		if (userPrincipal != null) {
+			User user = userRepository.findById(userPrincipal.getId())
+				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
+			List<CocktailResponse> cocktailResponses = cocktailService.findPagedCocktailsWithFavorite(contain, id, size,
+				user.getFavorites());
+			return ResponseEntity.ok(cocktailResponses);
+		}
+		return ResponseEntity.ok(cocktailService.findPagedCocktails(contain, id, size));
 	}
 
 	@GetMapping("/contain-tags")
@@ -58,7 +75,14 @@ public class CocktailController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<CocktailDetailResponse> findCocktail(@PathVariable Long id) {
+	public ResponseEntity<CocktailDetailResponse> findCocktail(@CurrentUser UserPrincipal userPrincipal,
+		@PathVariable Long id) {
+		if (userPrincipal != null) {
+			User user = userRepository.findById(userPrincipal.getId())
+				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
+			return ResponseEntity.ok(cocktailService.findCocktailWithFavorite(id, user.getFavorites()));
+		}
+
 		return ResponseEntity.ok(cocktailService.findCocktail(id));
 	}
 
@@ -99,7 +123,17 @@ public class CocktailController {
 	}
 
 	@PostMapping("/recommend")
-	public ResponseEntity<List<CocktailDetailResponse>> recommend(@RequestBody RecommendRequest recommendRequests) {
+	public ResponseEntity<List<CocktailDetailResponse>> recommend(@CurrentUser UserPrincipal userPrincipal,
+		@RequestBody RecommendRequest recommendRequests) {
+		if (userPrincipal != null) {
+			User user = userRepository.findById(userPrincipal.getId())
+				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
+			List<CocktailDetailResponse> cocktailDetailResponses = cocktailRecommendService.recommendWithFavorite(
+				recommendRequests,
+				user.getFavorites());
+			return ResponseEntity.ok(cocktailDetailResponses);
+		}
+
 		List<CocktailDetailResponse> cocktailDetailResponses = cocktailRecommendService.recommend(recommendRequests);
 		return ResponseEntity.ok(cocktailDetailResponses);
 	}
