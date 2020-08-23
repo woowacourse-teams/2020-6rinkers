@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ACCESS_TOKEN } from "../constants";
+import {ACCESS_TOKEN} from "../constants";
 
 const client = axios.create({
   baseURL: `//${process.env.REACT_APP_HOST}`,
@@ -47,3 +47,11 @@ export const createTagsByCsv = (file) =>
       Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
     },
   });
+
+export const addFavorite = (data) => {
+    client.post("/api/user/me/favorites", data, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+        },
+    })
+}
