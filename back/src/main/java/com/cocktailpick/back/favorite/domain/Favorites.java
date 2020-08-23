@@ -10,8 +10,10 @@ import javax.persistence.OneToMany;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @Embeddable
@@ -21,6 +23,10 @@ public class Favorites {
 
 	public static Favorites empty() {
 		return new Favorites();
+	}
+
+	public void addFavorite(Favorite favorite) {
+		favorites.add(favorite);
 	}
 
 	public void deleteFavorite(Long cocktailId) {
