@@ -63,3 +63,11 @@ export const login = (loginRequest) =>
   client.post("/api/auth/login", loginRequest);
 export const signup = (signupRequest) =>
   client.post("/api/auth/signup", signupRequest);
+
+export const addFavorite = (data) => {
+    client.post("/api/user/me/favorites", data, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+        },
+    })
+}
