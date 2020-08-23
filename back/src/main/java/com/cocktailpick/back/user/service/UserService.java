@@ -33,4 +33,8 @@ public class UserService {
 
 		return favoriteRepository.save(favorite).getId();
 	}
+
+	public void deleteFavorite(User user, Long cocktailId) {
+
+	}
 }
