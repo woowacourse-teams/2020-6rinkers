@@ -4,7 +4,6 @@ import java.net.URI;
 
 import javax.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,21 +25,20 @@ import com.cocktailpick.back.user.dto.ApiResponse;
 import com.cocktailpick.back.user.dto.AuthResponse;
 import com.cocktailpick.back.user.dto.LoginRequest;
 import com.cocktailpick.back.user.dto.SignUpRequest;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/auth")
+@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 public class AuthController {
 
-	@Autowired
 	private AuthenticationManager authenticationManager;
 
-	@Autowired
 	private UserRepository userRepository;
 
-	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	@Autowired
 	private TokenProvider tokenProvider;
 
 	@PostMapping("/login")

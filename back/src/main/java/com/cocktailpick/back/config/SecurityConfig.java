@@ -1,6 +1,5 @@
 package com.cocktailpick.back.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -23,28 +22,22 @@ import com.cocktailpick.back.security.oauth2.CustomOAuth2UserService;
 import com.cocktailpick.back.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.cocktailpick.back.security.oauth2.OAuth2AuthenticationFailureHandler;
 import com.cocktailpick.back.security.oauth2.OAuth2AuthenticationSuccessHandler;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(
-	securedEnabled = true,
-	jsr250Enabled = true,
-	prePostEnabled = true
-)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	@Autowired
 	private CustomUserDetailsService customUserDetailsService;
 
-	@Autowired
 	private CustomOAuth2UserService customOAuth2UserService;
 
-	@Autowired
 	private OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
 
-	@Autowired
 	private OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
 
-	@Autowired
 	private HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
 	@Bean
@@ -108,8 +101,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				"/**/*.css",
 				"/**/*.js")
 			.permitAll()
-			.antMatchers("/auth/**", "/oauth2/**")
-			.permitAll()
 			.antMatchers(HttpMethod.POST, "/**/upload/csv")
 			.hasRole("ADMIN")
 			.antMatchers(HttpMethod.POST, "/api/cocktails")
@@ -117,6 +108,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.PUT, "/api/cocktails/**")
 			.hasRole("ADMIN")
 			.antMatchers(HttpMethod.DELETE, "/api/cocktails/**")
+			.hasRole("ADMIN")
+			.antMatchers(HttpMethod.POST, "/api/tags")
+			.hasRole("ADMIN")
+			.antMatchers(HttpMethod.PUT, "/api/tags/**")
+			.hasRole("ADMIN")
+			.antMatchers(HttpMethod.DELETE, "/api/tags/**")
 			.hasRole("ADMIN")
 			.anyRequest()
 			.permitAll()
@@ -135,7 +132,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.successHandler(oAuth2AuthenticationSuccessHandler)
 			.failureHandler(oAuth2AuthenticationFailureHandler);
 
-		// Add our custom Token based authentication filter
 		http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 }
