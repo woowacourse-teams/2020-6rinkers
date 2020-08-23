@@ -9,7 +9,7 @@
 .admin {
   display: flex;
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 55px);
   overflow: hidden;
 }
 
@@ -29,14 +29,15 @@
   flex-direction: column;
 }
 
-.fileButton {
+.fileUploadButton {
   margin: 0.2rem;
 }
 
 .cocktailListContainer {
   width: 100%;
+  height: 100%;
   flex: 1;
   border-left: var(--little-light-black) solid 2px;
-  overflow: auto;
+  overflow: auto !important;
   padding-bottom: 3rem;
 }

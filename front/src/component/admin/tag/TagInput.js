@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { createTag, fetchAllTags } from "../../../api";
+import { createTag, updateTag, fetchAllTags } from "../../../api";
 import dataToTagRequest from "../../../utils/admin/tagConverter";
 import "../../../css/admin/tagAdmin.css";
 
@@ -13,21 +13,41 @@ const TagInputContainer = styled.div`
   border-bottom: 1px solid gray;
 `;
 
-const TagInput = ({ tag, updateTag }) => {
-  const onChange = (e) => {
-    updateTag(e.target.value);
+const Button = styled.button`
+  margin-left: 1.2rem;
+`;
+
+const TagInput = ({ tag, setTag }) => {
+  const onTagNameChange = (e) => {
+    setTag({
+      ...tag,
+      name: e.target.value,
+    });
   };
 
-  const onEnter = (e) => {
-    if (e.key === "Enter") {
-      onSubmit(e);
-    }
+  const onTagTypeChange = (e) => {
+    setTag({
+      ...tag,
+      type: e.target.value,
+    });
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
-    createTag(dataToTagRequest(tag));
-    updateTag("");
+    createTag(dataToTagRequest(tag.name, tag.type))
+      .then(() => alert("성공적으로 태그를 생성했습니다."))
+      .catch((error) => alert(error));
+    setTag({
+      ...tag,
+      name: "",
+    });
+  };
+
+  const onUpdate = (e) => {
+    e.preventDefault();
+    updateTag(tag.id, dataToTagRequest(tag.name, tag.type))
+      .then(() => alert("성공적으로 태그를 수정했습니다."))
+      .catch((error) => alert(error));
   };
 
   const inputStyle = {
@@ -38,14 +58,25 @@ const TagInput = ({ tag, updateTag }) => {
     <TagInputContainer>
       <input
         className="tagInput"
-        value={tag}
+        value={tag.name}
         placeholder="추가할 태그명을 입력해주세요."
-        onChange={onChange}
-        onKeyPress={onEnter}
+        onChange={onTagNameChange}
         style={inputStyle}
       />
-      <button type="submit" onClick={onSubmit}>
+      <select value={tag.type} onChange={onTagTypeChange}>
+        <option value="X">태그 타입 선택</option>
+        <option value="ABV">도수</option>
+        <option value="INGREDIENT">재료</option>
+        <option value="FLAVOR">맛</option>
+        <option value="TEXTURE">식감</option>
+        <option value="CONCEPT">컨셉</option>
+        <option value="DISLIKE">꺼릴만한 것</option>
+      </select>
+      <Button type="submit" onClick={onSubmit}>
         등록
+      </Button>
+      <button className="updateButton" type="submit" onClick={onUpdate}>
+        수정
       </button>
     </TagInputContainer>
   );

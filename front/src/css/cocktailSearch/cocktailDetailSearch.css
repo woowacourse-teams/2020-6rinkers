@@ -1,16 +1,22 @@
 .detail-info-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  align-items: center;
   justify-content: center;
-  text-align: center;
-  margin: auto;
   user-select: none;
+  padding: 3rem 0 0 0;
 }
 
 .cocktail-name {
+  margin-bottom: 1.5rem;
   font-size: 1.5rem;
-  color: #a60000;
+  color: var(--red);
 }
 
 .detail-info-image-container {
+  margin-bottom: 1.5rem;
   width: 18rem;
   height: 18rem;
   display: inline-block;
@@ -21,16 +27,82 @@
   height: 100%;
 }
 
-.cocktail-recipe {
-  margin: auto;
+.tags-container,
+.abv-and-taste-container,
+.recipe-container {
+  padding: 0.3rem 0;
+}
+
+.tags-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 400px;
+}
+
+.abv-and-taste-container {
+  display: flex;
+  justify-content: center;
+}
+
+.recipe-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 400px;
+}
+
+.text-container {
+  width: 60%;
 }
 
 .origin,
 .description {
-  text-align: left;
+  margin: 1rem 0;
+}
+
+.origin > h4,
+.description > h4 {
+  display: inline;
+  border: var(--little-light-black) 1px solid;
+  border-radius: 1rem;
+  padding: 0.2rem 0.3rem;
+  margin: 0.2rem;
 }
 
 .origin > p,
 .description > p {
-  margin-left: 1rem;
+  margin: 0.2rem 1.5rem 0 1rem;
+}
+
+@media screen and (max-width: 700px) {
+  .cocktail-name {
+    padding-top: 1rem;
+    margin: 0;
+  }
+
+  .detail-info-image-container {
+    margin: 0;
+  }
+
+  .detail-info-container {
+    padding: 1rem 0 0 0;
+    height: 100%;
+  }
+
+  .tags-container,
+  .abv-and-taste-container,
+  .recipe-container {
+    padding: 0.2rem 0;
+  }
+
+  .text-container {
+    width: 100%;
+  }
+
+  .origin,
+  .description {
+    align-self: start;
+    margin-left: 1rem;
+  }
 }

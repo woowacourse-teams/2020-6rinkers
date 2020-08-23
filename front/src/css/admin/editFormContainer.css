@@ -1,3 +1,8 @@
+.cocktailsDeleteBtn {
+  width: 160px;
+  margin-top: 0.2rem;
+}
+
 .editForms {
   display: flex;
   flex-direction: column;

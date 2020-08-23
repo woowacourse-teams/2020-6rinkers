@@ -1,47 +1,83 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { questions } from "./const";
 import { useHistory } from "react-router-dom";
-import AnswerButton from "./AnswerButton";
-import { questionList } from "./const";
 import { createRecommend } from "../../api";
+import Dislike from "./Dislike";
+import Intro from "./Intro";
+import Concept from "./Concept";
+import Abv from "./Abv";
+import Ingredient from "./Ingredient";
+import Taste from "./Taste";
 import "../../css/recommend/question.css";
 
+const INITIAL_STAGE = 1;
+
 const Question = ({ setCocktails }) => {
-  const [answers, setAnswers] = useState([]);
-  const [number, setNumber] = useState(1);
-  const [question, setQuestion] = useState(questionList[number - 1]);
+  const [answers, setAnswers] = useState({});
+  const [stage, setStage] = useState(INITIAL_STAGE);
+  const [question, setQuestion] = useState(questions[stage - 1]);
 
-  const getCocktails = async () => {
-    const response = await createRecommend(answers);
-    setCocktails(response.data);
-  };
-
-  const addAnswer = (answer) => {
-    setAnswers([...answers, { answer }]);
-    setNumber(number + 1);
-    setQuestion(questionList[number]);
+  const addAnswer = (type, answer) => {
+    const wrappedAnswer = { [type]: answer };
+    if (stage !== INITIAL_STAGE) {
+      setAnswers({ ...answers, ...wrappedAnswer });
+    }
+    setStage(stage + 1);
+    setQuestion(questions[stage]);
   };
 
   const history = useHistory();
 
-  const addLastAnswer = async (answer) => {
-    setAnswers([...answers, answer]);
-    await getCocktails(answers);
+  const addLastAnswer = (type, answer) => {
+    const wrappedAnswer = { [type]: answer };
+    setAnswers(() => ({ ...answers, ...wrappedAnswer }));
+  };
+
+  const recommendCocktails = async () => {
+    const response = await createRecommend(answers);
+    setCocktails(response.data);
     history.push("/result");
+  };
+
+  useEffect(() => {
+    const recommend = async () => {
+      await recommendCocktails();
+    };
+    if (Object.keys(answers).length === 5) {
+      recommend();
+    }
+  }, [answers]);
+
+  const renderAnswer = () => {
+    switch (stage) {
+      case INITIAL_STAGE:
+        return <Intro addAnswer={addAnswer} />;
+      case 2:
+        return <Concept addAnswer={addAnswer} />;
+      case 3:
+        return <Abv addAnswer={addAnswer} />;
+      case 4:
+        return <Ingredient addAnswer={addAnswer} />;
+      case 5:
+        return <Taste addAnswer={addAnswer} />;
+      case 6:
+        return <Dislike addAnswer={addLastAnswer} />;
+    }
   };
 
   return (
     <div className="question-container">
-      <div className="question-number">Q{number}. / 10</div>
-      <div className="question">{question}</div>
-      {number !== 10 ? (
-        <div className="question-answer-button-wrapper">
-          <AnswerButton addAnswer={addAnswer} />
-        </div>
-      ) : (
-        <div className="question-answer-button-wrapper">
-          <AnswerButton addAnswer={addLastAnswer} />
-        </div>
-      )}
+      <div className="question">
+        {question.split("\n").map((line, index) => {
+          return (
+            <span key={`question-${index}`}>
+              {line}
+              <br />
+            </span>
+          );
+        })}
+      </div>
+      {renderAnswer()}
     </div>
   );
 };

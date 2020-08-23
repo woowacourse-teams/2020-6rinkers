@@ -1,7 +1,6 @@
 package com.cocktailpick.back.cocktail.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -18,11 +17,9 @@ import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.cocktail.domain.CocktailFindStrategyFactory;
 import com.cocktailpick.back.cocktail.domain.CocktailRepository;
 import com.cocktailpick.back.cocktail.domain.CocktailSearcher;
-import com.cocktailpick.back.cocktail.domain.TagFilter;
 import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
-import com.cocktailpick.back.cocktail.dto.UserRecommendRequest;
 import com.cocktailpick.back.common.EntityMapper;
 import com.cocktailpick.back.common.csv.OpenCsvReader;
 import com.cocktailpick.back.common.domain.DailyDate;
@@ -31,7 +28,6 @@ import com.cocktailpick.back.common.exceptions.ErrorCode;
 import com.cocktailpick.back.common.util.NumberOfDaily;
 import com.cocktailpick.back.recipe.domain.RecipeItem;
 import com.cocktailpick.back.tag.domain.CocktailTag;
-import com.cocktailpick.back.tag.domain.CocktailTags;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
 import lombok.AccessLevel;
@@ -85,13 +81,10 @@ public class CocktailService {
 	public void updateCocktail(Long id, CocktailRequest cocktailRequest) {
 		Cocktail cocktail = findById(id);
 		Cocktail requestCocktail = cocktailRequest.toCocktail();
-
+		List<RecipeItem> recipeItems = cocktailRequest.toRecipeItems();
 		List<Tag> tags = tagRepository.findByNameIn(cocktailRequest.getTag());
-		CocktailTags cocktailTags = tags.stream()
-			.map(tag -> CocktailTag.associate(cocktail, tag))
-			.collect(Collectors.collectingAndThen(Collectors.toList(), CocktailTags::new));
 
-		cocktail.update(requestCocktail, cocktailTags);
+		cocktail.update(requestCocktail, tags, recipeItems);
 	}
 
 	private Cocktail findById(Long id) {
@@ -102,6 +95,11 @@ public class CocktailService {
 	@Transactional
 	public void deleteCocktail(Long id) {
 		cocktailRepository.deleteById(id);
+	}
+
+	@Transactional
+	public void deleteAllCocktails() {
+		cocktailRepository.deleteAll();
 	}
 
 	@Transactional
@@ -159,48 +157,6 @@ public class CocktailService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<CocktailDetailResponse> recommend(List<UserRecommendRequest> recommendRequests) {
-		List<Boolean> answers = recommendRequests.stream()
-			.map(UserRecommendRequest::isAnswer)
-			.collect(Collectors.toList());
-
-		List<Tag> tags = getFilteringTags();
-		List<Cocktail> filteredCocktails = recommendCocktails(answers, tags);
-
-		return filteredCocktails.stream()
-			.map(CocktailDetailResponse::of)
-			.collect(Collectors.toList());
-	}
-
-	private List<Tag> getFilteringTags() {
-		List<String> names = Arrays.stream(TagFilter.values())
-			.map(TagFilter::getName)
-			.collect(Collectors.toList());
-
-		return tagRepository.findByNameIn(names);
-	}
-
-	private List<Cocktail> recommendCocktails(List<Boolean> answers, List<Tag> tags) {
-		List<Cocktail> allCocktails = cocktailRepository.findAll();
-
-		List<Cocktail> filteredCocktails = new ArrayList<>(allCocktails);
-
-		for (int i = 0; i < answers.size(); i++) {
-			filteredCocktails = filter(filteredCocktails, tags.get(i), answers.get(i));
-		}
-		return filteredCocktails;
-	}
-
-	private List<Cocktail> filter(List<Cocktail> cocktails, Tag tag, Boolean answer) {
-		if (answer) {
-			return cocktails;
-		}
-		return cocktails.stream()
-			.filter(cocktail -> cocktail.notContainsTag(tag))
-			.collect(Collectors.toList());
-	}
-
-	@Transactional(readOnly = true)
 	public CocktailResponse findCocktailOfToday() {
 		DailyDate dailyDate = DailyDate.of(new Date());
 		CocktailSearcher cocktailSearcher = cocktailFindStrategyFactory.createCocktailSearcher(
@@ -215,6 +171,6 @@ public class CocktailService {
 	@Transactional(readOnly = true)
 	public List<CocktailResponse> findByNameContaining(String name) {
 		List<Cocktail> cocktailsContainingName = cocktailRepository.findByNameContaining(name);
-		return CocktailResponse.ofList(cocktailsContainingName);
+		return CocktailResponse.listOf(cocktailsContainingName);
 	}
 }

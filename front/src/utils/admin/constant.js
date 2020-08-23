@@ -1,4 +1,5 @@
 export const DEFAULT_COCKTAIL_DATA = {
+  id: "0",
   name: "마티니",
   abv: "30",
   description: "진과 버머스의 스터",
@@ -13,4 +14,21 @@ export const DEFAULT_COCKTAIL_DATA = {
   liquorQuantity: "2,2",
   special: "올리브",
   specialQuantity: "2-3개",
+};
+
+export const EMPTY_COCKTAIL_DATA = {
+  id: "",
+  name: "",
+  abv: "",
+  description: "",
+  origin: "",
+  imageUrl: "",
+  tag: "",
+  sweet: "",
+  sour: "",
+  bitter: "",
+  liquor: "",
+  liquorQuantity: "",
+  special: "",
+  specialQuantity: "",
 };

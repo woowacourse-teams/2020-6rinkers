@@ -1,6 +1,7 @@
-const dataToTagRequest = (data) => {
+const dataToTagRequest = (name, tagType) => {
   return {
-    name: data,
+    name: name,
+    tagType: tagType,
   };
 };
 

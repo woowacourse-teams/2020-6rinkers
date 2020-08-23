@@ -1,17 +1,28 @@
 import React from "react";
 import { answerList } from "./const";
 
-const AnswerButton = ({ addAnswer }) => {
+const AnswerButton = ({ tagId, answer, onChangeAnswer }) => {
   return (
     <div>
-      <button onClick={() => addAnswer(true)} className="answer-button">
+      <button
+        onClick={() => onChangeAnswer(tagId, "YES")}
+        className={answer === "YES" ? "answer-button checked" : "answer-button"}
+      >
         {answerList[0].yes}
       </button>
-      <button onClick={() => addAnswer(false)} className="answer-button">
-        {answerList[0].no}
-      </button>
-      <button onClick={() => addAnswer(true)} className="answer-button">
+      <button
+        onClick={() => onChangeAnswer(tagId, "SOSO")}
+        className={
+          answer === "SOSO" ? "answer-button checked" : "answer-button"
+        }
+      >
         {answerList[0].soso}
+      </button>
+      <button
+        onClick={() => onChangeAnswer(tagId, "NO")}
+        className={answer === "NO" ? "answer-button checked" : "answer-button"}
+      >
+        {answerList[0].no}
       </button>
     </div>
   );

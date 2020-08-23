@@ -13,15 +13,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class TagResponse {
+	private Long tagId;
+
 	private String name;
 
-	private static TagResponse of(Tag tag) {
-		return new TagResponse(tag.getName());
-	}
+	private String tagType;
 
 	public static List<TagResponse> listOf(List<Tag> tags) {
 		return tags.stream()
 			.map(TagResponse::of)
 			.collect(Collectors.toList());
+	}
+
+	private static TagResponse of(Tag tag) {
+		return new TagResponse(tag.getId(), tag.getName(), tag.getTagType());
 	}
 }

@@ -48,4 +48,12 @@ public class CocktailTags {
 		return cocktailTags.stream()
 			.noneMatch(cocktailTag -> cocktailTag.containsTag(tag));
 	}
+
+	public void clear() {
+		cocktailTags.clear();
+	}
+
+	public void deleteCocktailTag(CocktailTag cocktailTag) {
+		cocktailTags.remove(cocktailTag);
+	}
 }

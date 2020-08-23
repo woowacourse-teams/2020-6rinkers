@@ -6,7 +6,9 @@ import TagList from "./TagList";
 const Container = styled.div`
   display: flex;
   justify-content: center;
-  overflow: auto;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
 `;
 
 const TagContainer = styled.div`
@@ -21,17 +23,17 @@ const TagContainer = styled.div`
 `;
 
 const TagAdmin = () => {
-  const [tag, setTag] = useState("");
-
-  const updateTag = (value) => {
-    setTag(value);
-  };
+  const [tag, setTag] = useState({
+    id: "",
+    name: "",
+    type: "",
+  });
 
   return (
     <Container>
       <TagContainer>
-        <TagInput tag={tag} updateTag={updateTag} />
-        <TagList tag={tag} />
+        <TagInput tag={tag} setTag={setTag} />
+        <TagList tagName={tag.name} setTag={setTag} />
       </TagContainer>
     </Container>
   );

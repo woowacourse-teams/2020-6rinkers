@@ -1,5 +1,6 @@
 package com.cocktailpick.back.cocktail.dto;
 
+import com.cocktailpick.back.cocktail.vo.UserPreferenceAnswer;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -3,11 +3,13 @@ import { fetchCocktail } from "../../api";
 import CircularBox from "../common/CircularBox";
 import "../../css/cocktailSearch/cocktailDetailSearch.css";
 import RecipeItems from "./RecipeItems";
+import {DARK_GREEN, DARK_BLUE} from "../../constants/Color";
+
 
 const CocktailDetailSearch = ({ match }) => {
   const id = match.params.id;
   const [cocktailData, setCocktailData] = useState({
-    cocktail: "",
+    cocktail: {},
     tags: [],
     recipe: [],
   });
@@ -36,49 +38,54 @@ const CocktailDetailSearch = ({ match }) => {
           className="detail-info-image"
         />
       </div>
-      <p className="cocktail-abv">도수 : {cocktailData.cocktail.abv}%</p>
-      {cocktailData.tags &&
-        cocktailData.tags.map((tag, index) => (
-          <CircularBox key={"tag" + index} text={tag.name} />
-        ))}
-      <div>
+      <div className="tags-container">
+        {cocktailData.tags &&
+          cocktailData.tags.map((tag, index) => (
+            <CircularBox key={"tag" + index} text={tag.name} />
+          ))}
+      </div>
+      <div className="abv-and-taste-container">
+        {cocktailData.cocktail.abv >= 0 && (
+          <CircularBox
+            text={
+              cocktailData.cocktail.abv === 0
+                ? "무알콜"
+                : cocktailData.cocktail.abv + "%"
+            }
+            color={DARK_GREEN}
+          />
+        )}
         {cocktailData.cocktail.sweet ? (
-          <CircularBox text="달아요" />
+          <CircularBox text="달아요" color={DARK_BLUE} />
         ) : (
-          <CircularBox text="안달아요" />
+          <CircularBox text="안달아요" color={DARK_BLUE} />
         )}
         {cocktailData.cocktail.sour ? (
-          <CircularBox text="셔요" />
+          <CircularBox text="셔요" color={DARK_BLUE} />
         ) : (
-          <CircularBox text="안셔요" />
+          <CircularBox text="안셔요" color={DARK_BLUE} />
         )}
         {cocktailData.cocktail.bitter ? (
-          <CircularBox text="써요" />
+          <CircularBox text="써요" color={DARK_BLUE} />
         ) : (
-          <CircularBox text="안써요" />
+          <CircularBox text="안써요" color={DARK_BLUE} />
         )}
       </div>
-      <table className="cocktail-recipe">
-        <thead>
-          <tr>
-            <th>종류</th>
-            <th>양</th>
-          </tr>
-        </thead>
-        <tbody>
-          {cocktailData.recipe &&
-            cocktailData.recipe.map((item, index) => (
-              <RecipeItems item={item} key={"recipeItem" + index} />
-            ))}
-        </tbody>
-      </table>
-      <div className="origin">
-        <h4>어원</h4>
-        <p>{cocktailData.cocktail.origin}</p>
+      <div className="recipe-container">
+        {cocktailData.recipe &&
+          cocktailData.recipe.map((item, index) => (
+            <RecipeItems item={item} key={"recipeItem" + index} />
+          ))}
       </div>
-      <div className="description">
-        <h4>특징</h4>
-        <p>{cocktailData.cocktail.description}</p>
+      <div className="text-container">
+        <div className="origin">
+          <h4>어원</h4>
+          <p>{cocktailData.cocktail.origin}</p>
+        </div>
+        <div className="description">
+          <h4>특징</h4>
+          <p>{cocktailData.cocktail.description}</p>
+        </div>
       </div>
     </div>
   );
