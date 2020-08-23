@@ -1,10 +1,14 @@
 package com.cocktailpick.back.user.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.cocktail.domain.CocktailRepository;
+import com.cocktailpick.back.cocktail.dto.CocktailResponse;
 import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
 import com.cocktailpick.back.common.exceptions.ErrorCode;
 import com.cocktailpick.back.favorite.domain.Favorite;
@@ -29,6 +33,13 @@ public class UserService {
 		User user = userRepository.findById(id)
 			.orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
 		return UserResponse.of(user);
+	}
+
+	public List<CocktailResponse> findFavorites(User user) {
+		return user.getFavorites().getFavorites().stream()
+			.map(Favorite::getCocktail)
+			.map(CocktailResponse::of)
+			.collect(Collectors.toList());
 	}
 
 	@Transactional
