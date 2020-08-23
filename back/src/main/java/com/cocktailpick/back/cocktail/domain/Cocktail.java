@@ -121,4 +121,8 @@ public class Cocktail extends BaseTimeEntity {
 	public boolean isAbvBetween(int max, int min) {
 		return (abv >= min) && (abv <= max);
 	}
+
+	public boolean isSameWith(Long cocktailId) {
+		return id.equals(cocktailId);
+	}
 }

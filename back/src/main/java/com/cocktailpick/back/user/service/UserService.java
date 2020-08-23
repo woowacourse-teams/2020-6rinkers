@@ -35,6 +35,6 @@ public class UserService {
 	}
 
 	public void deleteFavorite(User user, Long cocktailId) {
-
+		user.deleteFavorite(cocktailId);
 	}
 }

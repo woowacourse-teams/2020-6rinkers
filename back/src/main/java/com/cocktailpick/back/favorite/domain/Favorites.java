@@ -2,6 +2,7 @@ package com.cocktailpick.back.favorite.domain;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
@@ -20,5 +21,11 @@ public class Favorites {
 
 	public static Favorites empty() {
 		return new Favorites();
+	}
+
+	public void deleteFavorite(Long cocktailId) {
+		favorites = favorites.stream()
+			.filter(favorite -> !favorite.getCocktail().isSameWith(cocktailId))
+			.collect(Collectors.toSet());
 	}
 }

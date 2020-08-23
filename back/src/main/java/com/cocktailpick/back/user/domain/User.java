@@ -78,4 +78,8 @@ public class User {
 	public String getRoleName() {
 		return role.name();
 	}
+
+	public void deleteFavorite(Long cocktailId) {
+		favorites.deleteFavorite(cocktailId);
+	}
 }
