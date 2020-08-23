@@ -19,8 +19,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.cocktailpick.back.common.documentation.DocumentationWithSecurity;
 import com.cocktailpick.back.common.WithMockCustomUser;
+import com.cocktailpick.back.common.documentation.DocumentationWithSecurity;
 import com.cocktailpick.back.favorite.dto.FavoriteRequest;
 import com.cocktailpick.back.user.docs.UserDocumentation;
 import com.cocktailpick.back.user.domain.AuthProvider;
@@ -80,6 +80,17 @@ class UserControllerTest extends DocumentationWithSecurity {
 			.andExpect(status().isOk())
 			.andDo(print())
 			.andDo(UserDocumentation.findMe());
+	}
+
+	@DisplayName("즐겨찾기를 조회한다.")
+	@Test
+	void findFavorites() throws Exception {
+		when(userService.findFavorites(any())).thenReturn(anyList());
+
+		mockMvc.perform(get("/api/user/me/favorites")
+			.accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andDo(print());
 	}
 
 	@DisplayName("즐겨찾기를 추가한다.")
