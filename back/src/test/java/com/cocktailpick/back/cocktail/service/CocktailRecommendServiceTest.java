@@ -22,6 +22,7 @@ import com.cocktailpick.back.cocktail.dto.FlavorAnswer;
 import com.cocktailpick.back.cocktail.dto.RecommendRequest;
 import com.cocktailpick.back.cocktail.dto.TagPreferenceAnswer;
 import com.cocktailpick.back.cocktail.vo.UserPreferenceAnswer;
+import com.cocktailpick.back.favorite.domain.Favorites;
 import com.cocktailpick.back.tag.domain.CocktailTag;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
@@ -141,6 +142,6 @@ class CocktailRecommendServiceTest {
 		RecommendRequest recommendRequest = new RecommendRequest(abvAnswer, moodAnswer, flavorAnswer, preferenceAnswers,
 			nonPreferenceAnswers);
 
-		assertThat(cocktailRecommendService.recommend(recommendRequest)).isNotNull();
+		assertThat(cocktailRecommendService.recommendWithFavorite(recommendRequest, Favorites.empty())).isNotNull();
 	}
 }

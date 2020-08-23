@@ -16,6 +16,7 @@ import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.cocktail.domain.CocktailRepository;
 import com.cocktailpick.back.common.exceptions.ResourceNotFoundException;
 import com.cocktailpick.back.favorite.domain.Favorite;
+import com.cocktailpick.back.favorite.domain.Favorites;
 import com.cocktailpick.back.favorite.dto.FavoriteRequest;
 import com.cocktailpick.back.favorite.service.FavoriteRepository;
 import com.cocktailpick.back.user.domain.AuthProvider;
@@ -62,6 +63,7 @@ class UserServiceTest {
 
 		user2 = User.builder()
 			.name("toney")
+			.favorites(Favorites.empty())
 			.build();
 		cocktail = Cocktail.builder()
 			.id(1L)

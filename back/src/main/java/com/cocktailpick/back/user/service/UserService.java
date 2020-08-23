@@ -38,7 +38,7 @@ public class UserService {
 	public List<CocktailResponse> findFavorites(User user) {
 		return user.getFavorites().getFavorites().stream()
 			.map(Favorite::getCocktail)
-			.map(CocktailResponse::of)
+			.map(cocktail -> CocktailResponse.of(cocktail, true))
 			.collect(Collectors.toList());
 	}
 
