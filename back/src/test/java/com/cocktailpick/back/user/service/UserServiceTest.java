@@ -12,7 +12,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.cocktailpick.back.cocktail.domain.Cocktail;
+import com.cocktailpick.back.cocktail.domain.CocktailRepository;
 import com.cocktailpick.back.common.exceptions.ResourceNotFoundException;
+import com.cocktailpick.back.favorite.domain.Favorite;
+import com.cocktailpick.back.favorite.dto.FavoriteRequest;
+import com.cocktailpick.back.favorite.service.FavoriteRepository;
 import com.cocktailpick.back.user.domain.AuthProvider;
 import com.cocktailpick.back.user.domain.Role;
 import com.cocktailpick.back.user.domain.User;
@@ -26,11 +31,23 @@ class UserServiceTest {
 
 	private UserService userService;
 
+	@Mock
+	private FavoriteRepository favoriteRepository;
+
+	@Mock
+	private CocktailRepository cocktailRepository;
+
 	private User user;
+
+	private User user2;
+
+	private Cocktail cocktail;
+
+	private Favorite favorite;
 
 	@BeforeEach
 	void setUp() {
-		userService = new UserService(userRepository);
+		userService = new UserService(userRepository, favoriteRepository, cocktailRepository);
 
 		user = new User();
 		user.setId(1L);
@@ -42,6 +59,16 @@ class UserServiceTest {
 		user.setProvider(AuthProvider.local);
 		user.setRole(Role.ROLE_USER);
 		user.setProviderId("local");
+
+		user2 = User.builder()
+			.name("toney")
+			.build();
+		cocktail = Cocktail.builder()
+			.id(1L)
+			.name("toney")
+			.build();
+		favorite = new Favorite(1L, user, cocktail);
+
 	}
 
 	@DisplayName("내 정보를 조회한다.")
@@ -59,5 +86,15 @@ class UserServiceTest {
 
 		assertThatThrownBy(() -> userService.findMe(1L))
 			.isInstanceOf(ResourceNotFoundException.class);
+	}
+
+	@DisplayName("즐겨찾기를 추가한다.")
+	@Test
+	void addFavoriteTest() {
+		when(cocktailRepository.findById(anyLong())).thenReturn(Optional.of(cocktail));
+		when(favoriteRepository.save(any())).thenReturn(favorite);
+		userService.addFavorite(user2, new FavoriteRequest(1L));
+
+		verify(favoriteRepository).save(any());
 	}
 }
