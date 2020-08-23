@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
 
+import com.cocktailpick.back.cocktail.domain.Cocktail;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,5 +34,10 @@ public class Favorites {
 		favorites = favorites.stream()
 			.filter(favorite -> !favorite.getCocktail().isSameWith(cocktailId))
 			.collect(Collectors.toSet());
+	}
+
+	public boolean isContainCocktail(Cocktail cocktail) {
+		return favorites.stream()
+			.anyMatch(favorite -> favorite.isContainCocktail(cocktail));
 	}
 }
