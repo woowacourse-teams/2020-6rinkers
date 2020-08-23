@@ -111,6 +111,7 @@ public class CocktailDocumentation {
 				fieldWithPath("[].name").type(JsonFieldType.STRING).description("칵테일 이름"),
 				fieldWithPath("[].imageUrl").type(JsonFieldType.STRING).description("칵테일 이미지 URL"),
 				fieldWithPath("[].tags").type(JsonFieldType.ARRAY).description("칵테일 태그 리스트"),
+				fieldWithPath("[].tags.[].tagId").type(JsonFieldType.NUMBER).description("태그 아이디"),
 				fieldWithPath("[].tags.[].name").type(JsonFieldType.STRING).description("칵테일 태그 이름"),
 				fieldWithPath("[].tags.[].tagType").type(JsonFieldType.STRING).description("칵테일 태그 타입")
 			)

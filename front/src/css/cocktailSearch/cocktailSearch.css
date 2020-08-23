@@ -102,6 +102,35 @@
   margin: 1rem 0;
 }
 
+.searchTabContainer {
+  justify-self: flex-start;
+  margin-top: 3rem;
+  border-bottom: solid black 0.04rem;
+}
+
+.clickedTab,
+.unclickedTab {
+  outline: 0;
+  display: inline-block;
+  color: #1e1e1e;
+  background-color: white;
+  font-size: 16px;
+  padding: 0.2rem 0.8rem;
+  border: 0 solid rgba(192, 0, 0, 1);
+  cursor: pointer;
+}
+
+.clickedTab {
+  color: rgba(192, 0, 0, 1);
+  font-weight: bold;
+  border-bottom-width: 0.12rem;
+  transition: 0.2s all;
+}
+
+.unclickedTab:hover {
+  color: rgba(166, 0, 0, 0.9);
+}
+
 .cocktailSearchInput {
   margin-left: 8px;
 }
@@ -128,6 +157,29 @@
 
 .autoCocktailWord {
   padding: 8px;
+}
+
+.tagFilterContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 3rem auto;
+  width: 80%;
+}
+
+.filterTag {
+  margin: 0.15rem;
+  border: 0.02rem solid #1e1e1e;
+  padding: 0 0.4rem;
+  border-radius: 0.3rem;
+  color: #1e1e1e;
+  font-size: 14px;
+}
+
+.selectedTag {
+  color: white;
+  background-color: #a60000;
+  transition: 0.3s all;
 }
 
 @media screen and (max-width: 1024px) {

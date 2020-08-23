@@ -164,9 +164,9 @@ class CocktailControllerTest extends Documentation {
 	void findPageFilteredByTags() throws Exception {
 		List<CocktailResponse> cocktailResponses = Arrays.asList(
 			new CocktailResponse(1L, "싱가폴 슬링", "https://naver.com",
-				Collections.singletonList(new TagResponse("마지막 양심", "컨셉"))),
+				Collections.singletonList(new TagResponse(0L, "마지막 양심", "컨셉"))),
 			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
-				Arrays.asList(new TagResponse("쫄깃쫄깃", "식감"), new TagResponse("짭쪼름", "맛")))
+				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")))
 		);
 
 		given(cocktailService.findPageFilteredByTags(anyList(), anyLong(), anyInt())).willReturn(cocktailResponses);
