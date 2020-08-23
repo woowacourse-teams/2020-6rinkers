@@ -1,9 +1,6 @@
 package com.cocktailpick.back.user.domain;
 
-import java.util.List;
-
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -16,14 +13,15 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.security.core.GrantedAuthority;
-
-import com.cocktailpick.back.favorite.domain.Favorite;
 import com.cocktailpick.back.favorite.domain.Favorites;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
 @Table(name = "users", uniqueConstraints = {
 	@UniqueConstraint(columnNames = "email")
@@ -60,6 +58,22 @@ public class User {
 
 	@Embedded
 	private Favorites favorites = Favorites.empty();
+
+	@Builder
+	public User(Long id, String name, @Email String email, String imageUrl, Boolean emailVerified, String password,
+		@NotNull AuthProvider provider, String providerId, Role role,
+		Favorites favorites) {
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.imageUrl = imageUrl;
+		this.emailVerified = emailVerified;
+		this.password = password;
+		this.provider = provider;
+		this.providerId = providerId;
+		this.role = role;
+		this.favorites = favorites;
+	}
 
 	public String getRoleName() {
 		return role.name();
