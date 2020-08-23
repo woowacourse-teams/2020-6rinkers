@@ -125,4 +125,8 @@ public class Cocktail extends BaseTimeEntity {
 	public boolean containTagIds(List<Long> tagIds) {
 		return cocktailTags.containTagIds(tagIds);
 	}
+
+	public boolean isSameWith(Long cocktailId) {
+		return id.equals(cocktailId);
+	}
 }
