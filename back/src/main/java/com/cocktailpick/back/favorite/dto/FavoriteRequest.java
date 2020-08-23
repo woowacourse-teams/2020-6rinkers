@@ -1,6 +1,5 @@
 package com.cocktailpick.back.favorite.dto;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 
 import lombok.AccessLevel;
@@ -13,6 +12,5 @@ import lombok.NoArgsConstructor;
 @Getter
 public class FavoriteRequest {
 	@Positive
-	@NotBlank
 	private Long cocktailId;
 }
