@@ -7,8 +7,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import com.cocktailpick.back.config.AppProperties;
 
 @SpringBootApplication
-@EnableConfigurationProperties(
-	AppProperties.class)
+@EnableConfigurationProperties(AppProperties.class)
 public class BackApplication {
 
 	public static void main(String[] args) {

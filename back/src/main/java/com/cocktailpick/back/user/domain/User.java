@@ -1,7 +1,5 @@
 package com.cocktailpick.back.user.domain;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,32 +8,28 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
-import org.springframework.security.core.GrantedAuthority;
-
+import com.cocktailpick.back.common.domain.BaseTimeEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "users", uniqueConstraints = {
-	@UniqueConstraint(columnNames = "email")
-})
+@Table(name = "users")
 @Getter
 @Setter
-public class User {
+public class User extends BaseTimeEntity {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 
 	@Column(nullable = false)
 	private String name;
 
 	@Email
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String email;
 
 	private String imageUrl;

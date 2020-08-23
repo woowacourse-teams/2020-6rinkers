@@ -11,7 +11,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
@@ -24,7 +24,7 @@ import com.cocktailpick.back.tag.dto.TagResponse;
 import com.cocktailpick.back.tag.service.TagService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebMvcTest(controllers = {TagController.class})
+@SpringBootTest
 class TagControllerTest extends Documentation {
 	@MockBean
 	private TagService tagService;
