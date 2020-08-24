@@ -12,7 +12,7 @@
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  margin: 5rem 1rem 5rem 1rem;
+  margin: 3rem auto;
 }
 
 .search {
@@ -102,10 +102,17 @@
   margin: 1rem 0;
 }
 
+.searchTabContainerBox {
+  display: flex;
+  justify-content: flex-end;
+  width: 60%;
+}
+
 .searchTabContainer {
-  justify-self: flex-start;
+  display: inline-block;
+  align-self: flex-end;
   margin-top: 3rem;
-  border-bottom: solid black 0.04rem;
+  border-bottom: solid black 1px;
 }
 
 .clickedTab,
@@ -123,7 +130,7 @@
 .clickedTab {
   color: rgba(192, 0, 0, 1);
   font-weight: bold;
-  border-bottom-width: 0.12rem;
+  border-bottom-width: 2px;
   transition: 0.2s all;
 }
 
@@ -168,11 +175,11 @@
 }
 
 .filterTag {
-  margin: 0.15rem;
-  border: 0.02rem solid #1e1e1e;
+  margin: 0.2rem 0.15rem;
+  border: 0.02rem solid gray;
   padding: 0 0.4rem;
   border-radius: 0.3rem;
-  color: #1e1e1e;
+  color: gray;
   font-size: 14px;
   cursor: pointer;
 }
@@ -209,6 +216,12 @@
 @media screen and (max-width: 700px) {
   .searchedCocktailsContainer {
     grid-template-columns: repeat(1, 280px);
+  }
+
+  .searchTabContainerBox {
+    display: flex;
+    justify-content: center;
+    width: 100%;
   }
 
   .searchContainer {

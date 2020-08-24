@@ -83,7 +83,7 @@ const TagFilterContainer = ({ cocktails, setCocktails }) => {
       {allTags.map((tag, index) => {
         return (
           <div
-            className={"filterTag"}
+            className="filterTag"
             key={index}
             data-id={tag.id}
             onClick={onClickTag}

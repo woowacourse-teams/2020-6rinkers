@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import SearchedCocktails from "./SearchedCocktails";
 import "../../css/cocktailSearch/cocktailSearch.css";
 import SearchContainer from "./SearchContainer";
@@ -10,7 +10,7 @@ const CocktailSearch = () => {
 
   const tabs = [
     {
-      title: "이름으로\ 검색",
+      title: "이름으로 검색",
       content: (
         <SearchContainer cocktails={cocktails} setCocktails={setCocktails} />
       ),
@@ -29,20 +29,22 @@ const CocktailSearch = () => {
 
   return (
     <div className="cocktailSearchContainer">
-      <div className="searchTabContainer">
-        {tabs.map((tab, index) => {
-          return (
-            <button
-              className={index === tabIndex ? "clickedTab" : "unclickedTab"}
-              data-index={index}
-              onClick={(e) =>
-                setTabIndex(Number(e.currentTarget.dataset.index))
-              }
-            >
-              {tab.title}
-            </button>
-          );
-        })}
+      <div className="searchTabContainerBox">
+        <div className="searchTabContainer">
+          {tabs.map((tab, index) => {
+            return (
+              <button
+                className={index === tabIndex ? "clickedTab" : "unclickedTab"}
+                key={index}
+                data-index={index}
+                onClick={(e) =>
+                  setTabIndex(Number(e.currentTarget.dataset.index))}
+              >
+                {tab.title}
+              </button>
+            );
+          })}
+        </div>
       </div>
       <div>{tabs[tabIndex].content}</div>
       <SearchedCocktails cocktails={cocktails} />
