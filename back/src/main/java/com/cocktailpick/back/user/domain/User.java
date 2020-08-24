@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
+import com.cocktailpick.back.favorite.domain.Favorite;
 import com.cocktailpick.back.favorite.domain.Favorites;
 import com.cocktailpick.back.common.domain.BaseTimeEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -77,11 +78,15 @@ public class User extends BaseTimeEntity {
 		this.favorites = favorites;
 	}
 
-	public String getRoleName() {
-		return role.name();
-	}
-
 	public void deleteFavorite(Long cocktailId) {
 		favorites.deleteFavorite(cocktailId);
+	}
+
+	public boolean isDuplicated(Favorite favorite) {
+		return favorites.isDuplicated(favorite);
+	}
+
+	public String getRoleName() {
+		return role.name();
 	}
 }
