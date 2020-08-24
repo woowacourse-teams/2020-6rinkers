@@ -64,13 +64,22 @@ operation::cocktails/contain[snippets='http-request,http-response,request-parame
 
 operation::tags/upload[snippets='http-request,http-response,request-parts']
 
-[[resources-tags-findAll]]
+[[resources-tags-findTags]]
 === 태그 전체 조회
 
-operation::tags/findAll[snippets='http-request,http-response,response-fields']
+operation::tags/findTags[snippets='http-request,http-response,request-parameters,response-fields']
 
 [[resources-tags-create]]
 === 태그 생성
 
 operation::tags/create[snippets='http-request,http-response,request-fields']
 
+[[resources-tags-update]]
+=== 태그 수정
+
+operation::tags/update[snippets='http-request,http-response,path-parameters,request-fields']
+
+[[resources-tags-delete]]
+=== 태그 삭제
+
+operation::tags/delete[snippets='http-request,http-response,path-parameters']

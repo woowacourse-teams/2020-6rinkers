@@ -29,7 +29,7 @@ public class CocktailResponse {
 			TagResponse.listOf(cocktail.getTags()));
 	}
 
-	public static List<CocktailResponse> ofList(List<Cocktail> cocktails) {
+	public static List<CocktailResponse> listOf(List<Cocktail> cocktails) {
 		return cocktails.stream()
 			.map(CocktailResponse::of)
 			.collect(Collectors.toList());

@@ -18,10 +18,16 @@ public class TagDocumentation {
 	}
 
 	public static RestDocumentationResultHandler findTags() {
-		return document("tags/findAll",
+		return document("tags/findTags",
+			requestParameters(
+				parameterWithName("tagType").description("조회할 태그 타입"),
+				parameterWithName("size").description("조회할 태그의 수"),
+				parameterWithName("random").description("조회할 태그의 순서를 랜덤으로 할 지에 대한 여부")
+			),
 			responseFields(
-				fieldWithPath("[].name").type(JsonFieldType.STRING).description("태그 이름"),
-				fieldWithPath("[].tagType").type(JsonFieldType.STRING).description("태그 타입")
+				fieldWithPath("[].tagId").type(JsonFieldType.NUMBER).description("조회된 태그 ID"),
+				fieldWithPath("[].name").type(JsonFieldType.STRING).description("조회된 태그 이름"),
+				fieldWithPath("[].tagType").type(JsonFieldType.STRING).description("조회된 태그 타입")
 			)
 		);
 	}
@@ -34,6 +40,26 @@ public class TagDocumentation {
 			),
 			responseHeaders(
 				headerWithName("Location").description("생성한 태그 ID")
+			)
+		);
+	}
+
+	public static RestDocumentationResultHandler update() {
+		return document("tags/update",
+			pathParameters(
+				parameterWithName("id").description("수정할 태그 ID")
+			),
+			requestFields(
+				fieldWithPath("name").type(JsonFieldType.STRING).description("수정할 태그 이름"),
+				fieldWithPath("tagType").type(JsonFieldType.STRING).description("수정할 태그의 타입")
+			)
+		);
+	}
+
+	public static RestDocumentationResultHandler delete() {
+		return document("tags/delete",
+			pathParameters(
+				parameterWithName("id").description("삭제할 태그 ID")
 			)
 		);
 	}

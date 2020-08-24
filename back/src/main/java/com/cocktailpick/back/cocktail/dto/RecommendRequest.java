@@ -15,5 +15,5 @@ public class RecommendRequest {
 	private List<TagPreferenceAnswer> moodAnswers;
 	private FlavorAnswer flavorAnswer;
 	private List<TagPreferenceAnswer> preferenceAnswers;
-	private List<TagPreferenceAnswer> nonPreferenceAnswer;
+	private List<TagPreferenceAnswer> nonPreferenceAnswers;
 }
