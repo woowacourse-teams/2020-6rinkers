@@ -1,0 +1,85 @@
+@import url("https://fonts.googleapis.com/earlyaccess/notosanskr.css");
+
+.my-page-container {
+    display: flex;
+    flex-direction: column;
+    font-family: "Noto Sans KR", serif;
+    align-items: center;
+    justify-content: space-around;
+    margin: auto 0;
+}
+
+.my-page-container > h2 {
+    color: #a60000;
+    font-weight: 300;
+}
+
+.my-info-container {
+    width: 90%;
+    max-width: 30rem;
+    margin: 2rem;
+}
+
+.my-info-container > h3 {
+    color: #777777;
+}
+
+.my-info {
+    height: 8rem;
+    display: flex;
+    margin: 1rem 0;
+    padding: 0.5rem;
+    box-shadow: 0.3rem 0.3rem 0.8rem var(--little-dark-white);
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 1rem;
+}
+
+.user-image {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 6rem;
+    height: 6rem;
+    box-shadow: 0 0 0.5rem #777777;
+    position: relative;
+    border-radius: 50%;
+}
+
+.user-image > img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.my-info-details {
+    width: 50%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-bottom: 0.1rem;
+    border-bottom: #a60000 solid 0.01rem;
+}
+
+.user-email {
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: #777777;
+}
+
+.user-name {
+    font-size: 1.5rem;
+}
+
+.info-modify {
+    width: 5%;
+    color: #777777;
+}
+
+@media screen and (max-width: 700px) {
+    .my-page-container {
+        margin-top: 1rem;
+        justify-content: flex-start;
+    }
+}
