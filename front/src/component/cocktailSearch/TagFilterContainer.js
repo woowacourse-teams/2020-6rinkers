@@ -85,7 +85,7 @@ const TagFilterContainer = ({ cocktails, setCocktails }) => {
           <div
             className="filterTag"
             key={index}
-            data-id={tag.id}
+            data-id={tag.tagId}
             onClick={onClickTag}
           >
             {tag.name}
