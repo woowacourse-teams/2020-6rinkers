@@ -1,14 +1,13 @@
 package com.cocktailpick.back.tag.domain;
 
-import static org.assertj.core.api.Assertions.*;
-
+import com.cocktailpick.back.cocktail.domain.Cocktail;
+import com.cocktailpick.back.cocktail.domain.Flavor;
 import org.assertj.core.api.InstanceOfAssertFactories;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.cocktailpick.back.cocktail.domain.Cocktail;
-import com.cocktailpick.back.cocktail.domain.Flavor;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class CocktailTagTest {
 	private Cocktail cocktail;
@@ -69,11 +68,11 @@ class CocktailTagTest {
 	@Test
 	void getTagId() {
 		Tag tag = Tag.builder()
-			.id(0L).build();
+				.id(0L).build();
 
 		CocktailTag cocktailTag = new CocktailTag();
 		cocktailTag.setTag(tag);
 
-		assertThat(cocktailTag.getTagId()).isEqualTo(0L);
+		assertThat(cocktailTag.tagId()).isEqualTo(0L);
 	}
 }

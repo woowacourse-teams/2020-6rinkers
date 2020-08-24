@@ -1,18 +1,12 @@
 package com.cocktailpick.back.tag.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
-
 import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.common.domain.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
@@ -56,7 +50,7 @@ public class CocktailTag extends BaseTimeEntity {
 		return this.tag.isSameName(tag);
 	}
 
-	public Long getTagId() {
+	public Long tagId() {
 		return tag.getId();
 	}
 }
