@@ -10,6 +10,8 @@ import javax.persistence.SequenceGenerator;
 
 import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.common.domain.BaseTimeEntity;
+import com.cocktailpick.back.common.exceptions.ErrorCode;
+import com.cocktailpick.back.common.exceptions.InvalidValueException;
 import com.cocktailpick.back.user.domain.User;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -35,6 +37,9 @@ public class Favorite extends BaseTimeEntity {
 	private Cocktail cocktail;
 
 	public void setUser(User user) {
+		if (user.isDuplicated(this)) {
+			throw new InvalidValueException(ErrorCode.FAVORITE_DUPLICATED);
+		}
 		this.user = user;
 		user.getFavorites().addFavorite(this);
 	}

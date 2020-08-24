@@ -40,4 +40,9 @@ public class Favorites {
 		return favorites.stream()
 			.anyMatch(favorite -> favorite.isContainCocktail(cocktail));
 	}
+
+	public boolean isDuplicated(Favorite inputFavorite) {
+		return favorites.stream()
+			.anyMatch(favorite -> favorite.isContainCocktail(inputFavorite.getCocktail()));
+	}
 }

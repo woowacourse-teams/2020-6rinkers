@@ -13,7 +13,8 @@ public enum ErrorCode {
 	COCKTAIL_NOT_FOUND(400, "CO_001", "칵테일을 찾을 수 없습니다."),
 	RECIPE_ITEM_DUPLICATED(400, "RE_001", "칵테일에는 중복된 재료가 들어갈 수 없습니다."),
 	TAG_DUPLICATED(400, "TA_001", "칵테일에는 중복된 태그가 들어갈 수 없습니다."),
-	TAG_TYPE_NOT_FOUND(400, "TA_002", "해당 태그의 타입은 존재하지 않습니다.");
+	TAG_TYPE_NOT_FOUND(400, "TA_002", "해당 태그의 타입은 존재하지 않습니다."),
+	FAVORITE_DUPLICATED(400, "FA_001", "중복된 즐겨찾기를 추가할 수 없습니다.");
 
 	private final String code;
 	private final String message;
