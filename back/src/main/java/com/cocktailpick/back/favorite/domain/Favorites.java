@@ -31,9 +31,11 @@ public class Favorites {
 	}
 
 	public void deleteFavorite(Long cocktailId) {
-		favorites = favorites.stream()
+		Set<Favorite> deletedFavorites = favorites.stream()
 			.filter(favorite -> !favorite.getCocktail().isSameWith(cocktailId))
 			.collect(Collectors.toSet());
+		favorites.clear();
+		favorites.addAll(deletedFavorites);
 	}
 
 	public boolean isContainCocktail(Cocktail cocktail) {
