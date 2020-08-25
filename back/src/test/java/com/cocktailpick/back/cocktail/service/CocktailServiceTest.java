@@ -133,7 +133,31 @@ public class CocktailServiceTest {
 
 		when(cocktailRepository.findByNameContainingAndIdGreaterThan(any(), anyLong(), any())).thenReturn(cocktailPage);
 
-		assertThat(cocktailService.findPagedCocktails("", 0, 2)).hasSize(2);
+		assertThat(cocktailService.findPageContainingWord("", 0, 2)).hasSize(2);
+	}
+
+	@DisplayName("특정 태그 목록이 포함된 칵테일을 원하는 수 만큼 조회한다.")
+	@Test
+	void findPageFilteredByTags() {
+		Cocktail cocktail = mock(Cocktail.class);
+		when(cocktail.containTagIds(anyList())).thenReturn(true);
+
+		List<Cocktail> cocktails = new ArrayList<>(Collections.nCopies(20, cocktail));
+		when(cocktailRepository.findByIdGreaterThan(anyLong())).thenReturn(cocktails);
+
+		assertThat(cocktailService.findPageFilteredByTags(Arrays.asList(0L, 1L, 2L), 0, 15)).hasSize(15);
+	}
+
+	@DisplayName("특정 태그 목록이 포함된 칵테일이 원하는 수보다 적을 경우 가능한 만큼 조회한다.")
+	@Test
+	void findPageFilteredByTags_WhenCocktailsSmallerThanSize() {
+		Cocktail cocktail = mock(Cocktail.class);
+		when(cocktail.containTagIds(anyList())).thenReturn(true);
+
+		List<Cocktail> cocktails = new ArrayList<>(Collections.nCopies(5, cocktail));
+		when(cocktailRepository.findByIdGreaterThan(anyLong())).thenReturn(cocktails);
+
+		assertThat(cocktailService.findPageFilteredByTags(Collections.emptyList(), 0, 15)).hasSize(5);
 	}
 
 	@DisplayName("단일 칵테일을 조회한다.")

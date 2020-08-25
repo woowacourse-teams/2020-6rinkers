@@ -12,7 +12,7 @@
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  margin: 5rem 1rem 5rem 1rem;
+  margin: 3rem auto;
 }
 
 .search {
@@ -102,6 +102,42 @@
   margin: 1rem 0;
 }
 
+.searchTabContainerBox {
+  display: flex;
+  justify-content: flex-end;
+  width: 60%;
+}
+
+.searchTabContainer {
+  display: inline-block;
+  align-self: flex-end;
+  margin-top: 3rem;
+  border-bottom: solid gray 1px;
+}
+
+.clickedTab,
+.unclickedTab {
+  outline: 0;
+  display: inline-block;
+  color: gray;
+  background-color: transparent;
+  font-size: 16px;
+  padding: 0.2rem 0.8rem;
+  border: 0 solid var(--sharp-red);
+  cursor: pointer;
+}
+
+.clickedTab {
+  color: var(--sharp-red);
+  font-weight: bold;
+  border-bottom-width: 2px;
+  transition: 0.2s all;
+}
+
+.unclickedTab:hover {
+  color: var(--little-light-red);
+}
+
 .cocktailSearchInput {
   margin-left: 8px;
 }
@@ -114,7 +150,7 @@
   width: inherit;
   border-radius: 2px;
   font-size: 16px;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 20px 0 var(--little-dark-white);
   overflow-y: scroll;
   scroll-behavior: smooth;
   max-height: 240px;
@@ -122,12 +158,46 @@
 }
 
 .autoCocktailWords .highlight {
-  background-color: rgba(166, 0, 0, 0.9);
+  background-color: var(--sharp-red);
   color: white;
 }
 
 .autoCocktailWord {
   padding: 8px;
+}
+
+.tagSelectButtonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.tagSelectButton {
+  display: none;
+}
+
+.tagFilterContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 3rem auto;
+  width: 80%;
+}
+
+.filterTag {
+  margin: 0.2rem 0.15rem;
+  border: 0.02rem solid gray;
+  padding: 0 0.4rem;
+  border-radius: 0.3rem;
+  color: gray;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s all;
+}
+
+.selectedTag {
+  color: white;
+  background-color: #a60000;
+  transition: 0.3s all;
 }
 
 @media screen and (max-width: 1024px) {
@@ -156,6 +226,50 @@
 @media screen and (max-width: 700px) {
   .searchedCocktailsContainer {
     grid-template-columns: repeat(1, 280px);
+  }
+
+  .searchTabContainerBox {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .searchTabContainer {
+    margin-top: 0.5rem;
+  }
+
+  .clickedTab,
+  .unclickedTab {
+    padding: 0 3rem;
+  }
+
+  .tagSelectButton {
+    display: inline-block;
+    padding: 0.1rem 0.5rem;
+    margin: 1.5rem auto;
+    outline: 0;
+    border: solid 1px var(--sharp-red);
+    border-radius: 0.4rem;
+    background-color: var(--sharp-red);
+    color: white;
+    box-shadow: 2px 2px 2px var(--light-black);
+    z-index: 1;
+  }
+
+  .tagFilterContainer {
+    top: -2rem;
+    position: relative;
+    display: none;
+    margin-top: 0;
+    margin-bottom: 2rem;
+    border-radius: 6px;
+    padding: 1.5rem 0.5rem;
+    box-shadow: 0 0 20px 0px var(--little-dark-white);
+  }
+
+  .filterTag {
+    margin: 0.4rem 0.4rem;
   }
 
   .searchContainer {

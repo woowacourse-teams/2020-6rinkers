@@ -5,8 +5,10 @@ const client = axios.create({
 });
 
 export const fetchAllCocktails = () => client.get("/api/cocktails");
-export const fetchPagedCocktails = ({ contain, id, size }) =>
-  client.get("/api/cocktails/pages", { params: { contain, id, size } });
+export const fetchPagedCocktailsContainingWord = ({ contain, id, size }) =>
+  client.get("/api/cocktails/contain-word", { params: { contain, id, size } });
+export const fetchPagedCocktailsFilteredByTags = ({ tagIds, id, size }) =>
+  client.get("api/cocktails/contain-tags", { params: { tagIds, id, size } });
 export const fetchCocktail = (id) => client.get(`/api/cocktails/${id}`);
 export const fetchTodayCocktail = () => client.get("/api/cocktails/today");
 export const fetchCocktailsContaining = (contain) =>

@@ -22,7 +22,7 @@
   align-items: center;
   width: 90vw;
   height: 100%;
-  border-bottom: var(--light_black) solid 1px;
+  border-bottom: var(--light-black) solid 1px;
 }
 
 .cover {
@@ -31,7 +31,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--light_black);
+  background-color: var(--light-black);
   z-index: 3;
   cursor: pointer;
 }
@@ -113,7 +113,7 @@
     align-items: center;
     width: 90vw;
     height: 100%;
-    border-bottom: var(--light_black) solid 1px;
+    border-bottom: var(--light-black) solid 1px;
   }
 
   .sliderToggle {

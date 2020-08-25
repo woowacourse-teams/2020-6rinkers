@@ -1,18 +1,17 @@
 package com.cocktailpick.back.tag.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Embeddable;
-import javax.persistence.OneToMany;
-
 import com.cocktailpick.back.common.exceptions.ErrorCode;
 import com.cocktailpick.back.common.exceptions.InvalidValueException;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Embeddable;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
@@ -39,9 +38,9 @@ public class CocktailTags {
 		cocktailTags.add(cocktailTag);
 	}
 
-	private boolean isContainCocktailTag(CocktailTag cocktailTag) {
+	private boolean isContainCocktailTag(CocktailTag other) {
 		return cocktailTags.stream()
-			.anyMatch(tag -> tag.isSameNameWith(cocktailTag));
+			.anyMatch(cocktailTag -> cocktailTag.equals(other));
 	}
 
 	public boolean notContainsTag(Tag tag) {
@@ -55,5 +54,16 @@ public class CocktailTags {
 
 	public void deleteCocktailTag(CocktailTag cocktailTag) {
 		cocktailTags.remove(cocktailTag);
+	}
+
+	public boolean containTagIds(List<Long> tagIds) {
+		return tagIds.stream()
+			.allMatch(this::containTagId);
+	}
+
+	private boolean containTagId(Long tagId) {
+		return cocktailTags.stream()
+				.map(CocktailTag::tagId)
+			.anyMatch(oneTagId -> oneTagId.equals(tagId));
 	}
 }
