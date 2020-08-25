@@ -11,7 +11,12 @@ const SearchedCocktail = ({ cocktail, role }) => {
     >
       <div className="searchedCocktailName">{cocktail.name}</div>
       <div>{role ? <CocktailFavorite cocktail={cocktail} /> : <div />}</div>
-      <Link to={`/cocktails/${cocktail.id}`}>
+      <Link
+        to={{
+          pathname: `/cocktails/${cocktail.id}`,
+          role: role,
+        }}
+      >
         <div className="searchedCocktailImage">
           <img src={cocktail.imageUrl} alt={cocktail.name} />
         </div>

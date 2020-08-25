@@ -19,7 +19,7 @@ export const fetchPagedCocktails = ({ contain, id, size }) =>
       Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
     },
   });
-export const fetchCocktail = (id) => client.get(`/api/cocktails/${id}`);
+export const fetchCocktail = (id) => client.get(`/api/cocktails/${id}`, config);
 export const fetchTodayCocktail = () => client.get("/api/cocktails/today");
 export const fetchCocktailsContaining = (contain) =>
   client.get(`api/cocktails/auto-complete`, { params: { contain } });
@@ -34,7 +34,7 @@ export const deleteTag = (id) => client.delete(`/api/tags/${id}`);
 export const fetchAllTags = () => client.get("/api/tags");
 
 export const createRecommend = (recommend) =>
-  client.post(`/api/cocktails/recommend`, recommend);
+  client.post(`/api/cocktails/recommend`, recommend, config);
 
 export const createCocktailsByCsv = (file) =>
   client.post("/api/cocktails/upload/csv", file, {
@@ -55,9 +55,5 @@ export const addFavorite = (data) => {
   client.post("/api/user/me/favorites", data, config);
 };
 export const deleteFavorite = (id) => {
-  client.delete(`/api/user/me/favorites/${id}`, {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
-    },
-  });
+  client.delete(`/api/user/me/favorites/${id}`, config);
 };

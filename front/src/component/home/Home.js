@@ -3,10 +3,10 @@ import TodayCocktail from "./TodayCocktail";
 import "../../css/home/home.css";
 import Recommendation from "./Recommendation";
 
-const Home = (props) => {
+const Home = ({ role }) => {
   return (
     <div className="home">
-      <TodayCocktail />
+      <TodayCocktail role={role} />
       <Recommendation />
     </div>
   );
