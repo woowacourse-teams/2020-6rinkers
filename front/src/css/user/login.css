@@ -1,0 +1,117 @@
+.login-container {
+  text-align: center;
+  margin: auto;
+}
+
+.login-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40vmin;
+  height: 50vmin;
+  margin: auto;
+  border: 1px solid var(--light_black);
+  border-radius: 10px;
+  box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
+}
+
+.or-separator {
+  position: relative;
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  font-size: 1em;
+}
+
+.social-login {
+  display: flex;
+  flex-direction: column;
+}
+
+.social-btn {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid var(--light_black);
+  padding: 0.5em 0;
+  width: 300px;
+  height: 3em;
+  font-size: 1em;
+  justify-content: center;
+  align-items: center;
+  margin: .5em 0;
+  border-radius: 5px;
+}
+
+.social-btn > img {
+  width: 1.2em;
+  height: 1.2em;
+}
+
+.social-btn > p {
+  padding: 1em 2em;
+}
+
+.form-item {
+  width: 300px;
+}
+
+.form-control {
+  margin: 0;
+  padding: 4px 11px;
+  list-style: none;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  height: 45px;
+  font-size: 0.87em;
+  line-height: 45px;
+  color: rgba(0, 0, 0, 0.8);
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #e8e8e8;
+  border-radius: 4px;
+  transition: all 0.3s;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+
+.form-control:hover,
+.form-control:focus,
+.form-control:active {
+  border-color: #40a9ff;
+  outline: 0;
+  border-right-width: 1px !important;
+}
+
+.form-control:focus,
+.form-control:active {
+  box-shadow: 0 0 0 2px #1890ff;
+}
+
+.btn-primary {
+  display: block;
+  font-weight: 400;
+  text-align: center;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid #2098f3;
+  white-space: nowrap;
+  padding: 0 20px;
+  font-size: 14px;
+  border-radius: 4px;
+  height: 45px;
+  line-height: 45px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  position: relative;
+  color: var(--white);
+  background-color: #2098f3;
+  outline: none;
+  width: 100%;
+}

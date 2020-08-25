@@ -8,11 +8,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 
 import com.cocktailpick.back.common.docs.PingDocumentation;
-import com.cocktailpick.back.common.documentation.Documentation;
+import com.cocktailpick.back.common.documentation.DocumentationWithSecurity;
 
 @WebMvcTest(controllers = PingController.class)
-class PingControllerTest extends Documentation {
-
+class PingControllerTest extends DocumentationWithSecurity {
 	@Test
 	void ping() throws Exception {
 		this.mockMvc
