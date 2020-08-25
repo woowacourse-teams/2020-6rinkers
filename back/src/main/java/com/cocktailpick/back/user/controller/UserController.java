@@ -22,6 +22,7 @@ import com.cocktailpick.back.security.CurrentUser;
 import com.cocktailpick.back.security.UserPrincipal;
 import com.cocktailpick.back.user.domain.User;
 import com.cocktailpick.back.user.domain.UserRepository;
+import com.cocktailpick.back.user.dto.UserResponse;
 import com.cocktailpick.back.user.service.UserService;
 
 @RestController
@@ -35,9 +36,11 @@ public class UserController {
 
 	@GetMapping("/user/me")
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public User getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
-		return userRepository.findById(userPrincipal.getId())
+	public ResponseEntity<UserResponse> getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
+		User user = userRepository.findById(userPrincipal.getId())
 			.orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
+
+		return ResponseEntity.ok(UserResponse.of(user));
 	}
 
 	@GetMapping("/api/user/me/favorites")
