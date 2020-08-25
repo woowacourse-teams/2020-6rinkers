@@ -1,7 +1,7 @@
 :root {
   --black: #000000;
   --little-light-black: #111111;
-  --light_black: rgba(17, 17, 17, 0.4);
+  --light-black: rgba(17, 17, 17, 0.4);
   --red: #a60000;
   --light-red: rgba(166, 0, 0, 0.3);
   --little-light-red: rgba(166, 0, 0, 0.8);
@@ -11,6 +11,7 @@
   --light-blue: rgba(28, 30, 170, 0.8);
   --light-green: rgba(70, 170, 24, 0.8);
   --light-purple: rgba(157, 13, 182, 0.8);
+  --sharp-red: rgba(192, 0, 0, 1);
 }
 
 * {

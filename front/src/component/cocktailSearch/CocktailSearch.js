@@ -10,13 +10,13 @@ const CocktailSearch = () => {
 
   const tabs = [
     {
-      title: "이름으로 검색",
+      title: "Name",
       content: (
         <SearchContainer cocktails={cocktails} setCocktails={setCocktails} />
       ),
     },
     {
-      title: "태그로 검색",
+      title: "Tags",
       content: (
         <TagFilterContainer cocktails={cocktails} setCocktails={setCocktails} />
       ),
