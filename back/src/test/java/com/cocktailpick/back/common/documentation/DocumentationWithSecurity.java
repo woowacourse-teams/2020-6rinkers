@@ -6,7 +6,6 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
@@ -17,7 +16,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 
 import com.cocktailpick.back.user.domain.UserRepository;
 
-@Import(DocumentationConfig.class)
+@Import(SecurityDocumentationConfig.class)
 @ExtendWith(RestDocumentationExtension.class)
 public class DocumentationWithSecurity {
 	protected MockMvc mockMvc;

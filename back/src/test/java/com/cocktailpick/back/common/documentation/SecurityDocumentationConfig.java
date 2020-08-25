@@ -5,5 +5,5 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan(basePackages = "com.cocktailpick.back.security")
-public class DocumentationConfig {
+public class SecurityDocumentationConfig {
 }
