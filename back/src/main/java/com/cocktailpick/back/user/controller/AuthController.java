@@ -5,26 +5,16 @@ import java.net.URI;
 import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.cocktailpick.back.common.exceptions.BadRequestException;
-import com.cocktailpick.back.security.TokenProvider;
-import com.cocktailpick.back.user.domain.AuthProvider;
-import com.cocktailpick.back.user.domain.User;
-import com.cocktailpick.back.user.domain.UserRepository;
-import com.cocktailpick.back.user.dto.ApiResponse;
 import com.cocktailpick.back.user.dto.AuthResponse;
 import com.cocktailpick.back.user.dto.LoginRequest;
 import com.cocktailpick.back.user.dto.SignUpRequest;
+import com.cocktailpick.back.user.service.AuthService;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
@@ -32,53 +22,16 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 public class AuthController {
-
-	private AuthenticationManager authenticationManager;
-
-	private UserRepository userRepository;
-
-	private PasswordEncoder passwordEncoder;
-
-	private TokenProvider tokenProvider;
+	private final AuthService authService;
 
 	@PostMapping("/login")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-
-		Authentication authentication = authenticationManager.authenticate(
-			new UsernamePasswordAuthenticationToken(
-				loginRequest.getEmail(),
-				loginRequest.getPassword()
-			)
-		);
-
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-
-		String token = tokenProvider.createToken(authentication);
-		return ResponseEntity.ok(new AuthResponse(token));
+	public ResponseEntity<AuthResponse> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+		return ResponseEntity.ok(authService.authenticateUser(loginRequest));
 	}
 
 	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
-		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-			throw new BadRequestException("존재하는 Email입니다.");
-		}
-
-		User user = new User();
-		user.setName(signUpRequest.getName());
-		user.setEmail(signUpRequest.getEmail());
-		user.setPassword(signUpRequest.getPassword());
-		user.setProvider(AuthProvider.local);
-
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-		User result = userRepository.save(user);
-
-		URI location = ServletUriComponentsBuilder
-			.fromCurrentContextPath().path("/user/me")
-			.buildAndExpand(result.getId()).toUri();
-
-		return ResponseEntity.created(location)
-			.body(new ApiResponse(true, "회원가입되었습니다."));
+	public ResponseEntity<Void> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
+		Long userId = authService.registerUser(signUpRequest);
+		return ResponseEntity.created(URI.create("/api/user/" + userId)).build();
 	}
-
 }
