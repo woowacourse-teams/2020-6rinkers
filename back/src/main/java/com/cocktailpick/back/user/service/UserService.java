@@ -45,6 +45,7 @@ public class UserService {
 		return favoriteRepository.save(favorite).getId();
 	}
 
+	@Transactional
 	public void deleteFavorite(User user, Long cocktailId) {
 		user.deleteFavorite(cocktailId);
 	}
