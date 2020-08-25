@@ -13,12 +13,12 @@ import com.cocktailpick.back.user.domain.UserRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
-@RequestMapping("/api/user")
 @RestController
+@RequestMapping("/api/user")
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 public class UserController {
 
-	private UserRepository userRepository;
+	private final UserRepository userRepository;
 
 	@GetMapping("/me")
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")

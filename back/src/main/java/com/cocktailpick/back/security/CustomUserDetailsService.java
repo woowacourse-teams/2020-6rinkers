@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 public class CustomUserDetailsService implements UserDetailsService {
-	UserRepository userRepository;
+	final UserRepository userRepository;
 
 	@Override
 	@Transactional(readOnly = true)
