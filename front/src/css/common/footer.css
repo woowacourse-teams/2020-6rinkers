@@ -15,7 +15,7 @@
   justify-content: space-around;
   height: 65%;
   width: 100px;
-  border: var(--light_black) 1px solid;
+  border: var(--light-black) 1px solid;
   border-radius: 10px;
   margin-bottom: 0.5rem;
 }

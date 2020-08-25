@@ -99,10 +99,30 @@ public class CocktailDocumentation {
 		return document("cocktails/deleteAll");
 	}
 
-	public static RestDocumentationResultHandler findPagedCocktails() {
-		return document("cocktails/findPagedCocktails",
+	public static RestDocumentationResultHandler findPagedCocktailsContainingWord() {
+		return document("cocktails/contain-word/find",
 			requestParameters(
-				parameterWithName("id").description("조회할 페이지 번호"),
+				parameterWithName("id").description("이 아이디보다 큰 칵테일 조회"),
+				parameterWithName("size").description("조회할 칵테일 갯수"),
+				parameterWithName("contain").description("칵테일에 포함되어야하는 단어")
+			),
+			responseFields(
+				fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("칵테일 ID"),
+				fieldWithPath("[].name").type(JsonFieldType.STRING).description("칵테일 이름"),
+				fieldWithPath("[].imageUrl").type(JsonFieldType.STRING).description("칵테일 이미지 URL"),
+				fieldWithPath("[].tags").type(JsonFieldType.ARRAY).description("칵테일 태그 리스트"),
+				fieldWithPath("[].tags.[].tagId").type(JsonFieldType.NUMBER).description("태그 아이디"),
+				fieldWithPath("[].tags.[].name").type(JsonFieldType.STRING).description("칵테일 태그 이름"),
+				fieldWithPath("[].tags.[].tagType").type(JsonFieldType.STRING).description("칵테일 태그 타입")
+			)
+		);
+	}
+
+	public static RestDocumentationResultHandler findPagedCocktailsFilteredByTag() {
+		return document("cocktails/contain-tags/find",
+			requestParameters(
+				parameterWithName("id").description("이 아이디보다 큰 칵테일 조회"),
+				parameterWithName("tagIds").description("칵테일에 포함되어야하는 태그 아이디 리스트"),
 				parameterWithName("size").description("조회할 칵테일 갯수")
 			),
 			responseFields(
@@ -113,7 +133,8 @@ public class CocktailDocumentation {
 				fieldWithPath("[].tags.[].tagId").type(JsonFieldType.NUMBER).description("칵테일 태그 ID"),
 				fieldWithPath("[].tags.[].name").type(JsonFieldType.STRING).description("칵테일 태그 이름"),
 				fieldWithPath("[].tags.[].tagType").type(JsonFieldType.STRING).description("칵테일 태그 타입")
-			));
+			)
+		);
 	}
 
 	public static RestDocumentationResultHandler upload() {
@@ -173,7 +194,7 @@ public class CocktailDocumentation {
 		);
 	}
 
-	public static RestDocumentationResultHandler contain() {
+	public static RestDocumentationResultHandler cocktailAutoComplete() {
 		return document("cocktails/contain",
 			requestParameters(
 				parameterWithName("contain").description("조회시, 포함되는 단어")

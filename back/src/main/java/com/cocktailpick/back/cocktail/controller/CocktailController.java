@@ -41,10 +41,19 @@ public class CocktailController {
 		return ResponseEntity.ok(cocktailService.findAllCocktails());
 	}
 
-	@GetMapping("/pages")
-	public ResponseEntity<List<CocktailResponse>> findPagedCocktails(@RequestParam(defaultValue = "") String contain,
+	@GetMapping("/contain-word")
+	public ResponseEntity<List<CocktailResponse>> findPageContainingWord(
+		@RequestParam(defaultValue = "") String contain,
 		@RequestParam long id, @RequestParam int size) {
-		List<CocktailResponse> cocktailResponses = cocktailService.findPagedCocktails(contain, id, size);
+		List<CocktailResponse> cocktailResponses = cocktailService.findPageContainingWord(contain, id, size);
+		return ResponseEntity.ok(cocktailResponses);
+	}
+
+	@GetMapping("/contain-tags")
+	public ResponseEntity<List<CocktailResponse>> findPageFilteredByTags(
+		@RequestParam(defaultValue = "") List<Long> tagIds, @RequestParam long id,
+		@RequestParam int size) {
+		List<CocktailResponse> cocktailResponses = cocktailService.findPageFilteredByTags(tagIds, id, size);
 		return ResponseEntity.ok(cocktailResponses);
 	}
 

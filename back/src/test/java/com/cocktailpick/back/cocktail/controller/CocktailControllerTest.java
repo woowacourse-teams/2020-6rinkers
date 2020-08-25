@@ -110,24 +110,25 @@ class CocktailControllerTest extends Documentation {
 			.andDo(CocktailDocumentation.findCocktails());
 	}
 
-	@DisplayName("원하는 수만큼 페이징 된 칵테일을 조회한다.")
+	@DisplayName("특정 단어가 포함된 칵테일을 원하는 수 만큼 조회한다.")
 	@Test
-	void findPagedCocktails() throws Exception {
+	void findPageContainingWord() throws Exception {
 		List<CocktailResponse> cocktailResponses = Arrays.asList(
 			new CocktailResponse(1L, "싱가폴 슬링", "https://naver.com",
 				Collections.singletonList(new TagResponse(1L, "마지막 양심", "컨셉"))),
 			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
 				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")))
 		);
-		given(cocktailService.findPagedCocktails("", 0, 2)).willReturn(cocktailResponses);
+		given(cocktailService.findPageContainingWord("블루", 0, 2)).willReturn(cocktailResponses);
 
-		mockMvc.perform(get("/api/cocktails/pages")
+		mockMvc.perform(get("/api/cocktails/contain-word")
+			.param("contain", "블루")
 			.param("id", "0")
 			.param("size", "2")
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andDo(print())
-			.andDo(CocktailDocumentation.findPagedCocktails());
+			.andDo(CocktailDocumentation.findPagedCocktailsContainingWord());
 	}
 
 	@DisplayName("칵테일을 단일 조회한다.")
@@ -156,6 +157,40 @@ class CocktailControllerTest extends Documentation {
 			.andExpect(header().string("Location", "/api/cocktails/1"))
 			.andDo(print())
 			.andDo(CocktailDocumentation.createCocktail());
+	}
+
+	@DisplayName("특정 태그가 포함된 칵테일을 원하는 수 만큼 조회한다.")
+	@Test
+	void findPageFilteredByTags() throws Exception {
+		List<CocktailResponse> cocktailResponses = Arrays.asList(
+			new CocktailResponse(1L, "싱가폴 슬링", "https://naver.com",
+				Collections.singletonList(new TagResponse(0L, "마지막 양심", "컨셉"))),
+			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
+				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")))
+		);
+
+		given(cocktailService.findPageFilteredByTags(anyList(), anyLong(), anyInt())).willReturn(cocktailResponses);
+
+		mockMvc.perform((get("/api/cocktails/contain-tags"))
+			.param("tagIds", "1", "2", "3")
+			.param("id", "0")
+			.param("size", "15")
+			.accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andDo(print())
+			.andDo(CocktailDocumentation.findPagedCocktailsFilteredByTag());
+	}
+
+	@DisplayName("태그 목록을 넣지 않았을 때 칵테일을 원하는 수 만큼 조회한다.")
+	@Test
+	void findPageFilteredByTags_WhenContainIsNull() throws Exception {
+		mockMvc.perform((get("/api/cocktails/contain-tags"))
+			.param("tagIds", (String)null)
+			.param("id", "0")
+			.param("size", "15")
+			.accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andDo(print());
 	}
 
 	@DisplayName("칵테일을 수정한다.")
@@ -282,6 +317,6 @@ class CocktailControllerTest extends Documentation {
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andDo(print())
-			.andDo(CocktailDocumentation.contain());
+			.andDo(CocktailDocumentation.cocktailAutoComplete());
 	}
 }
