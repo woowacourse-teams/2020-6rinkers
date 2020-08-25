@@ -12,7 +12,6 @@ import CocktailDetailSearch from "../component/cocktailSearch/CocktailDetailSear
 import Question from "../component/recommend/Question";
 import Result from "../component/result/Result";
 import Bar from "../component/bar/Bar";
-import Result from "../component/recommend/Result";
 import OAuth2RedirectHandler from "../oauth2/OAuth2RedirectHandler";
 import Login from "../component/user/Login";
 import Signup from "../component/user/Signup";
