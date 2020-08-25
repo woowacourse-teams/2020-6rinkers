@@ -75,6 +75,10 @@
   color: var(--white);
 }
 
+.line-through {
+  text-decoration: line-through;
+}
+
 .next-stage {
   font-family: inherit;
   font-size: 1rem;
