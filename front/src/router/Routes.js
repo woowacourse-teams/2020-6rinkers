@@ -98,7 +98,9 @@ const Routes = ({ cocktails, setCocktails }) => {
         <Route path="/admin/tags">
           <TagAdmin role={role} />
         </Route>
-        <Route path="/cocktails/search" component={CocktailSearch} />
+        <Route path="/cocktails/search">
+          <CocktailSearch role={role} />
+        </Route>
         <Route path="/cocktails/:id" component={CocktailDetailSearch} />
         <Route path="/recommend">
           <Question cocktails={cocktails} setCocktails={setCocktails} />

@@ -1,10 +1,10 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import SearchedCocktails from "./SearchedCocktails";
 import "../../css/cocktailSearch/cocktailSearch.css";
 import SearchContainer from "./SearchContainer";
-import {fetchPagedCocktails} from "../../api";
+import { fetchPagedCocktails } from "../../api";
 
-const CocktailSearch = () => {
+const CocktailSearch = ({ role }) => {
   const [loading, setLoading] = useState(false);
   const [cocktails, setCocktails] = useState([]);
   const [lastCocktailId, setLastCocktailId] = useState(0);
@@ -48,7 +48,7 @@ const CocktailSearch = () => {
 
     if (
       document.documentElement.scrollTop +
-      document.documentElement.clientHeight >=
+        document.documentElement.clientHeight >=
       document.documentElement.scrollHeight - threshold
     ) {
       await toggleLoading();
@@ -72,8 +72,8 @@ const CocktailSearch = () => {
 
   return (
     <div className="cocktailSearchContainer">
-      <SearchContainer onUpdateSearchWord={updateSearchWord}/>
-      <SearchedCocktails cocktails={cocktails}/>
+      <SearchContainer onUpdateSearchWord={updateSearchWord} />
+      <SearchedCocktails cocktails={cocktails} role={role} />
     </div>
   );
 };

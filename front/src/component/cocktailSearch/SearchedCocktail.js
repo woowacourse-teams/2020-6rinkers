@@ -1,14 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import CircularBox from "../common/CircularBox";
+import CocktailFavorite from "./CocktailFavorite";
 
-const SearchedCocktail = ({ cocktail }) => {
+const SearchedCocktail = ({ cocktail, role }) => {
   return (
     <div
       className="searchedCocktailContainer"
       data-search-cocktail={cocktail.id}
     >
       <div className="searchedCocktailName">{cocktail.name}</div>
+      <div>{role ? <CocktailFavorite cocktail={cocktail} /> : <div />}</div>
       <Link to={`/cocktails/${cocktail.id}`}>
         <div className="searchedCocktailImage">
           <img src={cocktail.imageUrl} alt={cocktail.name} />

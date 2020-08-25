@@ -1,13 +1,24 @@
 import axios from "axios";
-import {ACCESS_TOKEN} from "../constants";
+import { ACCESS_TOKEN } from "../constants";
 
 const client = axios.create({
   baseURL: `//${process.env.REACT_APP_HOST}`,
 });
 
+const config = {
+  headers: {
+    Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+  },
+};
+
 export const fetchAllCocktails = () => client.get("/api/cocktails");
 export const fetchPagedCocktails = ({ contain, id, size }) =>
-  client.get("/api/cocktails/pages", { params: { contain, id, size } });
+  client.get("/api/cocktails/pages", {
+    params: { contain, id, size },
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+    },
+  });
 export const fetchCocktail = (id) => client.get(`/api/cocktails/${id}`);
 export const fetchTodayCocktail = () => client.get("/api/cocktails/today");
 export const fetchCocktailsContaining = (contain) =>
@@ -41,9 +52,12 @@ export const createTagsByCsv = (file) =>
   });
 
 export const addFavorite = (data) => {
-    client.post("/api/user/me/favorites", data, {
-        headers: {
-            Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
-        },
-    })
-}
+  client.post("/api/user/me/favorites", data, config);
+};
+export const deleteFavorite = (id) => {
+  client.delete(`/api/user/me/favorites/${id}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+    },
+  });
+};
