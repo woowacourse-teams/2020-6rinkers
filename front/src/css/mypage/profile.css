@@ -1,0 +1,87 @@
+@import url("https://fonts.googleapis.com/earlyaccess/notosanskr.css");
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    font-family: "Noto Sans KR", serif;
+    align-items: center;
+    justify-content: space-around;
+    margin: auto 0;
+}
+
+.profile-container > h2 {
+    color: #a60000;
+    font-weight: 300;
+}
+
+.profile-image-container {
+    width: 90%;
+    max-width: 30rem;
+    margin: 2rem;
+}
+
+.profile-image {
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+.profile-image-box {
+    position: relative;
+    max-width: 15rem;
+    max-height: 15rem;
+}
+
+.profile-image-box > .user-image {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 0.5rem #777777;
+    border-radius: 50%;
+}
+
+.profile-image-box > .user-image > img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.profile-image-update {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 5%;
+    bottom: 5%;
+    width: 15%;
+    height: 15%;
+    border-radius: 50%;
+    background: #777777;
+}
+
+.profile-image-update > label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-image-update > label > input {
+    display: none;
+}
+
+.profile-image-update > label > img {
+    max-width: 60%;
+    max-height: 60%;
+}
+
+@media screen and (max-width: 700px) {
+    .profile-image-box {
+        max-width: 10rem;
+        max-height: 10rem;
+    }
+
+    .profile-image-update {
+        width: 20%;
+        height: 20%;
+    }
+}

@@ -19,6 +19,7 @@ import Signup from "../component/user/Signup";
 import Profile from "../component/user/Profile";
 import { ACCESS_TOKEN, USER_PROTOTYPE } from "../constants";
 import { getCurrentUser } from "../utils/APIUtils";
+import Profile from "../component/mypage/Profile";
 
 const Routes = ({ cocktails, setCocktails }) => {
   const [user, setUser] = useState({
