@@ -40,7 +40,8 @@ public class CocktailDocumentation {
 				fieldWithPath("[].tags").type(JsonFieldType.ARRAY).description("칵테일 태그 리스트"),
 				fieldWithPath("[].tags.[].tagId").type(JsonFieldType.NUMBER).description("칵테일 태그 ID"),
 				fieldWithPath("[].tags.[].name").type(JsonFieldType.STRING).description("칵테일 태그 이름"),
-				fieldWithPath("[].tags.[].tagType").type(JsonFieldType.STRING).description("칵테일 태그 타입")
+				fieldWithPath("[].tags.[].tagType").type(JsonFieldType.STRING).description("칵테일 태그 타입"),
+				fieldWithPath("[].favorite").type(JsonFieldType.BOOLEAN).description("칵테일 즐겨찾기 여부")
 			));
 	}
 
@@ -60,7 +61,8 @@ public class CocktailDocumentation {
 				fieldWithPath("sweet").type(JsonFieldType.BOOLEAN).description("칵테일의 단 맛 유무"),
 				fieldWithPath("sour").type(JsonFieldType.BOOLEAN).description("칵테일 신 맛 유무"),
 				fieldWithPath("bitter").type(JsonFieldType.BOOLEAN).description("칵테일 쓴 맛 유무"),
-				fieldWithPath("recipe").type(JsonFieldType.ARRAY).description("칵테일 재료 이름")
+				fieldWithPath("recipe").type(JsonFieldType.ARRAY).description("칵테일 재료 이름"),
+				fieldWithPath("favorite").type(JsonFieldType.BOOLEAN).description("칵테일 즐겨찾기 여부")
 			)
 		);
 	}
@@ -113,7 +115,8 @@ public class CocktailDocumentation {
 				fieldWithPath("[].tags").type(JsonFieldType.ARRAY).description("칵테일 태그 리스트"),
 				fieldWithPath("[].tags.[].tagId").type(JsonFieldType.NUMBER).description("태그 아이디"),
 				fieldWithPath("[].tags.[].name").type(JsonFieldType.STRING).description("칵테일 태그 이름"),
-				fieldWithPath("[].tags.[].tagType").type(JsonFieldType.STRING).description("칵테일 태그 타입")
+				fieldWithPath("[].tags.[].tagType").type(JsonFieldType.STRING).description("칵테일 태그 타입"),
+				fieldWithPath("[].favorite.").type(JsonFieldType.BOOLEAN).description("칵테일 즐겨찾기 여부")
 			)
 		);
 	}
@@ -132,7 +135,8 @@ public class CocktailDocumentation {
 				fieldWithPath("[].tags").type(JsonFieldType.ARRAY).description("칵테일 태그 리스트"),
 				fieldWithPath("[].tags.[].tagId").type(JsonFieldType.NUMBER).description("칵테일 태그 ID"),
 				fieldWithPath("[].tags.[].name").type(JsonFieldType.STRING).description("칵테일 태그 이름"),
-				fieldWithPath("[].tags.[].tagType").type(JsonFieldType.STRING).description("칵테일 태그 타입")
+				fieldWithPath("[].tags.[].tagType").type(JsonFieldType.STRING).description("칵테일 태그 타입"),
+				fieldWithPath("[].favorite").type(JsonFieldType.BOOLEAN).description("칵테일 즐겨찾기 여부")
 			)
 		);
 	}
@@ -150,7 +154,8 @@ public class CocktailDocumentation {
 				fieldWithPath("id").type(JsonFieldType.NUMBER).description("오늘의 칵테일 ID"),
 				fieldWithPath("name").type(JsonFieldType.STRING).description("칵테일 이름"),
 				fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("칵테일 이미지 URL"),
-				fieldWithPath("tags").type(JsonFieldType.ARRAY).description("칵테일 태그 리스트")
+				fieldWithPath("tags").type(JsonFieldType.ARRAY).description("칵테일 태그 리스트"),
+				fieldWithPath("favorite").type(JsonFieldType.BOOLEAN).description("칵테일 즐겨찾기 여부")
 			)
 		);
 	}
@@ -189,7 +194,8 @@ public class CocktailDocumentation {
 				fieldWithPath("[].sweet").type(JsonFieldType.BOOLEAN).description("칵테일의 단 맛 유무"),
 				fieldWithPath("[].sour").type(JsonFieldType.BOOLEAN).description("칵테일 신 맛 유무"),
 				fieldWithPath("[].bitter").type(JsonFieldType.BOOLEAN).description("칵테일 쓴 맛 유무"),
-				fieldWithPath("[].recipe").type(JsonFieldType.ARRAY).description("칵테일 재료 이름")
+				fieldWithPath("[].recipe").type(JsonFieldType.ARRAY).description("칵테일 재료 이름"),
+				fieldWithPath("[].favorite").type(JsonFieldType.BOOLEAN).description("칵테일 즐겨찾기 여부")
 			)
 		);
 	}
@@ -203,7 +209,8 @@ public class CocktailDocumentation {
 				fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("칵테일 ID"),
 				fieldWithPath("[].name").type(JsonFieldType.STRING).description("칵테일 이름"),
 				fieldWithPath("[].imageUrl").type(JsonFieldType.STRING).description("칵테일 이미지 URL"),
-				fieldWithPath("[].tags").type(JsonFieldType.ARRAY).description("칵테일 태그 리스트")
+				fieldWithPath("[].tags").type(JsonFieldType.ARRAY).description("칵테일 태그 리스트"),
+				fieldWithPath("[].favorite").type(JsonFieldType.BOOLEAN).description("칵테일 즐겨찾기 여부")
 			));
 	}
 }

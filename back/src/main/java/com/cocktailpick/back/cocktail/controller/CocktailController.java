@@ -63,15 +63,20 @@ public class CocktailController {
 				user.getFavorites());
 			return ResponseEntity.ok(cocktailResponses);
 		}
-		return ResponseEntity.ok(cocktailService.findPagedCocktails(contain, id, size));
+		return ResponseEntity.ok(cocktailService.findPageContainingWord(contain, id, size));
 	}
 
 	@GetMapping("/contain-tags")
-	public ResponseEntity<List<CocktailResponse>> findPageFilteredByTags(
-		@RequestParam(defaultValue = "") List<Long> tagIds, @RequestParam long id,
-		@RequestParam int size) {
-		List<CocktailResponse> cocktailResponses = cocktailService.findPageFilteredByTags(tagIds, id, size);
-		return ResponseEntity.ok(cocktailResponses);
+	public ResponseEntity<List<CocktailResponse>> findPageFilteredByTags(@CurrentUser UserPrincipal userPrincipal,
+		@RequestParam(defaultValue = "") List<Long> tagIds, @RequestParam long id, @RequestParam int size) {
+		if (userPrincipal != null) {
+			User user = userRepository.findById(userPrincipal.getId())
+				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
+			List<CocktailResponse> cocktailResponses = cocktailService.findPageFilteredByTagsWithFavorite(tagIds, id,
+				size, user.getFavorites());
+			return ResponseEntity.ok(cocktailResponses);
+		}
+		return ResponseEntity.ok(cocktailService.findPageFilteredByTags(tagIds, id, size));
 	}
 
 	@GetMapping("/{id}")
@@ -116,12 +121,6 @@ public class CocktailController {
 		return ResponseEntity.ok(cocktailService.findCocktailOfToday());
 	}
 
-	@PostMapping("/upload/csv")
-	public ResponseEntity<Void> addCocktailsByCsv(@RequestPart MultipartFile file) {
-		cocktailService.saveAll(file);
-		return ResponseEntity.created(URI.create("/api/cocktails")).build();
-	}
-
 	@PostMapping("/recommend")
 	public ResponseEntity<List<CocktailDetailResponse>> recommend(@CurrentUser UserPrincipal userPrincipal,
 		@RequestBody RecommendRequest recommendRequests) {
@@ -129,13 +128,18 @@ public class CocktailController {
 			User user = userRepository.findById(userPrincipal.getId())
 				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
 			List<CocktailDetailResponse> cocktailDetailResponses = cocktailRecommendService.recommendWithFavorite(
-				recommendRequests,
-				user.getFavorites());
+				recommendRequests, user.getFavorites());
 			return ResponseEntity.ok(cocktailDetailResponses);
 		}
 
 		List<CocktailDetailResponse> cocktailDetailResponses = cocktailRecommendService.recommend(recommendRequests);
 		return ResponseEntity.ok(cocktailDetailResponses);
+	}
+
+	@PostMapping("/upload/csv")
+	public ResponseEntity<Void> addCocktailsByCsv(@RequestPart MultipartFile file) {
+		cocktailService.saveAll(file);
+		return ResponseEntity.created(URI.create("/api/cocktails")).build();
 	}
 
 	@GetMapping("/auto-complete")
