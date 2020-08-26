@@ -42,8 +42,6 @@
     justify-content: center;
     width: 5rem;
     height: 5rem;
-    min-width: 5rem;
-    min-height: 5rem;
     box-shadow: 0 0 0.5rem #777777;
     border-radius: 50%;
 }
@@ -59,7 +57,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    padding-bottom: 0.1rem;
+    padding-bottom: 1px;
     border-bottom: #a60000 solid 0.01rem;
 }
 
@@ -75,13 +73,40 @@
 }
 
 .info-modify {
-    min-width: 5%;
-    width: 5%;
+    width: 1rem;
 }
 
 @media screen and (max-width: 700px) {
     .my-page-container {
         margin-top: 1rem;
         justify-content: flex-start;
+    }
+
+    .my-info-container {
+        max-height: 20rem;
+    }
+
+    .my-info-details {
+        height: auto;
+    }
+
+    .my-info > .user-image {
+        width: 3.5rem;
+        height: 3.5rem;
+    }
+
+    .my-info-details > .user-email {
+        white-space: normal;
+        font-size: 0.5rem;
+        font-weight: 300;
+        color: #777777;
+    }
+
+    .my-info-details > .user-name {
+        font-size: 1rem;
+    }
+
+    .my-info {
+        height: 6rem;
     }
 }

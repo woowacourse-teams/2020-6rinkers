@@ -5,7 +5,7 @@ import "../../css/mypage/myPage.css";
 const MyPage = () => {
   const [user, setUser] = useState({});
 
-  async function fetchUser() {
+  function fetchUser() {
     return {
       imageUrl:
         "https://avatars2.githubusercontent.com/u/37579660?s=400&u=8c1062c7aad1f67b35bd38ad60ce04fa4cd11a37&v=4",
@@ -14,8 +14,8 @@ const MyPage = () => {
     };
   }
 
-  const initUser = async () => {
-    setUser(await fetchUser());
+  const initUser = () => {
+    setUser(fetchUser());
   };
 
   useEffect(() => initUser(), []);
