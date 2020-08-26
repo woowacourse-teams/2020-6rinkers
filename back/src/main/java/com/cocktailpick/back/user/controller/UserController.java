@@ -38,8 +38,8 @@ public class UserController {
 
 	@GetMapping("/me")
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public ResponseEntity<UserResponse> getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
-		return ResponseEntity.ok(userService.findMe(userPrincipal.getId()));
+	public ResponseEntity<UserResponse> getCurrentUser(@CurrentUser User user) {
+		return ResponseEntity.ok(UserResponse.of(user));
 	}
 
 	@GetMapping("/me/favorites")
