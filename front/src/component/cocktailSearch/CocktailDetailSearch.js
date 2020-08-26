@@ -3,11 +3,13 @@ import { fetchCocktail } from "../../api";
 import CircularBox from "../common/CircularBox";
 import "../../css/cocktailSearch/cocktailDetailSearch.css";
 import RecipeItems from "./RecipeItems";
+import CocktailFavorite from "./CocktailFavorite";
 import { DARK_GREEN, DARK_BLUE } from "../../constants/Color";
 import { Link } from "react-router-dom";
 
-const CocktailDetailSearch = ({ match }) => {
-  const { id } = match.params;
+const CocktailDetailSearch = (props) => {
+  const { id } = props.match.params;
+  const role = props.location.role;
   const [cocktailData, setCocktailData] = useState({
     cocktail: {},
     tags: [],
@@ -31,6 +33,17 @@ const CocktailDetailSearch = ({ match }) => {
   return (
     <div className="detail-info-container">
       <p className="cocktail-name">{cocktailData.cocktail.name}</p>
+      <div>
+        {role ? (
+          <CocktailFavorite
+            cocktail={cocktailData.cocktail}
+            cocktails={props.cocktails}
+            setCocktails={props.setCocktails}
+          />
+        ) : (
+          <div />
+        )}
+      </div>
       <div className="detail-info-image-container">
         <img
           src={cocktailData.cocktail.imageUrl}

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import queryString from "query-string";
+import React, {  useEffect, useState } from "react";import queryString from "query-string";
 import SearchedCocktails from "./SearchedCocktails";
 import "../../css/cocktailSearch/cocktailSearch.css";
 import SearchContainer from "./SearchContainer";
 import TagFilterContainer from "./TagFilterContainer";
 
-const CocktailSearch = ({ history }) => {
+const CocktailSearch = ({ role, history }) => {
+  const [loading, setLoading] = useState(false);
   const [cocktails, setCocktails] = useState([]);
   const [tabIndex, setTabIndex] = useState(0);
 
@@ -79,7 +79,11 @@ const CocktailSearch = ({ history }) => {
         </div>
       </div>
       <div>{tabs[tabIndex].content}</div>
-      <SearchedCocktails cocktails={cocktails} />
+      <SearchedCocktails
+        cocktails={cocktails}
+        setCocktails={setCocktails}
+        role={role}
+      />
     </div>
   );
 };
