@@ -14,7 +14,7 @@ export default ({ user, onUpdateUser }) => {
       <div className="profile-image">
         <div className="profile-image-box">
           <div className="user-image">
-            <img src={user.imageUrl} alt={user.name} />
+            <img src={user.imageUrl ? user.imageUrl : "/image/default_user.svg"} alt={user.name} />
           </div>
           <div className="profile-image-update">
             <label>

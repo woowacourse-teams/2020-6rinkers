@@ -2,26 +2,14 @@ import React, { useEffect, useState } from "react";
 import ProfileImage from "./ProfileImage";
 import ProfileDetail from "./ProfileDetail";
 import "../../css/mypage/profile.css";
+import { Redirect } from "react-router-dom";
+import { USER_PROTOTYPE } from "../../constants";
 
-const Profile = () => {
+const MyProfile = ({ currentUser, authenticated }) => {
   const [user, setUser] = useState({});
-  async function fetchUser() {
-    return {
-      imageUrl:
-        "https://avatars2.githubusercontent.com/u/37579660?s=400&u=8c1062c7aad1f67b35bd38ad60ce04fa4cd11a37&v=4",
-      email: "qkrtmddhks95@gmail.com",
-      name: "토니",
-      provider: "local",
-    };
-  }
 
-  async function updateUser() {
-    return {};
-  }
-
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     e.preventDefault();
-    await updateUser(user);
     alert("공사중입니다.");
   };
 
@@ -33,13 +21,22 @@ const Profile = () => {
   };
 
   const initUser = async () => {
-    setUser(await fetchUser());
+    setUser({ ...currentUser });
   };
 
   useEffect(() => {
     initUser();
   }, []);
 
+  if (!authenticated) {
+    return (
+      <Redirect
+        to={{
+          pathname: "/login",
+        }}
+      />
+    );
+  }
   return (
     <div className="profile-container">
       <h2>Profile</h2>
@@ -53,4 +50,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default MyProfile;
