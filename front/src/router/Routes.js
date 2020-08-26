@@ -92,7 +92,7 @@ const Routes = ({ cocktails, setCocktails }) => {
       <Route render={({ location }) => checkAdmin(location)} />
       <Switch>
         <Route exact path="/">
-          <Home role={role} />
+          <Home cocktails={cocktails} setCocktails={setCocktails} role={role} />
         </Route>
         <Route path="/admin/cocktails">
           <CocktailAdmin role={role} />
@@ -108,7 +108,11 @@ const Routes = ({ cocktails, setCocktails }) => {
           <Question cocktails={cocktails} setCocktails={setCocktails} />
         </Route>
         <Route path="/result">
-          <Result cocktails={cocktails} role={role} />
+          <Result
+            cocktails={cocktails}
+            setCocktails={setCocktails}
+            role={role}
+          />
         </Route>
         <Route path="/oauth2/redirect" component={OAuth2RedirectHandler} />
         <Route path="/login">

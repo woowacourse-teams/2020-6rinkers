@@ -8,7 +8,6 @@ import CocktailFavorite from "./CocktailFavorite";
 const CocktailDetailSearch = (props) => {
   const id = props.match.params.id;
   const role = props.location.role;
-  console.log(id + "   " + role);
 
   const [cocktailData, setCocktailData] = useState({
     cocktail: "",
@@ -34,7 +33,15 @@ const CocktailDetailSearch = (props) => {
     <div className="detail-info-container">
       <p className="cocktail-name">{cocktailData.cocktail.name}</p>
       <div>
-        {role ? <CocktailFavorite cocktail={cocktailData.cocktail} /> : <div />}
+        {role ? (
+          <CocktailFavorite
+            cocktail={cocktailData.cocktail}
+            cocktails={props.cocktails}
+            setCocktails={props.setCocktails}
+          />
+        ) : (
+          <div />
+        )}
       </div>
       <div className="detail-info-image-container">
         <img

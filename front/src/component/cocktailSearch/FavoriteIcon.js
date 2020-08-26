@@ -1,9 +1,15 @@
 import React from "react";
 import { deleteFavorite } from "../../api";
 
-const FavoriteIcon = ({ cocktailId }) => {
-  const deleteFavoriteClick = () => {
-    deleteFavorite(cocktailId);
+const FavoriteIcon = ({ cocktailId, cocktails, setCocktails }) => {
+  const deleteFavoriteClick = async () => {
+    await deleteFavorite(cocktailId);
+
+    setCocktails(
+      cocktails.map((cocktail) =>
+        cocktail.id === cocktailId ? { ...cocktail, favorite: false } : cocktail
+      )
+    );
   };
 
   return (

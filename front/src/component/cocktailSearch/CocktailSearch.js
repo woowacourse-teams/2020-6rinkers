@@ -73,7 +73,11 @@ const CocktailSearch = ({ role }) => {
   return (
     <div className="cocktailSearchContainer">
       <SearchContainer onUpdateSearchWord={updateSearchWord} />
-      <SearchedCocktails cocktails={cocktails} role={role} />
+      <SearchedCocktails
+        cocktails={cocktails}
+        setCocktails={setCocktails}
+        role={role}
+      />
     </div>
   );
 };

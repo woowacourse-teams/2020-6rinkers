@@ -16,7 +16,7 @@ export const fetchPagedCocktails = ({ contain, id, size }) =>
   client.get("/api/cocktails/pages", {
     params: { contain, id, size },
     headers: {
-      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+      Authorization: config.headers,
     },
   });
 export const fetchCocktail = (id) => client.get(`/api/cocktails/${id}`, config);
@@ -34,7 +34,7 @@ export const deleteTag = (id) => client.delete(`/api/tags/${id}`);
 export const fetchAllTags = () => client.get("/api/tags");
 
 export const createRecommend = (recommend) =>
-  client.post(`/api/cocktails/recommend`, recommend, config);
+  client.post(`/api/cocktails/recommend`, recommend);
 
 export const createCocktailsByCsv = (file) =>
   client.post("/api/cocktails/upload/csv", file, {
@@ -51,9 +51,7 @@ export const createTagsByCsv = (file) =>
     },
   });
 
-export const addFavorite = (data) => {
+export const addFavorite = (data) =>
   client.post("/api/user/me/favorites", data, config);
-};
-export const deleteFavorite = (id) => {
+export const deleteFavorite = (id) =>
   client.delete(`/api/user/me/favorites/${id}`, config);
-};

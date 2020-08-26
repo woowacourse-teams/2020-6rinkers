@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchTodayCocktail } from "../../api";
 
-const TodayCocktail = ({ role }) => {
+const TodayCocktail = ({ cocktails, setCocktails, role }) => {
   const [todayCocktail, setTodayCocktail] = useState({});
 
   const loadTodayCocktail = async () => {
@@ -19,6 +19,8 @@ const TodayCocktail = ({ role }) => {
       <Link
         to={{
           pathname: `/cocktails/${todayCocktail.id}`,
+          cocktails: cocktails,
+          setCocktails: setCocktails,
           role: role,
         }}
       >

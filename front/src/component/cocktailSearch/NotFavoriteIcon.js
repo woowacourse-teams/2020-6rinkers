@@ -1,12 +1,19 @@
 import React from "react";
 import { addFavorite } from "../../api";
 
-const NotFavoriteIcon = ({ cocktailId }) => {
-  const addFavoriteClick = (e) => {
+const NotFavoriteIcon = ({ cocktailId, cocktails, setCocktails }) => {
+  const addFavoriteClick = async () => {
     const favoriteRequest = {
       cocktailId: cocktailId,
     };
-    addFavorite(favoriteRequest);
+    await addFavorite(favoriteRequest);
+
+    setCocktails(
+      cocktails.map((cocktail) =>
+        cocktail.id === cocktailId ? { ...cocktail, favorite: true } : cocktail
+      )
+    );
+    console.log(cocktails);
   };
 
   return (
