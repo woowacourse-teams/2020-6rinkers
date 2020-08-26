@@ -12,12 +12,13 @@ import CocktailDetailSearch from "../component/cocktailSearch/CocktailDetailSear
 import Question from "../component/recommend/Question";
 import Result from "../component/result/Result";
 import Bar from "../component/bar/Bar";
+import MyPage from "../component/mypage/MyPage";
 import OAuth2RedirectHandler from "../oauth2/OAuth2RedirectHandler";
 import Login from "../component/user/Login";
 import Signup from "../component/user/Signup";
-import Profile from "../component/user/Profile";
 import { ACCESS_TOKEN, USER_PROTOTYPE } from "../constants";
 import { getCurrentUser } from "../utils/APIUtils";
+import MyProfile from "../component/mypage/MyProfile";
 
 const Routes = ({ cocktails, setCocktails }) => {
   const [user, setUser] = useState({
@@ -103,11 +104,11 @@ const Routes = ({ cocktails, setCocktails }) => {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/admin/cocktails">
-          <CocktailAdmin role={role} />
-        </Route>
+            <CocktailAdmin role={role} />
+          </Route>
           <Route path="/admin/tags">
-          <TagAdmin role={role} />
-        </Route>
+            <TagAdmin role={role} />
+          </Route>
           <Route path="/cocktails/search" component={CocktailSearch} />
           <Route path="/bars" component={Bar} />
           <Route path="/cocktails/:id" component={CocktailDetailSearch} />
@@ -117,17 +118,23 @@ const Routes = ({ cocktails, setCocktails }) => {
           <Route path="/result">
             <Result cocktails={cocktails} />
           </Route>
-        <Route path="/oauth2/redirect" component={OAuth2RedirectHandler} />
-        <Route path="/login">
-          <Login authenticated={authenticated} />
-        </Route>
-        <Route path="/signup">
-          <Signup authenticated={authenticated} />
-        </Route>
-        <Route path="/profile">
-          <Profile role={role} />
-        </Route>
-      </Switch>
+          <Route exact path="/mypage">
+            <MyPage currentUser={currentUser} authenticated={authenticated} />
+          </Route>
+          <Route path="/mypage/profile">
+            <MyProfile
+              currentUser={currentUser}
+              authenticated={authenticated}
+            />
+          </Route>
+          <Route path="/oauth2/redirect" component={OAuth2RedirectHandler} />
+          <Route path="/login">
+            <Login authenticated={authenticated} />
+          </Route>
+          <Route path="/signup">
+            <Signup authenticated={authenticated} />
+          </Route>
+        </Switch>
       </div>
       <Route render={({ location }) => checkAdminForFooter(location)} />
     </>
