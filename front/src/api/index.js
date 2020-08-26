@@ -59,7 +59,15 @@ export const createTagsByCsv = (file) =>
     },
   });
 
+export const fetchMyFavorites = () => {
+  client.get("/api/user/me/favorites", {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+    },
+  });
+};
+
 export const addFavorite = (data) =>
-  client.post("/api/user/me/favorites", data, config);
+    client.post("/api/user/me/favorites", data, config);
 export const deleteFavorite = (id) =>
-  client.delete(`/api/user/me/favorites/${id}`, config);
+    client.delete(`/api/user/me/favorites/${id}`, config);
