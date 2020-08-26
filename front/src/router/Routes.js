@@ -57,7 +57,6 @@ const Routes = ({
   authenticated,
   currentUser,
   handleLogout,
-  role,
   loading,
 }) => {
   if (loading) {
@@ -102,10 +101,10 @@ const Routes = ({
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/admin/cocktails">
-            <CocktailAdmin role={role} />
+            <CocktailAdmin />
           </Route>
           <Route path="/admin/tags">
-            <TagAdmin role={role} />
+            <TagAdmin />
           </Route>
           <Route path="/cocktails/search" component={CocktailSearch} />
           <Route path="/bars" component={Bar} />
@@ -127,10 +126,10 @@ const Routes = ({
           </Route>
           <Route path="/oauth2/redirect" component={OAuth2RedirectHandler} />
           <Route path="/login">
-            <Login authenticated={authenticated} />
+            <Login />
           </Route>
           <Route path="/signup">
-            <Signup authenticated={authenticated} />
+            <Signup />
           </Route>
           </Switch>
       </div>

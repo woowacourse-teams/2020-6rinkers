@@ -12,7 +12,6 @@ import { userState } from "./recoil";
 const App = () => {
   const [cocktails, setCocktails] = useState([]);
   const [user, setUser] = useRecoilState(userState);
-  const [role, setRole] = useState("");
   const [loading, setLoading] = useState(false);
 
   const { authenticated, currentUser } = user;
@@ -27,7 +26,6 @@ const App = () => {
           authenticated: true,
         });
         setLoading(false);
-        setRole(response["role"]);
       })
       .catch((error) => {
         setLoading(false);
@@ -57,7 +55,6 @@ const App = () => {
         authenticated={authenticated}
         currentUser={currentUser}
         handleLogout={handleLogout}
-        role={role}
         loading={loading}
       />
       <Alert
