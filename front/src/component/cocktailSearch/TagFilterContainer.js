@@ -100,7 +100,8 @@ const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
     const query = queryString.parse(history.location.search);
 
     if ("tagIds" in query) {
-      setSelectedTagIds(query.tagIds.split(",").filter((id) => id !== ""));
+      const tagIdsFromQuery = query.tagIds.split(",");
+      setSelectedTagIds(tagIdsFromQuery.filter((id) => id !== ""));
     }
   }, []);
 
