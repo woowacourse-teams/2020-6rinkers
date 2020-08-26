@@ -7,13 +7,11 @@ const NotFavoriteIcon = ({ cocktailId, cocktails, setCocktails }) => {
       cocktailId: cocktailId,
     };
     await addFavorite(favoriteRequest);
-
     setCocktails(
       cocktails.map((cocktail) =>
         cocktail.id === cocktailId ? { ...cocktail, favorite: true } : cocktail
       )
     );
-    console.log(cocktails);
   };
 
   return (
