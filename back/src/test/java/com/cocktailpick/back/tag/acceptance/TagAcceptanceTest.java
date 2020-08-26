@@ -26,7 +26,7 @@ public class TagAcceptanceTest extends AcceptanceTest {
 	@Test
 	void addTagsByCsv() {
 		// given
-		AuthResponse authResponse = requestAdminToken();
+		AuthResponse authResponse = requestAdminAuth();
 
 		// when
 		MultiPartSpecification csvFile = new MultiPartSpecBuilder(THREE_TAGS_CSV_CONTENT.getBytes())
@@ -45,7 +45,7 @@ public class TagAcceptanceTest extends AcceptanceTest {
 	@Test
 	void findTags() {
 		// given
-		AuthResponse authResponse = requestAdminToken();
+		AuthResponse authResponse = requestAdminAuth();
 
 		TagRequest sweet = new TagRequest("단맛", TagType.FLAVOR.getTagType());
 		TagRequest sour = new TagRequest("신맛", TagType.FLAVOR.getTagType());
@@ -67,7 +67,7 @@ public class TagAcceptanceTest extends AcceptanceTest {
 	@Test
 	void createTag() {
 		// given
-		AuthResponse authResponse = requestAdminToken();
+		AuthResponse authResponse = requestAdminAuth();
 
 		// when
 		TagRequest tagRequest = new TagRequest("단맛", TagType.FLAVOR.getTagType());
@@ -82,7 +82,7 @@ public class TagAcceptanceTest extends AcceptanceTest {
 	@Test
 	void update() {
 		// given
-		AuthResponse authResponse = requestAdminToken();
+		AuthResponse authResponse = requestAdminAuth();
 
 		TagRequest tagRequest = new TagRequest("단맛", TagType.FLAVOR.getTagType());
 
@@ -101,7 +101,7 @@ public class TagAcceptanceTest extends AcceptanceTest {
 	@Test
 	void delete() {
 		// given
-		AuthResponse authResponse = requestAdminToken();
+		AuthResponse authResponse = requestAdminAuth();
 
 		TagRequest tagRequest = new TagRequest("단맛", TagType.FLAVOR.getTagType());
 

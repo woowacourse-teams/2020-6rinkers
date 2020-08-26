@@ -2,10 +2,12 @@ package com.cocktailpick.back.tag.acceptance.step;
 
 import static com.cocktailpick.back.user.acceptance.step.AuthAcceptanceStep.*;
 import static io.restassured.RestAssured.*;
+import static org.apache.http.HttpHeaders.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.http.MediaType;
 
@@ -43,6 +45,13 @@ public class TagAcceptanceStep {
             .extract();
     }
 
+    public static List<Long> requestToFindTagsAndGetTagIds(TagType tagType, int size, boolean random) {
+        return requestToFindTags(tagType, size, random).jsonPath().getList(".", TagResponse.class)
+            .stream()
+            .map(TagResponse::getTagId)
+            .collect(Collectors.toList());
+    }
+
     public static ExtractableResponse<Response> requestToAddTag(TagRequest tagRequest, AuthResponse authResponse) {
         return given().log().all()
             .header(AUTHORIZATION, toHeaderValue(authResponse))
@@ -67,7 +76,7 @@ public class TagAcceptanceStep {
     }
 
     public static String requestToAddTagAndGetLocation(TagRequest tagRequest, AuthResponse authResponse) {
-        return requestToAddTag(tagRequest, authResponse).header("location");
+        return requestToAddTag(tagRequest, authResponse).header(LOCATION);
     }
 
     public static ExtractableResponse<Response> requestToUpdateTag(String url, TagRequest tagRequest,

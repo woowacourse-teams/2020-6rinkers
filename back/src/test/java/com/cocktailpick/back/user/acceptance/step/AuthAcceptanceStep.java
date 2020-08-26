@@ -13,7 +13,6 @@ import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 
 public class AuthAcceptanceStep {
-    public static final String AUTHORIZATION = "authorization";
 
     public static ExtractableResponse<Response> requestSignUp(SignUpRequest signUpRequest) {
         return given().log().all()
@@ -39,7 +38,7 @@ public class AuthAcceptanceStep {
         return requestLogin(loginRequest).as(AuthResponse.class);
     }
 
-    public static AuthResponse requestAdminToken() {
+    public static AuthResponse requestAdminAuth() {
         LoginRequest loginRequest = new LoginRequest(ADMIN_EMAIL, ADMIN_PASSWORD);
 
         return requestTokenByLogin(loginRequest);

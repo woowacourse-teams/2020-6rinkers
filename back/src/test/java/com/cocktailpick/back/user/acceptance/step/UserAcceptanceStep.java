@@ -1,9 +1,9 @@
 package com.cocktailpick.back.user.acceptance.step;
 
-import static com.cocktailpick.back.user.acceptance.step.AuthAcceptanceStep.*;
 import static io.restassured.RestAssured.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.http.HttpHeaders.*;
 
 import com.cocktailpick.back.user.domain.AuthProvider;
 import com.cocktailpick.back.user.domain.Role;
