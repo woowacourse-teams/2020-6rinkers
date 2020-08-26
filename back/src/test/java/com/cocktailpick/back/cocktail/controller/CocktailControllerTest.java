@@ -37,7 +37,6 @@ import com.cocktailpick.back.cocktail.service.CocktailRecommendService;
 import com.cocktailpick.back.cocktail.service.CocktailService;
 import com.cocktailpick.back.cocktail.vo.UserPreferenceAnswer;
 import com.cocktailpick.back.common.documentation.DocumentationWithSecurity;
-import com.cocktailpick.back.favorite.domain.Favorites;
 import com.cocktailpick.back.tag.dto.TagResponse;
 import com.cocktailpick.back.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -125,7 +124,7 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
 				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")), false)
 		);
-		given(cocktailService.findPagedCocktailsWithFavorite("블루", 0, 2, Favorites.empty())).willReturn(
+		given(cocktailService.findPageContainingWord(anyString(), anyLong(), anyInt())).willReturn(
 			cocktailResponses);
 
 		mockMvc.perform(get("/api/cocktails/contain-word")
@@ -310,7 +309,7 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 		RecommendRequest recommendRequest = new RecommendRequest(abvAnswer, moodAnswers, flavorAnswer,
 			preferenceAnswers, nonPreferenceAnswers);
 
-		given(cocktailRecommendService.recommendWithFavorite(any(), any())).willReturn(
+		given(cocktailRecommendService.recommend(any())).willReturn(
 			Collections.singletonList(blueHawaiiResponse));
 
 		mockMvc.perform(post("/api/cocktails/recommend")

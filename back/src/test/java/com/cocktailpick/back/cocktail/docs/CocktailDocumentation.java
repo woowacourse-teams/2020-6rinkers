@@ -116,7 +116,7 @@ public class CocktailDocumentation {
 				fieldWithPath("[].tags.[].tagId").type(JsonFieldType.NUMBER).description("태그 아이디"),
 				fieldWithPath("[].tags.[].name").type(JsonFieldType.STRING).description("칵테일 태그 이름"),
 				fieldWithPath("[].tags.[].tagType").type(JsonFieldType.STRING).description("칵테일 태그 타입"),
-				fieldWithPath("[].favorite.").type(JsonFieldType.BOOLEAN).description("칵테일 즐겨찾기 여부")
+				fieldWithPath("[].favorite").type(JsonFieldType.BOOLEAN).description("칵테일 즐겨찾기 여부")
 			)
 		);
 	}
