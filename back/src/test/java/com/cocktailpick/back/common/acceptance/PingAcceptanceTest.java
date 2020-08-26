@@ -1,12 +1,13 @@
 package com.cocktailpick.back.common.acceptance;
 
-import io.restassured.response.ExtractableResponse;
-import io.restassured.response.Response;
+import static com.cocktailpick.back.common.acceptance.step.AcceptanceStep.*;
+import static com.cocktailpick.back.common.acceptance.step.PingAcceptanceStep.*;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static com.cocktailpick.back.common.acceptance.step.PingAcceptanceStep.assertThatReceivePing;
-import static com.cocktailpick.back.common.acceptance.step.PingAcceptanceStep.requestPing;
+import io.restassured.response.ExtractableResponse;
+import io.restassured.response.Response;
 
 @DisplayName("Ping 인수/통합 테스트")
 public class PingAcceptanceTest extends AcceptanceTest {
@@ -18,6 +19,6 @@ public class PingAcceptanceTest extends AcceptanceTest {
         ExtractableResponse<Response> response = requestPing();
 
         // then
-        assertThatReceivePing(response);
+        assertThatStatusIsOk(response);
     }
 }

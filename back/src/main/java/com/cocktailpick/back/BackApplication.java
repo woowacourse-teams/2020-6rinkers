@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
-import com.cocktailpick.back.config.AppProperties;
+import com.cocktailpick.back.common.config.security.AppProperties;
 
 @SpringBootApplication
 @EnableConfigurationProperties(AppProperties.class)

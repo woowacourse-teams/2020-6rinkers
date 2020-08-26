@@ -1,4 +1,4 @@
-package com.cocktailpick.back.config;
+package com.cocktailpick.back.common.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +22,7 @@ import com.cocktailpick.back.security.oauth2.CustomOAuth2UserService;
 import com.cocktailpick.back.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.cocktailpick.back.security.oauth2.OAuth2AuthenticationFailureHandler;
 import com.cocktailpick.back.security.oauth2.OAuth2AuthenticationSuccessHandler;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 

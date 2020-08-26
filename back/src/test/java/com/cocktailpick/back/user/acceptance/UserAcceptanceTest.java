@@ -1,18 +1,19 @@
 package com.cocktailpick.back.user.acceptance;
 
+import static com.cocktailpick.back.common.acceptance.step.AcceptanceStep.*;
+import static com.cocktailpick.back.user.acceptance.step.AuthAcceptanceStep.*;
+import static com.cocktailpick.back.user.acceptance.step.UserAcceptanceStep.*;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 import com.cocktailpick.back.common.acceptance.AcceptanceTest;
 import com.cocktailpick.back.user.dto.AuthResponse;
 import com.cocktailpick.back.user.dto.LoginRequest;
 import com.cocktailpick.back.user.dto.SignUpRequest;
+
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import static com.cocktailpick.back.user.acceptance.step.AuthAcceptanceStep.requestSignUp;
-import static com.cocktailpick.back.user.acceptance.step.AuthAcceptanceStep.requestTokenByLogin;
-import static com.cocktailpick.back.user.acceptance.step.UserAcceptanceStep.assertThatGetCurrentUserSuccess;
-import static com.cocktailpick.back.user.acceptance.step.UserAcceptanceStep.requestToGetCurrentUser;
 
 @DisplayName("User 인수/통합 테스트")
 public class UserAcceptanceTest extends AcceptanceTest {
@@ -33,6 +34,7 @@ public class UserAcceptanceTest extends AcceptanceTest {
         ExtractableResponse<Response> response = requestToGetCurrentUser(authResponse);
 
         // then
+        assertThatStatusIsOk(response);
         assertThatGetCurrentUserSuccess(response, signUpRequest);
     }
 }

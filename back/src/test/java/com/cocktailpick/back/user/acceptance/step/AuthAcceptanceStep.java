@@ -1,17 +1,19 @@
 package com.cocktailpick.back.user.acceptance.step;
 
+import static com.cocktailpick.back.common.acceptance.AdminCreate.*;
+import static io.restassured.RestAssured.*;
+
+import org.springframework.http.MediaType;
+
 import com.cocktailpick.back.user.dto.AuthResponse;
 import com.cocktailpick.back.user.dto.LoginRequest;
 import com.cocktailpick.back.user.dto.SignUpRequest;
+
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-
-import static io.restassured.RestAssured.given;
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class AuthAcceptanceStep {
+    public static final String AUTHORIZATION = "authorization";
 
     public static ExtractableResponse<Response> requestSignUp(SignUpRequest signUpRequest) {
         return given().log().all()
@@ -23,25 +25,27 @@ public class AuthAcceptanceStep {
                 .extract();
     }
 
-    public static void assertThatSignUpSuccess(ExtractableResponse<Response> response) {
-        assertThat(response.statusCode()).isEqualTo(HttpStatus.CREATED.value());
-    }
-
     public static ExtractableResponse<Response> requestLogin(LoginRequest loginRequest) {
         return given().log().all()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .body(loginRequest)
-                .when()
-                .post("/api/auth/login")
-                .then().log().all()
-                .extract();
-    }
-
-    public static void assertThatLoginSuccess(ExtractableResponse<Response> response) {
-        assertThat(response.statusCode()).isEqualTo(HttpStatus.OK.value());
+            .contentType(MediaType.APPLICATION_JSON_VALUE)
+            .body(loginRequest)
+            .when()
+            .post("/api/auth/login")
+            .then().log().all()
+            .extract();
     }
 
     public static AuthResponse requestTokenByLogin(LoginRequest loginRequest) {
         return requestLogin(loginRequest).as(AuthResponse.class);
+    }
+
+    public static AuthResponse requestAdminToken() {
+        LoginRequest loginRequest = new LoginRequest(ADMIN_EMAIL, ADMIN_PASSWORD);
+
+        return requestTokenByLogin(loginRequest);
+    }
+
+    public static String toHeaderValue(AuthResponse authResponse) {
+        return authResponse.getTokenType() + " " + authResponse.getAccessToken();
     }
 }

@@ -16,9 +16,9 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.cocktailpick.back.common.config.security.AppProperties;
 import com.cocktailpick.back.common.exceptions.BadRequestException;
 import com.cocktailpick.back.common.util.CookieUtils;
-import com.cocktailpick.back.config.AppProperties;
 import com.cocktailpick.back.security.TokenProvider;
 
 @Component

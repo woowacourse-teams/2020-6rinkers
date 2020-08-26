@@ -19,5 +19,4 @@ public class AuthResponse {
 	public String getTokenType() {
 		return tokenType;
 	}
-
 }
