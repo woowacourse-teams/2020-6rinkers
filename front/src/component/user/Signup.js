@@ -29,7 +29,7 @@ const Signup = (props) => {
         </div>
         <SignupForm {...props} />
         <span className="login-link">
-          Already have an account? <Link to="/login">Login!</Link>
+          이미 계정이 있으신가요? <Link to="/login">로그인 하기!!</Link>
         </span>
       </div>
     </div>
@@ -41,11 +41,7 @@ const SocialSignup = () => {
     <div className="social-signup">
       <a className="social-btn" href={GOOGLE_AUTH_URL}>
         <img src="/image/google-logo.png" alt="Google" />
-        <p>Google로 로그인하기</p>
-      </a>
-      <a className="social-btn" href={FACEBOOK_AUTH_URL}>
-        <img src="/image/fb-logo.png" alt="Facebook" />
-        <p>Facebook으로 로그인하기</p>
+        <p>Google로 회원가입하기</p>
       </a>
     </div>
   );
@@ -88,7 +84,7 @@ const SignupForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="form-container" onSubmit={handleSubmit}>
       <div className="form-item">
         <input
           type="text"

@@ -47,7 +47,7 @@ const Login = (props) => {
         </div>
         <LoginForm {...props} />
         <span className="signup-link">
-          New user? <Link to="/signup">Sign up!</Link>
+          계정이 없으신가요? <Link to="/signup">회원가입하기!</Link>
         </span>
       </div>
     </div>
@@ -60,10 +60,6 @@ function SocialLogin() {
       <a className="social-btn" href={GOOGLE_AUTH_URL}>
         <img src="image/google-logo.png" alt="Google" />
         <p>Google로 로그인하기</p>
-      </a>
-      <a className="social-btn" href={FACEBOOK_AUTH_URL}>
-        <img src="image/fb-logo.png" alt="Facebook" />
-        <p>Facebook으로 로그인하기</p>
       </a>
     </div>
   );
@@ -107,7 +103,7 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="form-container" onSubmit={handleSubmit}>
       <div className="form-item">
         <input
           type="email"
