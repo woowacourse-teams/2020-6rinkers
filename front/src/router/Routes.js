@@ -16,7 +16,6 @@ import MyPage from "../component/mypage/MyPage";
 import OAuth2RedirectHandler from "../oauth2/OAuth2RedirectHandler";
 import Login from "../component/user/Login";
 import Signup from "../component/user/Signup";
-import Profile from "../component/user/Profile";
 import { ACCESS_TOKEN, USER_PROTOTYPE } from "../constants";
 import { getCurrentUser } from "../utils/APIUtils";
 import MyProfile from "../component/mypage/MyProfile";
@@ -134,9 +133,6 @@ const Routes = ({ cocktails, setCocktails }) => {
           </Route>
           <Route path="/signup">
             <Signup authenticated={authenticated} />
-          </Route>
-          <Route path="/profile">
-            <Profile role={role} />
           </Route>
         </Switch>
       </div>
