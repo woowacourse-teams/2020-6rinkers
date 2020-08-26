@@ -5,7 +5,7 @@ import {
   fetchCocktailsContaining,
   fetchPagedCocktailsContainingWord,
 } from "../../api";
-import { DOWN, ENTER, ESC, UP } from "../../constants/keyCode";
+import { DOWN, ENTER, ESC, UP } from "../../constants";
 
 const SearchContainer = ({ cocktails, setCocktails }) => {
   const [autoCompletedCocktails, setAutoCompletedCocktails] = useState([]);

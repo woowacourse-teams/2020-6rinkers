@@ -20,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.cocktailpick.back.cocktail.docs.CocktailDocumentation;
@@ -35,12 +36,12 @@ import com.cocktailpick.back.cocktail.dto.TagPreferenceAnswer;
 import com.cocktailpick.back.cocktail.service.CocktailRecommendService;
 import com.cocktailpick.back.cocktail.service.CocktailService;
 import com.cocktailpick.back.cocktail.vo.UserPreferenceAnswer;
-import com.cocktailpick.back.common.documentation.Documentation;
+import com.cocktailpick.back.common.documentation.DocumentationWithSecurity;
 import com.cocktailpick.back.tag.dto.TagResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebMvcTest(controllers = {CocktailController.class})
-class CocktailControllerTest extends Documentation {
+@WebMvcTest(controllers = CocktailController.class)
+class CocktailControllerTest extends DocumentationWithSecurity {
 	@MockBean
 	private CocktailService cocktailService;
 
@@ -145,12 +146,14 @@ class CocktailControllerTest extends Documentation {
 			.andDo(CocktailDocumentation.findCocktail());
 	}
 
+	@WithMockUser(roles = "ADMIN")
 	@DisplayName("칵테일을 생성한다.")
 	@Test
 	void addCocktail() throws Exception {
 		given(cocktailService.save(any())).willReturn(1L);
 
 		mockMvc.perform(post("/api/cocktails")
+			.header("authorization", "Bearer ADMIN_TOKEN")
 			.content(objectMapper.writeValueAsString(cocktailRequest))
 			.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isCreated())
@@ -193,6 +196,7 @@ class CocktailControllerTest extends Documentation {
 			.andDo(print());
 	}
 
+	@WithMockUser(roles = "ADMIN")
 	@DisplayName("칵테일을 수정한다.")
 	@Test
 	void updateCocktail() throws Exception {
@@ -215,6 +219,7 @@ class CocktailControllerTest extends Documentation {
 			.build();
 
 		mockMvc.perform(RestDocumentationRequestBuilders.put("/api/cocktails/{id}", 1L)
+			.header("authorization", "Bearer ADMIN_TOKEN")
 			.contentType(MediaType.APPLICATION_JSON)
 			.content(objectMapper.writeValueAsString(updateCocktailRequest)))
 			.andExpect(status().isOk())
@@ -222,6 +227,7 @@ class CocktailControllerTest extends Documentation {
 			.andDo(CocktailDocumentation.updateCocktail());
 	}
 
+	@WithMockUser(roles = "ADMIN")
 	@DisplayName("csv 파일로 칵테일을 저장한다.")
 	@Test
 	void addCocktailsByCsv() throws Exception {
@@ -230,30 +236,35 @@ class CocktailControllerTest extends Documentation {
 		mockMvc.perform(multipart("/api/cocktails/upload/csv")
 			.file(
 				new MockMultipartFile("file", "test.csv", "text/csv", THREE_COCKTAILS_CSV_CONTENT.getBytes()))
-			.contentType(MediaType.MULTIPART_FORM_DATA))
+			.contentType(MediaType.MULTIPART_FORM_DATA)
+			.header("authorization", "Bearer ADMIN_TOKEN"))
 			.andExpect(status().isCreated())
 			.andExpect(header().string("Location", "/api/cocktails"))
 			.andDo(print())
 			.andDo(CocktailDocumentation.upload());
 	}
 
+	@WithMockUser(roles = "ADMIN")
 	@DisplayName("칵테일을 삭제한다.")
 	@Test
 	void deleteCocktail() throws Exception {
 		doNothing().when(cocktailService).deleteCocktail(any());
 
-		mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/cocktails/{id}", 1L))
+		mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/cocktails/{id}", 1L)
+			.header("authorization", "Bearer ADMIN_TOKEN"))
 			.andExpect(status().isNoContent())
 			.andDo(print())
 			.andDo(CocktailDocumentation.deleteCocktail());
 	}
 
+	@WithMockUser(roles = "ADMIN")
 	@DisplayName("모든 칵테일을 삭제한다.")
 	@Test
 	void deleteAllCocktails() throws Exception {
 		doNothing().when(cocktailService).deleteAllCocktails();
 
-		mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/cocktails"))
+		mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/cocktails")
+			.header("authorization", "Bearer ADMIN_TOKEN"))
 			.andExpect(status().isNoContent())
 			.andDo(print())
 			.andDo(CocktailDocumentation.deleteAllCocktails());

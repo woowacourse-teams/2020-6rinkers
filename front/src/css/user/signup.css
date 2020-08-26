@@ -1,0 +1,22 @@
+.signup-container {
+  text-align: center;
+  margin: auto;
+}
+
+.signup-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40vmin;
+  height: 50vmin;
+  margin: auto;
+  border: 1px solid var(--light_black);
+  border-radius: 10px;
+  box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
+}
+
+.social-signup {
+  display: flex;
+  flex-direction: column;
+}
