@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
+import queryString from "query-string";
 import SearchedCocktails from "./SearchedCocktails";
 import "../../css/cocktailSearch/cocktailSearch.css";
 import SearchContainer from "./SearchContainer";
 import TagFilterContainer from "./TagFilterContainer";
 
-const CocktailSearch = () => {
+const CocktailSearch = ({ history }) => {
   const [cocktails, setCocktails] = useState([]);
   const [tabIndex, setTabIndex] = useState(0);
 
@@ -18,12 +19,44 @@ const CocktailSearch = () => {
     {
       title: "Tags",
       content: (
-        <TagFilterContainer cocktails={cocktails} setCocktails={setCocktails} />
+        <TagFilterContainer
+          cocktails={cocktails}
+          setCocktails={setCocktails}
+          history={history}
+        />
       ),
     },
   ];
 
+  const onClickTab = (e) => {
+    const clickedTabIndex = Number(e.currentTarget.dataset.index);
+
+    if (clickedTabIndex === tabIndex) {
+      return;
+    }
+
+    if (clickedTabIndex === 0) {
+      history.push("?contain=");
+    }
+
+    if (clickedTabIndex === 1) {
+      history.push("?tagIds=");
+    }
+
+    setTabIndex(clickedTabIndex);
+  };
+
   useEffect(() => {
+    const query = queryString.parse(history.location.search);
+
+    if (!history.location.search) {
+      history.push("?contain=");
+    }
+
+    if ("tagIds" in query) {
+      setTabIndex(1);
+    }
+
     window.history.scrollRestoration = "manual";
   }, []);
 
@@ -37,8 +70,7 @@ const CocktailSearch = () => {
                 className={index === tabIndex ? "clickedTab" : "unclickedTab"}
                 key={index}
                 data-index={index}
-                onClick={(e) =>
-                  setTabIndex(Number(e.currentTarget.dataset.index))}
+                onClick={onClickTab}
               >
                 {tab.title}
               </button>

@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import queryString from "query-string";
 import { fetchAllTags, fetchPagedCocktailsFilteredByTags } from "../../api";
 
-const TagFilterContainer = ({ cocktails, setCocktails }) => {
+const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
   const [allTags, setAllTags] = useState([]);
   const [selectedTagIds, setSelectedTagIds] = useState([]);
   const tagFilterContainerRef = useRef(null);
@@ -9,7 +10,12 @@ const TagFilterContainer = ({ cocktails, setCocktails }) => {
 
   const initAllTags = async () => {
     const response = await fetchAllTags();
-    setAllTags(response.data);
+    setAllTags(
+      response.data.map((tag) => {
+        tag.tagId = String(tag.tagId);
+        return tag;
+      })
+    );
   };
 
   const fetchCocktails = async () => {
@@ -58,17 +64,18 @@ const TagFilterContainer = ({ cocktails, setCocktails }) => {
     const tagId = e.target.dataset.id;
 
     if (selectedTagIds.includes(tagId)) {
-      e.target.classList.remove("selectedTag");
-      setSelectedTagIds(selectedTagIds.filter((id) => id !== tagId));
+      const afterTagIds = selectedTagIds.filter((id) => id !== tagId);
+      setSelectedTagIds(afterTagIds);
+      history.push(`?tagIds=${afterTagIds.join(",")}`);
       return;
     }
 
-    e.target.classList.add("selectedTag");
-    setSelectedTagIds(selectedTagIds.concat([tagId]));
+    const afterTagIds = selectedTagIds.concat([tagId]);
+    setSelectedTagIds(afterTagIds);
+    history.push(`?tagIds=${afterTagIds.join(",")}`);
   };
 
   const onTagSelectButtonClick = () => {
-    console.log(tagFilterContainerRef.current.style.display);
     if (
       tagFilterContainerRef.current.style.display === "none" ||
       tagFilterContainerRef.current.style.display === ""
@@ -89,6 +96,13 @@ const TagFilterContainer = ({ cocktails, setCocktails }) => {
 
   useEffect(() => {
     initAllTags();
+
+    const query = queryString.parse(history.location.search);
+
+    if ("tagIds" in query) {
+      const tagIdsFromQuery = query.tagIds.split(",");
+      setSelectedTagIds(tagIdsFromQuery.filter((id) => id !== ""));
+    }
   }, []);
 
   useEffect(() => {
@@ -110,7 +124,9 @@ const TagFilterContainer = ({ cocktails, setCocktails }) => {
         {allTags.map((tag, index) => {
           return (
             <div
-              className="filterTag"
+              className={`filterTag ${
+                selectedTagIds.includes(tag.tagId) ? "selectedTag" : ""
+              }`}
               key={index}
               data-id={tag.tagId}
               onClick={onClickTag}
