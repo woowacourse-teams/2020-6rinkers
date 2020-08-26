@@ -16,21 +16,16 @@ const Profile = () => {
   }
 
   async function updateUser() {
-    return {
-      imageUrl:
-        "https://avatars2.githubusercontent.com/u/37579660?s=400&u=8c1062c7aad1f67b35bd38ad60ce04fa4cd11a37&v=4",
-      email: "qkrtmddhks95@gmail.com",
-      name: "그니",
-      provider: "local",
-    };
+    return {};
   }
 
   const onSubmit = async (e) => {
     e.preventDefault();
     await updateUser(user);
+    alert("공사중입니다.");
   };
 
-  const onUpdateUser = (value, name) => {
+  const onUpdateUser = (name, value) => {
     setUser({
       ...user,
       [name]: value,
@@ -49,12 +44,11 @@ const Profile = () => {
     <div className="profile-container">
       <h2>Profile</h2>
       <ProfileImage user={user} onUpdateUser={onUpdateUser} />
-      <ProfileDetail user={user} onUpdateUser={onUpdateUser} />
-      <div className="profile-submit">
-        <button type="submit" onClick={onSubmit}>
-          수정
-        </button>
-      </div>
+      <ProfileDetail
+        user={user}
+        onUpdateUser={onUpdateUser}
+        onSubmit={onSubmit}
+      />
     </div>
   );
 };

@@ -17,7 +17,13 @@
 .profile-image-container {
     width: 90%;
     max-width: 30rem;
-    margin: 2rem;
+}
+
+.profile-image-container > h3 {
+    display: inline-block;
+    margin: 0 10%;
+    padding: 0 1rem 0.3rem;
+    border-bottom: #a60000 solid 1px;
 }
 
 .profile-image {
@@ -74,6 +80,81 @@
     max-height: 60%;
 }
 
+.profile-detail-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    max-width: 30rem;
+}
+
+.profile-edit-container {
+    padding: 1rem;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: rgba(166, 0, 0, 0.7) 0.2rem solid;
+    box-shadow: 0.3rem 0.3rem 0.8rem var(--little-dark-white);
+}
+
+.profile-input-container {
+    width: 80%;
+    margin: 0.3rem 0;
+}
+
+.profile-input-container > h3 {
+    font-weight: 300;
+}
+
+.detail-input > input {
+    width: 100%;
+    margin: 0.5rem 0;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    color: #444444;
+    background: rgba(100, 100, 100, 0.1);
+    border: none;
+    border-radius: 5%;
+}
+
+.profile-submit {
+    width: 100%;
+}
+
+.update-submit {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.update-submit > button {
+    width: 50%;
+    font-weight: 400;
+    font-size: 1.2rem;
+    color: white;
+    background: rgba(166, 0, 0, 0.7);
+    padding: 0.8rem;
+    border: none;
+    border-radius: 5%;
+}
+
+.withdrawal {
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.withdrawal-submit {
+    color: #777777;
+    display: inline-block;
+    font-size: 0.8rem;
+    border-bottom: solid 1px #777777;
+}
+
 @media screen and (max-width: 700px) {
     .profile-image-box {
         max-width: 10rem;
@@ -83,5 +164,17 @@
     .profile-image-update {
         width: 20%;
         height: 20%;
+    }
+
+    .detail-input > input {
+        font-size: 0.8rem;
+    }
+
+    .profile-edit-container {
+        width: 100%;
+    }
+
+    .profile-input-container {
+        width: 90%;
     }
 }

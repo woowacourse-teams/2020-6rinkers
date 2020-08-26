@@ -1,11 +1,11 @@
 import React from "react";
 
-export default ({ name, value, onChange }) => {
+export default ({ name, userKey, value, onChange }) => {
   return (
     <div className="profile-input-container">
       <h3>{name}</h3>
-      <div>
-        <input type="text" name={name} value={value} onChange={onChange()} />
+      <div className="detail-input">
+        <input type="text" name={userKey} value={value} onChange={onChange} />
       </div>
     </div>
   );

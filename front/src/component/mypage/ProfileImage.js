@@ -10,7 +10,7 @@ export default ({ user, onUpdateUser }) => {
   const onUploadProfileImage = () => {};
   return (
     <div className="profile-image-container">
-      <h3>내 사진</h3>
+      <h3>내 정보</h3>
       <div className="profile-image">
         <div className="profile-image-box">
           <div className="user-image">

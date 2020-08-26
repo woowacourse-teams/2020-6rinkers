@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const MyInfo = ({ user }) => {
   return (
@@ -13,7 +14,9 @@ const MyInfo = ({ user }) => {
           <div className="user-name">{user.name}</div>
         </div>
         <div className="info-modify">
-          <img src="/image/setting_icon.svg" alt="setting" />
+          <Link to="/profile" className="img-link">
+            <img src="/image/setting_icon.svg" alt="setting" />
+          </Link>
         </div>
       </div>
     </div>
