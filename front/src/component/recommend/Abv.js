@@ -6,7 +6,7 @@ import "../../css/recommend/abv.css";
 import NextStage from "./NextStage";
 
 const Abv = ({ addAnswer }) => {
-  const [abvs, setAbvs] = useState([0, 55]);
+  const [abvs, setAbvs] = useState([15, 40]);
 
   const changeValues = (data) => {
     setAbvs(data);
@@ -39,7 +39,7 @@ const Abv = ({ addAnswer }) => {
           }}
           min={0}
           max={55}
-          defaultValue={[0, 55]}
+          defaultValue={[15, 40]}
           allowCross={false}
           onChange={changeValues}
         />
