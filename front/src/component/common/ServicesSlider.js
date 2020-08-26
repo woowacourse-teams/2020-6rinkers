@@ -1,14 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { userState } from "../../recoil";
+import { useRecoilValue } from "recoil";
 
-const ServiceSlider = ({
-  slider,
-  toggleSlider,
-  authenticated,
-  currentUser,
-  handleLogout,
-}) => {
+const ServiceSlider = ({ slider, toggleSlider, handleLogout }) => {
   const isActive = slider ? "serviceSlider active" : "serviceSlider";
+
+  const currentUser = useRecoilValue(userState).currentUser;
+  const authenticated = useRecoilValue(userState).authenticated;
 
   const closeAndLogout = () => {
     toggleSlider();
@@ -44,7 +43,7 @@ const ServiceSlider = ({
       {authenticated ? (
         <>
           <NavLink
-            to="/profile"
+            to="/mypage"
             className="serviceSliderItem"
             activeClassName="navitem-active"
             onClick={toggleSlider}

@@ -2,13 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ServiceSlider from "./ServicesSlider";
 
-const MobileNav = ({
-  toggleSlider,
-  slider,
-  authenticated,
-  currentUser,
-  handleLogout,
-}) => {
+const MobileNav = ({ toggleSlider, slider, handleLogout }) => {
   return (
     <div className="mobileNav">
       <div className="title">
@@ -20,8 +14,6 @@ const MobileNav = ({
         <ServiceSlider
           slider={slider}
           toggleSlider={toggleSlider}
-          authenticated={authenticated}
-          currentUser={currentUser}
           handleLogout={handleLogout}
         />
       )}

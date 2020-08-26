@@ -17,8 +17,6 @@ const Header = ({ handleLogout }) => {
       <MobileNav
         toggleSlider={toggleSlider}
         slider={slider}
-        authenticated={authenticated}
-        currentUser={currentUser}
         handleLogout={handleLogout}
       />
     </div>
