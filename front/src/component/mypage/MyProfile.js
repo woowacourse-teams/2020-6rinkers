@@ -10,7 +10,7 @@ const MyProfile = ({ currentUser, authenticated }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    alert("공사중입니다.");
+    alert("회원 정보 수정 기능 개발 중입니다.");
   };
 
   const onUpdateUser = (name, value) => {

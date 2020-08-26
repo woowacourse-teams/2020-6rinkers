@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const MyInfo = ({ user }) => {
-  console.log(user.imageUrl);
   return (
     <div className="my-info-container">
       <h3>내정보</h3>
