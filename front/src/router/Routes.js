@@ -1,4 +1,4 @@
-import React from "react";
+import React { useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import Header from "../component/common/Header";
 import Home from "../component/home/Home";
@@ -55,21 +55,29 @@ const Routes = ({ cocktails, setCocktails, handleLogout, loading }) => {
       <Route render={({ location }) => checkAdminForHeader(location)} />
       <div className="contentWrapper">
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/">
+          <Home cocktails={cocktails} setCocktails={setCocktails} role={role} />
+        </Route>
           <Route path="/admin/cocktails">
             <CocktailAdmin />
           </Route>
           <Route path="/admin/tags">
             <TagAdmin />
           </Route>
-          <Route path="/cocktails/search" component={CocktailSearch} />
+          <Route path="/cocktails/search">
+          <CocktailSearch role={role} />
+        </Route>
           <Route path="/bars" component={Bar} />
           <Route path="/cocktails/:id" component={CocktailDetailSearch} />
           <Route path="/recommend">
             <Question cocktails={cocktails} setCocktails={setCocktails} />
           </Route>
           <Route path="/result">
-            <Result cocktails={cocktails} />
+            <Result
+            cocktails={cocktails}
+            setCocktails={setCocktails}
+            role={role}
+          />
           </Route>
           <Route exact path="/mypage">
             <MyPage />
