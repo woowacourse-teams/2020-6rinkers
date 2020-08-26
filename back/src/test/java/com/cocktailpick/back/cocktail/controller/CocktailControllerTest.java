@@ -39,6 +39,7 @@ import com.cocktailpick.back.cocktail.vo.UserPreferenceAnswer;
 import com.cocktailpick.back.common.documentation.DocumentationWithSecurity;
 import com.cocktailpick.back.favorite.domain.Favorites;
 import com.cocktailpick.back.tag.dto.TagResponse;
+import com.cocktailpick.back.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(controllers = CocktailController.class)
@@ -48,6 +49,9 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 
 	@MockBean
 	private CocktailRecommendService cocktailRecommendService;
+
+	@MockBean
+	private UserService userService;
 
 	private Cocktail blueHawaii;
 
@@ -304,8 +308,7 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 			UserPreferenceAnswer.SOSO);
 
 		RecommendRequest recommendRequest = new RecommendRequest(abvAnswer, moodAnswers, flavorAnswer,
-			preferenceAnswers,
-			nonPreferenceAnswers);
+			preferenceAnswers, nonPreferenceAnswers);
 
 		given(cocktailRecommendService.recommendWithFavorite(any(), any())).willReturn(
 			Collections.singletonList(blueHawaiiResponse));
