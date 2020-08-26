@@ -10,7 +10,7 @@
 }
 
 .my-page-container > h2 {
-    color: #a60000;
+    color: var(--red);
     font-weight: 300;
 }
 
@@ -21,7 +21,7 @@
 }
 
 .my-info-container > h3 {
-    color: #777777;
+    color: var(--little-gray);
 }
 
 .my-info {
@@ -42,7 +42,7 @@
     justify-content: center;
     width: 5rem;
     height: 5rem;
-    box-shadow: 0 0 0.5rem #777777;
+    box-shadow: 0 0 0.5rem var(--little-gray);
     border-radius: 50%;
 }
 
@@ -58,14 +58,14 @@
     flex-direction: column;
     justify-content: space-around;
     padding-bottom: 1px;
-    border-bottom: #a60000 solid 0.01rem;
+    border-bottom: var(--red) solid 0.01rem;
 }
 
 .my-info-details > .user-email {
     white-space: normal;
     font-size: 0.8rem;
     font-weight: 300;
-    color: #777777;
+    color: var(--little-gray);
 }
 
 .my-info-details > .user-name {
@@ -99,7 +99,7 @@
         white-space: normal;
         font-size: 0.5rem;
         font-weight: 300;
-        color: #777777;
+        color: var(--little-gray);
     }
 
     .my-info-details > .user-name {

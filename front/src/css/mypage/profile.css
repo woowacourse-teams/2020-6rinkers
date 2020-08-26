@@ -11,7 +11,7 @@
 }
 
 .profile-container > h2 {
-    color: #a60000;
+    color: var(--red);
     font-weight: 300;
 }
 
@@ -25,7 +25,7 @@
     display: inline-block;
     margin: 0 10%;
     padding: 0 1rem 0.3rem;
-    border-bottom: #a60000 solid 1px;
+    border-bottom: var(--red) solid 1px;
 }
 
 .profile-image {
@@ -45,7 +45,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 0.5rem #777777;
+    box-shadow: 0 0 0.5rem var(--little-gray);
     border-radius: 50%;
 }
 
@@ -64,7 +64,7 @@
     width: 15%;
     height: 15%;
     border-radius: 50%;
-    background: #777777;
+    background: var(--little-gray);
 }
 
 .profile-image-update > label {
@@ -97,7 +97,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    border-top: rgba(166, 0, 0, 0.7) 0.2rem solid;
+    border-top: var(--little-light-red) 0.2rem solid;
     box-shadow: 0.3rem 0.3rem 0.8rem var(--little-dark-white);
 }
 
@@ -137,7 +137,7 @@
     font-weight: 400;
     font-size: 1.2rem;
     color: white;
-    background: rgba(166, 0, 0, 0.7);
+    background: var(--little-light-red);
     padding: 0.8rem;
     border: none;
     border-radius: 5%;
@@ -152,10 +152,10 @@
 }
 
 .withdrawal-submit {
-    color: #777777;
+    color: var(--little-gray);
     display: inline-block;
     font-size: 0.8rem;
-    border-bottom: solid 1px #777777;
+    border-bottom: solid 1px var(--little-gray);
 }
 
 @media screen and (max-width: 700px) {
