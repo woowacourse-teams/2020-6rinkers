@@ -5,7 +5,13 @@ export default ({ name, userKey, value, onChange }) => {
     <div className="profile-input-container">
       <h3>{name}</h3>
       <div className="detail-input">
-        <input type="text" name={userKey} value={value} onChange={onChange} />
+        <input
+          type="text"
+          name={userKey}
+          value={value}
+          disabled
+          onChange={onChange}
+        />
       </div>
     </div>
   );

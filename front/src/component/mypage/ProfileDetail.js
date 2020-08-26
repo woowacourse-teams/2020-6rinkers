@@ -1,11 +1,7 @@
 import React from "react";
 import ProfileDetailInput from "./ProfileDetailInput";
 
-export default ({ user, onUpdateUser, onSubmit }) => {
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    onUpdateUser(name, value);
-  };
+export default ({ user }) => {
 
   return (
     <div className="profile-detail-container">
@@ -20,15 +16,15 @@ export default ({ user, onUpdateUser, onSubmit }) => {
           name="이름"
           userKey="name"
           value={user.name}
-          onChange={onChange}
+          onChange=""
         />
-        <div className="profile-submit">
-          <div className="update-submit">
-            <button type="submit" onClick={onSubmit}>
-              수정
-            </button>
-          </div>
-        </div>
+        {/*<div className="profile-submit">*/}
+        {/*  <div className="update-submit">*/}
+        {/*    <button type="submit" onClick={onSubmit}>*/}
+        {/*      수정*/}
+        {/*    </button>*/}
+        {/*  </div>*/}
+        {/*</div>*/}
         <div className="withdrawal">
           <a href="#" onClick={() => alert("hi")} className="withdrawal-submit">
             회원 탈퇴

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
+import { useRecoilValue } from "recoil/dist";
 import Alert from "react-s-alert";
 import {
   ACCESS_TOKEN,
@@ -8,10 +9,12 @@ import {
 } from "../../constants";
 import { login } from "../../utils/APIUtils";
 import "../../css/user/login.css";
+import { userState } from "../../recoil";
 
 const Login = (props) => {
   const location = useLocation();
   const history = useHistory();
+  const authenticated = useRecoilValue(userState).authenticated;
 
   useEffect(() => {
     if (location.state && location.state.error) {
@@ -21,18 +24,16 @@ const Login = (props) => {
         });
         history.replace({
           pathname: location.pathname,
-          state: {},
         });
       }, 100);
     }
   });
 
-  if (props.authenticated) {
+  if (authenticated) {
     return (
       <Redirect
         to={{
           pathname: "/",
-          state: { from: props.location },
         }}
       />
     );

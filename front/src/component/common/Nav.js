@@ -1,8 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil/dist";
 import Service from "./Service";
+import { userState } from "../../recoil";
 
-const Nav = ({ authenticated, currentUser, handleLogout }) => {
+const Nav = ({ handleLogout }) => {
+  const { authenticated, currentUser } = useRecoilValue(userState);
   return (
     <div className="nav">
       <div className="title">

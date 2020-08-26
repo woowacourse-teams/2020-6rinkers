@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { Redirect } from "react-router-dom";
+import { useRecoilValue } from "recoil/dist";
 import MyInfo from "./MyInfo";
 import "../../css/mypage/myPage.css";
-import { Redirect } from "react-router-dom";
+import { userState } from "../../recoil";
 
-const MyPage = ({ currentUser, authenticated }) => {
+const MyPage = () => {
+  const { authenticated, currentUser } = useRecoilValue(userState);
   if (!authenticated) {
     return (
       <Redirect
@@ -16,7 +19,7 @@ const MyPage = ({ currentUser, authenticated }) => {
   return (
     <div className="my-page-container">
       <h2>My Page</h2>
-      <MyInfo user={currentUser} />
+      <MyInfo />
     </div>
   );
 };
