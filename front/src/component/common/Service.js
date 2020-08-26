@@ -30,7 +30,7 @@ const Service = ({ authenticated, currentUser, handleLogout }) => {
       <div className="options">
         {authenticated ? (
           <>
-            <NavLink to="/profile" className="serviceItem">
+            <NavLink to="/mypage" className="serviceItem">
               {currentUser.name}
             </NavLink>
             <a onClick={handleLogout} className="serviceItem">

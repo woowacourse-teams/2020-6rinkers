@@ -1,0 +1,112 @@
+@import url("https://fonts.googleapis.com/earlyaccess/notosanskr.css");
+
+.my-page-container {
+    display: flex;
+    flex-direction: column;
+    font-family: "Noto Sans KR", serif;
+    align-items: center;
+    justify-content: space-around;
+    margin: auto 0;
+}
+
+.my-page-container > h2 {
+    color: var(--red);
+    font-weight: 300;
+}
+
+.my-info-container {
+    width: 90%;
+    max-width: 30rem;
+    margin: 2rem;
+}
+
+.my-info-container > h3 {
+    color: var(--little-gray);
+}
+
+.my-info {
+    height: 8rem;
+    display: flex;
+    margin: 1rem 0;
+    padding: 0.5rem;
+    box-shadow: 0.3rem 0.3rem 0.8rem var(--little-dark-white);
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 1rem;
+}
+
+.my-info > .user-image {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5rem;
+    height: 5rem;
+    box-shadow: 0 0 0.5rem var(--little-gray);
+    border-radius: 50%;
+}
+
+.my-info > .user-image > img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.my-info-details {
+    width: 50%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-bottom: 1px;
+    border-bottom: var(--red) solid 0.01rem;
+}
+
+.my-info-details > .user-email {
+    white-space: normal;
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: var(--little-gray);
+}
+
+.my-info-details > .user-name {
+    font-size: 1.5rem;
+}
+
+.info-modify {
+    width: 1rem;
+}
+
+@media screen and (max-width: 700px) {
+    .my-page-container {
+        margin-top: 1rem;
+        justify-content: flex-start;
+    }
+
+    .my-info-container {
+        max-height: 20rem;
+    }
+
+    .my-info-details {
+        height: auto;
+    }
+
+    .my-info > .user-image {
+        width: 3.5rem;
+        height: 3.5rem;
+    }
+
+    .my-info-details > .user-email {
+        white-space: normal;
+        font-size: 0.5rem;
+        font-weight: 300;
+        color: var(--little-gray);
+    }
+
+    .my-info-details > .user-name {
+        font-size: 1rem;
+    }
+
+    .my-info {
+        height: 6rem;
+    }
+}
