@@ -5,7 +5,7 @@ const Recommendation = (props) => {
   return (
     <div className="homeRecommendation">
       <Link to="/recommend">
-        <div className="content">오늘의 칵테일을 추천 받아 보아요 🍸</div>
+        <div className="content">나를 위한 칵테일을 추천 받아 보아요 🍸</div>
       </Link>
     </div>
   );
