@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Route, Switch } from "react-router-dom";
-import Alert from "react-s-alert";
 import Header from "../component/common/Header";
 import Home from "../component/home/Home";
 import Footer from "../component/common/Footer";
@@ -16,6 +15,7 @@ import MyPage from "../component/mypage/MyPage";
 import OAuth2RedirectHandler from "../oauth2/OAuth2RedirectHandler";
 import Login from "../component/user/Login";
 import Signup from "../component/user/Signup";
+import Profile from "../component/user/Profile";
 import { ACCESS_TOKEN, USER_PROTOTYPE } from "../constants";
 import { getCurrentUser } from "../utils/APIUtils";
 import MyProfile from "../component/mypage/MyProfile";
@@ -51,17 +51,15 @@ const Routes = ({ cocktails, setCocktails }) => {
       });
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem(ACCESS_TOKEN);
-    setUser({
-      authenticated: false,
-      currentUser: USER_PROTOTYPE,
-    });
-    Alert.success("로그아웃되었습니다.");
-  };
-
-  useEffect(loadCurrentlyLoggedInUser, []);
-
+const Routes = ({
+  cocktails,
+  setCocktails,
+  authenticated,
+  currentUser,
+  handleLogout,
+  role,
+  loading,
+}) => {
   if (loading) {
     return (
       <div
@@ -134,7 +132,7 @@ const Routes = ({ cocktails, setCocktails }) => {
           <Route path="/signup">
             <Signup authenticated={authenticated} />
           </Route>
-        </Switch>
+          </Switch>
       </div>
       <Route render={({ location }) => checkAdminForFooter(location)} />
     </>
