@@ -1,18 +1,20 @@
 import React, { useState } from "react";
-import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
+import { useRecoilValue } from "recoil/dist";
 import Alert from "react-s-alert";
+import { userState } from "../../recoil";
 import { GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL } from "../../constants";
 import { signup } from "../../utils/APIUtils";
 import "../../css/user/signup.css";
 
 const Signup = (props) => {
-  const location = useLocation();
-  if (props.authenticated) {
+  const authenticated = useRecoilValue(userState).authenticated;
+
+  if (authenticated) {
     return (
       <Redirect
         to={{
           pathname: "/",
-          state: { from: location.pathname },
         }}
       />
     );
@@ -34,7 +36,7 @@ const Signup = (props) => {
   );
 };
 
-const SocialSignup = (props) => {
+const SocialSignup = () => {
   return (
     <div className="social-signup">
       <a className="social-btn" href={GOOGLE_AUTH_URL}>
@@ -49,7 +51,7 @@ const SocialSignup = (props) => {
   );
 };
 
-const SignupForm = (props) => {
+const SignupForm = () => {
   const [inputs, setInputs] = useState({
     name: "",
     email: "",
