@@ -66,13 +66,13 @@ const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
     if (selectedTagIds.includes(tagId)) {
       const afterTagIds = selectedTagIds.filter((id) => id !== tagId);
       setSelectedTagIds(afterTagIds);
-      history.push("?tagIds=" + afterTagIds.join(","));
+      history.push(`?tagIds=${afterTagIds.join(",")}`);
       return;
     }
 
     const afterTagIds = selectedTagIds.concat([tagId]);
     setSelectedTagIds(afterTagIds);
-    history.push("?tagIds=" + afterTagIds.join(","));
+    history.push(`?tagIds=${afterTagIds.join(",")}`);
   };
 
   const onTagSelectButtonClick = () => {
@@ -122,22 +122,11 @@ const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
       </div>
       <div className="tagFilterContainer" ref={tagFilterContainerRef}>
         {allTags.map((tag, index) => {
-          if (selectedTagIds.includes(tag.tagId)) {
-            return (
-              <div
-                className="filterTag selectedTag"
-                key={index}
-                data-id={tag.tagId}
-                onClick={onClickTag}
-              >
-                {tag.name}
-              </div>
-            );
-          }
-
           return (
             <div
-              className="filterTag"
+              className={`filterTag ${
+                selectedTagIds.includes(tag.tagId) ? "selectedTag" : ""
+              }`}
               key={index}
               data-id={tag.tagId}
               onClick={onClickTag}
