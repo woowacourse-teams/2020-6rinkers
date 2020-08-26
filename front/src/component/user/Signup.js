@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, Redirect, useHistory, useLocation } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { useRecoilValue } from "recoil/dist";
 import Alert from "react-s-alert";
 import { userState } from "../../recoil";
