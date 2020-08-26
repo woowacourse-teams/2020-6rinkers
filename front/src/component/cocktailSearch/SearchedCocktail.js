@@ -1,13 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Alert from "react-s-alert";
 import CircularBox from "../common/CircularBox";
 import CocktailFavorite from "./CocktailFavorite";
+import { addFavorite } from "../../api/index";
 
 const SearchedCocktail = ({ cocktail, cocktails, setCocktails, role }) => {
+  const addFavorites = async () => {
+    await addFavorite({ cocktailId: cocktail.id }).catch((error) => {
+      Alert.warning(error.response.data.message);
+    });
+  };
   return (
     <div
       className="searchedCocktailContainer"
       data-search-cocktail={cocktail.id}
+      onClick={addFavorites}
     >
       <div className="searchedCocktailName">{cocktail.name}</div>
       <div>

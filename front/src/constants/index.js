@@ -12,6 +12,7 @@ export const USER_PROTOTYPE = {
   providerId: "",
   role: "",
   roleName: "",
+  myFavorites: []
 };
 
 export const ACCESS_TOKEN = "accessToken";
