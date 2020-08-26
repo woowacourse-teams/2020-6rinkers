@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import { deleteFavorite } from "../../api";
 import Alert from "react-s-alert";
 
-const MyFavorite = ({ cocktail, loadCurrentlyLoggedInUser }) => {
+const MyFavorite = ({ cocktail }) => {
   const onDeleteFavorite = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    deleteFavorite(cocktail.id)
-      .then(loadCurrentlyLoggedInUser())
-      .catch(Alert.warning("즐겨찾기 삭제가 실패했습니다."));
+    deleteFavorite(cocktail.id).catch(
+      Alert.warning("즐겨찾기 삭제가 실패했습니다.")
+    );
   };
 
   return (
