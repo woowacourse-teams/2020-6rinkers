@@ -1,13 +1,16 @@
-import React, {  useEffect, useState } from "react";import queryString from "query-string";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import queryString from "query-string";
 import SearchedCocktails from "./SearchedCocktails";
 import "../../css/cocktailSearch/cocktailSearch.css";
 import SearchContainer from "./SearchContainer";
 import TagFilterContainer from "./TagFilterContainer";
 
-const CocktailSearch = ({ role, history }) => {
-  const [loading, setLoading] = useState(false);
+const CocktailSearch = ({ role }) => {
   const [cocktails, setCocktails] = useState([]);
   const [tabIndex, setTabIndex] = useState(0);
+
+  const history = useHistory();
 
   const tabs = [
     {
