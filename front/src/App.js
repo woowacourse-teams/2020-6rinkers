@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRecoilState } from "recoil";
 import "./index.css";
 import Alert from "react-s-alert";
 import Routes from "./router/Routes";
-import { getCurrentUser } from "./utils/APIUtils";
-import { ACCESS_TOKEN, USER_PROTOTYPE } from "./constants";
 import "react-s-alert/dist/s-alert-default.css";
 import "react-s-alert/dist/s-alert-css-effects/slide.css";
 import { userState } from "./recoil";
