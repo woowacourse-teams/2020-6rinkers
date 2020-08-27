@@ -9,7 +9,7 @@ import org.springframework.test.context.ActiveProfiles;
 import io.restassured.RestAssured;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles(profiles = {"dev"})
+@ActiveProfiles(profiles = {"local"})
 public abstract class AcceptanceTest {
     @LocalServerPort
     int port;
