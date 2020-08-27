@@ -2,11 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import ServiceSlider from "./ServicesSlider";
 
-const MobileNav = ({ toggleSlider, slider, handleLogout }) => {
+const MobileNav = ({ offSlider, toggleSlider, slider, handleLogout }) => {
   return (
     <div className="mobileNav">
       <div className="title">
-        <Link to="/" className="textLink">
+        <Link to="/" className="textLink" onClick={offSlider}>
           Cocktail<span className="highlightCharacter">P</span>ick
         </Link>
       </div>
