@@ -1,30 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Alert from "react-s-alert";
+import { userState } from "../../recoil";
+import { useRecoilValue } from "recoil/dist";
 import CircularBox from "../common/CircularBox";
 import CocktailFavorite from "./CocktailFavorite";
-import { addFavorite } from "../../api/index";
 
 const SearchedCocktail = ({ cocktail, cocktails, setCocktails, role }) => {
+  const currentUser = useRecoilValue(userState).currentUser;
+
   return (
     <div
       className="searchedCocktailContainer"
       data-search-cocktail={cocktail.id}
     >
-      <div className="cocktailNameWithFavorite">
-        <div className="emptyName" />
-        <div className="searchedCocktailName">{cocktail.name}</div>
-        <div className="favoriteContainer">
-          {1 ? (
-            <CocktailFavorite
-              cocktail={cocktail}
-              cocktails={cocktails}
-              setCocktails={setCocktails}
-            />
-          ) : (
-            <div />
-          )}
-        </div>
+      <div className="searchedCocktailName">{cocktail.name}</div>
+      <div className="favoriteContainer">
+        {currentUser.role ? (
+          <CocktailFavorite
+            cocktail={cocktail}
+            cocktails={cocktails}
+            setCocktails={setCocktails}
+          />
+        ) : (
+          <div />
+        )}
       </div>
       <Link
         to={{

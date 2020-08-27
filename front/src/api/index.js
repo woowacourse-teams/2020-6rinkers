@@ -14,11 +14,16 @@ const config = {
 export const fetchAllCocktails = () => client.get("/api/cocktails");
 export const fetchPagedCocktailsContainingWord = ({ contain, id, size }) =>
   client.get("/api/cocktails/contain-word", {
-    params: { contain, id, size } });
-export const fetchPagedCocktailsFilteredByTags = ({ tagIds, id, size }) =>
-  client.get("api/cocktails/contain-tags", { params: { tagIds, id, size },
+    params: { contain, id, size },
     headers: {
-      Authorization: config.headers,
+      Authorization: config.headers.Authorization,
+    },
+  });
+export const fetchPagedCocktailsFilteredByTags = ({ tagIds, id, size }) =>
+  client.get("api/cocktails/contain-tags", {
+    params: { tagIds, id, size },
+    headers: {
+      Authorization: config.headers.Authorization,
     },
   });
 export const fetchCocktail = (id) => client.get(`/api/cocktails/${id}`, config);
@@ -84,6 +89,6 @@ export const fetchMyFavorites = () => {
 };
 
 export const addFavorite = (data) =>
-    client.post("/api/user/me/favorites", data, config);
+  client.post("/api/user/me/favorites", data, config);
 export const deleteFavorite = (id) =>
-    client.delete(`/api/user/me/favorites/${id}`, config);
+  client.delete(`/api/user/me/favorites/${id}`, config);
