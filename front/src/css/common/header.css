@@ -34,6 +34,8 @@
   background-color: var(--light-black);
   z-index: 3;
   cursor: pointer;
+  overflow: hidden !important;
+  touch-action: none;
 }
 
 .mobileNav {
@@ -122,6 +124,8 @@
     width: 90vw;
     height: 100%;
     border-bottom: var(--light-black) solid 1px;
+    overflow: hidden !important;
+    touch-action: none;
   }
 
   .sliderToggle {
