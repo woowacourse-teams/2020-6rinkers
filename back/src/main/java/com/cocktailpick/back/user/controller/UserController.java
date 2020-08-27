@@ -21,7 +21,6 @@ import com.cocktailpick.back.security.CurrentUser;
 import com.cocktailpick.back.user.domain.User;
 import com.cocktailpick.back.user.dto.UserResponse;
 import com.cocktailpick.back.user.service.UserService;
-
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
@@ -54,8 +53,7 @@ public class UserController {
 
 	@DeleteMapping("/me/favorites/{cocktailId}")
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public ResponseEntity<Void> deleteFavorite(@CurrentUser User user,
-		@PathVariable Long cocktailId) {
+	public ResponseEntity<Void> deleteFavorite(@CurrentUser User user, @PathVariable Long cocktailId) {
 		userService.deleteFavorite(user, cocktailId);
 
 		return ResponseEntity.noContent().build();

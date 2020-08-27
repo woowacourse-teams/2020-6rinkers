@@ -48,5 +48,6 @@ public class UserService {
 	@Transactional
 	public void deleteFavorite(User user, Long cocktailId) {
 		user.deleteFavorite(cocktailId);
+		userRepository.save(user);
 	}
 }
