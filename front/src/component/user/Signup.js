@@ -3,8 +3,8 @@ import { Link, Redirect, useHistory } from "react-router-dom";
 import { useRecoilValue } from "recoil/dist";
 import Alert from "react-s-alert";
 import { userState } from "../../recoil";
+import { signup } from "../../api";
 import { GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL } from "../../constants";
-import { signup } from "../../utils/APIUtils";
 import "../../css/user/signup.css";
 
 const Signup = (props) => {
@@ -72,7 +72,7 @@ const SignupForm = () => {
     const signUpRequest = { ...inputs };
 
     signup(signUpRequest)
-      .then((response) => {
+      .then(() => {
         Alert.success("회원 가입이 완료되었습니다.");
         history.push("/login");
       })

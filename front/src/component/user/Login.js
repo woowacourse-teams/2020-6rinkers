@@ -7,7 +7,7 @@ import {
   FACEBOOK_AUTH_URL,
   GOOGLE_AUTH_URL,
 } from "../../constants";
-import { login } from "../../utils/APIUtils";
+import { login } from "../../api";
 import "../../css/user/login.css";
 import { userState } from "../../recoil";
 
@@ -90,9 +90,9 @@ const LoginForm = () => {
 
     login(loginRequest)
       .then((response) => {
-        localStorage.setItem(ACCESS_TOKEN, response.accessToken);
+        localStorage.setItem(ACCESS_TOKEN, response.data.accessToken);
         Alert.success("로그인되었습니다.");
-        history.push("/");
+        history.go("/");
       })
       .catch((error) => {
         Alert.error(

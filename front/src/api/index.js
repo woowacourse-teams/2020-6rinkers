@@ -47,3 +47,19 @@ export const createTagsByCsv = (file) =>
       Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
     },
   });
+export const getCurrentUser = () => {
+  if (!localStorage.getItem(ACCESS_TOKEN)) {
+    return Promise.reject("No access token set.");
+  }
+
+  return client.get("/api/user/me", {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+    },
+  });
+};
+export const login = (loginRequest) =>
+  client.post("/api/auth/login", loginRequest);
+export const signup = (signupRequest) =>
+  client.post("/api/auth/signup", signupRequest);
