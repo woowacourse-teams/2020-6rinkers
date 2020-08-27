@@ -6,10 +6,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import com.cocktailpick.back.cocktail.vo.UserPreferenceAnswer;
 
@@ -65,10 +63,10 @@ public class RecommendedCocktails {
 			if (cocktails.size() >= DEFAULT_RECOMMEND_COUNT) {
 				break;
 			}
-			cocktails.addAll(sortedMap.get(score));
+			List<RecommendedCocktail> recommendedCocktails = sortedMap.get(score);
+			Collections.shuffle(recommendedCocktails);
+			cocktails.addAll(recommendedCocktails);
 		}
-
-		Collections.shuffle(cocktails);
 
 		return cocktails.stream()
 			.map(RecommendedCocktail::getCocktail)
