@@ -40,7 +40,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return Collections.singletonList(new SimpleGrantedAuthority(user.getRoleName()));
+		return Collections.singletonList(new SimpleGrantedAuthority(user.roleName()));
 	}
 
 	public void setAttributes(Map<String, Object> attributes) {

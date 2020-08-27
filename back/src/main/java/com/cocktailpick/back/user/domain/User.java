@@ -82,11 +82,7 @@ public class User extends BaseTimeEntity {
 		return favorites.isDuplicated(favorite);
 	}
 
-	public static User empty() {
-		return new User(null, null, null, null, null, null, null, null, null, Favorites.empty());
-	}
-
-	public String getRoleName() {
+	public String roleName() {
 		return role.name();
 	}
 }

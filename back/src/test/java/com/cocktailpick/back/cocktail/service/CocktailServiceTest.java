@@ -42,6 +42,7 @@ import com.cocktailpick.back.recipe.domain.RecipeItem;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
 import com.cocktailpick.back.tag.domain.TagType;
+import com.cocktailpick.back.user.domain.EmptyUser;
 import com.cocktailpick.back.user.domain.User;
 
 @ExtendWith(MockitoExtension.class)
@@ -78,7 +79,7 @@ public class CocktailServiceTest {
 		User user = User.builder().id(1L).name("doo").favorites(favorites).build();
 
 		return Stream.of(
-			Arguments.of(User.empty()),
+			Arguments.of(new EmptyUser()),
 			Arguments.of(user)
 		);
 	}
