@@ -49,13 +49,6 @@ public class RecommendedCocktails {
 				userPreferenceAnswer))
 			.collect(collectingAndThen(toList(), RecommendedCocktails::new));
 	}
-	//
-	// public List<Cocktail> getSortedCocktailsByScore() {
-	// 	return recommendedCocktails.stream()
-	// 		.sorted(Comparator.comparingInt(RecommendedCocktail::getScore).reversed())
-	// 		.map(RecommendedCocktail::getCocktail)
-	// 		.collect(toList());
-	// }
 
 	public List<Cocktail> getSortedCocktailsByScore() {
 		Map<Integer, List<RecommendedCocktail>> unSortedMap = recommendedCocktails.stream()
