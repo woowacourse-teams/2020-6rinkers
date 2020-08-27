@@ -24,7 +24,7 @@ const Concept = ({ addAnswer }) => {
       answer.concat(
         concepts.map((concept) => ({
           tagId: concept.tagId,
-          userPreferenceAnswer: "SOSO",
+          userPreferenceAnswer: "",
         }))
       )
     );
@@ -46,6 +46,10 @@ const Concept = ({ addAnswer }) => {
     return targetAnswer ? targetAnswer.userPreferenceAnswer : "";
   };
 
+  const checkDone = () => {
+    return answer.filter((ans) => ans.userPreferenceAnswer === "").length === 0;
+  };
+
   return (
     <div>
       {concepts &&
@@ -65,6 +69,7 @@ const Concept = ({ addAnswer }) => {
         answer={answer}
         addAnswer={addAnswer}
         saying="다음 질문으로"
+        done={checkDone()}
       />
     </div>
   );

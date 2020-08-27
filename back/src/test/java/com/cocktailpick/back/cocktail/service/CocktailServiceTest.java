@@ -254,7 +254,7 @@ public class CocktailServiceTest {
 	void saveAll() {
 		MultipartFile file = new MockMultipartFile("file", "칵테일.csv", "text/csv",
 			THREE_COCKTAILS_CSV_CONTENT.getBytes());
-		when(tagRepository.findAll()).thenReturn(FOUR_TAGS_FROM_TAG_CSV);
+		when(tagRepository.findAll()).thenReturn(FOUR_TAGS);
 
 		cocktailService.saveAll(file);
 

@@ -25,7 +25,7 @@ const Ingredient = ({ addAnswer }) => {
       answer.concat(
         ingredients.map((ingredient) => ({
           tagId: ingredient.tagId,
-          userPreferenceAnswer: "SOSO",
+          userPreferenceAnswer: "",
         }))
       )
     );
@@ -47,6 +47,10 @@ const Ingredient = ({ addAnswer }) => {
     return targetAnswer ? targetAnswer.userPreferenceAnswer : "";
   };
 
+  const checkDone = () => {
+    return answer.filter((ans) => ans.userPreferenceAnswer === "").length === 0;
+  };
+
   return (
     <div>
       {ingredients &&
@@ -65,6 +69,7 @@ const Ingredient = ({ addAnswer }) => {
         type="preferenceAnswers"
         answer={answer}
         addAnswer={addAnswer}
+        done={checkDone()}
         saying="다음 질문으로"
       />
     </div>

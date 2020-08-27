@@ -10,11 +10,20 @@ const Header = ({ handleLogout }) => {
     setSlider(!slider);
   };
 
+  const offSlider = () => {
+    setSlider(false);
+  };
+
   return (
     <div className="headerContainer">
       <Nav handleLogout={handleLogout} />
       {slider && <div className="cover" onClick={toggleSlider} />}
-      <MobileNav toggleSlider={toggleSlider} slider={slider} />
+      <MobileNav
+        offSlider={offSlider}
+        toggleSlider={toggleSlider}
+        slider={slider}
+        handleLogout={handleLogout}
+      />
     </div>
   );
 };

@@ -10,18 +10,19 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
 import com.cocktailpick.back.common.domain.BaseTimeEntity;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@SequenceGenerator(name = "tag_sequence_gen", sequenceName = "tag_sequence")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Tag extends BaseTimeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tag_sequence_gen")
+	@SequenceGenerator(name = "tag_sequence_gen", sequenceName = "tag_sequence")
 	private Long id;
 
 	@Column(name = "name")

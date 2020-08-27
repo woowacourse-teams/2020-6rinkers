@@ -2,11 +2,15 @@ package com.cocktailpick.back.cocktail.domain;
 
 import static java.util.stream.Collectors.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
 import com.cocktailpick.back.cocktail.vo.UserPreferenceAnswer;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -45,10 +49,28 @@ public class RecommendedCocktails {
 	}
 
 	public List<Cocktail> getSortedCocktailsByScore() {
-		return recommendedCocktails.stream()
-			.sorted(Comparator.comparingInt(RecommendedCocktail::getScore).reversed())
+		Map<Integer, List<RecommendedCocktail>> unSortedMap = recommendedCocktails.stream()
+			.collect(groupingBy(RecommendedCocktail::getScore));
+
+		LinkedHashMap<Integer, List<RecommendedCocktail>> sortedMap = new LinkedHashMap<>();
+		unSortedMap.entrySet()
+			.stream()
+			.sorted(Map.Entry.comparingByKey(Comparator.reverseOrder()))
+			.forEachOrdered(it -> sortedMap.put(it.getKey(), it.getValue()));
+
+		List<RecommendedCocktail> cocktails = new ArrayList<>();
+		for (Integer score : sortedMap.keySet()) {
+			if (cocktails.size() >= DEFAULT_RECOMMEND_COUNT) {
+				break;
+			}
+			List<RecommendedCocktail> recommendedCocktails = sortedMap.get(score);
+			Collections.shuffle(recommendedCocktails);
+			cocktails.addAll(recommendedCocktails);
+		}
+
+		return cocktails.stream()
 			.map(RecommendedCocktail::getCocktail)
 			.limit(DEFAULT_RECOMMEND_COUNT)
-			.collect(Collectors.toList());
+			.collect(toList());
 	}
 }

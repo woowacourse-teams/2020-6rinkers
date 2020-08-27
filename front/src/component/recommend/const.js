@@ -1,5 +1,3 @@
-import React from "react";
-
 export const intro = [
   "안녕하세요! 반가워요.\n맛있는 칵테일을 추천해드릴게요.",
   "오늘도 한잔하시는군요!\n맛있는 칵테일을 추천해드릴게요.",
@@ -30,8 +28,8 @@ export const questions = [
 
 export const answerList = [
   {
-    yes: "좋아요",
-    soso: "그냥 그래요",
-    no: "싫어요",
+    yes: "매우 좋아요",
+    soso: "좋아요",
+    no: "그저 그래요",
   },
 ];

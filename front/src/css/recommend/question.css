@@ -50,7 +50,7 @@
 }
 
 .tag-name {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   border-bottom: solid 1px var(--red);
   width: 80%;
   margin: 1rem 0.5rem 1rem 0.5rem;
@@ -59,7 +59,7 @@
 
 .answer-button {
   border: solid 1px var(--red);
-  border-radius: 10px;
+  border-radius: var(--base-border-radius);
   background-color: transparent;
   margin: 1rem 0.5rem 2rem 0.5rem;
   font-size: large;
@@ -81,16 +81,26 @@
 
 .next-stage {
   font-family: inherit;
-  font-size: 1rem;
+  font-size: large;
   border: none;
   margin: 2rem 0.5rem 1rem 0.5rem;
-  padding: 0.5rem 1rem 0.5rem 1rem;
-  border-radius: 10px;
-  background-color: var(--little-dark-white);
+  padding: 0.7rem 1.8rem;
+  border-radius: var(--base-border-radius);
+  background-color: var(--red);
+  color: white;
 }
 
 .next-stage:hover {
-  color: var(--red);
+  cursor: pointer;
+}
+
+.next-stage:disabled {
+  color: black;
+  background-color: var(--little-dark-white)
+}
+
+.next-stage:disabled:hover {
+  cursor: default;
 }
 
 @media screen and (max-width: 700px) {
@@ -105,7 +115,7 @@
     min-width: 0;
     font-size: 1rem;
     border: solid 1px var(--red);
-    border-radius: 10px;
+    border-radius: var(--base-border-radius);
     background-color: transparent;
     padding: 0.5rem 0.5rem;
   }
@@ -120,7 +130,7 @@
 
   .answer-button {
     border: solid 1px var(--red);
-    border-radius: 10px;
+    border-radius: var(--base-border-radius);
     background-color: transparent;
     margin: 0.5rem 0.3rem 1rem 0.3rem;
     font-size: medium;

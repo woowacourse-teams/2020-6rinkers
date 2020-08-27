@@ -68,6 +68,7 @@ const Dislike = ({ addAnswer }) => {
         type="nonPreferenceAnswers"
         answer={answer}
         addAnswer={addAnswer}
+        done
         saying="칵테일 추천 받기"
       />
     </div>
