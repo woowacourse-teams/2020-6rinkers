@@ -15,25 +15,15 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 public class CustomUserDetailsService implements UserDetailsService {
-	final UserRepository userRepository;
+	private final UserRepository userRepository;
 
 	@Override
 	@Transactional(readOnly = true)
-	public UserDetails loadUserByUsername(String email)
-		throws UsernameNotFoundException {
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		User user = userRepository.findByEmail(email)
 			.orElseThrow(() ->
 				new UsernameNotFoundException("유저를 찾을 수 없습니다. email: " + email)
 			);
-
-		return UserPrincipal.create(user);
-	}
-
-	@Transactional(readOnly = true)
-	public UserDetails loadUserById(Long id) {
-		User user = userRepository.findById(id).orElseThrow(
-			() -> new ResourceNotFoundException("User", "id", id)
-		);
 
 		return UserPrincipal.create(user);
 	}

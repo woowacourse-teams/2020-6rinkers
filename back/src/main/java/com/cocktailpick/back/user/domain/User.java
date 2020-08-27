@@ -12,9 +12,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
+import com.cocktailpick.back.common.domain.BaseTimeEntity;
 import com.cocktailpick.back.favorite.domain.Favorite;
 import com.cocktailpick.back.favorite.domain.Favorites;
-import com.cocktailpick.back.common.domain.BaseTimeEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -86,7 +86,7 @@ public class User extends BaseTimeEntity {
 		return favorites.isDuplicated(favorite);
 	}
 
-	public String getRoleName() {
+	public String roleName() {
 		return role.name();
 	}
 }

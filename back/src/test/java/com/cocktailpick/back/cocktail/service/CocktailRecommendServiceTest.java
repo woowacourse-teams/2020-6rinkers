@@ -6,11 +6,14 @@ import static org.mockito.Mockito.*;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -22,11 +25,14 @@ import com.cocktailpick.back.cocktail.dto.FlavorAnswer;
 import com.cocktailpick.back.cocktail.dto.RecommendRequest;
 import com.cocktailpick.back.cocktail.dto.TagPreferenceAnswer;
 import com.cocktailpick.back.cocktail.vo.UserPreferenceAnswer;
+import com.cocktailpick.back.favorite.domain.Favorite;
 import com.cocktailpick.back.favorite.domain.Favorites;
 import com.cocktailpick.back.tag.domain.CocktailTag;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
 import com.cocktailpick.back.tag.domain.TagType;
+import com.cocktailpick.back.user.domain.EmptyUser;
+import com.cocktailpick.back.user.domain.User;
 
 @ExtendWith(MockitoExtension.class)
 class CocktailRecommendServiceTest {
@@ -54,6 +60,21 @@ class CocktailRecommendServiceTest {
 	private List<Tag> tags;
 
 	private List<Cocktail> cocktails;
+
+	private static Stream<Arguments> provideUsers() {
+		Favorites favorites = Favorites.empty();
+
+		Favorite favorite = new Favorite(1L, User.builder().id(1L).build(), Cocktail.builder().id(1L).build());
+
+		favorites.addFavorite(favorite);
+
+		User user = User.builder().id(1L).name("doo").favorites(favorites).build();
+
+		return Stream.of(
+			Arguments.of(new EmptyUser()),
+			Arguments.of(user)
+		);
+	}
 
 	@BeforeEach
 	void setUp() {
@@ -124,8 +145,9 @@ class CocktailRecommendServiceTest {
 	}
 
 	@DisplayName("사용자에게 칵테일을 추찬한다.")
-	@Test
-	void recommend() {
+	@ParameterizedTest
+	@MethodSource("provideUsers")
+	void recommend(User user) {
 		when(cocktailRepository.findAll()).thenReturn(cocktails);
 		when(tagRepository.findAll()).thenReturn(tags);
 		when(filteringAndScoringRecommendService.recommend(anyList(), any(), any())).thenReturn(
@@ -142,6 +164,6 @@ class CocktailRecommendServiceTest {
 		RecommendRequest recommendRequest = new RecommendRequest(abvAnswer, moodAnswer, flavorAnswer, preferenceAnswers,
 			nonPreferenceAnswers);
 
-		assertThat(cocktailRecommendService.recommendWithFavorite(recommendRequest, Favorites.empty())).isNotNull();
+		assertThat(cocktailRecommendService.recommend(recommendRequest, user.getFavorites())).isNotNull();
 	}
 }

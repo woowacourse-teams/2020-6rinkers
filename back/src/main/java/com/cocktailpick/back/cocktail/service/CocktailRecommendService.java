@@ -24,20 +24,7 @@ public class CocktailRecommendService {
 	private final TagRepository tagRepository;
 	private final FilteringAndScoringRecommendService filteringAndScoringRecommendService;
 
-	public List<CocktailDetailResponse> recommend(RecommendRequest recommendRequest) {
-		List<Cocktail> cocktails = cocktailRepository.findAll();
-
-		EntityMapper<Long, Tag> entityMapper = tagRepository.findAll()
-			.stream()
-			.collect(collectingAndThen(toMap(Tag::getId, Function.identity()), EntityMapper::new));
-
-		List<Cocktail> recommend = filteringAndScoringRecommendService.recommend(cocktails, entityMapper,
-			recommendRequest);
-
-		return CocktailDetailResponse.listOf(recommend, Favorites.empty());
-	}
-
-	public List<CocktailDetailResponse> recommendWithFavorite(RecommendRequest recommendRequest, Favorites favorites) {
+	public List<CocktailDetailResponse> recommend(RecommendRequest recommendRequest, Favorites favorites) {
 		List<Cocktail> cocktails = cocktailRepository.findAll();
 
 		EntityMapper<Long, Tag> entityMapper = tagRepository.findAll()

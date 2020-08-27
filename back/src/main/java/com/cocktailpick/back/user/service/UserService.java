@@ -12,12 +12,10 @@ import com.cocktailpick.back.cocktail.dto.CocktailResponse;
 import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
 import com.cocktailpick.back.common.exceptions.ErrorCode;
 import com.cocktailpick.back.favorite.domain.Favorite;
-import com.cocktailpick.back.common.exceptions.ResourceNotFoundException;
 import com.cocktailpick.back.favorite.dto.FavoriteRequest;
 import com.cocktailpick.back.favorite.service.FavoriteRepository;
 import com.cocktailpick.back.user.domain.User;
 import com.cocktailpick.back.user.domain.UserRepository;
-import com.cocktailpick.back.user.dto.UserResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
@@ -27,13 +25,6 @@ public class UserService {
 	private final UserRepository userRepository;
 	private final FavoriteRepository favoriteRepository;
 	private final CocktailRepository cocktailRepository;
-
-	@Transactional(readOnly = true)
-	public UserResponse findMe(Long id) {
-		User user = userRepository.findById(id)
-			.orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
-		return UserResponse.of(user);
-	}
 
 	public List<CocktailResponse> findFavorites(User user) {
 		return user.getFavorites().getFavorites().stream()

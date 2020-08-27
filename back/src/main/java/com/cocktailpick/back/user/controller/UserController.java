@@ -9,19 +9,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
-import com.cocktailpick.back.common.exceptions.ResourceNotFoundException;
 import com.cocktailpick.back.favorite.dto.FavoriteRequest;
 import com.cocktailpick.back.security.CurrentUser;
-import com.cocktailpick.back.security.UserPrincipal;
 import com.cocktailpick.back.user.domain.User;
-import com.cocktailpick.back.user.domain.UserRepository;
 import com.cocktailpick.back.user.dto.UserResponse;
 import com.cocktailpick.back.user.service.UserService;
 
@@ -34,30 +31,22 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 	private final UserService userService;
 
-	private final UserRepository userRepository;
-
 	@GetMapping("/me")
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public ResponseEntity<UserResponse> getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
-		return ResponseEntity.ok(userService.findMe(userPrincipal.getId()));
+	public ResponseEntity<UserResponse> getCurrentUser(@CurrentUser User user) {
+		return ResponseEntity.ok(UserResponse.of(user));
 	}
 
 	@GetMapping("/me/favorites")
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public ResponseEntity<List<CocktailResponse>> findFavorites(@CurrentUser UserPrincipal userPrincipal) {
-		User user = userRepository.findById(userPrincipal.getId())
-			.orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
-
+	public ResponseEntity<List<CocktailResponse>> findFavorites(@CurrentUser User user) {
 		return ResponseEntity.ok(userService.findFavorites(user));
 	}
 
 	@PostMapping("/me/favorites")
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public ResponseEntity<Void> addFavorite(@CurrentUser UserPrincipal userPrincipal,
+	public ResponseEntity<Void> addFavorite(@CurrentUser User user,
 		@RequestBody @Valid FavoriteRequest favoriteRequest) {
-		User user = userRepository.findById(userPrincipal.getId())
-			.orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
-
 		Long favoriteId = userService.addFavorite(user, favoriteRequest);
 		return ResponseEntity.created(URI.create("/api/user/me/favorites/" + favoriteId))
 			.build();
@@ -65,14 +54,10 @@ public class UserController {
 
 	@DeleteMapping("/me/favorites/{cocktailId}")
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public ResponseEntity<Void> deleteFavorite(@CurrentUser UserPrincipal userPrincipal,
+	public ResponseEntity<Void> deleteFavorite(@CurrentUser User user,
 		@PathVariable Long cocktailId) {
-		User user = userRepository.findById(userPrincipal.getId())
-			.orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
-
 		userService.deleteFavorite(user, cocktailId);
 
-		return ResponseEntity.noContent()
-			.build();
+		return ResponseEntity.noContent().build();
 	}
 }

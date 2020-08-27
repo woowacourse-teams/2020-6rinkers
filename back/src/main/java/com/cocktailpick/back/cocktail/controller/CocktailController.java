@@ -26,11 +26,8 @@ import com.cocktailpick.back.cocktail.dto.CocktailResponse;
 import com.cocktailpick.back.cocktail.dto.RecommendRequest;
 import com.cocktailpick.back.cocktail.service.CocktailRecommendService;
 import com.cocktailpick.back.cocktail.service.CocktailService;
-import com.cocktailpick.back.common.exceptions.ResourceNotFoundException;
 import com.cocktailpick.back.security.CurrentUser;
-import com.cocktailpick.back.security.UserPrincipal;
 import com.cocktailpick.back.user.domain.User;
-import com.cocktailpick.back.user.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
 
 @CrossOrigin("*")
@@ -40,55 +37,30 @@ import lombok.RequiredArgsConstructor;
 public class CocktailController {
 	private final CocktailService cocktailService;
 	private final CocktailRecommendService cocktailRecommendService;
-	private final UserRepository userRepository;
 
 	@GetMapping
-	public ResponseEntity<List<CocktailResponse>> findCocktails(@CurrentUser UserPrincipal userPrincipal) {
-		if (userPrincipal != null) {
-			User user = userRepository.findById(userPrincipal.getId())
-				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
-
-			return ResponseEntity.ok(cocktailService.findCocktailsWithFavorite(user.getFavorites()));
-		}
-		return ResponseEntity.ok(cocktailService.findAllCocktails());
+	public ResponseEntity<List<CocktailResponse>> findCocktails(@CurrentUser User user) {
+		return ResponseEntity.ok(cocktailService.findAllCocktails(user.getFavorites()));
 	}
 
 	@GetMapping("/contain-word")
-	public ResponseEntity<List<CocktailResponse>> findPageContainingWord(@CurrentUser UserPrincipal userPrincipal,
+	public ResponseEntity<List<CocktailResponse>> findPageContainingWord(@CurrentUser User user,
 		@RequestParam(defaultValue = "") String contain, @RequestParam long id, @RequestParam int size) {
-		if (userPrincipal != null) {
-			User user = userRepository.findById(userPrincipal.getId())
-				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
-			List<CocktailResponse> cocktailResponses = cocktailService.findPagedCocktailsWithFavorite(contain, id, size,
-				user.getFavorites());
-			return ResponseEntity.ok(cocktailResponses);
-		}
-		return ResponseEntity.ok(cocktailService.findPageContainingWord(contain, id, size));
+		List<CocktailResponse> cocktailResponses = cocktailService.findPageContainingWord(contain, id, size,
+			user.getFavorites());
+		return ResponseEntity.ok(cocktailResponses);
 	}
 
 	@GetMapping("/contain-tags")
-	public ResponseEntity<List<CocktailResponse>> findPageFilteredByTags(@CurrentUser UserPrincipal userPrincipal,
+	public ResponseEntity<List<CocktailResponse>> findPageFilteredByTags(@CurrentUser User user,
 		@RequestParam(defaultValue = "") List<Long> tagIds, @RequestParam long id, @RequestParam int size) {
-		if (userPrincipal != null) {
-			User user = userRepository.findById(userPrincipal.getId())
-				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
-			List<CocktailResponse> cocktailResponses = cocktailService.findPageFilteredByTagsWithFavorite(tagIds, id,
-				size, user.getFavorites());
-			return ResponseEntity.ok(cocktailResponses);
-		}
-		return ResponseEntity.ok(cocktailService.findPageFilteredByTags(tagIds, id, size));
+		return ResponseEntity.ok(cocktailService.findPageFilteredByTags(tagIds, id, size, user.getFavorites()));
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<CocktailDetailResponse> findCocktail(@CurrentUser UserPrincipal userPrincipal,
+	public ResponseEntity<CocktailDetailResponse> findCocktail(@CurrentUser User user,
 		@PathVariable Long id) {
-		if (userPrincipal != null) {
-			User user = userRepository.findById(userPrincipal.getId())
-				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
-			return ResponseEntity.ok(cocktailService.findCocktailWithFavorite(id, user.getFavorites()));
-		}
-
-		return ResponseEntity.ok(cocktailService.findCocktail(id));
+		return ResponseEntity.ok(cocktailService.findCocktail(id, user.getFavorites()));
 	}
 
 	@PostMapping
@@ -122,17 +94,10 @@ public class CocktailController {
 	}
 
 	@PostMapping("/recommend")
-	public ResponseEntity<List<CocktailDetailResponse>> recommend(@CurrentUser UserPrincipal userPrincipal,
+	public ResponseEntity<List<CocktailDetailResponse>> recommend(@CurrentUser User user,
 		@RequestBody RecommendRequest recommendRequests) {
-		if (userPrincipal != null) {
-			User user = userRepository.findById(userPrincipal.getId())
-				.orElseThrow(() -> new ResourceNotFoundException("User", "id", userPrincipal.getId()));
-			List<CocktailDetailResponse> cocktailDetailResponses = cocktailRecommendService.recommendWithFavorite(
-				recommendRequests, user.getFavorites());
-			return ResponseEntity.ok(cocktailDetailResponses);
-		}
-
-		List<CocktailDetailResponse> cocktailDetailResponses = cocktailRecommendService.recommend(recommendRequests);
+		List<CocktailDetailResponse> cocktailDetailResponses = cocktailRecommendService.recommend(recommendRequests,
+			user.getFavorites());
 		return ResponseEntity.ok(cocktailDetailResponses);
 	}
 

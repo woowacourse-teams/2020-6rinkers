@@ -11,11 +11,15 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
@@ -32,11 +36,14 @@ import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
 import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
+import com.cocktailpick.back.favorite.domain.Favorite;
 import com.cocktailpick.back.favorite.domain.Favorites;
 import com.cocktailpick.back.recipe.domain.RecipeItem;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
 import com.cocktailpick.back.tag.domain.TagType;
+import com.cocktailpick.back.user.domain.EmptyUser;
+import com.cocktailpick.back.user.domain.User;
 
 @ExtendWith(MockitoExtension.class)
 public class CocktailServiceTest {
@@ -59,7 +66,23 @@ public class CocktailServiceTest {
 	private Cocktail blueHawaii;
 
 	private CocktailRequest cocktailRequest;
+
 	private Flavor flavor;
+
+	private static Stream<Arguments> provideUsers() {
+		Favorites favorites = Favorites.empty();
+
+		Favorite favorite = new Favorite(1L, User.builder().id(1L).build(), Cocktail.builder().id(1L).build());
+
+		favorites.addFavorite(favorite);
+
+		User user = User.builder().id(1L).name("doo").favorites(favorites).build();
+
+		return Stream.of(
+			Arguments.of(new EmptyUser()),
+			Arguments.of(user)
+		);
+	}
 
 	@BeforeEach
 	void setUp() {
@@ -101,8 +124,9 @@ public class CocktailServiceTest {
 	}
 
 	@DisplayName("모든 칵테일을 조회한다.")
-	@Test
-	void findAllCocktails() {
+	@ParameterizedTest
+	@MethodSource("provideUsers")
+	void findAllCocktails(User user) {
 		Cocktail peachCrush = Cocktail.builder()
 			.name("피치 크러쉬")
 			.build();
@@ -113,20 +137,23 @@ public class CocktailServiceTest {
 
 		when(cocktailRepository.findAll()).thenReturn(Arrays.asList(peachCrush, martini));
 
-		List<CocktailResponse> cocktails = cocktailService.findAllCocktails();
+		List<CocktailResponse> cocktails = cocktailService.findAllCocktails(user.getFavorites());
 
 		assertThat(cocktails).extracting("name")
 			.containsExactly(peachCrush.getName(), martini.getName());
 	}
 
 	@DisplayName("정해진 수만큼 칵테일을 조회한다.")
-	@Test
-	void findPagedCocktails() {
+	@ParameterizedTest
+	@MethodSource("provideUsers")
+	void findPagedCocktails(User user) {
 		Cocktail peachCrush = Cocktail.builder()
+			.id(2L)
 			.name("피치 크러쉬")
 			.build();
 
 		Cocktail martini = Cocktail.builder()
+			.id(3L)
 			.name("마티니")
 			.build();
 
@@ -134,39 +161,44 @@ public class CocktailServiceTest {
 
 		when(cocktailRepository.findByNameContainingAndIdGreaterThan(any(), anyLong(), any())).thenReturn(cocktailPage);
 
-		assertThat(cocktailService.findPagedCocktailsWithFavorite("", 0, 2, Favorites.empty())).hasSize(2);
+		assertThat(cocktailService.findPageContainingWord("", 0, 2, user.getFavorites())).hasSize(2);
 	}
 
 	@DisplayName("특정 태그 목록이 포함된 칵테일을 원하는 수 만큼 조회한다.")
-	@Test
-	void findPageFilteredByTags() {
+	@ParameterizedTest
+	@MethodSource("provideUsers")
+	void findPageFilteredByTags(User user) {
 		Cocktail cocktail = mock(Cocktail.class);
 		when(cocktail.containTagIds(anyList())).thenReturn(true);
 
 		List<Cocktail> cocktails = new ArrayList<>(Collections.nCopies(20, cocktail));
 		when(cocktailRepository.findByIdGreaterThan(anyLong())).thenReturn(cocktails);
 
-		assertThat(cocktailService.findPageFilteredByTags(Arrays.asList(0L, 1L, 2L), 0, 15)).hasSize(15);
+		assertThat(
+			cocktailService.findPageFilteredByTags(Arrays.asList(0L, 1L, 2L), 0, 15, user.getFavorites())).hasSize(15);
 	}
 
 	@DisplayName("특정 태그 목록이 포함된 칵테일이 원하는 수보다 적을 경우 가능한 만큼 조회한다.")
-	@Test
-	void findPageFilteredByTags_WhenCocktailsSmallerThanSize() {
+	@ParameterizedTest
+	@MethodSource("provideUsers")
+	void findPageFilteredByTags_WhenCocktailsSmallerThanSize(User user) {
 		Cocktail cocktail = mock(Cocktail.class);
 		when(cocktail.containTagIds(anyList())).thenReturn(true);
 
 		List<Cocktail> cocktails = new ArrayList<>(Collections.nCopies(5, cocktail));
 		when(cocktailRepository.findByIdGreaterThan(anyLong())).thenReturn(cocktails);
 
-		assertThat(cocktailService.findPageFilteredByTags(Collections.emptyList(), 0, 15)).hasSize(5);
+		assertThat(cocktailService.findPageFilteredByTags(Collections.emptyList(), 0, 15, user.getFavorites())).hasSize(
+			5);
 	}
 
 	@DisplayName("단일 칵테일을 조회한다.")
-	@Test
-	void findCocktail() {
+	@ParameterizedTest
+	@MethodSource("provideUsers")
+	void findCocktail(User user) {
 		when(cocktailRepository.findById(anyLong())).thenReturn(Optional.of(blueHawaii));
 
-		CocktailDetailResponse cocktailDetailResponse = cocktailService.findCocktail(1L);
+		CocktailDetailResponse cocktailDetailResponse = cocktailService.findCocktail(1L, user.getFavorites());
 
 		assertAll(
 			() -> assertThat(cocktailDetailResponse.getAbv()).isEqualTo(
@@ -195,7 +227,7 @@ public class CocktailServiceTest {
 	void findCocktailException() {
 		when(cocktailRepository.findById(anyLong())).thenReturn(Optional.empty());
 
-		assertThatThrownBy(() -> cocktailService.findCocktail(0L))
+		assertThatThrownBy(() -> cocktailService.findCocktail(0L, Favorites.empty()))
 			.isInstanceOf(EntityNotFoundException.class);
 	}
 
