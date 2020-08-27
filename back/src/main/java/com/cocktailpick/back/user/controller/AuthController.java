@@ -14,7 +14,6 @@ import com.cocktailpick.back.user.dto.AuthResponse;
 import com.cocktailpick.back.user.dto.LoginRequest;
 import com.cocktailpick.back.user.dto.SignUpRequest;
 import com.cocktailpick.back.user.service.AuthService;
-
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 

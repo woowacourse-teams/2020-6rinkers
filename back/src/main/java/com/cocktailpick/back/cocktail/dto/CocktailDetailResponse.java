@@ -1,9 +1,10 @@
 package com.cocktailpick.back.cocktail.dto;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import com.cocktailpick.back.cocktail.domain.Cocktail;
+import com.cocktailpick.back.favorite.domain.Favorites;
 import com.cocktailpick.back.recipe.dto.RecipeItemResponse;
 import com.cocktailpick.back.tag.dto.TagResponse;
 import lombok.AccessLevel;
@@ -39,7 +40,9 @@ public class CocktailDetailResponse {
 
 	private List<RecipeItemResponse> recipe;
 
-	public static CocktailDetailResponse of(Cocktail cocktail) {
+	private boolean favorite;
+
+	public static CocktailDetailResponse of(Cocktail cocktail, boolean isFavorite) {
 		return new CocktailDetailResponse(
 			cocktail.getId(),
 			cocktail.getName(),
@@ -51,13 +54,22 @@ public class CocktailDetailResponse {
 			cocktail.isSweet(),
 			cocktail.isSour(),
 			cocktail.isBitter(),
-			RecipeItemResponse.listOf(cocktail.getRecipe())
+			RecipeItemResponse.listOf(cocktail.getRecipe()),
+			isFavorite
 		);
 	}
 
-	public static List<CocktailDetailResponse> listOf(List<Cocktail> recommend) {
-		return recommend.stream()
-			.map(CocktailDetailResponse::of)
-			.collect(Collectors.toList());
+	public static List<CocktailDetailResponse> listOf(List<Cocktail> recommend, Favorites favorites) {
+		List<CocktailDetailResponse> cocktailDetailResponses = new ArrayList<>();
+
+		for (Cocktail cocktail : recommend) {
+			if (favorites.isContainCocktail(cocktail)) {
+				cocktailDetailResponses.add(CocktailDetailResponse.of(cocktail, true));
+			} else {
+				cocktailDetailResponses.add(CocktailDetailResponse.of(cocktail, false));
+			}
+		}
+
+		return cocktailDetailResponses;
 	}
 }

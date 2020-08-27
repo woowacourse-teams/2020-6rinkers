@@ -1,28 +1,34 @@
 package com.cocktailpick.back.common;
 
-import java.util.Collections;
-import java.util.List;
-
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithSecurityContextFactory;
 
 import com.cocktailpick.back.security.UserPrincipal;
+import com.cocktailpick.back.user.domain.AuthProvider;
+import com.cocktailpick.back.user.domain.Role;
+import com.cocktailpick.back.user.domain.User;
 
 public class WithMockCustomUserSecurityContextFactory implements WithSecurityContextFactory<WithMockCustomUser> {
 	@Override
 	public SecurityContext createSecurityContext(WithMockCustomUser customUser) {
 		SecurityContext context = SecurityContextHolder.createEmptyContext();
 
-		List<GrantedAuthority> authorities = Collections.
-			singletonList(new SimpleGrantedAuthority(customUser.roles().name()));
+		User user = new User();
+		user.setId(customUser.id());
+		user.setEmail(customUser.email());
+		user.setEmailVerified(customUser.emailVerified());
+		user.setImageUrl(customUser.imageUrl());
+		user.setName(customUser.name());
+		user.setPassword(customUser.password());
+		user.setProvider(customUser.provider());
+		user.setRole(customUser.roles());
+		user.setProviderId(customUser.providerId());
 
-		UserPrincipal principal = new UserPrincipal(customUser.id(), customUser.email(), null, authorities);
-		Authentication auth = new UsernamePasswordAuthenticationToken(principal, "password",
+		UserPrincipal principal = UserPrincipal.create(user);
+		Authentication auth = new UsernamePasswordAuthenticationToken(principal, user.getPassword(),
 			principal.getAuthorities());
 		context.setAuthentication(auth);
 		return context;
