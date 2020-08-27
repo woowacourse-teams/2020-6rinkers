@@ -283,8 +283,6 @@ public class CocktailAcceptanceTest extends AcceptanceTest {
 		assertThatStatusIsCreated(response);
 	}
 
-	// TODO 보완 필요
-	// 구체적인 요청 + 구체적인 답변
 	@DisplayName("칵테일을 추천한다.")
 	@Test
 	void recommend() {
