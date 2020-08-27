@@ -72,12 +72,31 @@
   box-shadow: 0 0 20px 10px var(--little-dark-white);
 }
 
+.cocktailNameWithFavorite {
+  display: flex;
+  width: 90%;
+}
+
+.emptyName {
+  flex-grow: 1;
+}
+
 .searchedCocktailName {
   display: flex;
   justify-content: center;
+  flex-grow: 1;
   padding: 1.5rem 1.5rem 0.2rem 1.5rem;
   font-size: 18px;
   border-bottom: var(--little-light-black) 1px solid;
+}
+
+.favoriteContainer {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  padding-left: 0.5rem;
+  padding-top: 1rem;
 }
 
 .searchedCocktailImage {

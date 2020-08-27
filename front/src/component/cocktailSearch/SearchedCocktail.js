@@ -6,28 +6,25 @@ import CocktailFavorite from "./CocktailFavorite";
 import { addFavorite } from "../../api/index";
 
 const SearchedCocktail = ({ cocktail, cocktails, setCocktails, role }) => {
-  const addFavorites = async () => {
-    await addFavorite({ cocktailId: cocktail.id }).catch((error) => {
-      Alert.warning(error.response.data.message);
-    });
-  };
   return (
     <div
       className="searchedCocktailContainer"
       data-search-cocktail={cocktail.id}
-      onClick={addFavorites}
     >
-      <div className="searchedCocktailName">{cocktail.name}</div>
-      <div>
-        {role ? (
-          <CocktailFavorite
-            cocktail={cocktail}
-            cocktails={cocktails}
-            setCocktails={setCocktails}
-          />
-        ) : (
-          <div />
-        )}
+      <div className="cocktailNameWithFavorite">
+        <div className="emptyName" />
+        <div className="searchedCocktailName">{cocktail.name}</div>
+        <div className="favoriteContainer">
+          {1 ? (
+            <CocktailFavorite
+              cocktail={cocktail}
+              cocktails={cocktails}
+              setCocktails={setCocktails}
+            />
+          ) : (
+            <div />
+          )}
+        </div>
       </div>
       <Link
         to={{

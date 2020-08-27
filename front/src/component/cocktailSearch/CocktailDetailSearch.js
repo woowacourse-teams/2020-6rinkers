@@ -32,17 +32,20 @@ const CocktailDetailSearch = (props) => {
 
   return (
     <div className="detail-info-container">
-      <p className="cocktail-name">{cocktailData.cocktail.name}</p>
-      <div>
-        {role ? (
-          <CocktailFavorite
-            cocktail={cocktailData.cocktail}
-            cocktails={props.cocktails}
-            setCocktails={props.setCocktails}
-          />
-        ) : (
-          <div />
-        )}
+      <div className="cocktailNameWithFavorite">
+        <div className="emptyName" />
+        <p className="cocktail-name">{cocktailData.cocktail.name}</p>
+        <div className="favoriteContainer">
+          {role ? (
+            <CocktailFavorite
+              cocktail={cocktailData.cocktail}
+              cocktails={props.cocktails}
+              setCocktails={props.setCocktails}
+            />
+          ) : (
+            <div />
+          )}
+        </div>
       </div>
       <div className="detail-info-image-container">
         <img
