@@ -2,9 +2,11 @@
 > 좋은 술을, 고민 없이
 ---
 
+
 # 1. :grin: 서비스 소개
 > 칵테일 픽은 칵테일 정보 제공, 추천 서비스입니다. "좋은 술을, 고민 없이"라는 모토를 가지고 개발하고 있습니다.
 ---
+
 
 # 2. :two_men_holding_hands: 팀원 소개
 * [그니](https://github.com/KueNiYam)
@@ -13,6 +15,7 @@
 * [작은곰](https://github.com/KimGyeong)
 * [토니](https://github.com/toneyparky)
 ---
+
 
 # 3. :computer: 핵심 기능
 * 칵테일 정보를 제공합니다.
@@ -24,7 +27,11 @@
 * 칵테일을 즐겨찾기할 수 있습니다.
 ---
 
-# 4. :open_file_folder: 업데이트 내역
+# 4. 프로젝트 구조
+<p align="center"><img src="images/architecture.png"></p>
+
+
+# 5. :open_file_folder: 업데이트 내역
 * 0.0.1
     * 개발 환경 구축
     * 칵테일 관련 도메인 구현
@@ -46,7 +53,8 @@
     * 무한 스크롤링 개선
 ---
 
-# 5. :pencil2: 추가 정보
+
+# 6. :pencil2: 추가 정보
 - [@인스타그램 주소](https://instagram.com/cocktail_pick)
 - 이메일 주소 : 6rinkers@gmail.com
 - [깃허브 레포지토리](https://github.com/woowacourse-teams/2020-6rinkers/)
