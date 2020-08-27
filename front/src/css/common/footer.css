@@ -14,9 +14,9 @@
   align-items: center;
   justify-content: space-around;
   height: 65%;
-  width: 100px;
-  border: var(--light-black) 1px solid;
-  border-radius: var(--base-border-radius);
+  width: 150px;
+  border-top: var(--light-black) 1px solid;
+  border-bottom: var(--light-black) 1px solid;
   margin-bottom: 0.5rem;
 }
 
@@ -32,4 +32,9 @@
 
 .instagram > a > img {
   width: 32px;
+}
+
+.kakaotalk > a > img {
+  width: 32px;
+  cursor: pointer;
 }
