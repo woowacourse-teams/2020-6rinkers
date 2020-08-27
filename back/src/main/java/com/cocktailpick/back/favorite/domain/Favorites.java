@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
 import com.cocktailpick.back.cocktail.domain.Cocktail;
@@ -19,7 +20,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @Embeddable
 public class Favorites {
-	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.EAGER)
 	private Set<Favorite> favorites = new HashSet<>();
 
 	public static Favorites empty() {
