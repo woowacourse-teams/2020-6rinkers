@@ -1,10 +1,7 @@
-@import url("https://fonts.googleapis.com/earlyaccess/notosanskr.css");
-
 .profile-container {
     text-align: justify;
     display: flex;
     flex-direction: column;
-    font-family: "Noto Sans KR", serif;
     align-items: center;
     justify-content: space-around;
     margin: auto 0;
