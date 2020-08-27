@@ -26,11 +26,7 @@ import com.cocktailpick.back.common.WithMockCustomUser;
 import com.cocktailpick.back.common.documentation.DocumentationWithSecurity;
 import com.cocktailpick.back.favorite.dto.FavoriteRequest;
 import com.cocktailpick.back.tag.dto.TagResponse;
-import com.cocktailpick.back.user.docs.UserDocumentation;
-import com.cocktailpick.back.user.domain.AuthProvider;
-import com.cocktailpick.back.user.domain.Role;
 import com.cocktailpick.back.user.domain.User;
-import com.cocktailpick.back.user.dto.UserResponse;
 import com.cocktailpick.back.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -55,30 +51,6 @@ class UserControllerTest extends DocumentationWithSecurity {
 			.webAppContextSetup(webApplicationContext)
 			.apply(springSecurity())
 			.build();
-	}
-
-	@DisplayName("내 정보를 조회한다.")
-	@WithMockCustomUser
-	@Test
-	void getCurrentUser() throws Exception {
-		User user = new User();
-		user.setId(1L);
-		user.setEmail("a@email.com");
-		user.setEmailVerified(true);
-		user.setImageUrl("image.com");
-		user.setName("hi");
-		user.setPassword("password");
-		user.setProvider(AuthProvider.local);
-		user.setRole(Role.ROLE_USER);
-		user.setProviderId("local");
-
-		when(userService.findMe(anyLong())).thenReturn(UserResponse.of(user));
-
-		mockMvc.perform(get("/api/user/me")
-			.header("authorization", "Bearer USER_TOKEN"))
-			.andExpect(status().isOk())
-			.andDo(print())
-			.andDo(UserDocumentation.findMe());
 	}
 
 	@DisplayName("즐겨찾기를 조회한다.")

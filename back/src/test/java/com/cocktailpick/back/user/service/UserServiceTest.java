@@ -14,7 +14,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.cocktail.domain.CocktailRepository;
-import com.cocktailpick.back.common.exceptions.ResourceNotFoundException;
 import com.cocktailpick.back.favorite.domain.Favorite;
 import com.cocktailpick.back.favorite.domain.Favorites;
 import com.cocktailpick.back.favorite.dto.FavoriteRequest;
@@ -23,7 +22,6 @@ import com.cocktailpick.back.user.domain.AuthProvider;
 import com.cocktailpick.back.user.domain.Role;
 import com.cocktailpick.back.user.domain.User;
 import com.cocktailpick.back.user.domain.UserRepository;
-import com.cocktailpick.back.user.dto.UserResponse;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
@@ -40,9 +38,9 @@ class UserServiceTest {
 
 	private User user;
 
-	private User user2;
-
 	private Cocktail cocktail;
+
+	private Cocktail cocktail2;
 
 	private Favorite favorite;
 
@@ -50,53 +48,56 @@ class UserServiceTest {
 	void setUp() {
 		userService = new UserService(userRepository, favoriteRepository, cocktailRepository);
 
+		cocktail = Cocktail.builder()
+			.id(1L)
+			.name("toney")
+			.build();
+
+		cocktail2 = Cocktail.builder()
+			.id(2L)
+			.name("doo")
+			.build();
+
+		Favorites favorites = Favorites.empty();
+
+		favorite = new Favorite(1L, user, cocktail);
+
+		favorites.addFavorite(favorite);
+
 		user = new User();
 		user.setId(1L);
 		user.setEmail("a@email.com");
 		user.setEmailVerified(true);
 		user.setImageUrl("image.com");
-		user.setName("hi");
+		user.setName("toney");
 		user.setPassword("password");
 		user.setProvider(AuthProvider.local);
 		user.setRole(Role.ROLE_USER);
 		user.setProviderId("local");
-
-		user2 = User.builder()
-			.name("toney")
-			.favorites(Favorites.empty())
-			.build();
-		cocktail = Cocktail.builder()
-			.id(1L)
-			.name("toney")
-			.build();
-		favorite = new Favorite(1L, user, cocktail);
-
+		user.setFavorites(favorites);
 	}
 
-	@DisplayName("내 정보를 조회한다.")
+	@DisplayName("즐겨찾기를 조회한다.")
 	@Test
-	void findMe() {
-		when(userRepository.findById(anyLong())).thenReturn(Optional.of(user));
-
-		assertThat(userService.findMe(1L)).isInstanceOf(UserResponse.class);
-	}
-
-	@DisplayName("내 정보가 없을 경우 예외가 발생한다.")
-	@Test
-	void findMeWithException() {
-		when(userRepository.findById(anyLong())).thenReturn(Optional.empty());
-
-		assertThatThrownBy(() -> userService.findMe(1L))
-			.isInstanceOf(ResourceNotFoundException.class);
+	void findFavoritesTest() {
+		assertThat(userService.findFavorites(user).size()).isEqualTo(1);
 	}
 
 	@DisplayName("즐겨찾기를 추가한다.")
 	@Test
 	void addFavoriteTest() {
-		when(cocktailRepository.findById(anyLong())).thenReturn(Optional.of(cocktail));
+		when(cocktailRepository.findById(anyLong())).thenReturn(Optional.of(cocktail2));
 		when(favoriteRepository.save(any())).thenReturn(favorite);
-		userService.addFavorite(user2, new FavoriteRequest(1L));
+		userService.addFavorite(user, new FavoriteRequest(2L));
 
 		verify(favoriteRepository).save(any());
+	}
+
+	@DisplayName("즐겨찾기를 삭제한다.")
+	@Test
+	void deleteFavoriteTest() {
+		userService.deleteFavorite(user, 1L);
+
+		assertThat(user.getFavorites().getFavorites().size()).isEqualTo(0);
 	}
 }

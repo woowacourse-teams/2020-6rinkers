@@ -78,7 +78,7 @@ jacocoTestCoverageVerification {
                 minimum = 0.60
             }
 
-            excludes = ["*.dto", "*.dto.*", "*.BackApplication", "*.security.*", "*.common.exceptions.*", "*.common.util.*"]
+            excludes = ["*.dto", "*.dto.*", "*.BackApplication", "*.security.*", "*.common.exceptions.*", "*.common.util.*", "*.AuthService.*"]
         }
 
     }

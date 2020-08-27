@@ -42,49 +42,22 @@ public class CocktailService {
 	private final CocktailFindStrategyFactory cocktailFindStrategyFactory;
 
 	@Transactional(readOnly = true)
-	public List<CocktailResponse> findAllCocktails() {
-		return Collections.unmodifiableList(CocktailResponse.listOf(cocktailRepository.findAll(), Favorites.empty()));
+	public List<CocktailResponse> findAllCocktails(Favorites favorites) {
+		return Collections.unmodifiableList(CocktailResponse.listOf(cocktailRepository.findAll(), favorites));
 	}
 
 	@Transactional(readOnly = true)
-	public List<CocktailResponse> findCocktailsWithFavorite(Favorites favorites) {
-		List<Cocktail> cocktails = cocktailRepository.findAll();
-		return CocktailResponse.listOf(cocktails, favorites);
-	}
-
-	@Transactional(readOnly = true)
-	public List<CocktailResponse> findPageContainingWord(String contain, long id, int size) {
+	public List<CocktailResponse> findPageContainingWord(String contain, long id, int size, Favorites favorites) {
 		Pageable pageRequest = PageRequest.of(0, size);
 
 		List<Cocktail> cocktails = cocktailRepository.findByNameContainingAndIdGreaterThan(contain, id, pageRequest)
 			.getContent();
 
-		return Collections.unmodifiableList(CocktailResponse.listOf(cocktails, Favorites.empty()));
-	}
-
-	@Transactional(readOnly = true)
-	public List<CocktailResponse> findPagedCocktailsWithFavorite(String contain, long id, int size,
-		Favorites favorites) {
-		Pageable pageRequest = PageRequest.of(0, size);
-		List<Cocktail> cocktails = cocktailRepository.findByNameContainingAndIdGreaterThan(contain, id, pageRequest)
-			.getContent();
 		return Collections.unmodifiableList(CocktailResponse.listOf(cocktails, favorites));
 	}
 
 	@Transactional(readOnly = true)
-	public List<CocktailResponse> findPageFilteredByTags(List<Long> tagIds, long id, int size) {
-		List<Cocktail> persistCocktails = cocktailRepository.findByIdGreaterThan(id);
-
-		List<Cocktail> cocktails = persistCocktails.stream()
-			.filter(cocktail -> cocktail.containTagIds(tagIds))
-			.limit(size)
-			.collect(Collectors.toList());
-
-		return CocktailResponse.listOf(cocktails, Favorites.empty());
-	}
-
-	@Transactional(readOnly = true)
-	public List<CocktailResponse> findPageFilteredByTagsWithFavorite(List<Long> tagIds, long id, int size,
+	public List<CocktailResponse> findPageFilteredByTags(List<Long> tagIds, long id, int size,
 		Favorites favorites) {
 		List<Cocktail> persistCocktails = cocktailRepository.findByIdGreaterThan(id);
 
@@ -97,13 +70,7 @@ public class CocktailService {
 	}
 
 	@Transactional(readOnly = true)
-	public CocktailDetailResponse findCocktail(Long id) {
-		Cocktail cocktail = findById(id);
-		return CocktailDetailResponse.of(cocktail, false);
-	}
-
-	@Transactional(readOnly = true)
-	public CocktailDetailResponse findCocktailWithFavorite(Long id, Favorites favorites) {
+	public CocktailDetailResponse findCocktail(Long id, Favorites favorites) {
 		Cocktail cocktail = findById(id);
 		return CocktailDetailResponse.of(cocktail, favorites.isContainCocktail(cocktail));
 	}

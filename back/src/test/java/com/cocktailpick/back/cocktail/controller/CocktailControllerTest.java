@@ -36,6 +36,7 @@ import com.cocktailpick.back.cocktail.dto.TagPreferenceAnswer;
 import com.cocktailpick.back.cocktail.service.CocktailRecommendService;
 import com.cocktailpick.back.cocktail.service.CocktailService;
 import com.cocktailpick.back.cocktail.vo.UserPreferenceAnswer;
+import com.cocktailpick.back.common.WithMockCustomUser;
 import com.cocktailpick.back.common.documentation.DocumentationWithSecurity;
 import com.cocktailpick.back.tag.dto.TagResponse;
 import com.cocktailpick.back.user.service.UserService;
@@ -97,6 +98,7 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 		objectMapper = new ObjectMapper();
 	}
 
+	@WithMockCustomUser
 	@DisplayName("칵테일을 전체 조회한다.")
 	@Test
 	void findCocktails() throws Exception {
@@ -106,7 +108,7 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
 				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")), false)
 		);
-		given(cocktailService.findAllCocktails()).willReturn(cocktailResponses);
+		given(cocktailService.findAllCocktails(any())).willReturn(cocktailResponses);
 
 		mockMvc.perform(get("/api/cocktails")
 			.accept(MediaType.APPLICATION_JSON))
@@ -115,6 +117,7 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 			.andDo(CocktailDocumentation.findCocktails());
 	}
 
+	@WithMockCustomUser
 	@DisplayName("특정 단어가 포함된 칵테일을 원하는 수 만큼 조회한다.")
 	@Test
 	void findPageContainingWord() throws Exception {
@@ -124,7 +127,7 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
 				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")), false)
 		);
-		given(cocktailService.findPageContainingWord(anyString(), anyLong(), anyInt())).willReturn(
+		given(cocktailService.findPageContainingWord(anyString(), anyLong(), anyInt(), any())).willReturn(
 			cocktailResponses);
 
 		mockMvc.perform(get("/api/cocktails/contain-word")
@@ -137,12 +140,13 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 			.andDo(CocktailDocumentation.findPagedCocktailsContainingWord());
 	}
 
+	@WithMockCustomUser
 	@DisplayName("칵테일을 단일 조회한다.")
 	@Test
 	void findCocktail() throws Exception {
 		CocktailDetailResponse cocktailDetailResponse = CocktailDetailResponse.of(blueHawaii, false);
 		cocktailDetailResponse = cocktailDetailResponse.withId(1L);
-		given(cocktailService.findCocktail(anyLong())).willReturn(cocktailDetailResponse);
+		given(cocktailService.findCocktail(anyLong(), any())).willReturn(cocktailDetailResponse);
 
 		mockMvc.perform(RestDocumentationRequestBuilders.get("/api/cocktails/{id}", 1L)
 			.accept(MediaType.APPLICATION_JSON))
@@ -167,6 +171,7 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 			.andDo(CocktailDocumentation.createCocktail());
 	}
 
+	@WithMockCustomUser
 	@DisplayName("특정 태그가 포함된 칵테일을 원하는 수 만큼 조회한다.")
 	@Test
 	void findPageFilteredByTags() throws Exception {
@@ -177,7 +182,8 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")), false)
 		);
 
-		given(cocktailService.findPageFilteredByTags(anyList(), anyLong(), anyInt())).willReturn(cocktailResponses);
+		given(cocktailService.findPageFilteredByTags(anyList(), anyLong(), anyInt(), any())).willReturn(
+			cocktailResponses);
 
 		mockMvc.perform((get("/api/cocktails/contain-tags"))
 			.param("tagIds", "1", "2", "3")
@@ -189,6 +195,7 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 			.andDo(CocktailDocumentation.findPagedCocktailsFilteredByTag());
 	}
 
+	@WithMockCustomUser
 	@DisplayName("태그 목록을 넣지 않았을 때 칵테일을 원하는 수 만큼 조회한다.")
 	@Test
 	void findPageFilteredByTags_WhenContainIsNull() throws Exception {
@@ -289,6 +296,7 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 			.andDo(CocktailDocumentation.findTodayCocktail());
 	}
 
+	@WithMockCustomUser
 	@DisplayName("칵테일을 추천한다.")
 	@Test
 	void recommendCocktail() throws Exception {
@@ -309,7 +317,7 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 		RecommendRequest recommendRequest = new RecommendRequest(abvAnswer, moodAnswers, flavorAnswer,
 			preferenceAnswers, nonPreferenceAnswers);
 
-		given(cocktailRecommendService.recommend(any())).willReturn(
+		given(cocktailRecommendService.recommend(any(), any())).willReturn(
 			Collections.singletonList(blueHawaiiResponse));
 
 		mockMvc.perform(post("/api/cocktails/recommend")
