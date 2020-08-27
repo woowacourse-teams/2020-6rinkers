@@ -3,11 +3,13 @@ package com.cocktailpick.back.user.service;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.cocktailpick.back.common.exceptions.BadRequestException;
+import com.cocktailpick.back.common.exceptions.AuthException;
+import com.cocktailpick.back.common.exceptions.ErrorCode;
 import com.cocktailpick.back.security.TokenProvider;
 import com.cocktailpick.back.user.domain.AuthProvider;
 import com.cocktailpick.back.user.domain.Role;
@@ -16,7 +18,6 @@ import com.cocktailpick.back.user.domain.UserRepository;
 import com.cocktailpick.back.user.dto.AuthResponse;
 import com.cocktailpick.back.user.dto.LoginRequest;
 import com.cocktailpick.back.user.dto.SignUpRequest;
-
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -28,12 +29,17 @@ public class AuthService {
 	private final TokenProvider tokenProvider;
 
 	public AuthResponse authenticateUser(LoginRequest loginRequest) {
-		Authentication authentication = authenticationManager.authenticate(
-			new UsernamePasswordAuthenticationToken(
-				loginRequest.getEmail(),
-				loginRequest.getPassword()
-			)
-		);
+		Authentication authentication;
+		try {
+			authentication = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(
+					loginRequest.getEmail(),
+					loginRequest.getPassword()
+				)
+			);
+		} catch (AuthenticationException ex) {
+			throw new AuthException(ErrorCode.BAD_LOGIN);
+		}
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -42,7 +48,7 @@ public class AuthService {
 
 	public Long registerUser(SignUpRequest signUpRequest) {
 		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
-			throw new BadRequestException("존재하는 Email입니다.");
+			throw new AuthException(ErrorCode.DUPLICATED_EMAIL);
 		}
 
 		User user = new User();
