@@ -1,13 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Recommendation = (props) => {
+const Recommendation = () => {
   return (
-    <div className="homeRecommendation">
-      <Link to="/recommend">
-        <div className="content">오늘의 칵테일을 추천 받아 보아요 🍸</div>
-      </Link>
-    </div>
+    <Link to="/recommend">
+      <div className="homeRecommendation">
+        <div className="content">칵테일 추천 받기 🍸</div>
+      </div>
+    </Link>
   );
 };
 

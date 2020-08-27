@@ -14,7 +14,11 @@ const Header = ({ handleLogout }) => {
     <div className="headerContainer">
       <Nav handleLogout={handleLogout} />
       {slider && <div className="cover" onClick={toggleSlider} />}
-      <MobileNav toggleSlider={toggleSlider} slider={slider} />
+      <MobileNav
+        toggleSlider={toggleSlider}
+        slider={slider}
+        handleLogout={handleLogout}
+      />
     </div>
   );
 };

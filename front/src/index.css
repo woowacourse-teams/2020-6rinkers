@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/earlyaccess/notosanskr.css");
+
 :root {
   --black: #000000;
   --little-light-black: #111111;
@@ -12,7 +14,8 @@
   --light-green: rgba(70, 170, 24, 0.8);
   --light-purple: rgba(157, 13, 182, 0.8);
   --sharp-red: rgba(192, 0, 0, 1);
-  --little-gray: #777777
+  --little-gray: #777777;
+  --base-border-radius: 5px;
 }
 
 * {
@@ -26,9 +29,9 @@ html {
   height: 100%;
   margin: 0;
   padding: 0;
-  font-family: "Serif", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "Noto Sans KR", serif, "Serif", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--little-light-black);

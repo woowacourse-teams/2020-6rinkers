@@ -11,7 +11,7 @@
   width: 40vmin;
   height: 50vmin;
   margin: auto;
-  border: 1px solid var(--light_black);
+  border: 1px solid var(--light-black);
   border-radius: 10px;
   box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
 }
@@ -32,7 +32,7 @@
 .social-btn {
   display: flex;
   flex-direction: row;
-  border: 1px solid var(--light_black);
+  border: 1px solid var(--light-black);
   padding: 0.5em 0;
   width: 300px;
   height: 3em;
@@ -54,6 +54,7 @@
 
 .form-item {
   width: 300px;
+  margin-bottom: 0.3rem;
 }
 
 .form-control {
@@ -114,4 +115,44 @@
   background-color: #2098f3;
   outline: none;
   width: 100%;
+}
+
+
+@media screen and (max-width: 700px) {
+  .login-container {
+    width: 300px;
+    height: 80vh;
+  }
+
+  .login-content {
+    width: 100%;
+    height: 100%;
+    border: none;
+    box-shadow: none;
+
+
+  }
+
+  .social-login {
+    width: 90%;
+  }
+
+  .social-btn {
+    width: 100%;
+  }
+
+  .or-separator {
+    margin: 0.5rem 0;
+  }
+
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .form-item {
+    width: 90%;
+  }
 }
