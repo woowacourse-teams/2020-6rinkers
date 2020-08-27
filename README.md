@@ -1,12 +1,12 @@
 # :cocktail: 칵테일픽
 > 좋은 술을, 고민 없이
 ---
-
+<br>
 
 # 1. :grin: 서비스 소개
-> 칵테일 픽은 칵테일 정보 제공, 추천 서비스입니다. "좋은 술을, 고민 없이"라는 모토를 가지고 개발하고 있습니다.
+* 칵테일 픽은 칵테일 정보 제공, 추천 서비스입니다. "좋은 술을, 고민 없이"라는 모토를 가지고 개발하고 있습니다.
 ---
-
+<br>
 
 # 2. :two_men_holding_hands: 팀원 소개
 * [그니](https://github.com/KueNiYam)
@@ -14,8 +14,9 @@
 * [라테](https://github.com/minuyim)
 * [작은곰](https://github.com/KimGyeong)
 * [토니](https://github.com/toneyparky)
+* 보고 싶은 하비까지 여섯이 모여 팀 "마시는 여섯들"입니다!
 ---
-
+<br>
 
 # 3. :computer: 핵심 기능
 * 칵테일 정보를 제공합니다.
@@ -26,12 +27,27 @@
     * 사용자의 취향을 기반으로 합니다.
 * 칵테일을 즐겨찾기할 수 있습니다.
 ---
+<br>
 
-# 4. 프로젝트 구조
+# 4. :department_store: 프로젝트 구조
 <p align="center"><img src="images/architecture.png"></p>
+---
+<br>
 
+# 5. :video_game: 기술 스택
+* Spring Boot
+* Spring Data JPA
+* Spring Security
+* React
+* Docker
+* MariaDB
+* Jenkins
+* AWS EC2
+* AWS S3
+---
+<br>
 
-# 5. :open_file_folder: 업데이트 내역
+# 6. :open_file_folder: 업데이트 내역
 * 0.0.1
     * 개발 환경 구축
     * 칵테일 관련 도메인 구현
@@ -52,9 +68,9 @@
     * 카카오 공유 링크 추가
     * 무한 스크롤링 개선
 ---
+<br>
 
-
-# 6. :pencil2: 추가 정보
+# 7. :pencil2: 추가 정보
 - [@인스타그램 주소](https://instagram.com/cocktail_pick)
 - 이메일 주소 : 6rinkers@gmail.com
 - [깃허브 레포지토리](https://github.com/woowacourse-teams/2020-6rinkers/)
