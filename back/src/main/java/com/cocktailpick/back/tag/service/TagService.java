@@ -20,6 +20,7 @@ import com.cocktailpick.back.tag.domain.TagRepository;
 import com.cocktailpick.back.tag.domain.TagType;
 import com.cocktailpick.back.tag.dto.TagRequest;
 import com.cocktailpick.back.tag.dto.TagResponse;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
@@ -43,9 +44,11 @@ public class TagService {
 		List<Tag> tags = Optional.ofNullable(tagType)
 			.map(tagRepository::findByTagType)
 			.orElseGet(tagRepository::findAll);
+
 		if (random) {
 			Collections.shuffle(tags);
 		}
+
 		return TagResponse.listOf(findTagsBySize(tags, size));
 	}
 

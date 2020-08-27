@@ -1,4 +1,4 @@
-package com.cocktailpick.back.config;
+package com.cocktailpick.back.common.config.security;
 
 import java.util.ArrayList;
 import java.util.List;

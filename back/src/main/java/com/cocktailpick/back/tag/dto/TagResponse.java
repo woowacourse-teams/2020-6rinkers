@@ -4,14 +4,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.cocktailpick.back.tag.domain.Tag;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
+@EqualsAndHashCode
+@ToString
 public class TagResponse {
 	private Long tagId;
 

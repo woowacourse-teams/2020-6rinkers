@@ -1,6 +1,42 @@
 package com.cocktailpick.back.cocktail;
 
+import java.util.Arrays;
+
+import com.cocktailpick.back.cocktail.dto.CocktailRequest;
+
 public class Fixtures {
+	public static final CocktailRequest KAHLUA_MILK_REQUEST = CocktailRequest.builder()
+		.name("깔루아 밀크")
+		.description("커피 우유 맛")
+		.origin("그니가 제일 좋아함")
+		.liquor(Arrays.asList("깔루아", "우유"))
+		.liquorQuantity(Arrays.asList("15", "45"))
+		.special(Arrays.asList("설탕"))
+		.specialQuantity(Arrays.asList("1 스푼"))
+		.sweet(true)
+		.sour(false)
+		.bitter(false)
+		.abv(20)
+		.imageUrl("https://www.naver.com")
+		.tag(Arrays.asList("단맛"))
+		.build();
+
+	public static final CocktailRequest MALIBU_ORANGE = CocktailRequest.builder()
+		.name("말리부 오렌지")
+		.description("코코넛 오렌지 맛")
+		.origin("그니가 두 번째로 좋아함")
+		.liquor(Arrays.asList("말리부", "오렌지 주스"))
+		.liquorQuantity(Arrays.asList("15", "45"))
+		.special(Arrays.asList("설탕"))
+		.specialQuantity(Arrays.asList("1 스푼"))
+		.sweet(true)
+		.sour(true)
+		.bitter(false)
+		.abv(20)
+		.imageUrl("https://www.naver.com")
+		.tag(Arrays.asList("단맛", "신맛"))
+		.build();
+
 	public static final String THREE_COCKTAILS_CSV_CONTENT =
 		"name,abv,description,origin,imageUrl,tag,sweet,sour,bitter,liquor,liquorQuantity,oz,special,specialQuantity,from\n"
 			+ "갓마더,30,갓파더에서 위스키 대신 보드카를 사용한 칵테일입니다.,God Mother 대모라는 뜻입니다.,\"https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_god_mother-1.png\",\"아몬드,부드러움\",1.0,,1.0,\"보드카,아마레또\",\"45,30\",1.5,\"설탕,메론\",\"1,2\",http://www.flickriver.com/photos/31027007@N08/31782815995/\n"
