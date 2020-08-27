@@ -24,7 +24,8 @@
 }
 
 .my-favorites-title {
-  font-size: 1.5rem;
+  width: 90%;
+  color: var(--little-gray);
   margin-bottom: 1rem;
 }
 

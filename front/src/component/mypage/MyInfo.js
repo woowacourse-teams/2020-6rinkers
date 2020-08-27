@@ -7,7 +7,7 @@ const MyInfo = () => {
   const user = useRecoilValue(userState).currentUser;
   return (
     <div className="my-info-container">
-      <h3>내정보</h3>
+      <h3>내 정보</h3>
       <div className="my-info">
         <div className="user-image">
           <img

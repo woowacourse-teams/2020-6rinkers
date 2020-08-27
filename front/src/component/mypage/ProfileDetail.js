@@ -2,7 +2,6 @@ import React from "react";
 import ProfileDetailInput from "./ProfileDetailInput";
 
 export default ({ user }) => {
-
   return (
     <div className="profile-detail-container">
       <div className="profile-edit-container">
@@ -25,11 +24,11 @@ export default ({ user }) => {
         {/*    </button>*/}
         {/*  </div>*/}
         {/*</div>*/}
-        <div className="withdrawal">
-          <a href="#" onClick={() => alert("hi")} className="withdrawal-submit">
-            회원 탈퇴
-          </a>
-        </div>
+        {/*<div className="withdrawal">*/}
+        {/*  <a href="#" onClick={() => alert("hi")} className="withdrawal-submit">*/}
+        {/*    회원 탈퇴*/}
+        {/*  </a>*/}
+        {/*</div>*/}
       </div>
     </div>
   );

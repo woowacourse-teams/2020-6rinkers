@@ -26,7 +26,6 @@ const MyProfile = () => {
   }
   return (
     <div className="profile-container">
-      <h2>Profile</h2>
       <ProfileImage user={currentUser} />
       <ProfileDetail user={currentUser} onSubmit={onSubmit} />
       <AdminButton />

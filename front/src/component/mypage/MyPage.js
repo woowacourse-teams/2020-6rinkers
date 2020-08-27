@@ -31,7 +31,6 @@ const MyPage = () => {
   }
   return (
     <div className="my-page-container">
-      <h2>My Page</h2>
       <MyInfo />
       <div className="profile-container">
         <div className="admin-page-wrapper">
