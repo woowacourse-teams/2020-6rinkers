@@ -40,7 +40,7 @@ public class CocktailDetailResponse {
 
 	private List<RecipeItemResponse> recipe;
 
-	private boolean isFavorite;
+	private boolean favorite;
 
 	public static CocktailDetailResponse of(Cocktail cocktail, boolean isFavorite) {
 		return new CocktailDetailResponse(

@@ -25,7 +25,7 @@ public class CocktailResponse {
 
 	private List<TagResponse> tags;
 
-	private boolean isFavorite;
+	private boolean favorite;
 
 	public static CocktailResponse of(Cocktail cocktail, boolean isFavorite) {
 		return new CocktailResponse(cocktail.getId(), cocktail.getName(), cocktail.getImageUrl(),
