@@ -12,7 +12,8 @@
   --light-green: rgba(70, 170, 24, 0.8);
   --light-purple: rgba(157, 13, 182, 0.8);
   --sharp-red: rgba(192, 0, 0, 1);
-  --little-gray: #777777
+  --little-gray: #777777;
+  --base-border-radius: 5px;
 }
 
 * {

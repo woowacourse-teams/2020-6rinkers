@@ -16,7 +16,7 @@
   height: 65%;
   width: 100px;
   border: var(--light-black) 1px solid;
-  border-radius: 10px;
+  border-radius: var(--base-border-radius);
   margin-bottom: 0.5rem;
 }
 
