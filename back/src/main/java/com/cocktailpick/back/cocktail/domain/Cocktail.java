@@ -53,8 +53,9 @@ public class Cocktail extends BaseTimeEntity {
 	private Recipe recipe = Recipe.empty();
 
 	@Builder
-	public Cocktail(String name, double abv, String description, String origin,
+	public Cocktail(Long id, String name, double abv, String description, String origin,
 		String imageUrl, Flavor flavor) {
+		this.id = id;
 		this.name = name;
 		this.abv = abv;
 		this.description = description;
@@ -119,5 +120,13 @@ public class Cocktail extends BaseTimeEntity {
 
 	public boolean isAbvBetween(int max, int min) {
 		return (abv >= min) && (abv <= max);
+	}
+
+	public boolean containTagIds(List<Long> tagIds) {
+		return cocktailTags.containTagIds(tagIds);
+	}
+
+	public boolean isSameWith(Long cocktailId) {
+		return id.equals(cocktailId);
 	}
 }

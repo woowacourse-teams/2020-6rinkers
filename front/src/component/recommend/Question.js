@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { questions } from "./const";
 import { useHistory } from "react-router-dom";
+import { questions } from "./const";
 import { createRecommend } from "../../api";
 import Dislike from "./Dislike";
 import Intro from "./Intro";

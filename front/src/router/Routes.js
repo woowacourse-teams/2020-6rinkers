@@ -11,13 +11,28 @@ import CocktailDetailSearch from "../component/cocktailSearch/CocktailDetailSear
 import Question from "../component/recommend/Question";
 import Result from "../component/result/Result";
 import Bar from "../component/bar/Bar";
+import MyPage from "../component/mypage/MyPage";
+import OAuth2RedirectHandler from "../oauth2/OAuth2RedirectHandler";
+import Login from "../component/user/Login";
+import Signup from "../component/user/Signup";
+import MyProfile from "../component/mypage/MyProfile";
 
-const Routes = ({ cocktails, setCocktails }) => {
+const Routes = ({ cocktails, setCocktails, handleLogout, loading }) => {
+  if (loading) {
+    return (
+      <div
+        className="loading-indicator"
+        style={{ display: "block", textAlign: "center", marginTop: "30px" }}
+      >
+        Loading...
+      </div>
+    );
+  }
   const checkAdminForHeader = (location) => {
     if (location.pathname.split("/")[1] !== "admin") {
       return (
         <>
-          <Header />
+          <Header handleLogout={handleLogout} />
         </>
       );
     }
@@ -32,6 +47,7 @@ const Routes = ({ cocktails, setCocktails }) => {
         </>
       );
     }
+    return <></>;
   };
 
   return (
@@ -39,17 +55,38 @@ const Routes = ({ cocktails, setCocktails }) => {
       <Route render={({ location }) => checkAdminForHeader(location)} />
       <div className="contentWrapper">
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/admin/cocktails" component={CocktailAdmin} />
-          <Route path="/admin/tags" component={TagAdmin} />
-          <Route path="/cocktails/search" component={CocktailSearch} />
+          <Route exact path="/">
+            <Home cocktails={cocktails} setCocktails={setCocktails} />
+          </Route>
+          <Route path="/admin/cocktails">
+            <CocktailAdmin />
+          </Route>
+          <Route path="/admin/tags">
+            <TagAdmin />
+          </Route>
+          <Route path="/cocktails/search">
+            <CocktailSearch />
+          </Route>
           <Route path="/bars" component={Bar} />
           <Route path="/cocktails/:id" component={CocktailDetailSearch} />
           <Route path="/recommend">
             <Question cocktails={cocktails} setCocktails={setCocktails} />
           </Route>
           <Route path="/result">
-            <Result cocktails={cocktails} />
+            <Result cocktails={cocktails} setCocktails={setCocktails} />
+          </Route>
+          <Route exact path="/mypage">
+            <MyPage />
+          </Route>
+          <Route path="/mypage/profile">
+            <MyProfile />
+          </Route>
+          <Route path="/oauth2/redirect" component={OAuth2RedirectHandler} />
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/signup">
+            <Signup />
           </Route>
         </Switch>
       </div>

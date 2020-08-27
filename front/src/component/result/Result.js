@@ -4,7 +4,7 @@ import Slider from "infinite-react-carousel";
 import ResultSlide from "./ResultSlide";
 import "../../css/recommend/result.css";
 
-const Result = ({ cocktails }) => {
+const Result = ({ cocktails, role }) => {
   const history = useHistory();
 
   if (cocktails.length === 0) {
@@ -24,7 +24,7 @@ const Result = ({ cocktails }) => {
       <Slider>
         {cocktails &&
           cocktails.map((cocktail) => (
-            <ResultSlide cocktail={cocktail} key={cocktail.id} />
+            <ResultSlide cocktail={cocktail} key={cocktail.id} role={role} />
           ))}
       </Slider>
     </div>

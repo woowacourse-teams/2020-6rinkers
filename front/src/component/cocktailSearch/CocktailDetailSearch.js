@@ -3,11 +3,13 @@ import { fetchCocktail } from "../../api";
 import CircularBox from "../common/CircularBox";
 import "../../css/cocktailSearch/cocktailDetailSearch.css";
 import RecipeItems from "./RecipeItems";
-import {DARK_GREEN, DARK_BLUE} from "../../constants/Color";
+import CocktailFavorite from "./CocktailFavorite";
+import { DARK_GREEN, DARK_BLUE } from "../../constants/Color";
+import { Link } from "react-router-dom";
 
-
-const CocktailDetailSearch = ({ match }) => {
-  const id = match.params.id;
+const CocktailDetailSearch = (props) => {
+  const { id } = props.match.params;
+  const role = props.location.role;
   const [cocktailData, setCocktailData] = useState({
     cocktail: {},
     tags: [],
@@ -16,7 +18,7 @@ const CocktailDetailSearch = ({ match }) => {
 
   const onLoadCocktail = async () => {
     const response = await fetchCocktail(id);
-    const data = response.data;
+    const { data } = response;
     setCocktailData({
       cocktail: data,
       tags: data.tags,
@@ -30,7 +32,21 @@ const CocktailDetailSearch = ({ match }) => {
 
   return (
     <div className="detail-info-container">
-      <p className="cocktail-name">{cocktailData.cocktail.name}</p>
+      <div className="cocktailNameWithFavorite">
+        <div className="emptyName" />
+        <p className="cocktail-name">{cocktailData.cocktail.name}</p>
+        <div className="favoriteContainer">
+          {role ? (
+            <CocktailFavorite
+              cocktail={cocktailData.cocktail}
+              cocktails={props.cocktails}
+              setCocktails={props.setCocktails}
+            />
+          ) : (
+            <div />
+          )}
+        </div>
+      </div>
       <div className="detail-info-image-container">
         <img
           src={cocktailData.cocktail.imageUrl}
@@ -41,7 +57,9 @@ const CocktailDetailSearch = ({ match }) => {
       <div className="tags-container">
         {cocktailData.tags &&
           cocktailData.tags.map((tag, index) => (
-            <CircularBox key={"tag" + index} text={tag.name} />
+            <Link to={`/cocktails/search?tagIds=${tag.tagId}`}>
+              <CircularBox key={`tag${index}`} text={tag.name} />
+            </Link>
           ))}
       </div>
       <div className="abv-and-taste-container">
@@ -50,7 +68,7 @@ const CocktailDetailSearch = ({ match }) => {
             text={
               cocktailData.cocktail.abv === 0
                 ? "무알콜"
-                : cocktailData.cocktail.abv + "%"
+                : `${cocktailData.cocktail.abv}%`
             }
             color={DARK_GREEN}
           />
@@ -74,7 +92,7 @@ const CocktailDetailSearch = ({ match }) => {
       <div className="recipe-container">
         {cocktailData.recipe &&
           cocktailData.recipe.map((item, index) => (
-            <RecipeItems item={item} key={"recipeItem" + index} />
+            <RecipeItems item={item} key={`recipeItem${index}`} />
           ))}
       </div>
       <div className="text-container">

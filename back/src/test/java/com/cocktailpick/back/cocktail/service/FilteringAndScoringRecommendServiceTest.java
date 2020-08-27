@@ -194,7 +194,7 @@ class FilteringAndScoringRecommendServiceTest {
 
 		assertThat(filteringAndScoringRecommendService.recommend(cocktails, entityMapper, recommendRequest)).extracting(
 			"name")
-			.containsExactly("b", "d", "c");
+			.containsExactlyInAnyOrder("b", "d", "c");
 	}
 
 	@DisplayName("사용자의 분위기 선호를 이용해 추천 칵테일을 정렬하고 상위 3개의 칵테일 보여준다.")

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Redirect, useLocation } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import CocktailEditFormContainer from "./CocktailEditFormContainer";
 import { fetchCocktail } from "../../../api";
 import { convertCocktailToInputData } from "../../../utils/admin/cocktailConverter";
@@ -8,9 +10,11 @@ import {
   EMPTY_COCKTAIL_DATA,
 } from "../../../utils/admin/constant";
 import "../../../css/admin/admin.css";
+import { userState } from "../../../recoil";
 
 const CocktailAdmin = () => {
   const [cocktail, setCocktail] = useState(DEFAULT_COCKTAIL_DATA);
+  const role = useRecoilValue(userState).currentUser.role;
 
   const onUpdateCocktail = (value, name) => {
     setCocktail({
@@ -30,6 +34,19 @@ const CocktailAdmin = () => {
   const onResetCocktail = () => {
     setCocktail(EMPTY_COCKTAIL_DATA);
   };
+
+  const location = useLocation();
+
+  if (role !== "ROLE_ADMIN") {
+    return (
+      <Redirect
+        to={{
+          pathname: "/",
+          state: { from: location.pathname },
+        }}
+      />
+    );
+  }
 
   return (
     <div className="admin">

@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { Redirect, useLocation } from "react-router-dom";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 import TagInput from "./TagInput";
 import TagList from "./TagList";
+import { userState } from "../../../recoil";
 
 const Container = styled.div`
   display: flex;
@@ -28,6 +31,20 @@ const TagAdmin = () => {
     name: "",
     type: "",
   });
+  const role = useRecoilValue(userState).currentUser.role;
+
+  const location = useLocation();
+
+  if (role !== "ROLE_ADMIN") {
+    return (
+      <Redirect
+        to={{
+          pathname: "/",
+          state: { from: location.pathname },
+        }}
+      />
+    );
+  }
 
   return (
     <Container>

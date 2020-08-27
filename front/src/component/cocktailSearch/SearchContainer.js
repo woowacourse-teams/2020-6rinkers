@@ -1,14 +1,18 @@
-import React, {useRef, useState} from "react";
-import {Redirect} from "react-router-dom";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { Redirect } from "react-router-dom";
 import AutoCocktailWords from "./AutoCocktailWords";
-import {fetchCocktailsContaining} from "../../api";
-import {DOWN, ENTER, ESC, UP} from "../../constants/keyCode";
+import {
+  fetchCocktailsContaining,
+  fetchPagedCocktailsContainingWord,
+} from "../../api";
+import { DOWN, ENTER, ESC, UP } from "../../constants";
 
-const SearchContainer = ({onUpdateSearchWord}) => {
-  const [cocktails, setCocktails] = useState([]);
+const SearchContainer = ({ cocktails, setCocktails }) => {
+  const [autoCompletedCocktails, setAutoCompletedCocktails] = useState([]);
   const [highlightIndex, setHighlightIndex] = useState(-1);
   const [redirect, setRedirect] = useState("");
   const [autoBox, setAutoBox] = useState(true);
+  const [searchWord, setSearchWord] = useState("");
   const searchInput = useRef();
 
   const isNotFocus = (index) => {
@@ -25,7 +29,7 @@ const SearchContainer = ({onUpdateSearchWord}) => {
   };
 
   const highlightDown = () => {
-    if (highlightIndex === cocktails.length - 1) {
+    if (highlightIndex === autoCompletedCocktails.length - 1) {
       return;
     }
     setHighlightIndex(highlightIndex + 1);
@@ -38,18 +42,59 @@ const SearchContainer = ({onUpdateSearchWord}) => {
     setHighlightIndex(highlightIndex - 1);
   };
 
+  const fetchCocktails = async () => {
+    const response = await fetchPagedCocktailsContainingWord({
+      contain: searchWord,
+      id: 0,
+      size: 15,
+    });
+    const content = response.data;
+
+    setCocktails(content);
+  };
+
+  const loadCocktails = async (size) => {
+    const response = await fetchPagedCocktailsContainingWord({
+      contain: searchWord,
+      id: cocktails.length === 0 ? 0 : cocktails.slice(-1).pop().id,
+      size: size,
+    });
+
+    const content = response.data;
+    if (content.length === 0) {
+      return;
+    }
+
+    await setCocktails(cocktails.concat(content));
+  };
+
+  const infiniteScroll = useCallback(async () => {
+    const size = window.innerWidth > 700 ? 18 : 6;
+    const threshold = window.innerWidth > 700 ? 1600 : 1300;
+
+    if (
+      document.documentElement.scrollTop +
+        document.documentElement.clientHeight >=
+      document.documentElement.scrollHeight - threshold
+    ) {
+      window.removeEventListener("scroll", infiniteScroll, true);
+      await loadCocktails(size);
+      window.addEventListener("scroll", infiniteScroll, true);
+    }
+  }, [cocktails]);
+
   const search = () => {
     if (isNotFocus(highlightIndex)) {
-      onUpdateSearchWord(searchInput.current.value);
+      setSearchWord(searchInput.current.value);
       setAutoBox(false);
       return;
     }
 
-    if (cocktails.length === 0 || autoBox === false) {
+    if (autoCompletedCocktails.length === 0 || autoBox === false) {
       return;
     }
 
-    setRedirect(`/cocktails/${cocktails[highlightIndex].id}`);
+    setRedirect(`/cocktails/${autoCompletedCocktails[highlightIndex].id}`);
   };
 
   const onKeyDown = (e) => {
@@ -80,19 +125,28 @@ const SearchContainer = ({onUpdateSearchWord}) => {
     const word = e.target.value;
 
     if (word.length === 0) {
-      setCocktails([]);
+      setAutoCompletedCocktails([]);
       return;
     }
 
     const response = await fetchCocktailsContaining(word);
     const autoCompleted = response.data;
-    setCocktails(autoCompleted);
+    setAutoCompletedCocktails(autoCompleted);
     setAutoBox(true);
     highlightOut();
   };
 
+  useEffect(() => {
+    window.addEventListener("scroll", infiniteScroll, true);
+    return () => window.removeEventListener("scroll", infiniteScroll, true);
+  }, [infiniteScroll]);
+
+  useEffect(() => {
+    fetchCocktails();
+  }, [searchWord]);
+
   return redirect ? (
-    <Redirect push to={redirect}/>
+    <Redirect push to={redirect} />
   ) : (
     <div className="searchContainer">
       <div className="search">
@@ -108,14 +162,14 @@ const SearchContainer = ({onUpdateSearchWord}) => {
         />
         {!autoBox || (
           <AutoCocktailWords
-            cocktails={cocktails}
+            cocktails={autoCompletedCocktails}
             highlightIndex={highlightIndex}
             updateHighlight={setHighlightIndex}
             onMouseDown={search}
           />
         )}
         <div className="searchButtonContainer" onMouseDown={search}>
-          <img className="searchButton" src="/image/search.svg" alt="search"/>
+          <img className="searchButton" src="/image/search.svg" alt="search" />
         </div>
       </div>
     </div>

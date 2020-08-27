@@ -20,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.cocktailpick.back.cocktail.docs.CocktailDocumentation;
@@ -35,17 +36,22 @@ import com.cocktailpick.back.cocktail.dto.TagPreferenceAnswer;
 import com.cocktailpick.back.cocktail.service.CocktailRecommendService;
 import com.cocktailpick.back.cocktail.service.CocktailService;
 import com.cocktailpick.back.cocktail.vo.UserPreferenceAnswer;
-import com.cocktailpick.back.common.documentation.Documentation;
+import com.cocktailpick.back.common.WithMockCustomUser;
+import com.cocktailpick.back.common.documentation.DocumentationWithSecurity;
 import com.cocktailpick.back.tag.dto.TagResponse;
+import com.cocktailpick.back.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@WebMvcTest(controllers = {CocktailController.class})
-class CocktailControllerTest extends Documentation {
+@WebMvcTest(controllers = CocktailController.class)
+class CocktailControllerTest extends DocumentationWithSecurity {
 	@MockBean
 	private CocktailService cocktailService;
 
 	@MockBean
 	private CocktailRecommendService cocktailRecommendService;
+
+	@MockBean
+	private UserService userService;
 
 	private Cocktail blueHawaii;
 
@@ -92,16 +98,17 @@ class CocktailControllerTest extends Documentation {
 		objectMapper = new ObjectMapper();
 	}
 
+	@WithMockCustomUser
 	@DisplayName("칵테일을 전체 조회한다.")
 	@Test
 	void findCocktails() throws Exception {
 		List<CocktailResponse> cocktailResponses = Arrays.asList(
 			new CocktailResponse(1L, "싱가폴 슬링", "https://naver.com",
-				Collections.singletonList(new TagResponse(1L, "마지막 양심", "컨셉"))),
+				Collections.singletonList(new TagResponse(1L, "마지막 양심", "컨셉")), false),
 			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
-				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")))
+				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")), false)
 		);
-		given(cocktailService.findAllCocktails()).willReturn(cocktailResponses);
+		given(cocktailService.findAllCocktails(any())).willReturn(cocktailResponses);
 
 		mockMvc.perform(get("/api/cocktails")
 			.accept(MediaType.APPLICATION_JSON))
@@ -110,32 +117,36 @@ class CocktailControllerTest extends Documentation {
 			.andDo(CocktailDocumentation.findCocktails());
 	}
 
-	@DisplayName("원하는 수만큼 페이징 된 칵테일을 조회한다.")
+	@WithMockCustomUser
+	@DisplayName("특정 단어가 포함된 칵테일을 원하는 수 만큼 조회한다.")
 	@Test
-	void findPagedCocktails() throws Exception {
+	void findPageContainingWord() throws Exception {
 		List<CocktailResponse> cocktailResponses = Arrays.asList(
 			new CocktailResponse(1L, "싱가폴 슬링", "https://naver.com",
-				Collections.singletonList(new TagResponse(1L, "마지막 양심", "컨셉"))),
+				Collections.singletonList(new TagResponse(1L, "마지막 양심", "컨셉")), false),
 			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
-				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")))
+				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")), false)
 		);
-		given(cocktailService.findPagedCocktails("", 0, 2)).willReturn(cocktailResponses);
+		given(cocktailService.findPageContainingWord(anyString(), anyLong(), anyInt(), any())).willReturn(
+			cocktailResponses);
 
-		mockMvc.perform(get("/api/cocktails/pages")
+		mockMvc.perform(get("/api/cocktails/contain-word")
+			.param("contain", "블루")
 			.param("id", "0")
 			.param("size", "2")
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andDo(print())
-			.andDo(CocktailDocumentation.findPagedCocktails());
+			.andDo(CocktailDocumentation.findPagedCocktailsContainingWord());
 	}
 
+	@WithMockCustomUser
 	@DisplayName("칵테일을 단일 조회한다.")
 	@Test
 	void findCocktail() throws Exception {
-		CocktailDetailResponse cocktailDetailResponse = CocktailDetailResponse.of(blueHawaii);
+		CocktailDetailResponse cocktailDetailResponse = CocktailDetailResponse.of(blueHawaii, false);
 		cocktailDetailResponse = cocktailDetailResponse.withId(1L);
-		given(cocktailService.findCocktail(anyLong())).willReturn(cocktailDetailResponse);
+		given(cocktailService.findCocktail(anyLong(), any())).willReturn(cocktailDetailResponse);
 
 		mockMvc.perform(RestDocumentationRequestBuilders.get("/api/cocktails/{id}", 1L)
 			.accept(MediaType.APPLICATION_JSON))
@@ -144,12 +155,14 @@ class CocktailControllerTest extends Documentation {
 			.andDo(CocktailDocumentation.findCocktail());
 	}
 
+	@WithMockUser(roles = "ADMIN")
 	@DisplayName("칵테일을 생성한다.")
 	@Test
 	void addCocktail() throws Exception {
 		given(cocktailService.save(any())).willReturn(1L);
 
 		mockMvc.perform(post("/api/cocktails")
+			.header("authorization", "Bearer ADMIN_TOKEN")
 			.content(objectMapper.writeValueAsString(cocktailRequest))
 			.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isCreated())
@@ -158,6 +171,44 @@ class CocktailControllerTest extends Documentation {
 			.andDo(CocktailDocumentation.createCocktail());
 	}
 
+	@WithMockCustomUser
+	@DisplayName("특정 태그가 포함된 칵테일을 원하는 수 만큼 조회한다.")
+	@Test
+	void findPageFilteredByTags() throws Exception {
+		List<CocktailResponse> cocktailResponses = Arrays.asList(
+			new CocktailResponse(1L, "싱가폴 슬링", "https://naver.com",
+				Collections.singletonList(new TagResponse(0L, "마지막 양심", "컨셉")), false),
+			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
+				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")), false)
+		);
+
+		given(cocktailService.findPageFilteredByTags(anyList(), anyLong(), anyInt(), any())).willReturn(
+			cocktailResponses);
+
+		mockMvc.perform((get("/api/cocktails/contain-tags"))
+			.param("tagIds", "1", "2", "3")
+			.param("id", "0")
+			.param("size", "15")
+			.accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andDo(print())
+			.andDo(CocktailDocumentation.findPagedCocktailsFilteredByTag());
+	}
+
+	@WithMockCustomUser
+	@DisplayName("태그 목록을 넣지 않았을 때 칵테일을 원하는 수 만큼 조회한다.")
+	@Test
+	void findPageFilteredByTags_WhenContainIsNull() throws Exception {
+		mockMvc.perform((get("/api/cocktails/contain-tags"))
+			.param("tagIds", (String)null)
+			.param("id", "0")
+			.param("size", "15")
+			.accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk())
+			.andDo(print());
+	}
+
+	@WithMockUser(roles = "ADMIN")
 	@DisplayName("칵테일을 수정한다.")
 	@Test
 	void updateCocktail() throws Exception {
@@ -180,6 +231,7 @@ class CocktailControllerTest extends Documentation {
 			.build();
 
 		mockMvc.perform(RestDocumentationRequestBuilders.put("/api/cocktails/{id}", 1L)
+			.header("authorization", "Bearer ADMIN_TOKEN")
 			.contentType(MediaType.APPLICATION_JSON)
 			.content(objectMapper.writeValueAsString(updateCocktailRequest)))
 			.andExpect(status().isOk())
@@ -187,6 +239,7 @@ class CocktailControllerTest extends Documentation {
 			.andDo(CocktailDocumentation.updateCocktail());
 	}
 
+	@WithMockUser(roles = "ADMIN")
 	@DisplayName("csv 파일로 칵테일을 저장한다.")
 	@Test
 	void addCocktailsByCsv() throws Exception {
@@ -195,30 +248,35 @@ class CocktailControllerTest extends Documentation {
 		mockMvc.perform(multipart("/api/cocktails/upload/csv")
 			.file(
 				new MockMultipartFile("file", "test.csv", "text/csv", THREE_COCKTAILS_CSV_CONTENT.getBytes()))
-			.contentType(MediaType.MULTIPART_FORM_DATA))
+			.contentType(MediaType.MULTIPART_FORM_DATA)
+			.header("authorization", "Bearer ADMIN_TOKEN"))
 			.andExpect(status().isCreated())
 			.andExpect(header().string("Location", "/api/cocktails"))
 			.andDo(print())
 			.andDo(CocktailDocumentation.upload());
 	}
 
+	@WithMockUser(roles = "ADMIN")
 	@DisplayName("칵테일을 삭제한다.")
 	@Test
 	void deleteCocktail() throws Exception {
 		doNothing().when(cocktailService).deleteCocktail(any());
 
-		mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/cocktails/{id}", 1L))
+		mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/cocktails/{id}", 1L)
+			.header("authorization", "Bearer ADMIN_TOKEN"))
 			.andExpect(status().isNoContent())
 			.andDo(print())
 			.andDo(CocktailDocumentation.deleteCocktail());
 	}
 
+	@WithMockUser(roles = "ADMIN")
 	@DisplayName("모든 칵테일을 삭제한다.")
 	@Test
 	void deleteAllCocktails() throws Exception {
 		doNothing().when(cocktailService).deleteAllCocktails();
 
-		mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/cocktails"))
+		mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/cocktails")
+			.header("authorization", "Bearer ADMIN_TOKEN"))
 			.andExpect(status().isNoContent())
 			.andDo(print())
 			.andDo(CocktailDocumentation.deleteAllCocktails());
@@ -227,7 +285,7 @@ class CocktailControllerTest extends Documentation {
 	@DisplayName("오늘의 칵테일을 조회한다.")
 	@Test
 	void findCocktailOfToday() throws Exception {
-		CocktailResponse cocktailResponse = CocktailResponse.of(blueHawaii).withId(1L);
+		CocktailResponse cocktailResponse = CocktailResponse.of(blueHawaii, false).withId(1L);
 		when(cocktailService.findCocktailOfToday()).thenReturn(cocktailResponse);
 
 		mockMvc.perform(get("/api/cocktails/today"))
@@ -238,10 +296,11 @@ class CocktailControllerTest extends Documentation {
 			.andDo(CocktailDocumentation.findTodayCocktail());
 	}
 
+	@WithMockCustomUser
 	@DisplayName("칵테일을 추천한다.")
 	@Test
 	void recommendCocktail() throws Exception {
-		CocktailDetailResponse blueHawaiiResponse = CocktailDetailResponse.of(blueHawaii);
+		CocktailDetailResponse blueHawaiiResponse = CocktailDetailResponse.of(blueHawaii, false);
 		blueHawaiiResponse = blueHawaiiResponse.withId(1L);
 		AbvAnswer abvAnswer = new AbvAnswer(100, 0);
 		List<TagPreferenceAnswer> moodAnswers = Collections.singletonList(
@@ -256,10 +315,10 @@ class CocktailControllerTest extends Documentation {
 			UserPreferenceAnswer.SOSO);
 
 		RecommendRequest recommendRequest = new RecommendRequest(abvAnswer, moodAnswers, flavorAnswer,
-			preferenceAnswers,
-			nonPreferenceAnswers);
+			preferenceAnswers, nonPreferenceAnswers);
 
-		given(cocktailRecommendService.recommend(any())).willReturn(Collections.singletonList(blueHawaiiResponse));
+		given(cocktailRecommendService.recommend(any(), any())).willReturn(
+			Collections.singletonList(blueHawaiiResponse));
 
 		mockMvc.perform(post("/api/cocktails/recommend")
 			.accept(MediaType.APPLICATION_JSON)
@@ -273,7 +332,7 @@ class CocktailControllerTest extends Documentation {
 	@DisplayName("특정 문자열을 포함하는 칵테일을 반환한다.")
 	@Test
 	void containName() throws Exception {
-		CocktailResponse cocktailResponse = CocktailResponse.of(blueHawaii).withId(1L);
+		CocktailResponse cocktailResponse = CocktailResponse.of(blueHawaii, false).withId(1L);
 		given(cocktailService.findByNameContaining(anyString())).willReturn(
 			Collections.singletonList(cocktailResponse));
 
@@ -282,6 +341,6 @@ class CocktailControllerTest extends Documentation {
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andDo(print())
-			.andDo(CocktailDocumentation.contain());
+			.andDo(CocktailDocumentation.cocktailAutoComplete());
 	}
 }

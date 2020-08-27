@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Tag from "./Tag";
 import NextStage from "./NextStage";
 
@@ -9,9 +9,9 @@ const Taste = ({ addAnswer }) => {
     { tagId: "bitterAnswer", name: "쓴맛" },
   ];
   const [answer, setAnswer] = useState({
-    sweetAnswer: "SOSO",
-    sourAnswer: "SOSO",
-    bitterAnswer: "SOSO",
+    sweetAnswer: "",
+    sourAnswer: "",
+    bitterAnswer: "",
   });
 
   const onChangeAnswer = (name, userAnswer) => {
@@ -19,6 +19,10 @@ const Taste = ({ addAnswer }) => {
       ...answer,
       [name]: userAnswer,
     });
+  };
+
+  const checkDone = () => {
+    return Object.values(answer).filter((ans) => ans === "").length === 0;
   };
 
   return (
@@ -38,6 +42,7 @@ const Taste = ({ addAnswer }) => {
         type="flavorAnswer"
         answer={answer}
         addAnswer={addAnswer}
+        done={checkDone()}
         saying="마지막 질문으로"
       />
     </div>

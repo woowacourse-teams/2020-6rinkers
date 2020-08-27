@@ -1,87 +1,92 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
+import queryString from "query-string";
 import SearchedCocktails from "./SearchedCocktails";
 import "../../css/cocktailSearch/cocktailSearch.css";
 import SearchContainer from "./SearchContainer";
-import { fetchPagedCocktails } from "../../api";
+import TagFilterContainer from "./TagFilterContainer";
 
-const CocktailSearch = ({history}) => {
-  const [loading, setLoading] = useState(false);
+const CocktailSearch = ({ role }) => {
   const [cocktails, setCocktails] = useState([]);
-  const [lastCocktailId, setLastCocktailId] = useState(0);
-  const [searchWord, setSearchWord] = useState("");
+  const [tabIndex, setTabIndex] = useState(0);
 
-  const toggleLoading = async () => {
-    await setLoading(!loading);
-  };
+  const history = useHistory();
 
-  const initCocktails = async () => {
-    const response = await fetchPagedCocktails({
-      contain: searchWord,
-      id: 0,
-      size: 15,
-    });
-    const content = response.data;
+  const tabs = [
+    {
+      title: "Name",
+      content: (
+        <SearchContainer cocktails={cocktails} setCocktails={setCocktails} />
+      ),
+    },
+    {
+      title: "Tags",
+      content: (
+        <TagFilterContainer
+          cocktails={cocktails}
+          setCocktails={setCocktails}
+          history={history}
+        />
+      ),
+    },
+  ];
 
-    setCocktails(content);
-    setLastCocktailId(!content.length || content[content.length - 1].id);
-  };
+  const onClickTab = (e) => {
+    const clickedTabIndex = Number(e.currentTarget.dataset.index);
 
-  const onLoadCocktails = async (size) => {
-    if (loading) {
+    if (clickedTabIndex === tabIndex) {
       return;
     }
 
-    const response = await fetchPagedCocktails({
-      contain: searchWord,
-      id: lastCocktailId,
-      size: size,
-    });
-
-    const content = response.data;
-    setCocktails(cocktails.concat(content));
-    try {
-      setLastCocktailId(cocktails[cocktails.length - 1].id);
-    } catch (e) {
-      history.go(0);
+    if (clickedTabIndex === 0) {
+      history.push("?contain=");
     }
-  };
 
-  const infiniteScroll = useCallback(async () => {
-    const size = window.innerWidth > 700 ? 18 : 6;
-    const threshold = window.innerWidth > 700 ? 1600 : 1300;
-
-    if (
-      document.documentElement.scrollTop +
-        document.documentElement.clientHeight >=
-      document.documentElement.scrollHeight - threshold
-    ) {
-      await toggleLoading();
-      try {
-        setLastCocktailId(cocktails[cocktails.length - 1].id);
-      } catch (e) {
-        history.go(0);
-      }
-      await onLoadCocktails(size);
+    if (clickedTabIndex === 1) {
+      history.push("?tagIds=");
     }
-  }, [cocktails, lastCocktailId]);
 
-  const updateSearchWord = (word) => {
-    setSearchWord(word);
+    setTabIndex(clickedTabIndex);
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", infiniteScroll, true);
-    return () => window.removeEventListener("scroll", infiniteScroll, true);
-  }, [infiniteScroll]);
+    const query = queryString.parse(history.location.search);
 
-  useEffect(() => {
-    initCocktails();
-  }, [searchWord]);
+    if (!history.location.search) {
+      history.push("?contain=");
+    }
+
+    if ("tagIds" in query) {
+      setTabIndex(1);
+    }
+
+    window.history.scrollRestoration = "manual";
+  }, []);
 
   return (
     <div className="cocktailSearchContainer">
-      <SearchContainer onUpdateSearchWord={updateSearchWord} />
-      <SearchedCocktails cocktails={cocktails} />
+      <div className="searchTabContainerBox">
+        <div className="searchTabContainer">
+          {tabs.map((tab, index) => {
+            return (
+              <button
+                className={index === tabIndex ? "clickedTab" : "unclickedTab"}
+                key={index}
+                data-index={index}
+                onClick={onClickTab}
+              >
+                {tab.title}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+      <div>{tabs[tabIndex].content}</div>
+      <SearchedCocktails
+        cocktails={cocktails}
+        setCocktails={setCocktails}
+        role={role}
+      />
     </div>
   );
 };

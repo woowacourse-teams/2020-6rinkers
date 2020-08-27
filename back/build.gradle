@@ -28,7 +28,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-//    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-security:2.2.1.RELEASE'
+    implementation 'org.springframework.security:spring-security-oauth2-client:5.2.1.RELEASE'
+    implementation 'io.jsonwebtoken:jjwt:0.5.1'
     implementation group: 'com.opencsv', name: 'opencsv', version: '4.4'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -40,7 +42,10 @@ dependencies {
     }
     asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
-//    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    implementation 'io.rest-assured:rest-assured-common:3.3.0'
+    testImplementation 'io.rest-assured:spring-mock-mvc:3.3.0'
+    implementation("com.google.guava:guava:29.0-jre")
 }
 
 test {
@@ -76,7 +81,7 @@ jacocoTestCoverageVerification {
                 minimum = 0.60
             }
 
-            excludes = ["*.dto", "*.dto.*", "*.BackApplication"]
+            excludes = ["*.dto", "*.dto.*", "*.BackApplication", "*.security.*", "*.common.exceptions.*", "*.common.util.*", "*.AuthService.*", "*.EmptyUser"]
         }
 
     }

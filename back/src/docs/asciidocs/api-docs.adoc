@@ -33,11 +33,15 @@ operation::cocktails/delete[snippets='http-request,http-response']
 
 operation::cocktails/deleteAll[snippets='http-request,http-response']
 
+[[resources-cocktails-findPagedCocktailsContainingWord]]
+=== 특정 단어가 포함된 칵테일 페이지 조회
 
-[[resources-cocktails-findPagedCocktails]]
-=== 칵테일 페이지 조회
+operation::cocktails/contain-word/find[snippets='http-request,http-response,request-parameters']
 
-operation::cocktails/findPagedCocktails[snippets='http-request,http-response,request-parameters']
+[[resources-cocktails-findPagedCocktailsFilteredByTags]]
+=== 특정 태그들이 포함된 칵테일 페이지 조회
+
+operation::cocktails/contain-tags/find[snipets='http-request,http-response,request-parameters']
 
 [[resources-cocktails-upload]]
 === 칵테일 csv 파일 업로드
