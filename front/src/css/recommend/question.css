@@ -81,16 +81,26 @@
 
 .next-stage {
   font-family: inherit;
-  font-size: 1rem;
+  font-size: large;
   border: none;
   margin: 2rem 0.5rem 1rem 0.5rem;
-  padding: 0.5rem 1rem 0.5rem 1rem;
+  padding: 0.7rem 1.8rem;
   border-radius: var(--base-border-radius);
-  background-color: var(--little-dark-white);
+  background-color: var(--red);
+  color: white;
 }
 
 .next-stage:hover {
-  color: var(--red);
+  cursor: pointer;
+}
+
+.next-stage:disabled {
+  color: black;
+  background-color: var(--little-dark-white)
+}
+
+.next-stage:disabled:hover {
+  cursor: default;
 }
 
 @media screen and (max-width: 700px) {
