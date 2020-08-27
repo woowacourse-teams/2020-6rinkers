@@ -53,7 +53,8 @@
 }
 
 .text-container {
-  width: 60%;
+  max-width: 500px;
+  text-align: justify;
 }
 
 .origin,
