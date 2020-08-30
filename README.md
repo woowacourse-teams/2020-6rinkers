@@ -58,6 +58,7 @@
 
 # 4. :department_store: 프로젝트 구조
 <p align="center"><img src="images/architecture.png"></p>
+
 ---
 <br>
 
@@ -98,6 +99,6 @@
 <br>
 
 # 7. :pencil2: 추가 정보
-- [@인스타그램 주소](https://instagram.com/cocktail_pick)
+- [인스타그램 주소](https://instagram.com/cocktail_pick)
 - 이메일 주소 : 6rinkers@gmail.com
 - [깃허브 레포지토리](https://github.com/woowacourse-teams/2020-6rinkers/)
