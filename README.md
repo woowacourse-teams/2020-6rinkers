@@ -1,4 +1,4 @@
-# :cocktail: 칵테일픽
+# :cocktail: [칵테일픽](https://cocktailpick.com)
 > 좋은 술을, 고민 없이
 ---
 <br>
