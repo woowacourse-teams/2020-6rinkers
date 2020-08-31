@@ -2,7 +2,7 @@ import React from "react";
 import MyFavorite from "./MyFavorite";
 
 const MyFavoritesContainer = ({ myFavorites }) => {
-  const slicedFavorites = myFavorites.slice();
+  const slicedFavorites = myFavorites ? myFavorites.slice() : [];
   slicedFavorites.sort((a, b) => {
     return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
   });

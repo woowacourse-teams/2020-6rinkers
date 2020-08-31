@@ -30,15 +30,18 @@ export const fetchCocktail = (id) => client.get(`/api/cocktails/${id}`, config);
 export const fetchTodayCocktail = () => client.get("/api/cocktails/today");
 export const fetchCocktailsContaining = (contain) =>
   client.get(`api/cocktails/auto-complete`, { params: { contain } });
-export const createCocktail = (data) => client.post("/api/cocktails", data);
+export const createCocktail = (data) =>
+  client.post("/api/cocktails", data, config);
 export const updateCocktail = (id, data) =>
-  client.put(`/api/cocktails/${id}`, data);
-export const deleteCocktail = (id) => client.delete(`/api/cocktails/${id}`);
-export const deleteAllCocktail = () => client.delete("/api/cocktails");
+  client.put(`/api/cocktails/${id}`, data, config);
+export const deleteCocktail = (id) =>
+  client.delete(`/api/cocktails/${id}`, config);
+export const deleteAllCocktail = () => client.delete("/api/cocktails", config);
 
-export const createTag = (data) => client.post("/api/tags", data);
-export const updateTag = (id, data) => client.put(`/api/tags/${id}`, data);
-export const deleteTag = (id) => client.delete(`/api/tags/${id}`);
+export const createTag = (data) => client.post("/api/tags", data, config);
+export const updateTag = (id, data) =>
+  client.put(`/api/tags/${id}`, data, config);
+export const deleteTag = (id) => client.delete(`/api/tags/${id}`, config);
 export const fetchAllTags = () => client.get("/api/tags");
 export const fetchThreeRandomConceptTags = () =>
   client.get("/api/tags?tagType=CONCEPT&size=3&random=true");
@@ -46,23 +49,26 @@ export const fetchThreeRandomIngredientTags = () =>
   client.get("/api/tags?tagType=INGREDIENT&size=3&random=true");
 export const fetchDislikeTags = () => client.get("/api/tags?tagType=DISLIKE");
 
+export const createTerminology = (data) =>
+  client.post("/api/terminologies", data, config);
+export const fetchAllTerminologies = () => client.get("/api/terminologies");
+export const fetchTerminology = (id) => client.get(`/api/terminologies/${id}`);
+export const updateTerminology = (id, data) =>
+  client.put(`/api/terminologies/${id}`, data, config);
+export const deleteTerminology = (id) =>
+  client.delete(`/api/terminologies/${id}`, config);
+
 export const createRecommend = (recommend) =>
   client.post(`/api/cocktails/recommend`, recommend);
 
-export const createCocktailsByCsv = (file) =>
-  client.post("/api/cocktails/upload/csv", file, {
+export const createResourceByCsv = (resourceName, file) =>
+  client.post(`/api/${resourceName}/upload/csv`, file, {
     headers: {
       "Content-Type": "multipart/form-data",
       Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
     },
   });
-export const createTagsByCsv = (file) =>
-  client.post("/api/tags/upload/csv", file, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
-    },
-  });
+
 export const getCurrentUser = () => {
   if (!localStorage.getItem(ACCESS_TOKEN)) {
     return Promise.reject("No access token set.");

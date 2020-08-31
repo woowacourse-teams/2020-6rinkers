@@ -12,7 +12,15 @@ export const USER_PROTOTYPE = {
   providerId: "",
   role: "",
   roleName: "",
-  myFavorites: []
+  myFavorites: [],
+};
+
+export const TERMINOLOGY_ADMIN_PROTOTYPE = {
+  id: 0,
+  name: "",
+  terminologyType: "",
+  description: "",
+  imageUrl: "",
 };
 
 export const ACCESS_TOKEN = "accessToken";
