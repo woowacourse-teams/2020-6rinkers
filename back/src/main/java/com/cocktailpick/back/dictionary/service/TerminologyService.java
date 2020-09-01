@@ -1,9 +1,13 @@
 package com.cocktailpick.back.dictionary.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.cocktailpick.back.dictionary.domain.Terminology;
 import com.cocktailpick.back.dictionary.domain.TerminologyRepository;
+import com.cocktailpick.back.dictionary.dto.TerminologyResponse;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
@@ -11,6 +15,11 @@ import lombok.RequiredArgsConstructor;
 @Service
 public class TerminologyService {
 	private final TerminologyRepository terminologyRepository;
+
+	@Transactional(readOnly = true)
+	public List<TerminologyResponse> findAllTerminologies() {
+		return null;
+	}
 
 	public Long save(Terminology terminology) {
 		return terminologyRepository.save(terminology).getId();
