@@ -36,7 +36,8 @@ public class Terminology extends BaseTimeEntity {
 	private String imageUrl;
 
 	@Builder
-	public Terminology(String name, TerminologyType terminologyType, String description, String imageUrl) {
+	public Terminology(Long id, String name, TerminologyType terminologyType, String description, String imageUrl) {
+		this.id = id;
 		this.name = name;
 		this.terminologyType = terminologyType;
 		this.description = description;
