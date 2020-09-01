@@ -11,6 +11,7 @@ import javax.persistence.SequenceGenerator;
 
 import com.cocktailpick.back.common.domain.BaseTimeEntity;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -34,4 +35,11 @@ public class Terminology extends BaseTimeEntity {
 	@Lob
 	private String imageUrl;
 
+	@Builder
+	public Terminology(String name, TerminologyType terminologyType, String description, String imageUrl) {
+		this.name = name;
+		this.terminologyType = terminologyType;
+		this.description = description;
+		this.imageUrl = imageUrl;
+	}
 }
