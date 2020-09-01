@@ -11,7 +11,7 @@ class TerminologyTypeTest {
 	@DisplayName("TerminologyType에 포함되어 있는 name인 경우 알맞은 객체를 반환한다.")
 	@Test
 	void of_WhenValidName_ReturnObject() {
-		assertThat(TerminologyType.of("술"Â).isInstanceOf(TerminologyType.class);
+		assertThat(TerminologyType.of("술")).isInstanceOf(TerminologyType.class);
 	}
 
 	@DisplayName("TerminologyType에 포함되어 있지 않은 name인 경우 예외를 던진다.")
