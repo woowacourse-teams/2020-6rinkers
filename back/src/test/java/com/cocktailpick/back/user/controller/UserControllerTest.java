@@ -115,4 +115,15 @@ class UserControllerTest extends DocumentationWithSecurity {
 			.andDo(print())
 			.andDo(UserDocumentation.updateUser());
 	}
+
+	@DisplayName("회원 탈퇴한다.")
+	@WithMockCustomUser
+	@Test
+	void deleteCurrentUser() throws Exception {
+		doNothing().when(userService).deleteCurrentUser(any());
+
+		mockMvc.perform(delete("/api/user/me"))
+			.andExpect(status().isNoContent())
+			.andDo(print());
+	}
 }

@@ -35,4 +35,10 @@ public class UserDocumentation {
 			)
 		);
 	}
+
+	public static RestDocumentationResultHandler deleteMe() {
+		return document("user/me",
+			requestHeaders(
+				headerWithName("authorization").description("Bearer 토큰")));
+	}
 }
