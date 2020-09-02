@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,5 +43,12 @@ public class TerminologyController {
 		Terminology terminology = terminologyRequest.toTerminology();
 		Long persistId = terminologyService.save(terminology);
 		return ResponseEntity.created(URI.create("/api/terminologies/" + persistId)).build();
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<Void> update(@RequestBody @Valid TerminologyRequest terminologyRequest,
+		@PathVariable Long id) {
+		terminologyService.update(terminologyRequest.toTerminology(), id);
+		return ResponseEntity.ok().build();
 	}
 }
