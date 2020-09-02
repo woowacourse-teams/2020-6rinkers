@@ -23,6 +23,10 @@ public class TerminologyService {
 
 	}
 
+	public TerminologyResponse findTerminology(Long id) {
+		return null;
+	}
+
 	public Long save(Terminology terminology) {
 		return terminologyRepository.save(terminology).getId();
 	}
