@@ -1,5 +1,6 @@
 package com.cocktailpick.back.dictionary.service;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -18,7 +19,8 @@ public class TerminologyService {
 
 	@Transactional(readOnly = true)
 	public List<TerminologyResponse> findAllTerminologies() {
-		return null;
+		return Collections.unmodifiableList(TerminologyResponse.listOf(terminologyRepository.findAll()));
+
 	}
 
 	public Long save(Terminology terminology) {
