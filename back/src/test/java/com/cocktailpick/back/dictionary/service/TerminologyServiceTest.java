@@ -7,6 +7,7 @@ import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -15,6 +16,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
+import com.cocktailpick.back.common.exceptions.ErrorCode;
 import com.cocktailpick.back.dictionary.domain.Terminology;
 import com.cocktailpick.back.dictionary.domain.TerminologyRepository;
 import com.cocktailpick.back.dictionary.domain.TerminologyType;
@@ -73,5 +76,27 @@ class TerminologyServiceTest {
 
 		verify(terminologyRepository).findAll();
 		assertThat(persistTerminologies).hasSize(2);
+	}
+
+	@DisplayName("단일 용어를 조회한다.")
+	@Test
+	void findTerminology() {
+		when(terminologyRepository.findById(1L)).thenReturn(Optional.of(terminology));
+
+		Terminology persistTerminology = terminologyRepository.findById(1L).get();
+
+		verify(terminologyRepository).findById(anyLong());
+		assertThat(persistTerminology).isEqualTo(terminology);
+	}
+
+	@DisplayName("단일 용어 조회시 잘못된 id가 입력되면 예외가 발생한다.")
+	@Test
+	void findTerminology_WhenWrongId_ThrowException() {
+		when(terminologyRepository.findById(2L))
+			.thenThrow(new EntityNotFoundException(ErrorCode.TERMINOLOGY_NOT_FOUND));
+
+		assertThatThrownBy(() -> terminologyRepository.findById(2L))
+			.isInstanceOf(EntityNotFoundException.class)
+			.hasMessage(ErrorCode.TERMINOLOGY_NOT_FOUND.getMessage());
 	}
 }
