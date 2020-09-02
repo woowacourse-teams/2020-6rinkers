@@ -25,6 +25,7 @@ import com.cocktailpick.back.dictionary.domain.TerminologyType;
 @ExtendWith(MockitoExtension.class)
 class TerminologyServiceTest {
 	private static final String VODKA_IMAGE_URL = "https://media-verticommnetwork1.netdna-ssl.com/wines/absolut-vodka-45l-434781.jpg";
+
 	private TerminologyService terminologyService;
 
 	@Mock
@@ -98,5 +99,22 @@ class TerminologyServiceTest {
 		assertThatThrownBy(() -> terminologyRepository.findById(2L))
 			.isInstanceOf(EntityNotFoundException.class)
 			.hasMessage(ErrorCode.TERMINOLOGY_NOT_FOUND.getMessage());
+	}
+
+	@DisplayName("용어를 수정한다.")
+	@Test
+	void update() {
+		when(terminologyRepository.findById(anyLong())).thenReturn(Optional.of(terminology));
+
+		Terminology updatingTerminology = Terminology.builder()
+			.name(terminology.getName())
+			.description("보드카는 도수가 높습니다.")
+			.terminologyType(terminology.getTerminologyType())
+			.imageUrl(terminology.getImageUrl())
+			.build();
+
+		terminologyService.update(updatingTerminology, 1L);
+
+		assertEquals(terminology.getDescription(), "보드카는 도수가 높습니다.");
 	}
 }

@@ -36,4 +36,11 @@ public class TerminologyService {
 	public Long save(Terminology terminology) {
 		return terminologyRepository.save(terminology).getId();
 	}
+
+	public void update(Terminology terminology, Long id) {
+		Terminology persistTerminology = terminologyRepository.findById(id)
+			.orElseThrow(() -> new EntityNotFoundException(TERMINOLOGY_NOT_FOUND));
+
+		persistTerminology.update(terminology);
+	}
 }
