@@ -92,4 +92,15 @@ class TerminologyControllerTest extends DocumentationWithSecurity {
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk());
 	}
+
+	@DisplayName("용어를 수정한다.")
+	@Test
+	void update() throws Exception {
+		doNothing().when(terminologyService).update(any(), anyLong());
+
+		mockMvc.perform(put("/api/terminologies/1")
+			.content(objectMapper.writeValueAsString(terminologyRequest))
+			.contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk());
+	}
 }
