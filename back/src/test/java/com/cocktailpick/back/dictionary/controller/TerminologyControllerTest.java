@@ -35,6 +35,8 @@ class TerminologyControllerTest extends DocumentationWithSecurity {
 
 	private TerminologyRequest terminologyRequest;
 
+	private TerminologyResponse terminologyResponse;
+
 	private ObjectMapper objectMapper;
 
 	@BeforeEach
@@ -48,6 +50,8 @@ class TerminologyControllerTest extends DocumentationWithSecurity {
 			.description("러시아의 술이고 감자나 호밀을 증류하여 만듭니다.")
 			.imageUrl(VODKA_IMAGE_URL)
 			.build();
+
+		terminologyResponse = new TerminologyResponse(1L, "보드카", "술", "러시아의 술입니다.", VODKA_IMAGE_URL);
 
 		objectMapper = new ObjectMapper();
 
@@ -69,12 +73,22 @@ class TerminologyControllerTest extends DocumentationWithSecurity {
 	@Test
 	void findTerminologies() throws Exception {
 		List<TerminologyResponse> terminologyResponses = Arrays.asList(
-			new TerminologyResponse(1L, "보드카", "술", "러시아의 술입니다.", VODKA_IMAGE_URL),
+			terminologyResponse,
 			new TerminologyResponse(2L, "지거", "칵테일", "음료의 양을 측정하는 도구입니다.", VODKA_IMAGE_URL)
 		);
 		when(terminologyService.findAllTerminologies()).thenReturn(terminologyResponses);
 
 		mockMvc.perform(get("/api/terminologies")
+			.accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isOk());
+	}
+
+	@DisplayName("단일 용어를 조회한다.")
+	@Test
+	void findTerminology() throws Exception {
+		when(terminologyService.findTerminology(anyLong())).thenReturn(terminologyResponse);
+
+		mockMvc.perform(get("/api/terminologies/1")
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk());
 	}
