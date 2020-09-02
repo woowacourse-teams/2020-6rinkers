@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ import com.cocktailpick.back.favorite.dto.FavoriteRequest;
 import com.cocktailpick.back.security.CurrentUser;
 import com.cocktailpick.back.user.domain.User;
 import com.cocktailpick.back.user.dto.UserResponse;
+import com.cocktailpick.back.user.dto.UserUpdateRequest;
 import com.cocktailpick.back.user.service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -34,6 +36,14 @@ public class UserController {
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public ResponseEntity<UserResponse> getCurrentUser(@CurrentUser User user) {
 		return ResponseEntity.ok(UserResponse.of(user));
+	}
+
+	@PutMapping("/me")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+	public ResponseEntity<UserResponse> updateCurrentUser(@CurrentUser User user,
+		@RequestBody @Valid UserUpdateRequest userRequest) {
+		userService.updateUser(user, userRequest);
+		return ResponseEntity.ok().build();
 	}
 
 	@GetMapping("/me/favorites")

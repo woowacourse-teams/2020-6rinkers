@@ -22,6 +22,7 @@ import com.cocktailpick.back.user.domain.AuthProvider;
 import com.cocktailpick.back.user.domain.Role;
 import com.cocktailpick.back.user.domain.User;
 import com.cocktailpick.back.user.domain.UserRepository;
+import com.cocktailpick.back.user.dto.UserUpdateRequest;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
@@ -75,6 +76,15 @@ class UserServiceTest {
 		user.setRole(Role.ROLE_USER);
 		user.setProviderId("local");
 		user.setFavorites(favorites);
+	}
+
+	@Test
+	void updateUser() {
+		UserUpdateRequest userUpdateRequest = new UserUpdateRequest("작은곰");
+		userService.updateUser(user, userUpdateRequest);
+
+		assertThat(user.getName())
+			.isEqualTo(userUpdateRequest.getName());
 	}
 
 	@DisplayName("즐겨찾기를 조회한다.")
