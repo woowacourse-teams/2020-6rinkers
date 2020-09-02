@@ -43,4 +43,13 @@ public class Terminology extends BaseTimeEntity {
 		this.description = description;
 		this.imageUrl = imageUrl;
 	}
+
+	public Terminology update(Terminology terminology) {
+		this.name = terminology.getName();
+		this.terminologyType = terminology.getTerminologyType();
+		this.description = terminology.getDescription();
+		this.imageUrl = terminology.getImageUrl();
+
+		return this;
+	}
 }
