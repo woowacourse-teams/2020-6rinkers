@@ -117,4 +117,12 @@ class TerminologyServiceTest {
 
 		assertEquals(terminology.getDescription(), "보드카는 도수가 높습니다.");
 	}
+
+	@DisplayName("용어를 삭제한다.")
+	@Test
+	void delete() {
+		terminologyService.delete(1L);
+
+		verify(terminologyRepository).deleteById(anyLong());
+	}
 }
