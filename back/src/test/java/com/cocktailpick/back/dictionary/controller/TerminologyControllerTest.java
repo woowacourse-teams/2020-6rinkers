@@ -1,7 +1,8 @@
 package com.cocktailpick.back.dictionary.controller;
 
+import static com.cocktailpick.back.dictionary.Fixtures.*;
 import static org.mockito.BDDMockito.*;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.Arrays;
@@ -13,7 +14,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.cocktailpick.back.common.documentation.DocumentationWithSecurity;
@@ -57,7 +60,7 @@ class TerminologyControllerTest extends DocumentationWithSecurity {
 
 	}
 
-	@DisplayName("용어를 생성한다.")
+	@DisplayName("용어를 저장한다.")
 	@Test
 	void save() throws Exception {
 		when(terminologyService.save(any())).thenReturn(1L);
@@ -67,6 +70,19 @@ class TerminologyControllerTest extends DocumentationWithSecurity {
 			.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isCreated())
 			.andExpect(header().string("Location", "/api/terminologies/1"));
+	}
+
+	@WithMockUser(roles = "ADMIN")
+	@DisplayName("복수의 용어를 csv 파일을 이용해 저장한다.")
+	@Test
+	void saveTerminologiesByCsv() throws Exception {
+		doNothing().when(terminologyService).saveAll(any());
+
+		mockMvc.perform(multipart("/api/terminologies/upload/csv")
+			.file(new MockMultipartFile("file", "test.csv", "text/csv", FOUR_TERMINOLOGIES_CSV_CONTENT.getBytes()))
+			.contentType(MediaType.MULTIPART_FORM_DATA))
+			.andExpect(status().isCreated())
+			.andExpect(header().string("Location", "/api/terminologies"));
 	}
 
 	@DisplayName("모든 용어를 조회한다.")
