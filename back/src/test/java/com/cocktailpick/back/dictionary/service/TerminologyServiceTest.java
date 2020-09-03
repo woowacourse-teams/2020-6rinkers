@@ -1,5 +1,6 @@
 package com.cocktailpick.back.dictionary.service;
 
+import static com.cocktailpick.back.dictionary.Fixtures.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -15,6 +16,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
 import com.cocktailpick.back.common.exceptions.ErrorCode;
@@ -46,7 +49,7 @@ class TerminologyServiceTest {
 			.build();
 	}
 
-	@DisplayName("용어를 생성한다.")
+	@DisplayName("용어를 저장한다.")
 	@Test
 	void save() {
 		when(terminologyRepository.save(any())).thenReturn(terminology);
@@ -55,6 +58,17 @@ class TerminologyServiceTest {
 
 		verify(terminologyRepository).save(any());
 		assertEquals(persistId, 1L);
+	}
+
+	@DisplayName("복수의 용어를 csv 파일을 이용해 저장한다.")
+	@Test
+	void saveAll() {
+		MultipartFile file = new MockMultipartFile("file", "용어.csv", "text/csv",
+			FOUR_TERMINOLOGIES_CSV_CONTENT.getBytes());
+
+		terminologyService.saveAll(file);
+
+		verify(terminologyRepository).saveAll(anyList());
 	}
 
 	@DisplayName("모든 용어를 조회한다.")
