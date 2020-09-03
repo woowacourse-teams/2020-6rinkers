@@ -60,12 +60,14 @@ class TerminologyControllerTest extends DocumentationWithSecurity {
 
 	}
 
+	@WithMockUser(roles = "ADMIN")
 	@DisplayName("용어를 저장한다.")
 	@Test
 	void save() throws Exception {
 		when(terminologyService.save(any())).thenReturn(1L);
 
 		mockMvc.perform(post("/api/terminologies")
+			.header("authorization", "Bearer ADMIN_TOKEN")
 			.content(objectMapper.writeValueAsString(terminologyRequest))
 			.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isCreated())
@@ -80,6 +82,7 @@ class TerminologyControllerTest extends DocumentationWithSecurity {
 
 		mockMvc.perform(multipart("/api/terminologies/upload/csv")
 			.file(new MockMultipartFile("file", "test.csv", "text/csv", FOUR_TERMINOLOGIES_CSV_CONTENT.getBytes()))
+			.header("authorization", "Bearer ADMIN_TOKEN")
 			.contentType(MediaType.MULTIPART_FORM_DATA))
 			.andExpect(status().isCreated())
 			.andExpect(header().string("Location", "/api/terminologies"));
@@ -109,23 +112,27 @@ class TerminologyControllerTest extends DocumentationWithSecurity {
 			.andExpect(status().isOk());
 	}
 
+	@WithMockUser(roles = "ADMIN")
 	@DisplayName("용어를 수정한다.")
 	@Test
 	void update() throws Exception {
 		doNothing().when(terminologyService).update(any(), anyLong());
 
 		mockMvc.perform(put("/api/terminologies/1")
+			.header("authorization", "Bearer ADMIN_TOKEN")
 			.content(objectMapper.writeValueAsString(terminologyRequest))
 			.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk());
 	}
 
+	@WithMockUser(roles = "ADMIN")
 	@DisplayName("용어를 삭제한다.")
 	@Test
 	void deleteTerminology() throws Exception {
 		doNothing().when(terminologyService).delete(anyLong());
 
-		mockMvc.perform(delete("/api/terminologies/1"))
+		mockMvc.perform(delete("/api/terminologies/1")
+			.header("authorization", "Bearer ADMIN_TOKEN"))
 			.andExpect(status().isNoContent());
 	}
 }
