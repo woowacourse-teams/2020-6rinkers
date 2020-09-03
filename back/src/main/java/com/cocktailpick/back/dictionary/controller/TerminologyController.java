@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cocktailpick.back.dictionary.domain.Terminology;
 import com.cocktailpick.back.dictionary.dto.TerminologyResponse;
@@ -44,6 +46,12 @@ public class TerminologyController {
 		Terminology terminology = terminologyRequest.toTerminology();
 		Long persistId = terminologyService.save(terminology);
 		return ResponseEntity.created(URI.create("/api/terminologies/" + persistId)).build();
+	}
+
+	@PostMapping("/upload/csv")
+	public ResponseEntity<Void> saveTerminologiesByCsv(@RequestPart MultipartFile file) {
+		terminologyService.saveAll(file);
+		return ResponseEntity.created(URI.create("/api/terminologies")).build();
 	}
 
 	@PutMapping("/{id}")

@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
 import com.cocktailpick.back.dictionary.domain.Terminology;
@@ -35,6 +36,11 @@ public class TerminologyService {
 	@Transactional
 	public Long save(Terminology terminology) {
 		return terminologyRepository.save(terminology).getId();
+	}
+
+	@Transactional
+	public void saveAll(MultipartFile file) {
+
 	}
 
 	public void update(Terminology terminology, Long id) {
