@@ -47,6 +47,7 @@ public class TerminologyService {
 		terminologyRepository.saveAll(terminologies);
 	}
 
+	@Transactional
 	public void update(Terminology terminology, Long id) {
 		Terminology persistTerminology = terminologyRepository.findById(id)
 			.orElseThrow(() -> new EntityNotFoundException(TERMINOLOGY_NOT_FOUND));
