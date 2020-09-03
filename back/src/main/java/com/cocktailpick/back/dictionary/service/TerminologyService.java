@@ -44,6 +44,8 @@ public class TerminologyService {
 		persistTerminology.update(terminology);
 	}
 
+	@Transactional
 	public void delete(Long id) {
+		terminologyRepository.deleteById(id);
 	}
 }
