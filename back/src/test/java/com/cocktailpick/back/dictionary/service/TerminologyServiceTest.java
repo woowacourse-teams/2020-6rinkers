@@ -24,6 +24,7 @@ import com.cocktailpick.back.common.exceptions.ErrorCode;
 import com.cocktailpick.back.dictionary.domain.Terminology;
 import com.cocktailpick.back.dictionary.domain.TerminologyRepository;
 import com.cocktailpick.back.dictionary.domain.TerminologyType;
+import com.cocktailpick.back.dictionary.dto.TerminologyResponse;
 
 @ExtendWith(MockitoExtension.class)
 class TerminologyServiceTest {
@@ -87,10 +88,10 @@ class TerminologyServiceTest {
 
 		when(terminologyRepository.findAll()).thenReturn(terminologies);
 
-		List<Terminology> persistTerminologies = terminologyRepository.findAll();
+		List<TerminologyResponse> terminologyResponses = terminologyService.findAllTerminologies();
 
 		verify(terminologyRepository).findAll();
-		assertThat(persistTerminologies).hasSize(2);
+		assertThat(terminologyResponses).hasSize(2);
 	}
 
 	@DisplayName("단일 용어를 조회한다.")
@@ -98,10 +99,10 @@ class TerminologyServiceTest {
 	void findTerminology() {
 		when(terminologyRepository.findById(1L)).thenReturn(Optional.of(terminology));
 
-		Terminology persistTerminology = terminologyRepository.findById(1L).get();
+		TerminologyResponse terminologyResponse = terminologyService.findTerminology(1L);
 
 		verify(terminologyRepository).findById(anyLong());
-		assertThat(persistTerminology).isEqualTo(terminology);
+		assertThat(terminologyResponse.getName()).isEqualTo(terminology.getName());
 	}
 
 	@DisplayName("단일 용어 조회시 잘못된 id가 입력되면 예외가 발생한다.")
