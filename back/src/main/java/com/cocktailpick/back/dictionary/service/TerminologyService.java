@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cocktailpick.back.common.csv.OpenCsvReader;
 import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
 import com.cocktailpick.back.dictionary.domain.Terminology;
 import com.cocktailpick.back.dictionary.domain.TerminologyRepository;
@@ -40,7 +41,10 @@ public class TerminologyService {
 
 	@Transactional
 	public void saveAll(MultipartFile file) {
+		TerminologyCsvReader terminologyCsvReader = new TerminologyCsvReader(OpenCsvReader.from(file));
+		List<Terminology> terminologies = terminologyCsvReader.getTerminologies();
 
+		terminologyRepository.saveAll(terminologies);
 	}
 
 	public void update(Terminology terminology, Long id) {
