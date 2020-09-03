@@ -103,4 +103,13 @@ class TerminologyControllerTest extends DocumentationWithSecurity {
 			.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk());
 	}
+
+	@DisplayName("용어를 삭제한다.")
+	@Test
+	void deleteTerminology() throws Exception {
+		doNothing().when(terminologyService).delete(anyLong());
+
+		mockMvc.perform(delete("/api/terminologies/1"))
+			.andExpect(status().isNoContent());
+	}
 }

@@ -43,4 +43,7 @@ public class TerminologyService {
 
 		persistTerminology.update(terminology);
 	}
+
+	public void delete(Long id) {
+	}
 }
