@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.cocktailpick.back.dictionary.domain.Terminology;
 import com.cocktailpick.back.dictionary.dto.TerminologyResponse;
 import com.cocktailpick.back.dictionary.service.TerminologyService;
-import com.cocktailpick.back.tag.dto.TerminologyRequest;
+import com.cocktailpick.back.dictionary.dto.TerminologyRequest;
 import lombok.RequiredArgsConstructor;
 
 @CrossOrigin("*")
