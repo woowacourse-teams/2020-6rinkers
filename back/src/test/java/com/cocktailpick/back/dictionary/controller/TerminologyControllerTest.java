@@ -3,6 +3,7 @@ package com.cocktailpick.back.dictionary.controller;
 import static com.cocktailpick.back.dictionary.Fixtures.*;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import java.util.Arrays;
@@ -16,13 +17,15 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.cocktailpick.back.common.documentation.DocumentationWithSecurity;
+import com.cocktailpick.back.dictionary.docs.TerminologyDocumentation;
+import com.cocktailpick.back.dictionary.dto.TerminologyRequest;
 import com.cocktailpick.back.dictionary.dto.TerminologyResponse;
 import com.cocktailpick.back.dictionary.service.TerminologyService;
-import com.cocktailpick.back.tag.dto.TerminologyRequest;
 import com.cocktailpick.back.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -71,7 +74,10 @@ class TerminologyControllerTest extends DocumentationWithSecurity {
 			.content(objectMapper.writeValueAsString(terminologyRequest))
 			.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isCreated())
-			.andExpect(header().string("Location", "/api/terminologies/1"));
+			.andExpect(header().string("Location", "/api/terminologies/1"))
+			.andDo(print())
+			.andDo(TerminologyDocumentation.create());
+		;
 	}
 
 	@WithMockUser(roles = "ADMIN")
@@ -85,7 +91,9 @@ class TerminologyControllerTest extends DocumentationWithSecurity {
 			.header("authorization", "Bearer ADMIN_TOKEN")
 			.contentType(MediaType.MULTIPART_FORM_DATA))
 			.andExpect(status().isCreated())
-			.andExpect(header().string("Location", "/api/terminologies"));
+			.andExpect(header().string("Location", "/api/terminologies"))
+			.andDo(print())
+			.andDo(TerminologyDocumentation.upload());
 	}
 
 	@DisplayName("모든 용어를 조회한다.")
@@ -99,7 +107,9 @@ class TerminologyControllerTest extends DocumentationWithSecurity {
 
 		mockMvc.perform(get("/api/terminologies")
 			.accept(MediaType.APPLICATION_JSON))
-			.andExpect(status().isOk());
+			.andExpect(status().isOk())
+			.andDo(print())
+			.andDo(TerminologyDocumentation.findAll());
 	}
 
 	@DisplayName("단일 용어를 조회한다.")
@@ -107,9 +117,11 @@ class TerminologyControllerTest extends DocumentationWithSecurity {
 	void findTerminology() throws Exception {
 		when(terminologyService.findTerminology(anyLong())).thenReturn(terminologyResponse);
 
-		mockMvc.perform(get("/api/terminologies/1")
+		mockMvc.perform(RestDocumentationRequestBuilders.get("/api/terminologies/{id}", 1L)
 			.accept(MediaType.APPLICATION_JSON))
-			.andExpect(status().isOk());
+			.andExpect(status().isOk())
+			.andDo(print())
+			.andDo(TerminologyDocumentation.find());
 	}
 
 	@WithMockUser(roles = "ADMIN")
@@ -118,11 +130,13 @@ class TerminologyControllerTest extends DocumentationWithSecurity {
 	void update() throws Exception {
 		doNothing().when(terminologyService).update(any(), anyLong());
 
-		mockMvc.perform(put("/api/terminologies/1")
+		mockMvc.perform(RestDocumentationRequestBuilders.put("/api/terminologies/{id}", 1L)
 			.header("authorization", "Bearer ADMIN_TOKEN")
 			.content(objectMapper.writeValueAsString(terminologyRequest))
 			.contentType(MediaType.APPLICATION_JSON))
-			.andExpect(status().isOk());
+			.andExpect(status().isOk())
+			.andDo(print())
+			.andDo(TerminologyDocumentation.update());
 	}
 
 	@WithMockUser(roles = "ADMIN")
@@ -131,8 +145,10 @@ class TerminologyControllerTest extends DocumentationWithSecurity {
 	void deleteTerminology() throws Exception {
 		doNothing().when(terminologyService).delete(anyLong());
 
-		mockMvc.perform(delete("/api/terminologies/1")
+		mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/terminologies/{id}", 1L)
 			.header("authorization", "Bearer ADMIN_TOKEN"))
-			.andExpect(status().isNoContent());
+			.andExpect(status().isNoContent())
+			.andDo(print())
+			.andDo(TerminologyDocumentation.delete());
 	}
 }
