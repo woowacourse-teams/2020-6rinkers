@@ -1,4 +1,4 @@
-package com.cocktailpick.back.tag.dto;
+package com.cocktailpick.back.dictionary.dto;
 
 import javax.validation.constraints.NotBlank;
 
