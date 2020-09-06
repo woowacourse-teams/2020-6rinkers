@@ -30,15 +30,15 @@ export const fetchCocktail = (id) => client.get(`/api/cocktails/${id}`, config);
 export const fetchTodayCocktail = () => client.get("/api/cocktails/today");
 export const fetchCocktailsContaining = (contain) =>
   client.get(`api/cocktails/auto-complete`, { params: { contain } });
-export const createCocktail = (data) => client.post("/api/cocktails", data);
+export const createCocktail = (data) => client.post("/api/cocktails", data, config);
 export const updateCocktail = (id, data) =>
-  client.put(`/api/cocktails/${id}`, data);
-export const deleteCocktail = (id) => client.delete(`/api/cocktails/${id}`);
-export const deleteAllCocktail = () => client.delete("/api/cocktails");
+  client.put(`/api/cocktails/${id}`, data, config);
+export const deleteCocktail = (id) => client.delete(`/api/cocktails/${id}`, config);
+export const deleteAllCocktail = () => client.delete("/api/cocktails", config);
 
-export const createTag = (data) => client.post("/api/tags", data);
-export const updateTag = (id, data) => client.put(`/api/tags/${id}`, data);
-export const deleteTag = (id) => client.delete(`/api/tags/${id}`);
+export const createTag = (data) => client.post("/api/tags", data, config);
+export const updateTag = (id, data) => client.put(`/api/tags/${id}`, data, config);
+export const deleteTag = (id) => client.delete(`/api/tags/${id}`, config);
 export const fetchAllTags = () => client.get("/api/tags");
 export const fetchThreeRandomConceptTags = () =>
   client.get("/api/tags?tagType=CONCEPT&size=3&random=true");
