@@ -49,20 +49,14 @@ export const fetchDislikeTags = () => client.get("/api/tags?tagType=DISLIKE");
 export const createRecommend = (recommend) =>
   client.post(`/api/cocktails/recommend`, recommend);
 
-export const createCocktailsByCsv = (file) =>
-  client.post("/api/cocktails/upload/csv", file, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
-    },
-  });
-export const createTagsByCsv = (file) =>
-  client.post("/api/tags/upload/csv", file, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
-    },
-  });
+export const createResourceByCsv = (resourceName, file) =>
+    client.post(`/api/${resourceName}/upload/csv`, file, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+        },
+    });
+
 export const getCurrentUser = () => {
   if (!localStorage.getItem(ACCESS_TOKEN)) {
     return Promise.reject("No access token set.");
