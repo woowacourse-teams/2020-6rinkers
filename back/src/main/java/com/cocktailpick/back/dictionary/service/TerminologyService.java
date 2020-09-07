@@ -4,6 +4,7 @@ import static com.cocktailpick.back.common.exceptions.ErrorCode.*;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cocktailpick.back.common.csv.OpenCsvReader;
 import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
+import com.cocktailpick.back.common.exceptions.InvalidValueException;
 import com.cocktailpick.back.dictionary.domain.Terminology;
 import com.cocktailpick.back.dictionary.domain.TerminologyRepository;
 import com.cocktailpick.back.dictionary.dto.TerminologyResponse;
@@ -36,6 +38,10 @@ public class TerminologyService {
 
 	@Transactional
 	public Long save(Terminology terminology) {
+		Optional<Terminology> persistTerminology = terminologyRepository.findByName(terminology.getName());
+		if (persistTerminology.isPresent()) {
+			throw new InvalidValueException(TERMINOLOGY_DUPLICATED);
+		}
 		return terminologyRepository.save(terminology).getId();
 	}
 

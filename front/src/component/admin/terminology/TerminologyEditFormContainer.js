@@ -7,7 +7,7 @@ const TerminologyEditFormContainer = ({ onChange }) => {
   const terminologyAdmin = useRecoilValue(terminologyAdminState);
 
   const saveOrUpdateTerminologyAdmin = async () => {
-    if (terminologyAdmin.id === 0) {
+    if (terminologyAdmin.id === 0 || terminologyAdmin.id === "0") {
       await createTerminology(terminologyAdmin);
     } else {
       await updateTerminology(terminologyAdmin.id, terminologyAdmin);
@@ -28,7 +28,9 @@ const TerminologyEditFormContainer = ({ onChange }) => {
           />
         </div>
       ))}
-      <button className="submit-btn" onClick={saveOrUpdateTerminologyAdmin}>저장/수정하기</button>
+      <button className="submit-btn" onClick={saveOrUpdateTerminologyAdmin}>
+        저장/수정하기
+      </button>
     </div>
   );
 };
