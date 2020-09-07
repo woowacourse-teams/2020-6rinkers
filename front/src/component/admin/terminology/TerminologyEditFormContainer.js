@@ -18,8 +18,9 @@ const TerminologyEditFormContainer = ({ onChange }) => {
     <div className="terminologies-edit-form-container">
       {Object.keys(terminologyAdmin).map((key, index) => (
         <div className="form-row" key={`terminology-input-${index}`}>
-          <div>{key}</div>
+          <div className="terminology-key">{key}</div>
           <input
+            className="terminology-input"
             type="text"
             name={key}
             value={terminologyAdmin[key]}
@@ -27,7 +28,7 @@ const TerminologyEditFormContainer = ({ onChange }) => {
           />
         </div>
       ))}
-      <button onClick={saveOrUpdateTerminologyAdmin}>저장/수정하기</button>
+      <button className="submit-btn" onClick={saveOrUpdateTerminologyAdmin}>저장/수정하기</button>
     </div>
   );
 };

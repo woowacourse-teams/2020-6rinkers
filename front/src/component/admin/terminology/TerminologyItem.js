@@ -21,9 +21,12 @@ const TerminologyItem = ({ terminology }) => {
 
   return (
     <div className="terminology-item" onClick={onUpdateTerminologyAdmin}>
-      <div>{terminology.name}</div>
-      <div>{terminology.terminologyType}</div>
-      <div>{terminology.description}</div>
+      <img src={terminology.imageUrl} alt={terminology.name} />
+      <div className="terminology-text-information">
+          <div>name: {terminology.name}</div>
+          <div>type: {terminology.terminologyType}</div>
+          <div>description: {terminology.description}</div>
+      </div>
       <button onClick={onDeleteTerminologyAdmin}>삭제</button>
     </div>
   );
