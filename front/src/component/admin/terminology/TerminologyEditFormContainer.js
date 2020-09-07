@@ -1,6 +1,10 @@
 import React from "react";
+import { useRecoilValue } from "recoil";
+import { terminologyAdminState } from "../../../recoil";
 
-const TerminologyEditFormContainer = ({ terminologyAdmin, onChange }) => {
+const TerminologyEditFormContainer = ({ onChange }) => {
+  const terminologyAdmin = useRecoilValue(terminologyAdminState);
+
   return (
     <div className="terminologies-edit-form-container">
       {Object.keys(terminologyAdmin).map((key, index) => (

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { fetchTerminology, login } from "../../../api";
+import { fetchAllTerminologies } from "../../../api";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   terminologiesAdminState,
@@ -22,7 +22,7 @@ const TerminologyAdmin = (props) => {
   const location = useLocation();
 
   const fetchTerminologies = async () => {
-    const response = await fetchTerminology();
+    const response = await fetchAllTerminologies();
     setTerminologiesAdmin(response.data);
   };
 
@@ -48,11 +48,8 @@ const TerminologyAdmin = (props) => {
 
   return (
     <div className="terminology-admin">
-      <TerminologyEditFormContainer
-        terminologyAdmin={terminologyAdmin}
-        onChange={onChange}
-      />
-      <TerminologyListContainer terminologiesAdmin={terminologiesAdmin} />
+      <TerminologyEditFormContainer onChange={onChange} />
+      <TerminologyListContainer />
     </div>
   );
 };
