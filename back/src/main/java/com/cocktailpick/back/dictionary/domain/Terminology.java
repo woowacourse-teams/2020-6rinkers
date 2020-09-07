@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 
+import org.checkerframework.common.aliasing.qual.Unique;
+
 import com.cocktailpick.back.common.domain.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -24,6 +26,7 @@ public class Terminology extends BaseTimeEntity {
 	@SequenceGenerator(name = "terminology_sequence_gen", sequenceName = "terminology_sequence")
 	private Long id;
 
+	@Unique
 	private String name;
 
 	@Enumerated(EnumType.STRING)

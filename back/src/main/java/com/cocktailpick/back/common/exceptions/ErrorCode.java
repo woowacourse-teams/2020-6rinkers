@@ -17,7 +17,8 @@ public enum ErrorCode {
 	TAG_NOT_FOUND(400, "TA_003", "태그를 찾을 수 없습니다."),
 	FAVORITE_DUPLICATED(400, "FA_001", "중복된 즐겨찾기를 추가할 수 없습니다."),
 	TERMINOLOGY_TYPE_NOT_FOUND(400, "TE_TY_001", "해당 용어의 타입은 존재하지 않습니다."),
-	TERMINOLOGY_NOT_FOUND(400, "TE_001", "용어를 찾을 수 없습니다.");
+	TERMINOLOGY_NOT_FOUND(400, "TE_001", "용어를 찾을 수 없습니다."),
+	TERMINOLOGY_DUPLICATED(400, "TE_002", "중복된 용어를 추가할 수 없습니다.");
 	FAVORITE_DUPLICATED(400, "FA_001", "중복된 즐겨찾기를 추가할 수 없습니다."),
 
 	AUTH_ERROR(400, "AU_001", "인증 관련 오류가 발생했습니다."),
