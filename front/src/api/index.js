@@ -48,6 +48,7 @@ export const fetchDislikeTags = () => client.get("/api/tags?tagType=DISLIKE");
 
 export const fetchAllTerminologies = () => client.get("/api/terminologies");
 export const fetchTerminology = (id) => client.get(`/api/terminologies/${id}`);
+export const deleteTerminology = (id) => client.delete(`/api/terminologies/${id}`, config);
 
 export const createRecommend = (recommend) =>
   client.post(`/api/cocktails/recommend`, recommend);
