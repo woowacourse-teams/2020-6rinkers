@@ -1,9 +1,18 @@
 import React from "react";
 import { useRecoilValue } from "recoil";
 import { terminologyAdminState } from "../../../recoil";
+import { createTerminology, updateTerminology } from "../../../api";
 
 const TerminologyEditFormContainer = ({ onChange }) => {
   const terminologyAdmin = useRecoilValue(terminologyAdminState);
+
+  const saveOrUpdateTerminologyAdmin = async () => {
+    if (terminologyAdmin.id === 0) {
+      await createTerminology(terminologyAdmin);
+    } else {
+      await updateTerminology(terminologyAdmin.id, terminologyAdmin);
+    }
+  };
 
   return (
     <div className="terminologies-edit-form-container">
@@ -18,7 +27,7 @@ const TerminologyEditFormContainer = ({ onChange }) => {
           />
         </div>
       ))}
-      <button>저장/수정하기</button>
+      <button onClick={saveOrUpdateTerminologyAdmin}>저장/수정하기</button>
     </div>
   );
 };
