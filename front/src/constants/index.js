@@ -12,16 +12,16 @@ export const USER_PROTOTYPE = {
   providerId: "",
   role: "",
   roleName: "",
-  myFavorites: []
+  myFavorites: [],
 };
 
 export const TERMINOLOGY_ADMIN_PROTOTYPE = {
   id: 0,
   name: "",
-  type: "",
+  terminologyType: "",
   description: "",
   imageUrl: "",
-}
+};
 
 export const ACCESS_TOKEN = "accessToken";
 export const API_BASE_URL = `//${process.env.REACT_APP_HOST}`;
