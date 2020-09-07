@@ -15,6 +15,14 @@ export const USER_PROTOTYPE = {
   myFavorites: []
 };
 
+export const TERMINOLOGY_ADMIN_PROTOTYPE = {
+  id: 0,
+  name: "",
+  type: "",
+  description: "",
+  imageUrl: "",
+}
+
 export const ACCESS_TOKEN = "accessToken";
 export const API_BASE_URL = `//${process.env.REACT_APP_HOST}`;
 export const OAUTH2_REDIRECT_URI = `${API_BASE_URL}/oauth2/redirect`;

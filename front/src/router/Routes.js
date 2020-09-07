@@ -16,6 +16,7 @@ import OAuth2RedirectHandler from "../oauth2/OAuth2RedirectHandler";
 import Login from "../component/user/Login";
 import Signup from "../component/user/Signup";
 import MyProfile from "../component/mypage/MyProfile";
+import TerminologyAdmin from "../component/admin/terminology/TerminologyAdmin";
 
 const Routes = ({ cocktails, setCocktails, handleLogout, loading }) => {
   if (loading) {
@@ -63,6 +64,9 @@ const Routes = ({ cocktails, setCocktails, handleLogout, loading }) => {
           </Route>
           <Route path="/admin/tags">
             <TagAdmin />
+          </Route>
+          <Route path="/admin/terminologies">
+            <TerminologyAdmin />
           </Route>
           <Route path="/cocktails/search">
             <CocktailSearch />
