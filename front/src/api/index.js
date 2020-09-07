@@ -46,7 +46,8 @@ export const fetchThreeRandomIngredientTags = () =>
   client.get("/api/tags?tagType=INGREDIENT&size=3&random=true");
 export const fetchDislikeTags = () => client.get("/api/tags?tagType=DISLIKE");
 
-export const fetchTerminology = () => client.get("/api/terminologies");
+export const fetchAllTerminologies = () => client.get("/api/terminologies");
+export const fetchTerminology = (id) => client.get(`/api/terminologies/${id}`);
 
 export const createRecommend = (recommend) =>
   client.post(`/api/cocktails/recommend`, recommend);
