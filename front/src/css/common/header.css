@@ -10,10 +10,20 @@
 
 .adminHeaderContainer {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   user-select: none;
   height: 55px;
+}
+
+.adminHeaderContainer > a {
+  border: var(--black) 1px solid;
+  padding: 0.3rem 0.5rem;
+}
+
+.adminHeaderContainer > a:hover {
+  color: var(--white);
+  background-color: var(--black);
 }
 
 .nav {
