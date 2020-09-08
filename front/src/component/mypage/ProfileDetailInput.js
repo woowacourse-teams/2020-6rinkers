@@ -1,6 +1,6 @@
 import React from "react";
 
-export default ({ name, userKey, value, onChange }) => {
+export default ({ name, userKey, value, onChange, disabled }) => {
   return (
     <div className="profile-input-container">
       <h3>{name}</h3>
@@ -9,8 +9,8 @@ export default ({ name, userKey, value, onChange }) => {
           type="text"
           name={userKey}
           value={value}
-          disabled
           onChange={onChange}
+          disabled={disabled}
         />
       </div>
     </div>
