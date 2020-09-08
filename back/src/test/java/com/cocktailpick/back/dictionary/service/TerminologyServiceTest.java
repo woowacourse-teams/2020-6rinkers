@@ -1,5 +1,6 @@
 package com.cocktailpick.back.dictionary.service;
 
+import static com.cocktailpick.back.common.exceptions.ErrorCode.*;
 import static com.cocktailpick.back.dictionary.Fixtures.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -21,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
 import com.cocktailpick.back.common.exceptions.ErrorCode;
+import com.cocktailpick.back.common.exceptions.InvalidValueException;
 import com.cocktailpick.back.dictionary.domain.Terminology;
 import com.cocktailpick.back.dictionary.domain.TerminologyRepository;
 import com.cocktailpick.back.dictionary.domain.TerminologyType;
@@ -59,6 +61,16 @@ class TerminologyServiceTest {
 
 		verify(terminologyRepository).save(any());
 		assertEquals(persistId, 1L);
+	}
+
+	@DisplayName("이미 저장된 이름의 용어를 저장할 경우 예외가 발생한다.")
+	@Test
+	void saveWithException() {
+		when(terminologyRepository.findByName(anyString())).thenReturn(Optional.of(terminology));
+
+		assertThatThrownBy(() -> terminologyService.save(terminology))
+			.isInstanceOf(InvalidValueException.class)
+			.hasMessage(TERMINOLOGY_DUPLICATED.getMessage());
 	}
 
 	@DisplayName("복수의 용어를 csv 파일을 이용해 저장한다.")
