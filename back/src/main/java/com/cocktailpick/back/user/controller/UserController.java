@@ -27,19 +27,18 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
 @RequestMapping("/api/user")
+@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 @RestController
 public class UserController {
 	private final UserService userService;
 
 	@GetMapping("/me")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public ResponseEntity<UserResponse> getCurrentUser(@CurrentUser User user) {
 		return ResponseEntity.ok(UserResponse.of(user));
 	}
 
 	@PutMapping("/me")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public ResponseEntity<UserResponse> updateCurrentUser(@CurrentUser User user,
 		@RequestBody @Valid UserUpdateRequest userRequest) {
 		userService.updateUser(user, userRequest);
@@ -47,13 +46,11 @@ public class UserController {
 	}
 
 	@GetMapping("/me/favorites")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public ResponseEntity<List<CocktailResponse>> findFavorites(@CurrentUser User user) {
 		return ResponseEntity.ok(userService.findFavorites(user));
 	}
 
 	@PostMapping("/me/favorites")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public ResponseEntity<Void> addFavorite(@CurrentUser User user,
 		@RequestBody @Valid FavoriteRequest favoriteRequest) {
 		Long favoriteId = userService.addFavorite(user, favoriteRequest);
@@ -62,7 +59,6 @@ public class UserController {
 	}
 
 	@DeleteMapping("/me/favorites/{cocktailId}")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public ResponseEntity<Void> deleteFavorite(@CurrentUser User user, @PathVariable Long cocktailId) {
 		userService.deleteFavorite(user, cocktailId);
 

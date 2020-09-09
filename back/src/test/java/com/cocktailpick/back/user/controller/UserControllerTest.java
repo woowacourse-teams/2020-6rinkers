@@ -18,7 +18,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
-import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -100,6 +99,7 @@ class UserControllerTest extends DocumentationWithSecurity {
 			.andDo(print());
 	}
 
+	@DisplayName("사용자 정보를 수정한다.")
 	@WithMockCustomUser
 	@Test
 	void updateCurrentUser() throws Exception {
@@ -107,13 +107,12 @@ class UserControllerTest extends DocumentationWithSecurity {
 
 		UserUpdateRequest userUpdateRequest = new UserUpdateRequest("작은곰");
 
-		mockMvc.perform(RestDocumentationRequestBuilders.put("/api/user/me")
+		mockMvc.perform(put("/api/user/me")
 			.header("authorization", "Bearer ADMIN_TOKEN")
 			.contentType(MediaType.APPLICATION_JSON)
 			.content(objectMapper.writeValueAsString(userUpdateRequest)))
 			.andExpect(status().isOk())
 			.andDo(print())
 			.andDo(UserDocumentation.updateUser());
-
 	}
 }
