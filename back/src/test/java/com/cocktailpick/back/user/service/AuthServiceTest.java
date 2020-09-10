@@ -9,12 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.ContextConfiguration;
 
 import com.cocktailpick.back.common.exceptions.BadRequestException;
 import com.cocktailpick.back.security.TokenProvider;
@@ -62,16 +58,17 @@ class AuthServiceTest {
 	void registerUser() {
 		SignUpRequest signUpRequest = new SignUpRequest("아이디", "a@email.com", "password");
 
-		User user = new User();
-		user.setId(1L);
-		user.setEmail("a@email.com");
-		user.setEmailVerified(true);
-		user.setImageUrl("image.com");
-		user.setName("hi");
-		user.setPassword("password");
-		user.setProvider(AuthProvider.local);
-		user.setRole(Role.ROLE_USER);
-		user.setProviderId("local");
+		User user = User.builder()
+			.id(1L)
+			.email("a@email.com")
+			.emailVerified(true)
+			.imageUrl("image.com")
+			.name("hi")
+			.password("password")
+			.provider(AuthProvider.local)
+			.role(Role.ROLE_USER)
+			.providerId("local")
+			.build();
 
 		when(userRepository.existsByEmail(any())).thenReturn(false);
 		when(userRepository.save(any())).thenReturn(user);
@@ -84,16 +81,17 @@ class AuthServiceTest {
 	void registerUserWithException() {
 		SignUpRequest signUpRequest = new SignUpRequest("아이디", "a@email.com", "password");
 
-		User user = new User();
-		user.setId(1L);
-		user.setEmail("a@email.com");
-		user.setEmailVerified(true);
-		user.setImageUrl("image.com");
-		user.setName("hi");
-		user.setPassword("password");
-		user.setProvider(AuthProvider.local);
-		user.setRole(Role.ROLE_USER);
-		user.setProviderId("local");
+		User user = User.builder()
+			.id(1L)
+			.email("a@email.com")
+			.emailVerified(true)
+			.imageUrl("image.com")
+			.name("hi")
+			.password("password")
+			.provider(AuthProvider.local)
+			.role(Role.ROLE_USER)
+			.providerId("local")
+			.build();
 
 		when(userRepository.existsByEmail(any())).thenReturn(true);
 

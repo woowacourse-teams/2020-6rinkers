@@ -35,8 +35,8 @@ public class UserService {
 	}
 
 	public void updateUser(User user, UserUpdateRequest userRequest) {
-		user.setName(userRequest.getName());
-		userRepository.save(user);
+		User updatedUser = user.updateUser(userRequest.getName());
+		userRepository.save(updatedUser);
 	}
 
 	@Transactional

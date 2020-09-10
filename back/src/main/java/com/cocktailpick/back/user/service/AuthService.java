@@ -16,7 +16,6 @@ import com.cocktailpick.back.user.domain.UserRepository;
 import com.cocktailpick.back.user.dto.AuthResponse;
 import com.cocktailpick.back.user.dto.LoginRequest;
 import com.cocktailpick.back.user.dto.SignUpRequest;
-
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -45,13 +44,13 @@ public class AuthService {
 			throw new BadRequestException("존재하는 Email입니다.");
 		}
 
-		User user = new User();
-		user.setName(signUpRequest.getName());
-		user.setEmail(signUpRequest.getEmail());
-		user.setPassword(signUpRequest.getPassword());
-		user.setProvider(AuthProvider.local);
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		user.setRole(Role.ROLE_USER);
+		User user = User.builder()
+			.name(signUpRequest.getName())
+			.email(signUpRequest.getEmail())
+			.password(passwordEncoder.encode(signUpRequest.getPassword()))
+			.provider(AuthProvider.local)
+			.role(Role.ROLE_USER)
+			.build();
 
 		User result = userRepository.save(user);
 		return result.getId();

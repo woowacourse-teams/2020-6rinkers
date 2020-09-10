@@ -66,17 +66,18 @@ class UserServiceTest {
 
 		favorites.addFavorite(favorite);
 
-		user = new User();
-		user.setId(1L);
-		user.setEmail("a@email.com");
-		user.setEmailVerified(true);
-		user.setImageUrl("image.com");
-		user.setName("toney");
-		user.setPassword("password");
-		user.setProvider(AuthProvider.local);
-		user.setRole(Role.ROLE_USER);
-		user.setProviderId("local");
-		user.setFavorites(favorites);
+		user = User.builder()
+			.id(1L)
+			.email("a@email.com")
+			.emailVerified(true)
+			.imageUrl("image.com")
+			.name("toney")
+			.password("password")
+			.provider(AuthProvider.local)
+			.role(Role.ROLE_USER)
+			.providerId("local")
+			.favorites(favorites)
+			.build();
 	}
 
 	@DisplayName("사용자 이름을 수정한다.")
