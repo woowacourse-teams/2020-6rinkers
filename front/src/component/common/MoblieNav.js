@@ -5,9 +5,13 @@ import ServiceSlider from "./ServicesSlider";
 const MobileNav = ({ offSlider, toggleSlider, slider, handleLogout }) => {
   return (
     <div className="mobileNav">
-      <div className="title">
+      <div className="logo-container">
         <Link to="/" className="textLink" onClick={offSlider}>
-          Cocktail<span className="highlightCharacter">P</span>ick
+          <img
+            className="logo"
+            src="/image/logo/CocktailPick_logo_Acronyms_transparent.png"
+            alt="logo"
+          />
         </Link>
       </div>
       {slider && (
