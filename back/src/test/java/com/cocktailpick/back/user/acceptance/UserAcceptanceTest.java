@@ -58,4 +58,53 @@ public class UserAcceptanceTest extends AcceptanceTest {
         // then
         assertThatStatusIsOk(updateResponse);
     }
+
+    @DisplayName("현재 유저가 탈퇴한다.")
+    @Test
+    void deleteUser() {
+        // given
+        SignUpRequest signUpRequest = new SignUpRequest("그니", "kuenhwi@gmail.com", "그니의 비밀번호");
+
+        requestSignUp(signUpRequest);
+
+        LoginRequest loginRequest = new LoginRequest("kuenhwi@gmail.com", "그니의 비밀번호");
+
+        AuthResponse authResponse = requestTokenByLogin(loginRequest);
+
+        // when
+        ExtractableResponse<Response> response = requestTodeleteCurrentUser(authResponse);
+
+        // then
+        assertThatStatusIsNoContent(response);
+    }
+
+    @DisplayName("현재 유저가 탈퇴 후, 동일한 이메일로 회원가입한다.")
+    @Test
+    void deleteUserSignUp() {
+        // given
+        SignUpRequest signUpRequest = new SignUpRequest("그니", "kuenhwi@gmail.com", "그니의 비밀번호");
+
+        requestSignUp(signUpRequest);
+
+        LoginRequest loginRequest = new LoginRequest("kuenhwi@gmail.com", "그니의 비밀번호");
+
+        AuthResponse authResponse = requestTokenByLogin(loginRequest);
+
+        // when
+        ExtractableResponse<Response> response = requestTodeleteCurrentUser(authResponse);
+
+        // then
+        assertThatStatusIsNoContent(response);
+
+        // given
+        requestSignUp(signUpRequest);
+        AuthResponse reAuthResponse = requestTokenByLogin(loginRequest);
+
+        // when
+        ExtractableResponse<Response> getUserResponse = requestToGetCurrentUser(authResponse);
+
+        // then
+        assertThatStatusIsOk(getUserResponse);
+        assertThatGetCurrentUserSuccess(getUserResponse, signUpRequest);
+    }
 }
