@@ -9,14 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.test.context.ContextConfiguration;
 
-import com.cocktailpick.back.common.exceptions.BadRequestException;
+import com.cocktailpick.back.common.exceptions.AuthException;
 import com.cocktailpick.back.security.TokenProvider;
 import com.cocktailpick.back.user.domain.AuthProvider;
 import com.cocktailpick.back.user.domain.Role;
@@ -98,7 +94,7 @@ class AuthServiceTest {
 		when(userRepository.existsByEmail(any())).thenReturn(true);
 
 		assertThatThrownBy(() -> authService.registerUser(signUpRequest))
-			.isInstanceOf(BadRequestException.class)
+			.isInstanceOf(AuthException.class)
 			.hasMessageContaining("존재하는");
 	}
 }
