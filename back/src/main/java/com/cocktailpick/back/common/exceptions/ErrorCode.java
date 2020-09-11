@@ -15,7 +15,12 @@ public enum ErrorCode {
 	TAG_DUPLICATED(400, "TA_001", "이미 존재하는 태그입니다."),
 	TAG_TYPE_NOT_FOUND(400, "TA_002", "해당 태그의 타입은 존재하지 않습니다."),
 	TAG_NOT_FOUND(400, "TA_003", "태그를 찾을 수 없습니다."),
-	FAVORITE_DUPLICATED(400, "FA_001", "중복된 즐겨찾기를 추가할 수 없습니다.");
+	FAVORITE_DUPLICATED(400, "FA_001", "중복된 즐겨찾기를 추가할 수 없습니다."),
+
+	AUTH_ERROR(400, "AU_001", "인증 관련 오류가 발생했습니다."),
+	DUPLICATED_EMAIL(400, "AU_002", "이미 존재하는 E-mail입니다."),
+	UNAUTHORIZED_REDIRECT_URI(400, "AU_003", "인증되지 않은 REDIRECT_URI입니다."),
+	BAD_LOGIN(400, "AU_004", "잘못된 아이디 또는 패스워드입니다.");
 
 	private final String code;
 	private final String message;

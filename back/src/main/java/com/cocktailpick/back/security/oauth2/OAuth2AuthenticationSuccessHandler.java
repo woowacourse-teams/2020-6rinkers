@@ -17,7 +17,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.cocktailpick.back.common.config.security.AppProperties;
-import com.cocktailpick.back.common.exceptions.BadRequestException;
+import com.cocktailpick.back.common.exceptions.AuthException;
+import com.cocktailpick.back.common.exceptions.ErrorCode;
 import com.cocktailpick.back.common.util.CookieUtils;
 import com.cocktailpick.back.security.TokenProvider;
 
@@ -59,8 +60,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
 			.map(Cookie::getValue);
 
 		if (redirectUri.isPresent() && !isAuthorizedRedirectUri(redirectUri.get())) {
-			throw new BadRequestException(
-				"인증되지 않은 리다이렉트 URI를 받았고, 인증을 진행할 수 없습니다.");
+			throw new AuthException(ErrorCode.UNAUTHORIZED_REDIRECT_URI);
 		}
 
 		String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
