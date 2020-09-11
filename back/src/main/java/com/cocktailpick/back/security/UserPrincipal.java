@@ -2,7 +2,6 @@ package com.cocktailpick.back.security;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -13,29 +12,15 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import com.cocktailpick.back.user.domain.User;
 
 public class UserPrincipal implements OAuth2User, UserDetails {
-	private Long id;
-	private String email;
-	private String password;
-	private Collection<? extends GrantedAuthority> authorities;
+	private User user;
 	private Map<String, Object> attributes;
 
-	public UserPrincipal(Long id, String email, String password, Collection<? extends GrantedAuthority> authorities) {
-		this.id = id;
-		this.email = email;
-		this.password = password;
-		this.authorities = authorities;
+	private UserPrincipal(User user) {
+		this.user = user;
 	}
 
 	public static UserPrincipal create(User user) {
-		List<GrantedAuthority> authorities = Collections.
-			singletonList(new SimpleGrantedAuthority(user.getRoleName()));
-
-		return new UserPrincipal(
-			user.getId(),
-			user.getEmail(),
-			user.getPassword(),
-			authorities
-		);
+		return new UserPrincipal(user);
 	}
 
 	public static UserPrincipal create(User user, Map<String, Object> attributes) {
@@ -44,22 +29,37 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 		return userPrincipal;
 	}
 
-	public Long getId() {
-		return id;
+	public User getUser() {
+		return user;
 	}
 
-	public String getEmail() {
-		return email;
+	@Override
+	public Map<String, Object> getAttributes() {
+		return attributes;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return Collections.singletonList(new SimpleGrantedAuthority(user.roleName()));
+	}
+
+	public void setAttributes(Map<String, Object> attributes) {
+		this.attributes = attributes;
+	}
+
+	@Override
+	public String getName() {
+		return getUsername();
 	}
 
 	@Override
 	public String getPassword() {
-		return password;
+		return user.getPassword();
 	}
 
 	@Override
 	public String getUsername() {
-		return email;
+		return user.getEmail();
 	}
 
 	@Override
@@ -80,24 +80,5 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 	@Override
 	public boolean isEnabled() {
 		return true;
-	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return authorities;
-	}
-
-	@Override
-	public Map<String, Object> getAttributes() {
-		return attributes;
-	}
-
-	public void setAttributes(Map<String, Object> attributes) {
-		this.attributes = attributes;
-	}
-
-	@Override
-	public String getName() {
-		return String.valueOf(id);
 	}
 }

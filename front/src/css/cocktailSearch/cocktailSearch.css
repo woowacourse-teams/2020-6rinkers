@@ -80,6 +80,14 @@
   border-bottom: var(--little-light-black) 1px solid;
 }
 
+.favoriteContainer {
+  display: flex;
+  position: relative;
+  top: -1.5rem;
+  right: -6rem;
+  height: 0;
+}
+
 .searchedCocktailImage {
   display: flex;
   justify-content: center;

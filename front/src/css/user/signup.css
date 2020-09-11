@@ -16,6 +16,11 @@
   box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
 }
 
+.login-link > a {
+  color: var(--red);
+  text-decoration: underline;
+}
+
 .social-signup {
   display: flex;
   flex-direction: column;

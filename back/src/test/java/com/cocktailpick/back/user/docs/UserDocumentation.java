@@ -20,7 +20,8 @@ public class UserDocumentation {
 				fieldWithPath("emailVerified").type(JsonFieldType.BOOLEAN).description("접속한 user의 email 인증 여부"),
 				fieldWithPath("provider").type(JsonFieldType.STRING).description("접속한 user의 로그인 provider"),
 				fieldWithPath("providerId").type(JsonFieldType.STRING).description("접속한 user의 provider id"),
-				fieldWithPath("role").type(JsonFieldType.STRING).description("접속한 user의 권한")
+				fieldWithPath("role").type(JsonFieldType.STRING).description("접속한 user의 권한"),
+				fieldWithPath("myFavorites").type(JsonFieldType.ARRAY).description("접속한 user의 즐겨찾기")
 			)
 		);
 	}
