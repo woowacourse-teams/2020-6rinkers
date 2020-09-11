@@ -29,6 +29,7 @@ import com.cocktailpick.back.tag.dto.TagResponse;
 import com.cocktailpick.back.user.docs.UserDocumentation;
 import com.cocktailpick.back.user.domain.User;
 import com.cocktailpick.back.user.dto.UserUpdateRequest;
+import com.cocktailpick.back.user.dto.FavoriteCocktailIds;
 import com.cocktailpick.back.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -71,6 +72,20 @@ class UserControllerTest extends DocumentationWithSecurity {
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andDo(print());
+	}
+
+	@DisplayName("즐겨찾기한 칵테일의 id를 조회한다.")
+	@WithMockCustomUser
+	@Test
+	void findFavoriteCocktailIdsTest() throws Exception {
+		FavoriteCocktailIds favoriteCocktailIds = new FavoriteCocktailIds(Arrays.asList(1L, 2L, 3L));
+		when(userService.findFavoriteCocktailIds(any())).thenReturn(favoriteCocktailIds);
+
+		mockMvc.perform(get("/api/user/me/favoriteIds").accept(MediaType.APPLICATION_JSON)
+			.header("authorization", "Bearer Token"))
+			.andExpect(status().isOk())
+			.andDo(print())
+			.andDo(UserDocumentation.findFavoriteCocktailIds());
 	}
 
 	@DisplayName("즐겨찾기를 추가한다.")
