@@ -9,7 +9,7 @@ const MobileNav = ({ offSlider, toggleSlider, slider, handleLogout }) => {
         <Link to="/" className="textLink" onClick={offSlider}>
           <img
             className="logo"
-            src="/image/logo/CocktailPick_logo_Acronyms_transparent.png"
+            src="/image/logo/CocktailPick_logo_FullName_transparent.png "
             alt="logo"
           />
         </Link>
