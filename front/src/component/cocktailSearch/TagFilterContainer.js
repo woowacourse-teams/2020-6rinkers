@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import queryString from "query-string";
+import Alert from "react-s-alert";
 import { fetchAllTags, fetchPagedCocktailsFilteredByTags } from "../../api";
 
 const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
@@ -95,14 +96,18 @@ const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
   }, [infiniteScroll]);
 
   useEffect(() => {
-    initAllTags();
+    initAllTags()
+      .then(() => {
+        const query = queryString.parse(history.location.search);
 
-    const query = queryString.parse(history.location.search);
-
-    if ("tagIds" in query) {
-      const tagIdsFromQuery = query.tagIds.split(",");
-      setSelectedTagIds(tagIdsFromQuery.filter((id) => id !== ""));
-    }
+        if ("tagIds" in query) {
+          const tagIdsFromQuery = query.tagIds.split(",");
+          setSelectedTagIds(tagIdsFromQuery.filter((id) => id !== ""));
+        }
+      })
+      .catch((e) => {
+        Alert.error((e && e.message) || "태그 목록을 불러오는데 실패했습니다.");
+      });
   }, []);
 
   useEffect(() => {
