@@ -65,6 +65,8 @@ public class UserService {
 	}
 
 	public FavoriteCocktailIds findFavoriteCocktailIds(User user) {
-		return null;
+		List<Long> favoriteCocktailIds = user.findFavoriteCocktailIds();
+
+		return new FavoriteCocktailIds(favoriteCocktailIds);
 	}
 }
