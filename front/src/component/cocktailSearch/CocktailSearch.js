@@ -5,8 +5,11 @@ import SearchedCocktails from "./SearchedCocktails";
 import "../../css/cocktailSearch/cocktailSearch.css";
 import SearchContainer from "./SearchContainer";
 import TagFilterContainer from "./TagFilterContainer";
+import { useSetRecoilState } from "recoil";
+import { favoriteState } from "../../recoil";
+import { fetchFavoriteCocktailIds } from "../../api";
 
-const CocktailSearch = ({ role }) => {
+const CocktailSearch = () => {
   const [cocktails, setCocktails] = useState([]);
   const [tabIndex, setTabIndex] = useState(0);
 
@@ -87,6 +90,7 @@ const CocktailSearch = ({ role }) => {
         </div>
       </div>
       <div>{tabs[tabIndex].content}</div>
+      <SearchedCocktails cocktails={cocktails} setCocktails={setCocktails} />
     </div>
   );
 };

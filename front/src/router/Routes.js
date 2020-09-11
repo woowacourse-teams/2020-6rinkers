@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import Header from "../component/common/Header";
 import Home from "../component/home/Home";
@@ -18,7 +18,8 @@ import Signup from "../component/user/Signup";
 import MyProfile from "../component/mypage/MyProfile";
 import TerminologyAdmin from "../component/admin/terminology/TerminologyAdmin";
 
-const Routes = ({ cocktails, setCocktails, handleLogout, loading }) => {
+const Routes = ({ handleLogout, loading }) => {
+  const [recommendedCocktails, setRecommendedCocktails] = useState([]);
   if (loading) {
     return (
       <div
@@ -56,9 +57,7 @@ const Routes = ({ cocktails, setCocktails, handleLogout, loading }) => {
       <Route render={({ location }) => checkAdminForHeader(location)} />
       <div className="contentWrapper">
         <Switch>
-          <Route exact path="/">
-            <Home cocktails={cocktails} setCocktails={setCocktails} />
-          </Route>
+          <Route exact path="/" component={Home} />
           <Route path="/admin/cocktails">
             <CocktailAdmin />
           </Route>
@@ -74,10 +73,10 @@ const Routes = ({ cocktails, setCocktails, handleLogout, loading }) => {
           <Route path="/bars" component={Bar} />
           <Route path="/cocktails/:id" component={CocktailDetailSearch} />
           <Route path="/recommend">
-            <Question cocktails={cocktails} setCocktails={setCocktails} />
+            <Question setRecommendedCocktails={setRecommendedCocktails} />
           </Route>
           <Route path="/result">
-            <Result cocktails={cocktails} setCocktails={setCocktails} />
+            <Result recommendedCocktails={recommendedCocktails} />
           </Route>
           <Route exact path="/mypage">
             <MyPage />
