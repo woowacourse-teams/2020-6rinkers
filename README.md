@@ -1,5 +1,11 @@
 # :cocktail: [칵테일픽](https://cocktailpick.com)
+
+<div align="center" style="display:flex;">
+    <img src="./front/public/image/logo/CocktailPick_logo_FullName_white.png" width="450" alt="logo"/>
+</div>
+
 > 좋은 술을, 고민 없이
+
 ---
 <br>
 
@@ -12,9 +18,10 @@
 * [그니](https://github.com/KueNiYam)
 * [두강](https://github.com/ParkDooWon)
 * [라테](https://github.com/minuyim)
+* [무늬](https://github.com/JinJuMoon)
 * [작은곰](https://github.com/KimGyeong)
 * [토니](https://github.com/toneyparky)
-* 보고 싶은 하비까지 여섯이 모여 팀 "마시는 여섯들"입니다!  
+* 보고 싶은 하비까지, 팀 "마시는 여섯들"입니다!  
 
 
 ### 팀문화로는 총 11가지가 있고 계속하여 보완하고 있습니다.
