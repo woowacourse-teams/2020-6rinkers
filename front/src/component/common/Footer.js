@@ -3,12 +3,11 @@ import "../../css/common/footer.css";
 
 const Footer = () => {
   const kakaoShare = () => {
-    window.Kakao.init(`${process.env.REACT_APP_KAKAO_KEY}`);
-    window.Kakao.Link.createScrapButton({
-      container: "#kakao-button",
+    window.Kakao.Link.sendScrap({
       requestUrl: "https://www.cocktailpick.com",
     });
   };
+
   return (
     <div className="footerContainer">
       <div className="linkContainer">
