@@ -1,7 +1,6 @@
 package com.cocktailpick.back.user.service;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.util.Optional;
@@ -86,7 +85,7 @@ class UserServiceTest {
 		UserUpdateRequest userUpdateRequest = new UserUpdateRequest("작은곰");
 		userService.updateUser(user, userUpdateRequest);
 
-		assertEquals(user.getName(), userUpdateRequest.getName());
+		assertThat(user.getName()).isEqualTo(userUpdateRequest.getName());
 	}
 
 	@DisplayName("즐겨찾기를 조회한다.")
