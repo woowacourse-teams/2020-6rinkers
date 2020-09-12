@@ -88,6 +88,7 @@ public class User extends BaseTimeEntity {
 
 	public User updateUser(String name) {
 		return User.builder()
+			.id(this.id)
 			.name(name)
 			.email(this.email)
 			.imageUrl(this.imageUrl)
