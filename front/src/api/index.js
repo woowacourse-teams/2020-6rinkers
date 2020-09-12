@@ -75,6 +75,10 @@ export const getCurrentUser = () => {
     },
   });
 };
+
+export const updateUser = (info) => {
+  return client.patch("/api/user/me", info, config);
+};
 export const login = (loginRequest) =>
   client.post("/api/auth/login", loginRequest);
 export const signup = (signupRequest) =>

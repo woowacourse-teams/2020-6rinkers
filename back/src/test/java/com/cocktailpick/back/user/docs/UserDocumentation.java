@@ -25,4 +25,14 @@ public class UserDocumentation {
 			)
 		);
 	}
+
+	public static RestDocumentationResultHandler updateUser() {
+		return document("user/me",
+			requestHeaders(
+				headerWithName("authorization").description("Bearer 토큰")),
+			requestFields(
+				fieldWithPath("name").type(JsonFieldType.STRING).description("수정할 user의 이름")
+			)
+		);
+	}
 }

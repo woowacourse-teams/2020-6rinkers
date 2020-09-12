@@ -22,6 +22,7 @@ import com.cocktailpick.back.user.domain.AuthProvider;
 import com.cocktailpick.back.user.domain.Role;
 import com.cocktailpick.back.user.domain.User;
 import com.cocktailpick.back.user.domain.UserRepository;
+import com.cocktailpick.back.user.dto.UserUpdateRequest;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
@@ -64,17 +65,27 @@ class UserServiceTest {
 
 		favorites.addFavorite(favorite);
 
-		user = new User();
-		user.setId(1L);
-		user.setEmail("a@email.com");
-		user.setEmailVerified(true);
-		user.setImageUrl("image.com");
-		user.setName("toney");
-		user.setPassword("password");
-		user.setProvider(AuthProvider.local);
-		user.setRole(Role.ROLE_USER);
-		user.setProviderId("local");
-		user.setFavorites(favorites);
+		user = User.builder()
+			.id(1L)
+			.email("a@email.com")
+			.emailVerified(true)
+			.imageUrl("image.com")
+			.name("toney")
+			.password("password")
+			.provider(AuthProvider.local)
+			.role(Role.ROLE_USER)
+			.providerId("local")
+			.favorites(favorites)
+			.build();
+	}
+
+	@DisplayName("사용자 이름을 수정한다.")
+	@Test
+	void updateUser() {
+		UserUpdateRequest userUpdateRequest = new UserUpdateRequest("작은곰");
+		userService.updateUser(user, userUpdateRequest);
+
+		assertThat(user.getName()).isEqualTo(userUpdateRequest.getName());
 	}
 
 	@DisplayName("즐겨찾기를 조회한다.")

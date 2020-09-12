@@ -26,7 +26,9 @@ import com.cocktailpick.back.common.WithMockCustomUser;
 import com.cocktailpick.back.common.documentation.DocumentationWithSecurity;
 import com.cocktailpick.back.favorite.dto.FavoriteRequest;
 import com.cocktailpick.back.tag.dto.TagResponse;
+import com.cocktailpick.back.user.docs.UserDocumentation;
 import com.cocktailpick.back.user.domain.User;
+import com.cocktailpick.back.user.dto.UserUpdateRequest;
 import com.cocktailpick.back.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -95,5 +97,22 @@ class UserControllerTest extends DocumentationWithSecurity {
 		mockMvc.perform(delete("/api/user/me/favorites/{id}", 1L))
 			.andExpect(status().isNoContent())
 			.andDo(print());
+	}
+
+	@DisplayName("사용자 정보를 수정한다.")
+	@WithMockCustomUser
+	@Test
+	void updateCurrentUser() throws Exception {
+		doNothing().when(userService).updateUser(any(), any());
+
+		UserUpdateRequest userUpdateRequest = new UserUpdateRequest("작은곰");
+
+		mockMvc.perform(put("/api/user/me")
+			.header("authorization", "Bearer ADMIN_TOKEN")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content(objectMapper.writeValueAsString(userUpdateRequest)))
+			.andExpect(status().isOk())
+			.andDo(print())
+			.andDo(UserDocumentation.updateUser());
 	}
 }

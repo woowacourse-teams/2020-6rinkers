@@ -24,15 +24,15 @@ public class AdminCreate {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Transactional
-    public void execute() {
-        User user = new User();
-        user.setName(ADMIN_NAME);
-        user.setEmail(ADMIN_EMAIL);
-        user.setPassword(ADMIN_PASSWORD);
-        user.setProvider(AuthProvider.local);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(Role.ROLE_ADMIN);
+	@Transactional
+	public void execute() {
+		User user = User.builder()
+			.name(ADMIN_NAME)
+			.email(ADMIN_EMAIL)
+			.provider(AuthProvider.local)
+			.password(passwordEncoder.encode(ADMIN_PASSWORD))
+			.role(Role.ROLE_ADMIN)
+			.build();
 
         userRepository.save(user);
     }
