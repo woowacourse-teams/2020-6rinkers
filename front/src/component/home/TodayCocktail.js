@@ -1,17 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { fetchTodayCocktail } from "../../api";
 
 const TodayCocktail = ({ cocktails, setCocktails, role }) => {
   const [todayCocktail, setTodayCocktail] = useState({});
 
-  const loadTodayCocktail = async () => {
-    const response = await fetchTodayCocktail();
-    const content = response["data"];
-    setTodayCocktail(content);
-  };
-
-  useState(loadTodayCocktail, []);
+  useEffect(() => {
+    fetchTodayCocktail().then((response) => {
+      setTodayCocktail(response.data);
+    });
+  }, []);
 
   return (
     <div className="todayCocktailContainer">
