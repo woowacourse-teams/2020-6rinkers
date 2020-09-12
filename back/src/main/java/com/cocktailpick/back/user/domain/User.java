@@ -8,7 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
@@ -21,10 +21,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
@@ -88,5 +84,20 @@ public class User extends BaseTimeEntity {
 
 	public String roleName() {
 		return role.name();
+	}
+
+	public User updateUser(String name) {
+		return User.builder()
+			.id(this.id)
+			.name(name)
+			.email(this.email)
+			.imageUrl(this.imageUrl)
+			.emailVerified(this.emailVerified)
+			.password(this.password)
+			.provider(this.provider)
+			.providerId(this.providerId)
+			.role(this.role)
+			.favorites(this.favorites)
+			.build();
 	}
 }

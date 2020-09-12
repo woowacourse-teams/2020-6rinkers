@@ -11,7 +11,7 @@ import com.cocktailpick.back.common.acceptance.AcceptanceTest;
 import com.cocktailpick.back.user.dto.AuthResponse;
 import com.cocktailpick.back.user.dto.LoginRequest;
 import com.cocktailpick.back.user.dto.SignUpRequest;
-
+import com.cocktailpick.back.user.dto.UserUpdateRequest;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 
@@ -20,7 +20,7 @@ public class UserAcceptanceTest extends AcceptanceTest {
 
     @DisplayName("현재 유저의 정보를 조회한다.")
     @Test
-    void name() {
+    void getUser() {
         // given
         SignUpRequest signUpRequest = new SignUpRequest("그니", "kuenhwi@gmail.com", "그니의 비밀번호");
 
@@ -36,5 +36,26 @@ public class UserAcceptanceTest extends AcceptanceTest {
         // then
         assertThatStatusIsOk(response);
         assertThatGetCurrentUserSuccess(response, signUpRequest);
+    }
+
+    @DisplayName("현재 유저의 정보를 수정한다.")
+    @Test
+    void updateUser() {
+        //given
+        SignUpRequest signUpRequest = new SignUpRequest("그니", "kuenhwi@gmail.com", "그니의 비밀번호");
+
+        requestSignUp(signUpRequest);
+
+        LoginRequest loginRequest = new LoginRequest("kuenhwi@gmail.com", "그니의 비밀번호");
+
+        AuthResponse authResponse = requestTokenByLogin(loginRequest);
+
+        UserUpdateRequest userUpdateRequest = new UserUpdateRequest("작은곰");
+
+        // when
+        ExtractableResponse<Response> updateResponse = requestToUpdateUser(authResponse, userUpdateRequest);
+
+        // then
+        assertThatStatusIsOk(updateResponse);
     }
 }
