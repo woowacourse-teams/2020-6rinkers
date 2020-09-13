@@ -51,13 +51,13 @@ public class AuthService {
 			throw new AuthException(ErrorCode.DUPLICATED_EMAIL);
 		}
 
-		User user = User.builder()
-			.name(signUpRequest.getName())
-			.email(signUpRequest.getEmail())
-			.password(passwordEncoder.encode(signUpRequest.getPassword()))
-			.provider(AuthProvider.local)
-			.role(Role.ROLE_USER)
-			.build();
+		User user = new User();
+		user.setName(signUpRequest.getName());
+		user.setEmail(signUpRequest.getEmail());
+		user.setPassword(signUpRequest.getPassword());
+		user.setProvider(AuthProvider.local);
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		user.setRole(Role.ROLE_USER);
 
 		User result = userRepository.save(user);
 		return result.getId();
