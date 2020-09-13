@@ -107,7 +107,7 @@ class UserControllerTest extends DocumentationWithSecurity {
 
 		UserUpdateRequest userUpdateRequest = new UserUpdateRequest("작은곰");
 
-		mockMvc.perform(put("/api/user/me")
+		mockMvc.perform(patch("/api/user/me")
 			.header("authorization", "Bearer ADMIN_TOKEN")
 			.contentType(MediaType.APPLICATION_JSON)
 			.content(objectMapper.writeValueAsString(userUpdateRequest)))
