@@ -124,6 +124,7 @@ class UserControllerTest extends DocumentationWithSecurity {
 
 		mockMvc.perform(delete("/api/user/me"))
 			.andExpect(status().isNoContent())
-			.andDo(print());
+			.andDo(print())
+			.andDo(UserDocumentation.deleteMe());
 	}
 }

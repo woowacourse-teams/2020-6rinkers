@@ -9,7 +9,7 @@ import org.springframework.restdocs.payload.JsonFieldType;
 
 public class UserDocumentation {
 	public static RestDocumentationResultHandler findMe() {
-		return document("user/me",
+		return document("user/find",
 			requestHeaders(
 				headerWithName("authorization").description("Bearer 토큰")),
 			responseFields(
@@ -37,7 +37,7 @@ public class UserDocumentation {
 	}
 
 	public static RestDocumentationResultHandler deleteMe() {
-		return document("user/me",
+		return document("user/delete",
 			requestHeaders(
 				headerWithName("authorization").description("Bearer 토큰")));
 	}
