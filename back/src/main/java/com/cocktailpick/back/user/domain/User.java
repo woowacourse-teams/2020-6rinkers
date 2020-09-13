@@ -85,19 +85,4 @@ public class User extends BaseTimeEntity {
 	public String roleName() {
 		return role.name();
 	}
-
-	public User updateUser(String name) {
-		return User.builder()
-			.id(this.id)
-			.name(name)
-			.email(this.email)
-			.imageUrl(this.imageUrl)
-			.emailVerified(this.emailVerified)
-			.password(this.password)
-			.provider(this.provider)
-			.providerId(this.providerId)
-			.role(this.role)
-			.favorites(this.favorites)
-			.build();
-	}
 }
