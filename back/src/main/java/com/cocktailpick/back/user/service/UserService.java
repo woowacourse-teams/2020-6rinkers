@@ -32,6 +32,7 @@ public class UserService {
 		userRepository.deleteById(user.getId());
 	}
 
+	@Transactional(readOnly = true)
 	public List<CocktailResponse> findFavorites(User user) {
 		return user.getFavorites().getFavorites().stream()
 			.map(Favorite::getCocktail)
