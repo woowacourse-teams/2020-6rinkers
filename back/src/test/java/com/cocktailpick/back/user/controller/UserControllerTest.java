@@ -122,7 +122,8 @@ class UserControllerTest extends DocumentationWithSecurity {
 	void deleteCurrentUser() throws Exception {
 		doNothing().when(userService).deleteCurrentUser(any());
 
-		mockMvc.perform(delete("/api/user/me"))
+		mockMvc.perform(delete("/api/user/me")
+			.header("authorization", "Bearer ADMIN_TOKEN"))
 			.andExpect(status().isNoContent())
 			.andDo(print())
 			.andDo(UserDocumentation.deleteMe());
