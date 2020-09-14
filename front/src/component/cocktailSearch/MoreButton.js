@@ -39,7 +39,7 @@ const MoreButton = ({
 
   return (
     <button className="moreButton" onClick={loadCocktails}>
-      더 보기
+      결과 더 보기
     </button>
   );
 };

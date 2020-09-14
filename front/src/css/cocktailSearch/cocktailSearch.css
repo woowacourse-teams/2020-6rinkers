@@ -218,30 +218,21 @@
   margin-top: 0;
   margin-bottom: 0.5rem;
   outline: 0;
-  border: solid 1px var(--sharp-red);
+  border: solid 1px white;
   border-radius: 0.4rem;
-  background-color: var(--sharp-red);
-  color: white;
-  box-shadow: 2px 2px 2px var(--light-black);
+  color: gray;
+  background-color: white;
+  box-shadow: 0 0 2px var(--light-black);
   z-index: 1;
-  padding: 0.15rem 1.25rem;
+  font-size: 16px;
+  padding: 0.5rem 5rem;
   cursor: pointer;
 }
 
 .moreButton:hover {
-  animation: moreButtonHover 2s infinite linear;
-}
-
-@keyframes moreButtonHover {
-  0%, 50%{
-    transform: rotate(0deg);
-  }
-  5%, 15%, 25%, 35%, 45% {
-    transform: rotate(5deg);
-  }
-  10%, 20%, 30%, 40% {
-    transform: rotate(-5deg);
-  }
+  background-color: var(--sharp-red);
+  color: white;
+  transition: 0.5s;
 }
 
 @media screen and (max-width: 1024px) {
@@ -346,6 +337,8 @@
   }
 
   .moreButton:hover {
-    animation: none;
+    background-color: white;
+    color: gray;
+    transition: 0s;
   }
 }
