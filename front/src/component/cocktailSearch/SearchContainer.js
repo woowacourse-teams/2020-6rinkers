@@ -6,8 +6,10 @@ import {
   fetchPagedCocktailsContainingWord,
 } from "../../api";
 import { DOWN, ENTER, ESC, UP } from "../../constants";
+import SearchedCocktails from "./SearchedCocktails";
+import MoreButton from "./MoreButton";
 
-const SearchContainer = ({ cocktails, setCocktails }) => {
+const SearchContainer = ({ cocktails, setCocktails, role }) => {
   const [autoCompletedCocktails, setAutoCompletedCocktails] = useState([]);
   const [highlightIndex, setHighlightIndex] = useState(-1);
   const [redirect, setRedirect] = useState("");
@@ -52,36 +54,6 @@ const SearchContainer = ({ cocktails, setCocktails }) => {
 
     setCocktails(content);
   };
-
-  const loadCocktails = async (size) => {
-    const response = await fetchPagedCocktailsContainingWord({
-      contain: searchWord,
-      id: cocktails.length === 0 ? 0 : cocktails.slice(-1).pop().id,
-      size: size,
-    });
-
-    const content = response.data;
-    if (content.length === 0) {
-      return;
-    }
-
-    await setCocktails(cocktails.concat(content));
-  };
-
-  const infiniteScroll = useCallback(async () => {
-    const size = window.innerWidth > 700 ? 18 : 6;
-    const threshold = window.innerWidth > 700 ? 1600 : 1300;
-
-    if (
-      document.documentElement.scrollTop +
-        document.documentElement.clientHeight >=
-      document.documentElement.scrollHeight - threshold
-    ) {
-      window.removeEventListener("scroll", infiniteScroll, true);
-      await loadCocktails(size);
-      window.addEventListener("scroll", infiniteScroll, true);
-    }
-  }, [cocktails]);
 
   const search = () => {
     if (isNotFocus(highlightIndex)) {
@@ -137,40 +109,53 @@ const SearchContainer = ({ cocktails, setCocktails }) => {
   };
 
   useEffect(() => {
-    window.addEventListener("scroll", infiniteScroll, true);
-    return () => window.removeEventListener("scroll", infiniteScroll, true);
-  }, [infiniteScroll]);
-
-  useEffect(() => {
     fetchCocktails();
   }, [searchWord]);
 
   return redirect ? (
     <Redirect push to={redirect} />
   ) : (
-    <div className="searchContainer">
-      <div className="search">
-        <input
-          className="cocktailSearchInput"
-          type="text"
-          placeholder="검색어를 입력하세요."
-          onChange={onChange}
-          onKeyDown={onKeyDown}
-          onMouseDown={highlightOut}
-          onBlur={onBlur}
-          ref={searchInput}
-        />
-        {!autoBox || (
-          <AutoCocktailWords
-            cocktails={autoCompletedCocktails}
-            highlightIndex={highlightIndex}
-            updateHighlight={setHighlightIndex}
-            onMouseDown={search}
+    <div>
+      <div className="searchContainer">
+        <div className="search">
+          <input
+            className="cocktailSearchInput"
+            type="text"
+            placeholder="검색어를 입력하세요."
+            onChange={onChange}
+            onKeyDown={onKeyDown}
+            onMouseDown={highlightOut}
+            onBlur={onBlur}
+            ref={searchInput}
           />
-        )}
-        <div className="searchButtonContainer" onMouseDown={search}>
-          <img className="searchButton" src="/image/search.svg" alt="search" />
+          {!autoBox || (
+            <AutoCocktailWords
+              cocktails={autoCompletedCocktails}
+              highlightIndex={highlightIndex}
+              updateHighlight={setHighlightIndex}
+              onMouseDown={search}
+            />
+          )}
+          <div className="searchButtonContainer" onMouseDown={search}>
+            <img
+              className="searchButton"
+              src="/image/search.svg"
+              alt="search"
+            />
+          </div>
         </div>
+      </div>
+      <div className="cocktailSearchContent">
+        <SearchedCocktails
+          cocktails={cocktails}
+          setCocktails={setCocktails}
+          role={role}
+        />
+        <MoreButton
+          searchWord={searchWord}
+          cocktails={cocktails}
+          setCocktails={setCocktails}
+        />
       </div>
     </div>
   );
