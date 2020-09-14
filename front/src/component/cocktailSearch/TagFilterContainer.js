@@ -2,8 +2,10 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import queryString from "query-string";
 import Alert from "react-s-alert";
 import { fetchAllTags, fetchPagedCocktailsFilteredByTags } from "../../api";
+import SearchedCocktails from "./SearchedCocktails";
+import MoreButton from "./MoreButton";
 
-const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
+const TagFilterContainer = ({ cocktails, setCocktails, history, role }) => {
   const [allTags, setAllTags] = useState([]);
   const [selectedTagIds, setSelectedTagIds] = useState([]);
   const tagFilterContainerRef = useRef(null);
@@ -30,36 +32,6 @@ const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
 
     setCocktails(content);
   };
-
-  const loadCocktails = async (size) => {
-    const response = await fetchPagedCocktailsFilteredByTags({
-      tagIds: selectedTagIds.join(","),
-      id: cocktails.length === 0 ? 0 : cocktails.slice(-1).pop().id,
-      size,
-    });
-
-    const content = response.data;
-    if (content.length === 0) {
-      return;
-    }
-
-    await setCocktails(cocktails.concat(content));
-  };
-
-  const infiniteScroll = useCallback(async () => {
-    const size = window.innerWidth > 700 ? 18 : 6;
-    const threshold = window.innerWidth > 700 ? 1600 : 1300;
-
-    if (
-      document.documentElement.scrollTop +
-        document.documentElement.clientHeight >=
-      document.documentElement.scrollHeight - threshold
-    ) {
-      window.removeEventListener("scroll", infiniteScroll, true);
-      await loadCocktails(size);
-      window.addEventListener("scroll", infiniteScroll, true);
-    }
-  }, [cocktails]);
 
   const onClickTag = (e) => {
     const tagId = e.target.dataset.id;
@@ -89,11 +61,6 @@ const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
     tagFilterContainerRef.current.style.display = "none";
     tagSelectButtonRef.current.innerText = "태그 펼치기";
   };
-
-  useEffect(() => {
-    window.addEventListener("scroll", infiniteScroll, true);
-    return () => window.removeEventListener("scroll", infiniteScroll, true);
-  }, [infiniteScroll]);
 
   useEffect(() => {
     initAllTags()
@@ -140,6 +107,18 @@ const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
             </div>
           );
         })}
+      </div>
+      <div className="cocktailSearchContent">
+        <SearchedCocktails
+          cocktails={cocktails}
+          setCocktails={setCocktails}
+          role={role}
+        />
+        <MoreButton
+          selectedTagIds={selectedTagIds}
+          cocktails={cocktails}
+          setCocktails={setCocktails}
+        />
       </div>
     </div>
   );

@@ -16,7 +16,11 @@ const CocktailSearch = ({ role }) => {
     {
       title: "Name",
       content: (
-        <SearchContainer cocktails={cocktails} setCocktails={setCocktails} />
+        <SearchContainer
+          cocktails={cocktails}
+          setCocktails={setCocktails}
+          role={role}
+        />
       ),
     },
     {
@@ -26,6 +30,7 @@ const CocktailSearch = ({ role }) => {
           cocktails={cocktails}
           setCocktails={setCocktails}
           history={history}
+          role={role}
         />
       ),
     },
@@ -82,11 +87,6 @@ const CocktailSearch = ({ role }) => {
         </div>
       </div>
       <div>{tabs[tabIndex].content}</div>
-      <SearchedCocktails
-        cocktails={cocktails}
-        setCocktails={setCocktails}
-        role={role}
-      />
     </div>
   );
 };
