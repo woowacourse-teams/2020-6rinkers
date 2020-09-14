@@ -55,6 +55,7 @@
 }
 
 .logo {
+  padding-bottom: 5%;
   height: 100%;
 }
 
@@ -101,6 +102,10 @@
 @media screen and (max-width: 768px) {
   .nav {
     display: none;
+  }
+
+  .logo {
+    padding-bottom: 0;
   }
 
   .mobileNav {
