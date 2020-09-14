@@ -4,6 +4,7 @@ import static com.cocktailpick.back.common.acceptance.step.AcceptanceStep.*;
 import static com.cocktailpick.back.user.acceptance.step.AuthAcceptanceStep.*;
 import static com.cocktailpick.back.user.acceptance.step.UserAcceptanceStep.*;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -18,17 +19,26 @@ import io.restassured.response.Response;
 @DisplayName("User 인수/통합 테스트")
 public class UserAcceptanceTest extends AcceptanceTest {
 
+    public static SignUpRequest signUpRequest;
+    public static LoginRequest loginRequest;
+    public static AuthResponse authResponse;
+
+    @Override
+    @BeforeEach
+    public void setUp() {
+        super.setUp();
+
+        // given
+        signUpRequest = new SignUpRequest("그니", "kuenhwi@gmail.com", "그니의 비밀번호");
+        requestSignUp(signUpRequest);
+
+        loginRequest = new LoginRequest("kuenhwi@gmail.com", "그니의 비밀번호");
+        authResponse = requestTokenByLogin(loginRequest);
+    }
+
     @DisplayName("현재 유저의 정보를 조회한다.")
     @Test
     void getUser() {
-        // given
-        SignUpRequest signUpRequest = new SignUpRequest("그니", "kuenhwi@gmail.com", "그니의 비밀번호");
-
-        requestSignUp(signUpRequest);
-
-        LoginRequest loginRequest = new LoginRequest("kuenhwi@gmail.com", "그니의 비밀번호");
-
-        AuthResponse authResponse = requestTokenByLogin(loginRequest);
 
         // when
         ExtractableResponse<Response> response = requestToGetCurrentUser(authResponse);
@@ -62,14 +72,6 @@ public class UserAcceptanceTest extends AcceptanceTest {
     @DisplayName("현재 유저가 탈퇴한다.")
     @Test
     void deleteUser() {
-        // given
-        SignUpRequest signUpRequest = new SignUpRequest("그니", "kuenhwi@gmail.com", "그니의 비밀번호");
-
-        requestSignUp(signUpRequest);
-
-        LoginRequest loginRequest = new LoginRequest("kuenhwi@gmail.com", "그니의 비밀번호");
-
-        AuthResponse authResponse = requestTokenByLogin(loginRequest);
 
         // when
         ExtractableResponse<Response> response = requestTodeleteCurrentUser(authResponse);
@@ -81,14 +83,6 @@ public class UserAcceptanceTest extends AcceptanceTest {
     @DisplayName("현재 유저가 탈퇴 후, 동일한 이메일로 회원가입한다.")
     @Test
     void deleteUserSignUp() {
-        // given
-        SignUpRequest signUpRequest = new SignUpRequest("그니", "kuenhwi@gmail.com", "그니의 비밀번호");
-
-        requestSignUp(signUpRequest);
-
-        LoginRequest loginRequest = new LoginRequest("kuenhwi@gmail.com", "그니의 비밀번호");
-
-        AuthResponse authResponse = requestTokenByLogin(loginRequest);
 
         // when
         ExtractableResponse<Response> response = requestTodeleteCurrentUser(authResponse);
@@ -97,11 +91,15 @@ public class UserAcceptanceTest extends AcceptanceTest {
         assertThatStatusIsNoContent(response);
 
         // given
+        signUpRequest = new SignUpRequest("그니", "kuenhwi@gmail.com", "그니의 비밀번호");
+
+        loginRequest = new LoginRequest("kuenhwi@gmail.com", "그니의 비밀번호");
+
         requestSignUp(signUpRequest);
         AuthResponse reAuthResponse = requestTokenByLogin(loginRequest);
 
         // when
-        ExtractableResponse<Response> getUserResponse = requestToGetCurrentUser(authResponse);
+        ExtractableResponse<Response> getUserResponse = requestToGetCurrentUser(reAuthResponse);
 
         // then
         assertThatStatusIsOk(getUserResponse);
