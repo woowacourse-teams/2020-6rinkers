@@ -224,6 +224,24 @@
   color: white;
   box-shadow: 2px 2px 2px var(--light-black);
   z-index: 1;
+  padding: 0.15rem 1.25rem;
+  cursor: pointer;
+}
+
+.moreButton:hover {
+  animation: moreButtonHover 2s infinite linear;
+}
+
+@keyframes moreButtonHover {
+  0%, 50%{
+    transform: rotate(0deg);
+  }
+  5%, 15%, 25%, 35%, 45% {
+    transform: rotate(5deg);
+  }
+  10%, 20%, 30%, 40% {
+    transform: rotate(-5deg);
+  }
 }
 
 @media screen and (max-width: 1024px) {
@@ -325,5 +343,9 @@
 
   .moreButton {
     margin-top: 2rem;
+  }
+
+  .moreButton:hover {
+    animation: none;
   }
 }
