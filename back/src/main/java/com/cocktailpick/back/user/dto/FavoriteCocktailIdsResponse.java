@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
-public class FavoriteCocktailIds {
+public class FavoriteCocktailIdsResponse {
 	private List<Long> ids;
 }

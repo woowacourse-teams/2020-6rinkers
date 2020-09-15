@@ -28,6 +28,7 @@ import com.cocktailpick.back.favorite.dto.FavoriteRequest;
 import com.cocktailpick.back.tag.dto.TagResponse;
 import com.cocktailpick.back.user.docs.UserDocumentation;
 import com.cocktailpick.back.user.domain.User;
+import com.cocktailpick.back.user.dto.FavoriteCocktailIdsResponse;
 import com.cocktailpick.back.user.dto.UserUpdateRequest;
 import com.cocktailpick.back.user.dto.FavoriteCocktailIds;
 import com.cocktailpick.back.user.service.UserService;
@@ -78,8 +79,9 @@ class UserControllerTest extends DocumentationWithSecurity {
 	@WithMockCustomUser
 	@Test
 	void findFavoriteCocktailIdsTest() throws Exception {
-		FavoriteCocktailIds favoriteCocktailIds = new FavoriteCocktailIds(Arrays.asList(1L, 2L, 3L));
-		when(userService.findFavoriteCocktailIds(any())).thenReturn(favoriteCocktailIds);
+		FavoriteCocktailIdsResponse favoriteCocktailIdsResponse = new FavoriteCocktailIdsResponse(
+			Arrays.asList(1L, 2L, 3L));
+		when(userService.findFavoriteCocktailIds(any())).thenReturn(favoriteCocktailIdsResponse);
 
 		mockMvc.perform(get("/api/user/me/favoriteIds").accept(MediaType.APPLICATION_JSON)
 			.header("authorization", "Bearer Token"))

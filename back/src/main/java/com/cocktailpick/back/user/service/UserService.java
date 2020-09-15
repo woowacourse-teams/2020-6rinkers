@@ -16,7 +16,7 @@ import com.cocktailpick.back.favorite.dto.FavoriteRequest;
 import com.cocktailpick.back.favorite.service.FavoriteRepository;
 import com.cocktailpick.back.user.domain.User;
 import com.cocktailpick.back.user.domain.UserRepository;
-import com.cocktailpick.back.user.dto.FavoriteCocktailIds;
+import com.cocktailpick.back.user.dto.FavoriteCocktailIdsResponse;
 import com.cocktailpick.back.user.dto.UserUpdateRequest;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -64,9 +64,9 @@ public class UserService {
 		userRepository.save(user);
 	}
 
-	public FavoriteCocktailIds findFavoriteCocktailIds(User user) {
+	public FavoriteCocktailIdsResponse findFavoriteCocktailIds(User user) {
 		List<Long> favoriteCocktailIds = user.findFavoriteCocktailIds();
 
-		return new FavoriteCocktailIds(favoriteCocktailIds);
+		return new FavoriteCocktailIdsResponse(favoriteCocktailIds);
 	}
 }
