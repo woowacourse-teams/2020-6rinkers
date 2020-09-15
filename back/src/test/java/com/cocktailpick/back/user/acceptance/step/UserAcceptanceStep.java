@@ -55,14 +55,9 @@ public class UserAcceptanceStep {
 			.extract();
 	}
 
-	public static String requestToAddFavoriteAndGetLocation(AuthResponse authResponse,
+	public static void requestToAddFavorite(AuthResponse authResponse,
 		FavoriteRequest favoriteRequest) {
-		return requestToAddFavorite(authResponse, favoriteRequest).header(LOCATION);
-	}
-
-	public static ExtractableResponse<Response> requestToAddFavorite(AuthResponse authResponse,
-		FavoriteRequest favoriteRequest) {
-		return given().log().all()
+		given().log().all()
 			.header(AUTHORIZATION, String.format("%s %s", authResponse.getTokenType(), authResponse.getAccessToken()))
 			.contentType(MediaType.APPLICATION_JSON_VALUE)
 			.body(favoriteRequest)
@@ -81,13 +76,11 @@ public class UserAcceptanceStep {
 			.extract();
 	}
 
-	public static void requestToDeleteFavorite(AuthResponse authResponse,
-		String location) {
-		System.out.println(location);
+	public static void requestToDeleteFavorite(AuthResponse authResponse, Long cocktailId) {
 		given().log().all()
 			.header(AUTHORIZATION, String.format("%s %s", authResponse.getTokenType(), authResponse.getAccessToken()))
 			.when()
-			.delete(location)
+			.delete(String.format("/api/user/me/favorites/%d", cocktailId))
 			.then().log().all();
 	}
 

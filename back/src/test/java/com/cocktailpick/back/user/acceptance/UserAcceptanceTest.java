@@ -125,7 +125,7 @@ public class UserAcceptanceTest extends AcceptanceTest {
         FavoriteRequest favoriteRequestOfKahlua = new FavoriteRequest(kahluaId);
         FavoriteRequest favoriteRequestOfMalibu = new FavoriteRequest(malibuId);
 
-        String createdLocation = requestToAddFavoriteAndGetLocation(authResponse, favoriteRequestOfKahlua);
+        requestToAddFavorite(authResponse, favoriteRequestOfKahlua);
         requestToAddFavorite(authResponse, favoriteRequestOfMalibu);
 
         // then
@@ -134,7 +134,7 @@ public class UserAcceptanceTest extends AcceptanceTest {
         assertThatAddAndFindFavoritesSuccess(responseAfterAdd, favoriteRequestOfKahlua, favoriteRequestOfMalibu);
 
         // when
-        requestToDeleteFavorite(authResponse, createdLocation);
+        requestToDeleteFavorite(authResponse, kahluaId);
 
         // then
         ExtractableResponse<Response> responseAfterDelete = requestToFindFavorites(authResponse);
