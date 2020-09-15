@@ -52,7 +52,7 @@ public class Favorites {
 
 	public List<Long> findFavoriteCocktailIds() {
 		return favorites.stream()
-			.map(favorite -> favorite.getCocktail().getId())
+			.map(Favorite::getCocktailId)
 			.collect(Collectors.toList());
 	}
 }

@@ -51,4 +51,8 @@ public class Favorite extends BaseTimeEntity {
 	public boolean isContainCocktail(Cocktail cocktail) {
 		return this.cocktail.isSameWith(cocktail.getId());
 	}
+
+	public Long getCocktailId() {
+		return this.cocktail.getId();
+	}
 }
