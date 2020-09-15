@@ -87,3 +87,17 @@ operation::tags/update[snippets='http-request,http-response,path-parameters,requ
 === 태그 삭제
 
 operation::tags/delete[snippets='http-request,http-response,path-parameters']
+
+[[resources-user-me]]
+== 유저 조회
+
+operation::user/me[snippets='http-request,http-response,request-fields,response-fields']
+[[resources-user-update]]
+== 유저 수정
+
+operation::user/update[snippets='http-request,http-response,request-fields']
+
+[[resources-user-delete]]
+== 유저 삭제
+
+operation::user/delete[snippets='http-request,http-response,request-headers']
