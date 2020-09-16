@@ -106,17 +106,17 @@ operation::terminologies/findAll[snippets='http-request,http-response,response-f
 [[resources-terminologies-find]]
 === 용어 단일 조회
 
-operation::terminologies/find[snippets='http-request,http-response,response-fields']
+operation::terminologies/find[snippets='http-request,http-response,path-parameters,response-fields']
 
 [[resources-terminologies-update]]
 === 용어 수정
 
-operation::terminologies/update[snippets='http-request,request-fields,http-response']
+operation::terminologies/update[snippets='http-request,http-response,path-parameters,request-fields']
 
 [[resources-terminologies-delete]]
 === 용어 삭제
 
-operation::terminologies/delete[snippets='http-request,http-response']
+operation::terminologies/delete[snippets='http-request,path-parameters,http-response']
 
 [[resources-user-me]]
 == 유저 조회
