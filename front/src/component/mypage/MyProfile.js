@@ -1,6 +1,6 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
-import { useRecoilValue } from "recoil/dist";
+import { useRecoilValue, useSetRecoilState } from "recoil/dist";
 import ProfileImage from "./ProfileImage";
 import ProfileDetail from "./ProfileDetail";
 import "../../css/mypage/profile.css";
@@ -9,6 +9,7 @@ import AdminButton from "./AdminButton";
 
 const MyProfile = () => {
   const { currentUser, authenticated } = useRecoilValue(userState);
+  const setCurrentUser = useSetRecoilState(userState);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -27,7 +28,11 @@ const MyProfile = () => {
   return (
     <div className="profile-container">
       <ProfileImage user={currentUser} />
-      <ProfileDetail user={currentUser} onSubmit={onSubmit} />
+      <ProfileDetail
+        user={currentUser}
+        setCurrentUser={setCurrentUser}
+        onSubmit={onSubmit}
+      />
       <AdminButton />
     </div>
   );

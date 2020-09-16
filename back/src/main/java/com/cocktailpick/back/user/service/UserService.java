@@ -27,6 +27,12 @@ public class UserService {
 	private final FavoriteRepository favoriteRepository;
 	private final CocktailRepository cocktailRepository;
 
+	@Transactional
+	public void deleteCurrentUser(User user) {
+		userRepository.deleteById(user.getId());
+	}
+
+	@Transactional(readOnly = true)
 	public List<CocktailResponse> findFavorites(User user) {
 		return user.getFavorites().getFavorites().stream()
 			.map(Favorite::getCocktail)
