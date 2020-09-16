@@ -24,7 +24,6 @@ import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 
 public class UserAcceptanceStep {
-
 	public static ExtractableResponse<Response> requestToGetCurrentUser(AuthResponse authResponse) {
 		return given().log().all()
 			.header(AUTHORIZATION, authResponse.getTokenType() + " " + authResponse.getAccessToken())
@@ -106,8 +105,7 @@ public class UserAcceptanceStep {
 
 		assertAll(
 			() -> assertThat(cocktailResponses).hasSize(2),
-			() -> assertThat(cocktailResponses.get(0).getId()).isIn(favoriteIds),
-			() -> assertThat(cocktailResponses.get(1).getId()).isIn(favoriteIds)
+			() -> assertThat(cocktailResponses).extracting(CocktailResponse::getId).containsExactlyInAnyOrderElementsOf(favoriteIds)
 		);
 	}
 
