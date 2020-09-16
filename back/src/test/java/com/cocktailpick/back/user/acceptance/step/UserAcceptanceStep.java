@@ -39,8 +39,16 @@ public class UserAcceptanceStep {
             .extract();
     }
 
-    public static void assertThatGetCurrentUserSuccess(ExtractableResponse<Response> response,
-        SignUpRequest signUpRequest) {
+    public static ExtractableResponse<Response> requestTodeleteCurrentUser(AuthResponse authResponse) {
+        return given().log().all()
+            .header(AUTHORIZATION, authResponse.getTokenType() + " " + authResponse.getAccessToken())
+            .when()
+            .delete("/api/user/me")
+            .then().log().all()
+            .extract();
+    }
+
+    public static void assertThatGetCurrentUserSuccess(ExtractableResponse<Response> response, SignUpRequest signUpRequest) {
         UserResponse userResponse = response.as(UserResponse.class);
 
         assertAll(

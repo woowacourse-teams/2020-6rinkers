@@ -110,4 +110,12 @@ class UserServiceTest {
 
 		assertThat(user.getFavorites().getFavorites().size()).isEqualTo(0);
 	}
+
+	@DisplayName("회원 탈퇴한다.")
+	@Test
+	void deleteCurrentUser() {
+		userService.deleteCurrentUser(user);
+
+		verify(userRepository).deleteById(anyLong());
+	}
 }

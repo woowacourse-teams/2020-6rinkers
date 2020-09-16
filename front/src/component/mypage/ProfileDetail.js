@@ -3,9 +3,11 @@ import Alert from "react-s-alert";
 import { useRecoilValue } from "recoil/dist";
 import { updateUser } from "../../api";
 import ProfileDetailInput from "./ProfileDetailInput";
+import { withdraw } from "../../api";
+import { ACCESS_TOKEN } from "../../constants";
 import { userState } from "../../recoil";
 
-export default () => {
+export default ({ user, setCurrentUser }) => {
   const user = useRecoilValue(userState);
   const [name, setName] = useState(user.currentUser.name);
 
@@ -25,6 +27,13 @@ export default () => {
       .catch((error) => {
         Alert.error("수정에 실패하였습니다.");
       });
+  };
+
+  const userWithdraw = async (e) => {
+    e.preventDefault();
+    await withdraw();
+    setCurrentUser({ currentUser: null, authenticated: false });
+    localStorage.setItem(ACCESS_TOKEN, null);
   };
 
   return (
@@ -51,7 +60,7 @@ export default () => {
           </div>
         </div>
         <div className="withdrawal">
-          <a href="#" onClick={() => alert("hi")} className="withdrawal-submit">
+          <a href="/" onClick={userWithdraw} className="withdrawal-submit">
             회원 탈퇴
           </a>
         </div>

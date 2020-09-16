@@ -79,17 +79,16 @@ export const getCurrentUser = () => {
 export const updateUser = (info) => {
   return client.patch("/api/user/me", info, config);
 };
+export const withdraw = () => {
+  client.delete("/api/user/me", config);
+};
 export const login = (loginRequest) =>
   client.post("/api/auth/login", loginRequest);
 export const signup = (signupRequest) =>
   client.post("/api/auth/signup", signupRequest);
 
 export const fetchMyFavorites = () => {
-  client.get("/api/user/me/favorites", {
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
-    },
-  });
+  client.get("/api/user/me/favorites", config);
 };
 
 export const addFavorite = (data) =>
