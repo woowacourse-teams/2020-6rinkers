@@ -75,7 +75,7 @@ public class TerminologyAcceptanceTest extends AcceptanceTest {
 
 		// then
 		assertThatStatusIsOk(response);
-		assertThatFindTerminologiesOfShaker(response);
+		assertThatFindTerminologies(response, vodka, shaker, layering);
 	}
 
 	@DisplayName("단일 용어를 조회한다.")
@@ -97,7 +97,7 @@ public class TerminologyAcceptanceTest extends AcceptanceTest {
 		ExtractableResponse<Response> response = requestToFindTerminology(createLocation);
 
 		// then
-		assertThatFindTerminology(createLocation, response);
+		assertThatFindTerminology(createLocation, response, vodka);
 		assertThatStatusIsOk(response);
 	}
 
