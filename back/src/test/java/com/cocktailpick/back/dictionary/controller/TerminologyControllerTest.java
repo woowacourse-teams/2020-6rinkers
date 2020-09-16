@@ -31,7 +31,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(controllers = TerminologyController.class)
 class TerminologyControllerTest extends DocumentationWithSecurity {
-	private static final String VODKA_IMAGE_URL = "https://media-verticommnetwork1.netdna-ssl.com/wines/absolut-vodka-45l-434781.jpg";
 
 	@MockBean
 	private TerminologyService terminologyService;
@@ -54,10 +53,10 @@ class TerminologyControllerTest extends DocumentationWithSecurity {
 			.name("보드카")
 			.terminologyType("술")
 			.description("러시아의 술이고 감자나 호밀을 증류하여 만듭니다.")
-			.imageUrl(VODKA_IMAGE_URL)
+			.imageUrl("https://vodka.image")
 			.build();
 
-		terminologyResponse = new TerminologyResponse(1L, "보드카", "술", "러시아의 술입니다.", VODKA_IMAGE_URL);
+		terminologyResponse = new TerminologyResponse(1L, "보드카", "술", "러시아의 술입니다.", "https://vodka.image");
 
 		objectMapper = new ObjectMapper();
 
@@ -101,7 +100,7 @@ class TerminologyControllerTest extends DocumentationWithSecurity {
 	void findTerminologies() throws Exception {
 		List<TerminologyResponse> terminologyResponses = Arrays.asList(
 			terminologyResponse,
-			new TerminologyResponse(2L, "지거", "칵테일", "음료의 양을 측정하는 도구입니다.", VODKA_IMAGE_URL)
+			new TerminologyResponse(2L, "지거", "칵테일", "음료의 양을 측정하는 도구입니다.", "https://jigger.image")
 		);
 		when(terminologyService.findAllTerminologies()).thenReturn(terminologyResponses);
 
