@@ -54,9 +54,9 @@ public class UserAcceptanceStep {
 			.extract();
 	}
 
-	public static void requestToAddFavorite(AuthResponse authResponse,
+	public static ExtractableResponse<Response> requestToAddFavorite(AuthResponse authResponse,
 		FavoriteRequest favoriteRequest) {
-		given().log().all()
+		return given().log().all()
 			.header(AUTHORIZATION, String.format("%s %s", authResponse.getTokenType(), authResponse.getAccessToken()))
 			.contentType(MediaType.APPLICATION_JSON_VALUE)
 			.body(favoriteRequest)
@@ -75,12 +75,13 @@ public class UserAcceptanceStep {
 			.extract();
 	}
 
-	public static void requestToDeleteFavorite(AuthResponse authResponse, Long cocktailId) {
-		given().log().all()
+	public static ExtractableResponse<Response> requestToDeleteFavorite(AuthResponse authResponse, Long cocktailId) {
+		return given().log().all()
 			.header(AUTHORIZATION, String.format("%s %s", authResponse.getTokenType(), authResponse.getAccessToken()))
 			.when()
 			.delete(String.format("/api/user/me/favorites/%d", cocktailId))
-			.then().log().all();
+			.then().log().all()
+			.extract();
 	}
 
 	public static void assertThatGetCurrentUserSuccess(ExtractableResponse<Response> response,
@@ -96,7 +97,7 @@ public class UserAcceptanceStep {
 		);
 	}
 
-	public static void assertThatAddAndFindFavoritesSuccess(ExtractableResponse<Response> response,
+	public static void assertThatFindFavoritesSuccess(ExtractableResponse<Response> response,
 		FavoriteRequest... favoriteRequests) {
 		List<CocktailResponse> cocktailResponses = response.jsonPath().getList(".", CocktailResponse.class);
 		List<Long> favoriteIds = Arrays.stream(favoriteRequests)
@@ -106,16 +107,6 @@ public class UserAcceptanceStep {
 		assertAll(
 			() -> assertThat(cocktailResponses).hasSize(2),
 			() -> assertThat(cocktailResponses).extracting(CocktailResponse::getId).containsExactlyInAnyOrderElementsOf(favoriteIds)
-		);
-	}
-
-	public static void assertThatDeleteAndFindFavoritesSuccess(ExtractableResponse<Response> response,
-		FavoriteRequest favoriteRequest) {
-		List<CocktailResponse> cocktailResponses = response.jsonPath().getList(".", CocktailResponse.class);
-
-		assertAll(
-			() -> assertThat(cocktailResponses).hasSize(1),
-			() -> assertThat(cocktailResponses.get(0).getId()).isEqualTo(favoriteRequest.getCocktailId())
 		);
 	}
 }
