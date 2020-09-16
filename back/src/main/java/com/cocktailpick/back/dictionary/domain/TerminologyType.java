@@ -13,15 +13,15 @@ public enum TerminologyType {
 	METHOD("제조법"),
 	SHAPE("형태");
 
-	private String koreanName;
+	private String typeName;
 
-	TerminologyType(String koreanName) {
-		this.koreanName = koreanName;
+	TerminologyType(String typeName) {
+		this.typeName = typeName;
 	}
 
-	public static TerminologyType of(String koreanName) {
+	public static TerminologyType of(String typeName) {
 		return Arrays.stream(TerminologyType.values())
-			.filter(terminologyType -> terminologyType.getKoreanName().equals(koreanName))
+			.filter(terminologyType -> terminologyType.getTypeName().equals(typeName))
 			.findFirst()
 			.orElseThrow(() -> new InvalidValueException(ErrorCode.TERMINOLOGY_TYPE_NOT_FOUND));
 	}

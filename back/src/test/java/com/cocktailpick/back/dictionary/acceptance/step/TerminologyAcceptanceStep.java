@@ -64,7 +64,7 @@ public class TerminologyAcceptanceStep {
 			() -> assertThat(terminologyResponses).hasSize(3),
 			() -> assertThat(terminologyResponses.get(1).getName()).isEqualTo("쉐이커"),
 			() -> assertThat(terminologyResponses.get(1).getTerminologyType()).isEqualTo(
-				TerminologyType.COCKTAIL.getKoreanName()),
+				TerminologyType.COCKTAIL.getTypeName()),
 			() -> assertThat(terminologyResponses.get(1).getDescription()).contains("섞는 도구"),
 			() -> assertThat(terminologyResponses.get(1).getImageUrl()).contains("cocktailpick.com")
 		);
@@ -87,7 +87,7 @@ public class TerminologyAcceptanceStep {
 			() -> assertThat(terminologyResponse.getId()).isEqualTo(id),
 			() -> assertThat(terminologyResponse.getName()).isEqualTo("보드카"),
 			() -> assertThat(terminologyResponse.getTerminologyType()).isEqualTo(
-				TerminologyType.ALCOHOL.getKoreanName()),
+				TerminologyType.ALCOHOL.getTypeName()),
 			() -> assertThat(terminologyResponse.getDescription()).contains("러시아"),
 			() -> assertThat(terminologyResponse.getImageUrl()).contains("cocktailpick.com")
 		);

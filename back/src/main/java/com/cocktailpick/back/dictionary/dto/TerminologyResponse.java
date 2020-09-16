@@ -25,7 +25,7 @@ public class TerminologyResponse {
 
 	public static TerminologyResponse of(Terminology terminology) {
 		return new TerminologyResponse(terminology.getId(), terminology.getName(),
-			terminology.getTerminologyType().getKoreanName(), terminology.getDescription(), terminology.getImageUrl());
+			terminology.getTerminologyType().getTypeName(), terminology.getDescription(), terminology.getImageUrl());
 	}
 
 	public static List<TerminologyResponse> listOf(List<Terminology> terminologies) {
