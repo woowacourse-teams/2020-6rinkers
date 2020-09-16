@@ -8,10 +8,9 @@ import { ACCESS_TOKEN } from "../../constants";
 import { userState } from "../../recoil";
 
 export default ({ user, setCurrentUser }) => {
-  const user = useRecoilValue(userState);
-  const [name, setName] = useState(user.currentUser.name);
+  const [name, setName] = useState(user.name);
 
-  const { email } = user.currentUser;
+  const { email } = user;
 
   const onChange = (e) => {
     setName(e.target.value);
