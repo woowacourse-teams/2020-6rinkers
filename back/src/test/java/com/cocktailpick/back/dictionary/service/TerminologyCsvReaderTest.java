@@ -34,11 +34,11 @@ class TerminologyCsvReaderTest {
 		assertAll(
 			() -> assertThat(actual).hasSize(4),
 			() -> assertThat(actual.get(0).getName()).isEqualTo("가니쉬"),
-			() -> assertThat(actual.get(0).getTerminologyType().getKoreanName()).isEqualTo("칵테일"),
+			() -> assertThat(actual.get(0).getTerminologyType().getTypeName()).isEqualTo("칵테일"),
 			() -> assertThat(actual.get(0).getDescription()).contains("장식"),
 			() -> assertThat(actual.get(0).getImageUrl()).contains("amazonaws.com/garnish.png"),
 			() -> assertThat(actual.get(3).getName()).isEqualTo("레이어링"),
-			() -> assertThat(actual.get(3).getTerminologyType().getKoreanName()).isEqualTo("제조법"),
+			() -> assertThat(actual.get(3).getTerminologyType().getTypeName()).isEqualTo("제조법"),
 			() -> assertThat(actual.get(3).getDescription()).contains("재료들을 층을"),
 			() -> assertThat(actual.get(3).getImageUrl()).contains("amazonaws.com/layering.png")
 		);
