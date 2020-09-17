@@ -1,5 +1,7 @@
 package com.cocktailpick.back.user.acceptance;
 
+import static com.cocktailpick.back.cocktail.Fixtures.*;
+import static com.cocktailpick.back.cocktail.acceptance.step.CocktailAcceptanceStep.*;
 import static com.cocktailpick.back.common.acceptance.step.AcceptanceStep.*;
 import static com.cocktailpick.back.user.acceptance.step.AuthAcceptanceStep.*;
 import static com.cocktailpick.back.user.acceptance.step.UserAcceptanceStep.*;
@@ -9,6 +11,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import com.cocktailpick.back.common.acceptance.AcceptanceTest;
+import com.cocktailpick.back.favorite.dto.FavoriteRequest;
 import com.cocktailpick.back.user.dto.AuthResponse;
 import com.cocktailpick.back.user.dto.LoginRequest;
 import com.cocktailpick.back.user.dto.SignUpRequest;
@@ -38,7 +41,7 @@ public class UserAcceptanceTest extends AcceptanceTest {
 
     @DisplayName("현재 유저의 정보를 조회한다.")
     @Test
-    void getUser() {
+    void getCurrentUser() {
 
         // when
         ExtractableResponse<Response> response = requestToGetCurrentUser(authResponse);
@@ -52,14 +55,6 @@ public class UserAcceptanceTest extends AcceptanceTest {
     @Test
     void updateUser() {
         //given
-        SignUpRequest signUpRequest = new SignUpRequest("그니", "kuenhwi@gmail.com", "그니의 비밀번호");
-
-        requestSignUp(signUpRequest);
-
-        LoginRequest loginRequest = new LoginRequest("kuenhwi@gmail.com", "그니의 비밀번호");
-
-        AuthResponse authResponse = requestTokenByLogin(loginRequest);
-
         UserUpdateRequest userUpdateRequest = new UserUpdateRequest("작은곰");
 
         // when
@@ -74,7 +69,7 @@ public class UserAcceptanceTest extends AcceptanceTest {
     void deleteUser() {
 
         // when
-        ExtractableResponse<Response> response = requestTodeleteCurrentUser(authResponse);
+        ExtractableResponse<Response> response = requestToDeleteCurrentUser(authResponse);
 
         // then
         assertThatStatusIsNoContent(response);
@@ -85,7 +80,7 @@ public class UserAcceptanceTest extends AcceptanceTest {
     void deleteUserSignUp() {
 
         // when
-        ExtractableResponse<Response> response = requestTodeleteCurrentUser(authResponse);
+        ExtractableResponse<Response> response = requestToDeleteCurrentUser(authResponse);
 
         // then
         assertThatStatusIsNoContent(response);
@@ -104,5 +99,71 @@ public class UserAcceptanceTest extends AcceptanceTest {
         // then
         assertThatStatusIsOk(getUserResponse);
         assertThatGetCurrentUserSuccess(getUserResponse, signUpRequest);
+    }
+
+    @DisplayName("현재 유저에 즐겨찾기를 추가한다.")
+    @Test
+    void addFavorite() {
+        // given
+        AuthResponse adminAuthResponse = requestAdminAuth();
+
+        String kahluaLocation = requestToAddCocktailAndGetLocation(KAHLUA_MILK_REQUEST, adminAuthResponse);
+
+        Long kahluaId = Long.parseLong(kahluaLocation.substring(15));
+
+        // when
+        FavoriteRequest favoriteRequestOfKahlua = new FavoriteRequest(kahluaId);
+
+        ExtractableResponse<Response> response = requestToAddFavorite(authResponse, favoriteRequestOfKahlua);
+
+        // then
+        assertThatStatusIsCreated(response);
+    }
+
+    @DisplayName("현재 유저에 즐겨찾기를 조회한다.")
+    @Test
+    void findFavorites() {
+        // given
+        AuthResponse adminAuthResponse = requestAdminAuth();
+
+        String kahluaLocation = requestToAddCocktailAndGetLocation(KAHLUA_MILK_REQUEST, adminAuthResponse);
+        String malibuLocation = requestToAddCocktailAndGetLocation(MALIBU_ORANGE, adminAuthResponse);
+
+        Long kahluaId = Long.parseLong(kahluaLocation.substring(15));
+        Long malibuId = Long.parseLong(malibuLocation.substring(15));
+
+        FavoriteRequest favoriteRequestOfKahlua = new FavoriteRequest(kahluaId);
+        FavoriteRequest favoriteRequestOfMalibu = new FavoriteRequest(malibuId);
+
+        requestToAddFavorite(authResponse, favoriteRequestOfKahlua);
+        requestToAddFavorite(authResponse, favoriteRequestOfMalibu);
+
+        // when
+        ExtractableResponse<Response> response = requestToFindFavorites(authResponse);
+
+        // then
+        assertThatStatusIsOk(response);
+        assertThatFindFavoritesSuccess(response, favoriteRequestOfKahlua, favoriteRequestOfMalibu);
+    }
+
+    @DisplayName("현재 유저에 즐겨찾기를 삭제한다.")
+    @Test
+    void deleteFavorite() {
+        // given
+        AuthResponse adminAuthResponse = requestAdminAuth();
+
+        String kahluaLocation = requestToAddCocktailAndGetLocation(KAHLUA_MILK_REQUEST, adminAuthResponse);
+
+        Long kahluaId = Long.parseLong(kahluaLocation.substring(15));
+
+        FavoriteRequest favoriteRequestOfKahlua = new FavoriteRequest(kahluaId);
+
+        requestToAddFavorite(authResponse, favoriteRequestOfKahlua);
+
+        // when
+        ExtractableResponse<Response> response = requestToDeleteFavorite(authResponse, kahluaId);
+
+        // then
+        assertThatStatusIsNoContent(response);
     }
 }
