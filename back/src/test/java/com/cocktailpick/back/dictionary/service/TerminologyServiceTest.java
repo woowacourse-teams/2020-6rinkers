@@ -60,7 +60,7 @@ class TerminologyServiceTest {
 		Long persistId = terminologyService.save(terminology);
 
 		verify(terminologyRepository).save(any());
-		assertEquals(persistId, 1L);
+		assertThat(persistId).isEqualTo(1L);
 	}
 
 	@DisplayName("이미 저장된 이름의 용어를 저장할 경우 예외가 발생한다.")
@@ -142,7 +142,7 @@ class TerminologyServiceTest {
 
 		terminologyService.update(updatingTerminology, 1L);
 
-		assertEquals(terminology.getDescription(), "보드카는 도수가 높습니다.");
+		assertThat(terminology.getDescription()).isEqualTo("보드카는 도수가 높습니다.");
 	}
 
 	@DisplayName("용어를 삭제한다.")
