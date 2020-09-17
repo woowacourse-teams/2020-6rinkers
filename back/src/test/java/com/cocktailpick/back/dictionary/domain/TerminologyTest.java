@@ -1,6 +1,7 @@
 package com.cocktailpick.back.dictionary.domain;
 
 
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.DisplayName;
@@ -29,6 +30,6 @@ class TerminologyTest {
 
 		terminology.update(updatingTerminology);
 
-		assertEquals(terminology.getDescription(), "보드카는 도수가 높습니다.");
+		assertThat(terminology.getDescription()).isEqualTo("보드카는 도수가 높습니다.");
 	}
 }
