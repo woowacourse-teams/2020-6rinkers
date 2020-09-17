@@ -111,14 +111,6 @@ public class UserAcceptanceTest extends AcceptanceTest {
 
         Long kahluaId = Long.parseLong(kahluaLocation.substring(15));
 
-        SignUpRequest signUpRequest = new SignUpRequest("그니", "kuenhwi@gmail.com", "그니의 비밀번호");
-
-        requestSignUp(signUpRequest);
-
-        LoginRequest loginRequest = new LoginRequest("kuenhwi@gmail.com", "그니의 비밀번호");
-
-        AuthResponse authResponse = requestTokenByLogin(loginRequest);
-
         // when
         FavoriteRequest favoriteRequestOfKahlua = new FavoriteRequest(kahluaId);
 
@@ -139,14 +131,6 @@ public class UserAcceptanceTest extends AcceptanceTest {
 
         Long kahluaId = Long.parseLong(kahluaLocation.substring(15));
         Long malibuId = Long.parseLong(malibuLocation.substring(15));
-
-        SignUpRequest signUpRequest = new SignUpRequest("그니", "kuenhwi@gmail.com", "그니의 비밀번호");
-
-        requestSignUp(signUpRequest);
-
-        LoginRequest loginRequest = new LoginRequest("kuenhwi@gmail.com", "그니의 비밀번호");
-
-        AuthResponse authResponse = requestTokenByLogin(loginRequest);
 
         FavoriteRequest favoriteRequestOfKahlua = new FavoriteRequest(kahluaId);
         FavoriteRequest favoriteRequestOfMalibu = new FavoriteRequest(malibuId);
@@ -171,14 +155,6 @@ public class UserAcceptanceTest extends AcceptanceTest {
         String kahluaLocation = requestToAddCocktailAndGetLocation(KAHLUA_MILK_REQUEST, adminAuthResponse);
 
         Long kahluaId = Long.parseLong(kahluaLocation.substring(15));
-
-        SignUpRequest signUpRequest = new SignUpRequest("그니", "kuenhwi@gmail.com", "그니의 비밀번호");
-
-        requestSignUp(signUpRequest);
-
-        LoginRequest loginRequest = new LoginRequest("kuenhwi@gmail.com", "그니의 비밀번호");
-
-        AuthResponse authResponse = requestTokenByLogin(loginRequest);
 
         FavoriteRequest favoriteRequestOfKahlua = new FavoriteRequest(kahluaId);
 
