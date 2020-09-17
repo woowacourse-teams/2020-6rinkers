@@ -10,10 +10,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
@@ -23,6 +23,7 @@ import com.cocktailpick.back.user.domain.User;
 import com.cocktailpick.back.user.dto.UserResponse;
 import com.cocktailpick.back.user.dto.UserUpdateRequest;
 import com.cocktailpick.back.user.service.UserService;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
@@ -66,8 +67,8 @@ public class UserController {
 			.build();
 	}
 
-	@DeleteMapping("/me/favorites/{cocktailId}")
-	public ResponseEntity<Void> deleteFavorite(@CurrentUser User user, @PathVariable Long cocktailId) {
+	@DeleteMapping("/me/favorites")
+	public ResponseEntity<Void> deleteFavorite(@CurrentUser User user, @RequestParam("cocktailId") Long cocktailId) {
 		userService.deleteFavorite(user, cocktailId);
 
 		return ResponseEntity.noContent().build();

@@ -94,7 +94,7 @@ class UserControllerTest extends DocumentationWithSecurity {
 	void deleteFavorite() throws Exception {
 		doNothing().when(userService).deleteFavorite(any(), anyLong());
 
-		mockMvc.perform(delete("/api/user/me/favorites/{id}", 1L))
+		mockMvc.perform(delete("/api/user/me/favorites?cocktailId={cocktailId}", 1L))
 			.andExpect(status().isNoContent())
 			.andDo(print());
 	}
