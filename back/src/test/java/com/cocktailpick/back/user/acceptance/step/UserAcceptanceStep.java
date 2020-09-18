@@ -79,7 +79,7 @@ public class UserAcceptanceStep {
 		return given().log().all()
 			.header(AUTHORIZATION, String.format("%s %s", authResponse.getTokenType(), authResponse.getAccessToken()))
 			.when()
-			.delete(String.format("/api/user/me/favorites/%d", cocktailId))
+			.delete(String.format("/api/user/me/favorites?cocktailId=%d", cocktailId))
 			.then().log().all()
 			.extract();
 	}

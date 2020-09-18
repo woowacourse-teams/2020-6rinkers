@@ -99,5 +99,5 @@ export const fetchMyFavorites = () => {
 
 export const addFavorite = (data) =>
   client.post("/api/user/me/favorites", data, config);
-export const deleteFavorite = (id) =>
-  client.delete(`/api/user/me/favorites/${id}`, config);
+export const deleteFavorite = (cocktailId) =>
+  client.delete(`/api/user/me/favorites?cocktailId=${cocktailId}`, config);
