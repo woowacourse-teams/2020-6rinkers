@@ -37,6 +37,10 @@ const MoreButton = ({
     await setCocktails(cocktails.concat(content));
   };
 
+  if (cocktails.length === 0) {
+    return <></>;
+  }
+
   return (
     <button className="moreButton" onClick={loadCocktails}>
       결과 더 보기

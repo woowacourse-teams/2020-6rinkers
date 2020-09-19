@@ -8,6 +8,7 @@ import {
 import { DOWN, ENTER, ESC, UP } from "../../constants";
 import SearchedCocktails from "./SearchedCocktails";
 import MoreButton from "./MoreButton";
+import NoSearchResult from "./NoSearchResult";
 
 const SearchContainer = ({ cocktails, setCocktails }) => {
   const [autoCompletedCocktails, setAutoCompletedCocktails] = useState([]);
@@ -146,6 +147,7 @@ const SearchContainer = ({ cocktails, setCocktails }) => {
         </div>
       </div>
       <div className="cocktailSearchContent">
+        {cocktails.length === 0 ? <NoSearchResult type="Name" /> : ""}
         <SearchedCocktails cocktails={cocktails} />
         <MoreButton
           searchWord={searchWord}

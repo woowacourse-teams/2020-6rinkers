@@ -235,6 +235,19 @@
   transition: 0.5s;
 }
 
+.noSearchResult {
+  margin-top: 3rem;
+  font-size: 16px;
+}
+
+.noSearchResultDescription {
+  margin-top: 1rem;
+  margin-left: 2rem;
+  list-style: circle;
+  color: var(--little-gray);
+  font-size: 14px;
+}
+
 @media screen and (max-width: 1024px) {
   .searchedCocktailsContainer {
     grid-template-columns: repeat(2, 280px);

@@ -4,6 +4,7 @@ import Alert from "react-s-alert";
 import { fetchAllTags, fetchPagedCocktailsFilteredByTags } from "../../api";
 import SearchedCocktails from "./SearchedCocktails";
 import MoreButton from "./MoreButton";
+import NoSearchResult from "./NoSearchResult";
 
 const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
   const [allTags, setAllTags] = useState([]);
@@ -107,14 +108,15 @@ const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
             </div>
           );
         })}
-      </div>
-      <div className="cocktailSearchContent">
-        <SearchedCocktails cocktails={cocktails} />
-        <MoreButton
-          selectedTagIds={selectedTagIds}
-          cocktails={cocktails}
-          setCocktails={setCocktails}
-        />
+        <div className="cocktailSearchContent">
+          {cocktails.length === 0 ? (<NoSearchResult type="Tags"/>) : ""}
+          <SearchedCocktails cocktails={cocktails} />
+          <MoreButton
+            selectedTagIds={selectedTagIds}
+            cocktails={cocktails}
+            setCocktails={setCocktails}
+          />
+        </div>
       </div>
     </div>
   );
