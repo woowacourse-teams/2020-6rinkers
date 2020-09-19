@@ -9,6 +9,7 @@ import { DOWN, ENTER, ESC, UP } from "../../constants";
 import SearchedCocktails from "./SearchedCocktails";
 import MoreButton from "./MoreButton";
 import NoSearchResult from "./NoSearchResult";
+import Alert from "react-s-alert";
 
 const SearchContainer = ({ cocktails, setCocktails }) => {
   const [autoCompletedCocktails, setAutoCompletedCocktails] = useState([]);
@@ -46,14 +47,18 @@ const SearchContainer = ({ cocktails, setCocktails }) => {
   };
 
   const fetchCocktails = async () => {
-    const response = await fetchPagedCocktailsContainingWord({
-      contain: searchWord,
-      id: 0,
-      size: 15,
-    });
-    const content = response.data;
+    try {
+      const response = await fetchPagedCocktailsContainingWord({
+        contain: searchWord,
+        id: 0,
+        size: 15,
+      });
+      const content = response.data;
 
-    setCocktails(content);
+      setCocktails(content);
+    } catch (e) {
+      Alert.error((e && e.message) || "칵테일을 불러오는데 실패했습니다.");
+    }
   };
 
   const search = () => {

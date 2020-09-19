@@ -39,12 +39,20 @@ const MoreButton = ({
     await setCocktails(cocktails.concat(content));
   };
 
+  const onMoreButtonClick = async () => {
+    try {
+      await loadCocktails();
+    } catch (e) {
+      Alert.error((e && e.message) || "추가 칵테일을 불러오는데 실패했습니다.");
+    }
+  };
+
   if (cocktails.length === 0) {
     return <></>;
   }
 
   return (
-    <button className="moreButton" onClick={loadCocktails}>
+    <button className="moreButton" onClick={onMoreButtonClick}>
       결과 더 보기
     </button>
   );

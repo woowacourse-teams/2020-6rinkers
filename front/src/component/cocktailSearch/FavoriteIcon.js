@@ -1,4 +1,5 @@
 import React from "react";
+import Alert from "react-s-alert";
 import {
   deleteFavorite,
   fetchFavoriteCocktailIds,
@@ -7,11 +8,17 @@ import {
 
 const FavoriteIcon = ({ cocktailId, setFavorites }) => {
   const deleteFavoriteClick = async () => {
-    await deleteFavorite(cocktailId);
+    try {
+      await deleteFavorite(cocktailId);
 
-    fetchFavoriteCocktailIds().then((response) => {
-      setFavorites(response.data);
-    });
+      fetchFavoriteCocktailIds().then((response) => {
+        setFavorites(response.data);
+      });
+    } catch (e) {
+      Alert.error(
+        (e && e.message) || "즐겨찾기를 삭제하는데 실패했습니다."
+      );
+    }
   };
 
   return (
