@@ -107,11 +107,15 @@ const SearchContainer = ({ cocktails, setCocktails }) => {
       return;
     }
 
-    const response = await fetchCocktailsContaining(word);
-    const autoCompleted = response.data;
-    setAutoCompletedCocktails(autoCompleted);
-    setAutoBox(true);
-    highlightOut();
+    try {
+      const response = await fetchCocktailsContaining(word);
+      const autoCompleted = response.data;
+      setAutoCompletedCocktails(autoCompleted);
+      setAutoBox(true);
+      highlightOut();
+    } catch (e) {
+      Alert.error((e && e.message) || "칵테일 자동완성에 실패했습니다.");
+    }
   };
 
   useEffect(() => {
