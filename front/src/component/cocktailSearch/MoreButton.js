@@ -1,4 +1,5 @@
 import React from "react";
+import Alert from "react-s-alert";
 import {
   fetchPagedCocktailsContainingWord,
   fetchPagedCocktailsFilteredByTags,
@@ -31,6 +32,7 @@ const MoreButton = ({
 
     const content = response.data;
     if (content.length === 0) {
+      Alert.success("더 이상 검색 결과가 없습니다.");
       return;
     }
 

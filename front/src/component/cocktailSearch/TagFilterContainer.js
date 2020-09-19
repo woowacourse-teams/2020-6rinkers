@@ -108,15 +108,15 @@ const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
             </div>
           );
         })}
-        <div className="cocktailSearchContent">
-          {cocktails.length === 0 ? (<NoSearchResult type="Tags"/>) : ""}
-          <SearchedCocktails cocktails={cocktails} />
-          <MoreButton
-            selectedTagIds={selectedTagIds}
-            cocktails={cocktails}
-            setCocktails={setCocktails}
-          />
-        </div>
+      </div>
+      <div className="cocktailSearchContent">
+        {cocktails.length === 0 ? (<NoSearchResult type="Tags" />) : ""}
+        <SearchedCocktails cocktails={cocktails} />
+        <MoreButton
+          selectedTagIds={selectedTagIds}
+          cocktails={cocktails}
+          setCocktails={setCocktails}
+        />
       </div>
     </div>
   );

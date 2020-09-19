@@ -296,7 +296,7 @@
   .tagSelectButton {
     display: inline-block;
     padding: 0.1rem 0.5rem;
-    margin: 1.5rem auto;
+    margin: 2rem auto 3rem auto;
     outline: 0;
     border: solid 1px var(--sharp-red);
     border-radius: 0.4rem;
@@ -353,5 +353,9 @@
     background-color: white;
     color: gray;
     transition: 0s;
+  }
+
+  .noSearchResult {
+    margin: 0 2rem;
   }
 }
