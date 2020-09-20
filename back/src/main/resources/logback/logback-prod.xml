@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration scan="true" scanPeriod="10 seconds">
+<included>
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+
+    <property file="${user.dir}/back/src/main/resources/config/logback-slack.properties"/>
 
     <property name="LOG_FILE" value="logback"/>
     <property name="LOG_PATH" value="./logs/debug"/>
@@ -56,12 +58,28 @@
         </rollingPolicy>
     </appender>
 
+    <appender name="SLACK" class="com.github.maricn.logback.SlackAppender">
+        <webhookUri>${webhookUri}</webhookUri>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>*%-4relative [%thread] %-5level %class* - %msg%n</pattern>
+        </layout>
+        <colorCoding>true</colorCoding>
+    </appender>
+
+    <appender name="ASYNC_SLACK" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="SLACK"/>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>warn</level>
+        </filter>
+    </appender>
+
     <root level="info">
         <appender-ref ref="ROLLING-FILE"/>
         <appender-ref ref="ERROR-FILE"/>
+        <appender-ref ref="ASYNC_SLACK"/>
     </root>
 
     <logger name="org.springframework.web.filter.CommonsRequestLoggingFilter" level="DEBUG">
         <appender-ref ref="REQUEST-FILE"/>
     </logger>
-</configuration>
+</included>
