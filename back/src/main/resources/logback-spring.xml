@@ -3,10 +3,36 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
+    <property file="${user.dir}/back/src/main/resources/config/logback-slack.properties"/>
+
     <property name="LOG_FILE" value="logback"/>
     <property name="LOG_PATH" value="./logs/debug"/>
     <property name="LOG_ERROR_PATH" value="./logs/error"/>
     <property name="LOG_FILE_PROD" value="logback-prod"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss} %highlight([%-5p]) %boldMagenta([%F]%M\(%L\)]) : %m%n</pattern>
+        </layout>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>info</level>
+        </filter>
+    </appender>
+
+    <appender name="SLACK" class="com.github.maricn.logback.SlackAppender">
+        <webhookUri>${webhookUri}</webhookUri>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>*%-4relative [%thread] %-5level %class* - %msg%n</pattern>
+        </layout>
+        <colorCoding>true</colorCoding>
+    </appender>
+
+    <appender name="ASYNC_SLACK" class="ch.qos.logback.classic.AsyncAppender">
+        <appender-ref ref="SLACK"/>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>warn</level>
+        </filter>
+    </appender>
 
     <springProfile name="dev">
         <appender name="ERROR-FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -43,7 +69,7 @@
         </appender>
 
         <root level="debug">
-            <appender-ref ref="CONSOLE"/>
+            <appender-ref ref="STDOUT"/>
             <appender-ref ref="ROLLING-FILE"/>
             <appender-ref ref="ERROR-FILE"/>
         </root>
@@ -87,6 +113,13 @@
         <root level="info">
             <appender-ref ref="ROLLING-FILE"/>
             <appender-ref ref="ERROR-FILE"/>
+            <appender-ref ref="ASYNC_SLACK"/>
+        </root>
+    </springProfile>
+
+    <springProfile name="local">
+        <root>
+            <appender-ref ref="STDOUT"/>
         </root>
     </springProfile>
 </configuration>
