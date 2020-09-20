@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Redirect } from "react-router-dom";
 import AutoCocktailWords from "./AutoCocktailWords";
 import {
@@ -9,7 +9,7 @@ import { DOWN, ENTER, ESC, UP } from "../../constants";
 import SearchedCocktails from "./SearchedCocktails";
 import MoreButton from "./MoreButton";
 
-const SearchContainer = ({ cocktails, setCocktails, role }) => {
+const SearchContainer = ({ cocktails, setCocktails }) => {
   const [autoCompletedCocktails, setAutoCompletedCocktails] = useState([]);
   const [highlightIndex, setHighlightIndex] = useState(-1);
   const [redirect, setRedirect] = useState("");
@@ -146,11 +146,7 @@ const SearchContainer = ({ cocktails, setCocktails, role }) => {
         </div>
       </div>
       <div className="cocktailSearchContent">
-        <SearchedCocktails
-          cocktails={cocktails}
-          setCocktails={setCocktails}
-          role={role}
-        />
+        <SearchedCocktails cocktails={cocktails} />
         <MoreButton
           searchWord={searchWord}
           cocktails={cocktails}

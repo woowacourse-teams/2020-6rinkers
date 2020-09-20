@@ -4,10 +4,10 @@ import Slider from "infinite-react-carousel";
 import ResultSlide from "./ResultSlide";
 import "../../css/recommend/result.css";
 
-const Result = ({ cocktails, role }) => {
+const Result = ({ recommendedCocktails }) => {
   const history = useHistory();
 
-  if (cocktails.length === 0) {
+  if (recommendedCocktails.length === 0) {
     return (
       <div className="no-result-container">
         <h2>아쉽게도 결과가 없네요</h2>
@@ -22,9 +22,9 @@ const Result = ({ cocktails, role }) => {
   return (
     <div className="result-container">
       <Slider>
-        {cocktails &&
-          cocktails.map((cocktail) => (
-            <ResultSlide cocktail={cocktail} key={cocktail.id} role={role} />
+        {recommendedCocktails &&
+          recommendedCocktails.map((cocktail) => (
+            <ResultSlide cocktail={cocktail} key={cocktail.id} />
           ))}
       </Slider>
     </div>

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import queryString from "query-string";
-import SearchedCocktails from "./SearchedCocktails";
 import "../../css/cocktailSearch/cocktailSearch.css";
 import SearchContainer from "./SearchContainer";
 import TagFilterContainer from "./TagFilterContainer";
 
-const CocktailSearch = ({ role }) => {
+const CocktailSearch = () => {
   const [cocktails, setCocktails] = useState([]);
   const [tabIndex, setTabIndex] = useState(0);
 
@@ -16,11 +15,7 @@ const CocktailSearch = ({ role }) => {
     {
       title: "Name",
       content: (
-        <SearchContainer
-          cocktails={cocktails}
-          setCocktails={setCocktails}
-          role={role}
-        />
+        <SearchContainer cocktails={cocktails} setCocktails={setCocktails} />
       ),
     },
     {
@@ -30,7 +25,6 @@ const CocktailSearch = ({ role }) => {
           cocktails={cocktails}
           setCocktails={setCocktails}
           history={history}
-          role={role}
         />
       ),
     },

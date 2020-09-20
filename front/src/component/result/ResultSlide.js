@@ -2,16 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../../css/recommend/result.css";
 
-const ResultSlide = ({ cocktail, key, role }) => {
+const ResultSlide = ({ cocktail, key }) => {
   return (
     <div className="result-slide" key={key}>
       <div className="result-cocktail-name">{cocktail.name}</div>
-      <Link
-        to={{
-          pathname: `/cocktails/${cocktail.id}`,
-          role: role,
-        }}
-      >
+      <Link to={`/cocktails/${cocktail.id}`}>
         <div className="result-cocktail-image">
           <img
             src={cocktail.imageUrl}

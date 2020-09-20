@@ -88,6 +88,11 @@ operation::tags/update[snippets='http-request,http-response,path-parameters,requ
 
 operation::tags/delete[snippets='http-request,http-response,path-parameters']
 
+[[resources-user-findFavoriteCocktailIds]]
+=== 즐겨찾기한 칵테일들의 id 조회
+
+operation::user/findFavoriteIds[snippets='http-request,http-response,request-headers,response-body']
+
 [[resources-terminologies-create]]
 === 용어 생성
 

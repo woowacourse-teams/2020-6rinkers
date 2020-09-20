@@ -3,14 +3,10 @@ import TodayCocktail from "./TodayCocktail";
 import "../../css/home/home.css";
 import Recommendation from "./Recommendation";
 
-const Home = ({ cocktails, setCocktails, role }) => {
+const Home = () => {
   return (
     <div className="home">
-      <TodayCocktail
-        cocktails={cocktails}
-        setCocktails={setCocktails}
-        role={role}
-      />
+      <TodayCocktail />
       <Recommendation />
     </div>
   );
