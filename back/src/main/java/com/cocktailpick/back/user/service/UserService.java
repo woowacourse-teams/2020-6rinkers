@@ -16,6 +16,7 @@ import com.cocktailpick.back.favorite.dto.FavoriteRequest;
 import com.cocktailpick.back.favorite.service.FavoriteRepository;
 import com.cocktailpick.back.user.domain.User;
 import com.cocktailpick.back.user.domain.UserRepository;
+import com.cocktailpick.back.user.dto.UserUpdateRequest;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
@@ -26,11 +27,22 @@ public class UserService {
 	private final FavoriteRepository favoriteRepository;
 	private final CocktailRepository cocktailRepository;
 
+	@Transactional
+	public void deleteCurrentUser(User user) {
+		userRepository.deleteById(user.getId());
+	}
+
+	@Transactional(readOnly = true)
 	public List<CocktailResponse> findFavorites(User user) {
 		return user.getFavorites().getFavorites().stream()
 			.map(Favorite::getCocktail)
 			.map(cocktail -> CocktailResponse.of(cocktail, true))
 			.collect(Collectors.toList());
+	}
+
+	public void updateUser(User user, UserUpdateRequest userRequest) {
+		user.setName(userRequest.getName());
+		userRepository.save(user);
 	}
 
 	@Transactional

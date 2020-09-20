@@ -87,3 +87,47 @@ operation::tags/update[snippets='http-request,http-response,path-parameters,requ
 === 태그 삭제
 
 operation::tags/delete[snippets='http-request,http-response,path-parameters']
+
+[[resources-terminologies-create]]
+=== 용어 생성
+
+operation::terminologies/create[snippets='http-request,http-response,request-fields']
+
+[[resources-terminologies-upload]]
+=== 용어 csv 파일 업로드
+
+operation::terminologies/upload[snippets='http-request,request-parts']
+
+[[resources-terminologies-findAll]]
+=== 용어 전체 조회
+
+operation::terminologies/findAll[snippets='http-request,http-response,response-fields']
+
+[[resources-terminologies-find]]
+=== 용어 단일 조회
+
+operation::terminologies/find[snippets='http-request,http-response,path-parameters,response-fields']
+
+[[resources-terminologies-update]]
+=== 용어 수정
+
+operation::terminologies/update[snippets='http-request,http-response,path-parameters,request-fields']
+
+[[resources-terminologies-delete]]
+=== 용어 삭제
+
+operation::terminologies/delete[snippets='http-request,path-parameters,http-response']
+
+[[resources-user-me]]
+== 유저 조회
+
+operation::user/me[snippets='http-request,http-response,request-fields,response-fields']
+[[resources-user-update]]
+== 유저 수정
+
+operation::user/update[snippets='http-request,http-response,request-fields']
+
+[[resources-user-delete]]
+== 유저 삭제
+
+operation::user/delete[snippets='http-request,http-response,request-headers']

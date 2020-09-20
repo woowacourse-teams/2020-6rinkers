@@ -10,6 +10,10 @@ import { userState } from "./recoil";
 import { getCurrentUser } from "./api/index";
 
 const App = () => {
+  useEffect(() => {
+    window.Kakao.init(`${process.env.REACT_APP_KAKAO_KEY}`);
+  }, [])
+
   const [cocktails, setCocktails] = useState([]);
   const [user, setUser] = useRecoilState(userState);
   const [loading, setLoading] = useState(false);

@@ -13,7 +13,7 @@
   justify-content: center;
   flex-direction: column;
   width: 100%;
-  margin: 3rem auto;
+  margin: 3rem auto 0 auto;
 }
 
 .search {
@@ -54,7 +54,7 @@
   grid-template-columns: repeat(3, 300px);
   grid-auto-rows: minmax(auto, 410px);
   gap: 2em;
-  margin-bottom: 2rem;
+  margin: 3rem 0;
 }
 
 .searchedCocktailContainer {
@@ -187,7 +187,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 3rem auto;
+  margin: 3rem auto 0 auto;
   width: 80%;
 }
 
@@ -206,6 +206,33 @@
   color: white;
   background-color: #a60000;
   transition: 0.3s all;
+}
+
+.cocktailSearchContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.moreButton {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  outline: 0;
+  border: solid 1px white;
+  border-radius: 0.4rem;
+  color: gray;
+  background-color: white;
+  box-shadow: 0 0 2px var(--light-black);
+  z-index: 1;
+  font-size: 16px;
+  padding: 0.5rem 5rem;
+  cursor: pointer;
+}
+
+.moreButton:hover {
+  background-color: var(--sharp-red);
+  color: white;
+  transition: 0.5s;
 }
 
 @media screen and (max-width: 1024px) {
@@ -234,6 +261,7 @@
 @media screen and (max-width: 700px) {
   .searchedCocktailsContainer {
     grid-template-columns: repeat(1, 280px);
+    margin: 0;
   }
 
   .searchTabContainerBox {
@@ -282,7 +310,7 @@
   }
 
   .searchContainer {
-    margin: 2rem 1rem 3rem 1rem;
+    margin: 2rem auto 3rem auto;
   }
 
   .searchedCocktailImage {
@@ -302,5 +330,15 @@
   .search {
     width: 280px;
     height: 2rem;
+  }
+
+  .moreButton {
+    margin-top: 2rem;
+  }
+
+  .moreButton:hover {
+    background-color: white;
+    color: gray;
+    transition: 0s;
   }
 }

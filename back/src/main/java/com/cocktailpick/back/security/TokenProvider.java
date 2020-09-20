@@ -8,7 +8,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.cocktailpick.back.common.config.security.AppProperties;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -35,7 +34,7 @@ public class TokenProvider {
 		Date expiryDate = new Date(now.getTime() + appProperties.getAuth().getTokenExpirationMsec());
 
 		return Jwts.builder()
-			.setSubject(userPrincipal.getName())
+			.setSubject(userPrincipal.getUsername())
 			.setIssuedAt(new Date())
 			.setExpiration(expiryDate)
 			.signWith(SignatureAlgorithm.HS512, appProperties.getAuth().getTokenSecret())

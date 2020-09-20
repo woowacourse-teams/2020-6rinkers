@@ -8,9 +8,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import com.cocktailpick.back.common.domain.BaseTimeEntity;
 import com.cocktailpick.back.favorite.domain.Favorite;
@@ -22,14 +25,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
 @Getter
 @Setter
+@SQLDelete(sql = "UPDATE user SET deleted=true WHERE id=?")
+@Where(clause = "deleted = false")
 public class User extends BaseTimeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence_gen")
@@ -40,7 +41,7 @@ public class User extends BaseTimeEntity {
 	private String name;
 
 	@Email
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false)
 	private String email;
 
 	private String imageUrl;
@@ -61,6 +62,8 @@ public class User extends BaseTimeEntity {
 
 	@Embedded
 	private Favorites favorites = Favorites.empty();
+
+	private boolean deleted;
 
 	@Builder
 	public User(Long id, String name, @Email String email, String imageUrl, Boolean emailVerified, String password,

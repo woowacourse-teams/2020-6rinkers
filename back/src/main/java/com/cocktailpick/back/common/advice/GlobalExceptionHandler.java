@@ -2,6 +2,7 @@ package com.cocktailpick.back.common.advice;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -42,6 +43,13 @@ public class GlobalExceptionHandler {
 		ErrorCode errorCode = e.getErrorCode();
 		ErrorResponse response = ErrorResponse.of(errorCode);
 		return new ResponseEntity<>(response, HttpStatus.valueOf(errorCode.getStatus()));
+	}
+
+	@ExceptionHandler(AuthenticationException.class)
+	protected ResponseEntity<ErrorResponse> handleAuthenticationException(AuthenticationException e) {
+		log.warn(e.getMessage(), e);
+		ErrorResponse response = ErrorResponse.of(ErrorCode.AUTH_ERROR);
+		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(Exception.class)
