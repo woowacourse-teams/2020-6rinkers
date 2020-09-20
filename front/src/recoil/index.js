@@ -12,6 +12,16 @@ export const userState = atom({
   },
 });
 
+export const favoriteState = atom({
+  key: "favoriteState",
+  default: {
+    ids: [],
+  },
+  persistence_UNSTABLE: {
+    type: "favoriteState",
+  },
+});
+
 export const terminologyAdminState = atom({
   key: "terminologyAdminState",
   default: TERMINOLOGY_ADMIN_PROTOTYPE,

@@ -20,6 +20,7 @@ import com.cocktailpick.back.cocktail.dto.CocktailResponse;
 import com.cocktailpick.back.favorite.dto.FavoriteRequest;
 import com.cocktailpick.back.security.CurrentUser;
 import com.cocktailpick.back.user.domain.User;
+import com.cocktailpick.back.user.dto.FavoriteCocktailIdsResponse;
 import com.cocktailpick.back.user.dto.UserResponse;
 import com.cocktailpick.back.user.dto.UserUpdateRequest;
 import com.cocktailpick.back.user.service.UserService;
@@ -57,6 +58,12 @@ public class UserController {
 	@GetMapping("/me/favorites")
 	public ResponseEntity<List<CocktailResponse>> findFavorites(@CurrentUser User user) {
 		return ResponseEntity.ok(userService.findFavorites(user));
+	}
+
+	@GetMapping("me/favoriteIds")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+	public ResponseEntity<FavoriteCocktailIdsResponse> findFavoriteCocktailIds(@CurrentUser User user) {
+		return ResponseEntity.ok(userService.findFavoriteCocktailIds(user));
 	}
 
 	@PostMapping("/me/favorites")

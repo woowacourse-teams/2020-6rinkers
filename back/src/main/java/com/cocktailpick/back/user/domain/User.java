@@ -1,5 +1,7 @@
 package com.cocktailpick.back.user.domain;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -87,6 +89,10 @@ public class User extends BaseTimeEntity {
 
 	public boolean isDuplicated(Favorite favorite) {
 		return favorites.isDuplicated(favorite);
+	}
+
+	public List<Long> findFavoriteCocktailIds() {
+		return favorites.findFavoriteCocktailIds();
 	}
 
 	public String roleName() {

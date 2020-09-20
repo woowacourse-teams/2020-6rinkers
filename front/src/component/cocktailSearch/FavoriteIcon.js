@@ -1,15 +1,17 @@
 import React from "react";
-import { deleteFavorite } from "../../api";
+import {
+  deleteFavorite,
+  fetchFavoriteCocktailIds,
+  getCurrentUser,
+} from "../../api";
 
-const FavoriteIcon = ({ cocktailId, cocktails, setCocktails }) => {
+const FavoriteIcon = ({ cocktailId, setFavorites }) => {
   const deleteFavoriteClick = async () => {
     await deleteFavorite(cocktailId);
 
-    setCocktails(
-      cocktails.map((cocktail) =>
-        cocktail.id === cocktailId ? { ...cocktail, favorite: false } : cocktail
-      )
-    );
+    fetchFavoriteCocktailIds().then((response) => {
+      setFavorites(response.data);
+    });
   };
 
   return (
