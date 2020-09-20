@@ -30,7 +30,6 @@ import com.cocktailpick.back.user.docs.UserDocumentation;
 import com.cocktailpick.back.user.domain.User;
 import com.cocktailpick.back.user.dto.FavoriteCocktailIdsResponse;
 import com.cocktailpick.back.user.dto.UserUpdateRequest;
-import com.cocktailpick.back.user.dto.FavoriteCocktailIds;
 import com.cocktailpick.back.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
