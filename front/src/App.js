@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import React, {useEffect, useState} from "react";
+import {useRecoilState, useSetRecoilState} from "recoil";
 import "./index.css";
 import Alert from "react-s-alert";
 import Routes from "./router/Routes";
-import { ACCESS_TOKEN, USER_PROTOTYPE } from "./constants";
+import {ACCESS_TOKEN, USER_PROTOTYPE} from "./constants";
 import "react-s-alert/dist/s-alert-default.css";
 import "react-s-alert/dist/s-alert-css-effects/slide.css";
-import { favoriteState, userState } from "./recoil";
-import { fetchFavoriteCocktailIds, getCurrentUser } from "./api/index";
+import {favoriteState, userState} from "./recoil";
+import {fetchFavoriteCocktailIds, getCurrentUser} from "./api/index";
 
 const App = () => {
   useEffect(() => {
@@ -19,7 +19,7 @@ const App = () => {
   const setFavorites = useSetRecoilState(favoriteState);
   const [loading, setLoading] = useState(false);
 
-  const { authenticated, currentUser } = user;
+  const {authenticated, currentUser} = user;
 
   const loadCurrentlyLoggedInUser = () => {
     setLoading(true);
@@ -55,16 +55,21 @@ const App = () => {
   useEffect(() => {
     if (localStorage.getItem(ACCESS_TOKEN)) {
       loadCurrentlyLoggedInUser();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem(ACCESS_TOKEN)) {
       loadFavoriteCocktailIds();
     }
   }, []);
 
   return (
-    <div className="App">
-      <Routes
-        authenticated={authenticated}
-        currentUser={currentUser}
-        handleLogout={handleLogout}
+      <div className="App">
+        <Routes
+            authenticated={authenticated}
+            currentUser={currentUser}
+            handleLogout={handleLogout}
         loading={loading}
       />
       <Alert
