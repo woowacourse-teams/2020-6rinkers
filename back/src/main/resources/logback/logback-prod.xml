@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<included>
+<configuration scan="true" scanPeriod="10 seconds">
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
@@ -82,4 +82,4 @@
     <logger name="org.springframework.web.filter.CommonsRequestLoggingFilter" level="DEBUG">
         <appender-ref ref="REQUEST-FILE"/>
     </logger>
-</included>
+</configuration>
