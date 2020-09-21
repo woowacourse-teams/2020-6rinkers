@@ -4,6 +4,7 @@ import Alert from "react-s-alert";
 import { fetchAllTags, fetchPagedCocktailsFilteredByTags } from "../../api";
 import SearchedCocktails from "./SearchedCocktails";
 import MoreButton from "./MoreButton";
+import NoSearchResult from "./NoSearchResult";
 
 const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
   const [allTags, setAllTags] = useState([]);
@@ -12,13 +13,17 @@ const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
   const tagSelectButtonRef = useRef(null);
 
   const initAllTags = async () => {
-    const response = await fetchAllTags();
-    setAllTags(
-      response.data.map((tag) => {
-        tag.tagId = String(tag.tagId);
-        return tag;
-      })
-    );
+    try {
+      const response = await fetchAllTags();
+      setAllTags(
+        response.data.map((tag) => {
+          tag.tagId = String(tag.tagId);
+          return tag;
+        })
+      );
+    } catch (e) {
+      Alert.error("태그 목록을 불러오는데 실패했습니다.");
+    }
   };
 
   const fetchCocktails = async () => {
@@ -63,18 +68,14 @@ const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
   };
 
   useEffect(() => {
-    initAllTags()
-      .then(() => {
-        const query = queryString.parse(history.location.search);
+    initAllTags().then(() => {
+      const query = queryString.parse(history.location.search);
 
-        if ("tagIds" in query) {
-          const tagIdsFromQuery = query.tagIds.split(",");
-          setSelectedTagIds(tagIdsFromQuery.filter((id) => id !== ""));
-        }
-      })
-      .catch((e) => {
-        Alert.error((e && e.message) || "태그 목록을 불러오는데 실패했습니다.");
-      });
+      if ("tagIds" in query) {
+        const tagIdsFromQuery = query.tagIds.split(",");
+        setSelectedTagIds(tagIdsFromQuery.filter((id) => id !== ""));
+      }
+    });
   }, []);
 
   useEffect(() => {
@@ -109,6 +110,7 @@ const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
         })}
       </div>
       <div className="cocktailSearchContent">
+        {cocktails.length === 0 ? <NoSearchResult type="Tags" /> : ""}
         <SearchedCocktails cocktails={cocktails} />
         <MoreButton
           selectedTagIds={selectedTagIds}
