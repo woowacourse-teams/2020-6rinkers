@@ -16,6 +16,7 @@ import com.cocktailpick.back.favorite.dto.FavoriteRequest;
 import com.cocktailpick.back.favorite.service.FavoriteRepository;
 import com.cocktailpick.back.user.domain.User;
 import com.cocktailpick.back.user.domain.UserRepository;
+import com.cocktailpick.back.user.dto.FavoriteCocktailIdsResponse;
 import com.cocktailpick.back.user.dto.UserUpdateRequest;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +37,7 @@ public class UserService {
 	public List<CocktailResponse> findFavorites(User user) {
 		return user.getFavorites().getFavorites().stream()
 			.map(Favorite::getCocktail)
-			.map(cocktail -> CocktailResponse.of(cocktail, true))
+			.map(CocktailResponse::of)
 			.collect(Collectors.toList());
 	}
 
@@ -61,5 +62,11 @@ public class UserService {
 	public void deleteFavorite(User user, Long cocktailId) {
 		user.deleteFavorite(cocktailId);
 		userRepository.save(user);
+	}
+
+	public FavoriteCocktailIdsResponse findFavoriteCocktailIds(User user) {
+		List<Long> favoriteCocktailIds = user.findFavoriteCocktailIds();
+
+		return new FavoriteCocktailIdsResponse(favoriteCocktailIds);
 	}
 }

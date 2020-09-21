@@ -25,22 +25,16 @@ public class CocktailResponse {
 
 	private List<TagResponse> tags;
 
-	private boolean favorite;
-
-	public static CocktailResponse of(Cocktail cocktail, boolean isFavorite) {
+	public static CocktailResponse of(Cocktail cocktail) {
 		return new CocktailResponse(cocktail.getId(), cocktail.getName(), cocktail.getImageUrl(),
-			TagResponse.listOf(cocktail.getTags()), isFavorite);
+			TagResponse.listOf(cocktail.getTags()));
 	}
 
 	public static List<CocktailResponse> listOf(List<Cocktail> cocktails, Favorites favorites) {
 		List<CocktailResponse> cocktailResponses = new ArrayList<>();
 
 		for (Cocktail cocktail : cocktails) {
-			if (favorites.isContainCocktail(cocktail)) {
-				cocktailResponses.add(CocktailResponse.of(cocktail, true));
-			} else {
-				cocktailResponses.add(CocktailResponse.of(cocktail, false));
-			}
+			cocktailResponses.add(of(cocktail));
 		}
 
 		return cocktailResponses;

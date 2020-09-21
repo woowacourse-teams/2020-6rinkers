@@ -41,4 +41,14 @@ public class UserDocumentation {
 			requestHeaders(
 				headerWithName("authorization").description("Bearer 토큰")));
 	}
+
+	public static RestDocumentationResultHandler findFavoriteCocktailIds() {
+		return document("user/findFavoriteIds",
+			requestHeaders(
+				headerWithName("authorization").description("Bearer 토큰")
+			),
+			responseFields(
+				fieldWithPath("ids").type(JsonFieldType.ARRAY).description("즐겨찾기 등록한 칵테일의 id들")
+			));
+	}
 }

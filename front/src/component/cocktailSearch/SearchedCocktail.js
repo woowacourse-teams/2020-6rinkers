@@ -5,7 +5,7 @@ import { useRecoilValue } from "recoil/dist";
 import CircularBox from "../common/CircularBox";
 import CocktailFavorite from "./CocktailFavorite";
 
-const SearchedCocktail = ({ cocktail, cocktails, setCocktails, role }) => {
+const SearchedCocktail = ({ cocktail }) => {
   const currentUser = useRecoilValue(userState).currentUser;
 
   return (
@@ -16,21 +16,12 @@ const SearchedCocktail = ({ cocktail, cocktails, setCocktails, role }) => {
       <div className="searchedCocktailName">{cocktail.name}</div>
       <div className="favoriteContainer">
         {currentUser.role ? (
-          <CocktailFavorite
-            cocktail={cocktail}
-            cocktails={cocktails}
-            setCocktails={setCocktails}
-          />
+          <CocktailFavorite cocktailId={cocktail.id} />
         ) : (
           <div />
         )}
       </div>
-      <Link
-        to={{
-          pathname: `/cocktails/${cocktail.id}`,
-          role: role,
-        }}
-      >
+      <Link to={`/cocktails/${cocktail.id}`}>
         <div className="searchedCocktailImage">
           <img src={cocktail.imageUrl} alt={cocktail.name} />
         </div>

@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import queryString from "query-string";
 import Alert from "react-s-alert";
 import { fetchAllTags, fetchPagedCocktailsFilteredByTags } from "../../api";
 import SearchedCocktails from "./SearchedCocktails";
 import MoreButton from "./MoreButton";
 
-const TagFilterContainer = ({ cocktails, setCocktails, history, role }) => {
+const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
   const [allTags, setAllTags] = useState([]);
   const [selectedTagIds, setSelectedTagIds] = useState([]);
   const tagFilterContainerRef = useRef(null);
@@ -109,11 +109,7 @@ const TagFilterContainer = ({ cocktails, setCocktails, history, role }) => {
         })}
       </div>
       <div className="cocktailSearchContent">
-        <SearchedCocktails
-          cocktails={cocktails}
-          setCocktails={setCocktails}
-          role={role}
-        />
+        <SearchedCocktails cocktails={cocktails} />
         <MoreButton
           selectedTagIds={selectedTagIds}
           cocktails={cocktails}

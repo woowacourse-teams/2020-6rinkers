@@ -1,20 +1,17 @@
 import React from "react";
 import FavoriteIcon from "./FavoriteIcon";
 import NotFavoriteIcon from "./NotFavoriteIcon";
+import { useRecoilState } from "recoil";
+import { favoriteState } from "../../recoil";
 
-const CocktailFavorite = ({ cocktail, cocktails, setCocktails }) => {
-  return cocktail.favorite ? (
-    <FavoriteIcon
-      cocktailId={cocktail.id}
-      cocktails={cocktails}
-      setCocktails={setCocktails}
-    />
+const CocktailFavorite = ({ cocktailId }) => {
+  const [favorites, setFavorites] = useRecoilState(favoriteState);
+  const favoriteCocktails = favorites.ids;
+
+  return favoriteCocktails.includes(cocktailId) ? (
+    <FavoriteIcon cocktailId={cocktailId} setFavorites={setFavorites} />
   ) : (
-    <NotFavoriteIcon
-      cocktailId={cocktail.id}
-      cocktails={cocktails}
-      setCocktails={setCocktails}
-    />
+    <NotFavoriteIcon cocktailId={cocktailId} setFavorites={setFavorites} />
   );
 };
 

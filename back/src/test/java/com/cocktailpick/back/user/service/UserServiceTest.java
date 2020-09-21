@@ -93,6 +93,12 @@ class UserServiceTest {
 		assertThat(userService.findFavorites(user).size()).isEqualTo(1);
 	}
 
+	@DisplayName("즐겨찾기한 칵테일의 id를 조회한다.")
+	@Test
+	void findFavoriteCocktailIdsTest() {
+		assertThat(userService.findFavoriteCocktailIds(user).getIds().size()).isEqualTo(1);
+	}
+
 	@DisplayName("즐겨찾기를 추가한다.")
 	@Test
 	void addFavoriteTest() {

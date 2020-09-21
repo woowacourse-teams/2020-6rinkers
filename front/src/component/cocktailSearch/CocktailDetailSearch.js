@@ -6,10 +6,12 @@ import RecipeItems from "./RecipeItems";
 import CocktailFavorite from "./CocktailFavorite";
 import { DARK_GREEN, DARK_BLUE } from "../../constants/Color";
 import { Link } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../recoil";
 
 const CocktailDetailSearch = (props) => {
   const { id } = props.match.params;
-  const role = props.location.role;
+  const role = useRecoilValue(userState).currentUser.role;
   const [cocktailData, setCocktailData] = useState({
     cocktail: {},
     tags: [],
@@ -37,11 +39,7 @@ const CocktailDetailSearch = (props) => {
         <p className="cocktail-name">{cocktailData.cocktail.name}</p>
         <div className="favoriteContainer">
           {role ? (
-            <CocktailFavorite
-              cocktail={cocktailData.cocktail}
-              cocktails={props.cocktails}
-              setCocktails={props.setCocktails}
-            />
+            <CocktailFavorite cocktailId={cocktailData.cocktail.id} />
           ) : (
             <div />
           )}

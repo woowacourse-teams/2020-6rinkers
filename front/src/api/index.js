@@ -96,6 +96,13 @@ export const signup = (signupRequest) =>
 export const fetchMyFavorites = () => {
   client.get("/api/user/me/favorites", config);
 };
+export const fetchFavoriteCocktailIds = () => {
+  return client.get("/api/user/me/favoriteIds", {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+    },
+  });
+};
 
 export const addFavorite = (data) =>
   client.post("/api/user/me/favorites", data, config);
