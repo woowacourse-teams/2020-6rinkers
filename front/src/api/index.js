@@ -30,17 +30,48 @@ export const fetchTodayCocktail = () => client.get("/api/cocktails/today");
 export const fetchCocktailsContaining = (contain) =>
   client.get(`api/cocktails/auto-complete`, { params: { contain } });
 export const createCocktail = (data) =>
-  client.post("/api/cocktails", data, config);
+  client.post("/api/cocktails", data, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+    },
+  });
 export const updateCocktail = (id, data) =>
-  client.put(`/api/cocktails/${id}`, data, config);
+  client.put(`/api/cocktails/${id}`, data, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+    },
+  });
 export const deleteCocktail = (id) =>
-  client.delete(`/api/cocktails/${id}`, config);
-export const deleteAllCocktail = () => client.delete("/api/cocktails", config);
+  client.delete(`/api/cocktails/${id}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+    },
+  });
+export const deleteAllCocktail = () =>
+  client.delete("/api/cocktails", {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+    },
+  });
 
-export const createTag = (data) => client.post("/api/tags", data, config);
+export const createTag = (data) =>
+  client.post("/api/tags", data, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+    },
+  });
 export const updateTag = (id, data) =>
-  client.put(`/api/tags/${id}`, data, config);
-export const deleteTag = (id) => client.delete(`/api/tags/${id}`, config);
+  client.put(`/api/tags/${id}`, data, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+    },
+  });
+export const deleteTag = (id) =>
+  client.delete(`/api/tags/${id}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+    },
+  });
 export const fetchAllTags = () => client.get("/api/tags");
 export const fetchThreeRandomConceptTags = () =>
   client.get("/api/tags?tagType=CONCEPT&size=3&random=true");
@@ -49,13 +80,25 @@ export const fetchThreeRandomIngredientTags = () =>
 export const fetchDislikeTags = () => client.get("/api/tags?tagType=DISLIKE");
 
 export const createTerminology = (data) =>
-  client.post("/api/terminologies", data, config);
+  client.post("/api/terminologies", data, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+    },
+  });
 export const fetchAllTerminologies = () => client.get("/api/terminologies");
 export const fetchTerminology = (id) => client.get(`/api/terminologies/${id}`);
 export const updateTerminology = (id, data) =>
-  client.put(`/api/terminologies/${id}`, data, config);
+  client.put(`/api/terminologies/${id}`, data, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+    },
+  });
 export const deleteTerminology = (id) =>
-  client.delete(`/api/terminologies/${id}`, config);
+  client.delete(`/api/terminologies/${id}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+    },
+  });
 
 export const createRecommend = (recommend) =>
   client.post(`/api/cocktails/recommend`, recommend);
