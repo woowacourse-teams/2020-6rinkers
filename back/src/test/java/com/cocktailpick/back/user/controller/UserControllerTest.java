@@ -62,9 +62,9 @@ class UserControllerTest extends DocumentationWithSecurity {
 	void findFavorites() throws Exception {
 		List<CocktailResponse> cocktailResponses = Arrays.asList(
 			new CocktailResponse(1L, "싱가폴 슬링", "https://naver.com",
-				Collections.singletonList(new TagResponse(1L, "마지막 양심", "컨셉")), false),
+				Collections.singletonList(new TagResponse(1L, "마지막 양심", "컨셉"))),
 			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
-				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")), false)
+				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")))
 		);
 		when(userService.findFavorites(any())).thenReturn(cocktailResponses);
 
