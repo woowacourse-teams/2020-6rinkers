@@ -72,7 +72,7 @@ public class CocktailService {
 	@Transactional(readOnly = true)
 	public CocktailDetailResponse findCocktail(Long id, Favorites favorites) {
 		Cocktail cocktail = findById(id);
-		return CocktailDetailResponse.of(cocktail, favorites.isContainCocktail(cocktail));
+		return CocktailDetailResponse.of(cocktail);
 	}
 
 	@Transactional
@@ -177,7 +177,7 @@ public class CocktailService {
 		List<Cocktail> cocktails = cocktailRepository.findAll();
 
 		Cocktail cocktailOfToday = cocktailSearcher.findIn(cocktails);
-		return CocktailResponse.of(cocktailOfToday, false);
+		return CocktailResponse.of(cocktailOfToday);
 	}
 
 	@Transactional(readOnly = true)

@@ -164,6 +164,6 @@ class CocktailRecommendServiceTest {
 		RecommendRequest recommendRequest = new RecommendRequest(abvAnswer, moodAnswer, flavorAnswer, preferenceAnswers,
 			nonPreferenceAnswers);
 
-		assertThat(cocktailRecommendService.recommend(recommendRequest, user.getFavorites())).isNotNull();
+		assertThat(cocktailRecommendService.recommend(recommendRequest)).isNotNull();
 	}
 }

@@ -38,7 +38,7 @@ public class UserResponse {
 			user.getFavorites()
 				.getFavorites()
 				.stream()
-				.map(favorite -> CocktailResponse.of(favorite.getCocktail(), true))
+				.map(favorite -> CocktailResponse.of(favorite.getCocktail()))
 				.collect(Collectors.toList()));
 	}
 }

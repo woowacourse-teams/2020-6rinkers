@@ -96,8 +96,7 @@ public class CocktailController {
 	@PostMapping("/recommend")
 	public ResponseEntity<List<CocktailDetailResponse>> recommend(@CurrentUser User user,
 		@RequestBody RecommendRequest recommendRequests) {
-		List<CocktailDetailResponse> cocktailDetailResponses = cocktailRecommendService.recommend(recommendRequests,
-			user.getFavorites());
+		List<CocktailDetailResponse> cocktailDetailResponses = cocktailRecommendService.recommend(recommendRequests);
 		return ResponseEntity.ok(cocktailDetailResponses);
 	}
 
