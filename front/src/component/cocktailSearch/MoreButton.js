@@ -20,13 +20,13 @@ const MoreButton = ({
       response = await fetchPagedCocktailsFilteredByTags({
         tagIds: selectedTagIds.join(","),
         id: cocktails.length === 0 ? 0 : cocktails.slice(-1).pop().id,
-        size: size,
+        size,
       });
     } else {
       response = await fetchPagedCocktailsContainingWord({
         contain: searchWord,
         id: cocktails.length === 0 ? 0 : cocktails.slice(-1).pop().id,
-        size: size,
+        size,
       });
     }
 
@@ -43,7 +43,7 @@ const MoreButton = ({
     try {
       await loadCocktails();
     } catch (e) {
-      Alert.error((e && e.message) || "추가 칵테일을 불러오는데 실패했습니다.");
+      Alert.error("추가 칵테일을 불러오는데 실패했습니다.");
     }
   };
 

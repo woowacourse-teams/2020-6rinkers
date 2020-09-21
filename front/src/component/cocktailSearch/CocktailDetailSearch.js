@@ -29,7 +29,7 @@ const CocktailDetailSearch = (props) => {
         recipe: data.recipe,
       });
     } catch (e) {
-      Alert.error((e && e.message) || "칵테일 상세 조회에 실패했습니다.");
+      Alert.error("칵테일 상세 조회에 실패했습니다.");
     }
   };
 

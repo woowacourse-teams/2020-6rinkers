@@ -22,7 +22,7 @@ const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
         })
       );
     } catch (e) {
-      Alert.error((e && e.message) || "태그 목록을 불러오는데 실패했습니다.");
+      Alert.error("태그 목록을 불러오는데 실패했습니다.");
     }
   };
 

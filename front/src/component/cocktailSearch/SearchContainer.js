@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Redirect } from "react-router-dom";
+import Alert from "react-s-alert";
 import AutoCocktailWords from "./AutoCocktailWords";
 import {
   fetchCocktailsContaining,
@@ -9,7 +10,6 @@ import { DOWN, ENTER, ESC, UP } from "../../constants";
 import SearchedCocktails from "./SearchedCocktails";
 import MoreButton from "./MoreButton";
 import NoSearchResult from "./NoSearchResult";
-import Alert from "react-s-alert";
 
 const SearchContainer = ({ cocktails, setCocktails }) => {
   const [autoCompletedCocktails, setAutoCompletedCocktails] = useState([]);
@@ -57,7 +57,7 @@ const SearchContainer = ({ cocktails, setCocktails }) => {
 
       setCocktails(content);
     } catch (e) {
-      Alert.error((e && e.message) || "칵테일을 불러오는데 실패했습니다.");
+      Alert.error("칵테일을 불러오는데 실패했습니다.");
     }
   };
 
@@ -114,7 +114,7 @@ const SearchContainer = ({ cocktails, setCocktails }) => {
       setAutoBox(true);
       highlightOut();
     } catch (e) {
-      Alert.error((e && e.message) || "칵테일 자동완성에 실패했습니다.");
+      Alert.error("칵테일 자동완성에 실패했습니다.");
     }
   };
 

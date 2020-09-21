@@ -15,9 +15,7 @@ const FavoriteIcon = ({ cocktailId, setFavorites }) => {
         setFavorites(response.data);
       });
     } catch (e) {
-      Alert.error(
-        (e && e.message) || "즐겨찾기를 삭제하는데 실패했습니다."
-      );
+      Alert.error("즐겨찾기를 삭제하는데 실패했습니다.");
     }
   };
 
