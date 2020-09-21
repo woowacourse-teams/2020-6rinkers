@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Redirect } from "react-router-dom";
+import Alert from "react-s-alert";
 import AutoCocktailWords from "./AutoCocktailWords";
 import {
   fetchCocktailsContaining,
@@ -8,6 +9,7 @@ import {
 import { DOWN, ENTER, ESC, UP } from "../../constants";
 import SearchedCocktails from "./SearchedCocktails";
 import MoreButton from "./MoreButton";
+import NoSearchResult from "./NoSearchResult";
 
 const SearchContainer = ({ cocktails, setCocktails }) => {
   const [autoCompletedCocktails, setAutoCompletedCocktails] = useState([]);
@@ -45,14 +47,18 @@ const SearchContainer = ({ cocktails, setCocktails }) => {
   };
 
   const fetchCocktails = async () => {
-    const response = await fetchPagedCocktailsContainingWord({
-      contain: searchWord,
-      id: 0,
-      size: 15,
-    });
-    const content = response.data;
+    try {
+      const response = await fetchPagedCocktailsContainingWord({
+        contain: searchWord,
+        id: 0,
+        size: 15,
+      });
+      const content = response.data;
 
-    setCocktails(content);
+      setCocktails(content);
+    } catch (e) {
+      Alert.error("칵테일을 불러오는데 실패했습니다.");
+    }
   };
 
   const search = () => {
@@ -101,11 +107,15 @@ const SearchContainer = ({ cocktails, setCocktails }) => {
       return;
     }
 
-    const response = await fetchCocktailsContaining(word);
-    const autoCompleted = response.data;
-    setAutoCompletedCocktails(autoCompleted);
-    setAutoBox(true);
-    highlightOut();
+    try {
+      const response = await fetchCocktailsContaining(word);
+      const autoCompleted = response.data;
+      setAutoCompletedCocktails(autoCompleted);
+      setAutoBox(true);
+      highlightOut();
+    } catch (e) {
+      Alert.error("칵테일 자동완성에 실패했습니다.");
+    }
   };
 
   useEffect(() => {
@@ -146,6 +156,7 @@ const SearchContainer = ({ cocktails, setCocktails }) => {
         </div>
       </div>
       <div className="cocktailSearchContent">
+        {cocktails.length === 0 ? <NoSearchResult type="Name" /> : ""}
         <SearchedCocktails cocktails={cocktails} />
         <MoreButton
           searchWord={searchWord}

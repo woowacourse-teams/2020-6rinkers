@@ -6,6 +6,7 @@ import RecipeItems from "./RecipeItems";
 import CocktailFavorite from "./CocktailFavorite";
 import { DARK_GREEN, DARK_BLUE } from "../../constants/Color";
 import { Link } from "react-router-dom";
+import Alert from "react-s-alert";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../recoil";
 
@@ -19,13 +20,17 @@ const CocktailDetailSearch = (props) => {
   });
 
   const onLoadCocktail = async () => {
-    const response = await fetchCocktail(id);
-    const { data } = response;
-    setCocktailData({
-      cocktail: data,
-      tags: data.tags,
-      recipe: data.recipe,
-    });
+    try {
+      const response = await fetchCocktail(id);
+      const { data } = response;
+      setCocktailData({
+        cocktail: data,
+        tags: data.tags,
+        recipe: data.recipe,
+      });
+    } catch (e) {
+      Alert.error("칵테일 상세 조회에 실패했습니다.");
+    }
   };
 
   useEffect(() => {
