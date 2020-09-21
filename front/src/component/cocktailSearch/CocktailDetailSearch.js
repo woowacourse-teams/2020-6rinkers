@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import Alert from "react-s-alert";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../recoil";
+import { tagSearchClickInduceAlert } from "../alert/Alerts";
 
 const CocktailDetailSearch = (props) => {
   const { id } = props.match.params;
@@ -39,6 +40,7 @@ const CocktailDetailSearch = (props) => {
 
   return (
     <div className="detail-info-container">
+      {tagSearchClickInduceAlert()}
       <div className="cocktailNameWithFavorite">
         <div className="emptyName" />
         <p className="cocktail-name">{cocktailData.cocktail.name}</p>

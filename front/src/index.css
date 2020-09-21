@@ -76,3 +76,9 @@ a {
   text-decoration: none;
   color: black;
 }
+
+.s-alert-box-inner > span {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
