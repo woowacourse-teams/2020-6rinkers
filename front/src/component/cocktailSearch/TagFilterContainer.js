@@ -30,7 +30,7 @@ const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
     const response = await fetchPagedCocktailsFilteredByTags({
       tagIds: selectedTagIds.join(","),
       id: 0,
-      size: 15,
+      size: 12,
     });
 
     const content = response.data;
