@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { recommendButtonClickInduceAlert } from "../alert/Alerts";
 
 const Recommendation = () => {
+  useEffect(() => {
+    recommendButtonClickInduceAlert();
+  }, []);
+
   return (
     <Link to="/recommend">
       <div className="homeRecommendation">

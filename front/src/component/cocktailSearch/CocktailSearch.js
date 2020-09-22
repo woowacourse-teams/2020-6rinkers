@@ -4,10 +4,14 @@ import queryString from "query-string";
 import "../../css/cocktailSearch/cocktailSearch.css";
 import SearchContainer from "./SearchContainer";
 import TagFilterContainer from "./TagFilterContainer";
+import { favoriteClickInduceAlert } from "../alert/Alerts";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../recoil";
 
 const CocktailSearch = () => {
   const [cocktails, setCocktails] = useState([]);
   const [tabIndex, setTabIndex] = useState(0);
+  const user = useRecoilValue(userState);
 
   const history = useHistory();
 
@@ -64,6 +68,7 @@ const CocktailSearch = () => {
 
   return (
     <div className="cocktailSearchContainer">
+      {favoriteClickInduceAlert(user.authenticated)}
       <div className="searchTabContainerBox">
         <div className="searchTabContainer">
           {tabs.map((tab, index) => {

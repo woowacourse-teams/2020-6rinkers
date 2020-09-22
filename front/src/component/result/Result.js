@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import Slider from "infinite-react-carousel";
 import ResultSlide from "./ResultSlide";
 import "../../css/recommend/result.css";
+import { recommendResultClickInduceAlert } from "../alert/Alerts";
 
 const Result = ({ recommendedCocktails }) => {
   const history = useHistory();
@@ -21,6 +22,7 @@ const Result = ({ recommendedCocktails }) => {
 
   return (
     <div className="result-container">
+      {recommendResultClickInduceAlert()}
       <Slider>
         {recommendedCocktails &&
           recommendedCocktails.map((cocktail) => (
