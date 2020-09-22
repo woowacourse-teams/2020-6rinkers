@@ -4,7 +4,7 @@ import { userState } from "../../recoil";
 import { useRecoilValue } from "recoil";
 
 const ServiceSlider = ({ slider, toggleSlider, handleLogout }) => {
-  const isActive = slider ? "serviceSlider active" : "serviceSlider";
+  const isActive = slider ? "service-slider active" : "service-slider";
 
   const currentUser = useRecoilValue(userState).currentUser;
   const authenticated = useRecoilValue(userState).authenticated;
