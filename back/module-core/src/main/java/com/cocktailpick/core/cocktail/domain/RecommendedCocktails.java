@@ -9,7 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.cocktailpick.back.cocktail.vo.UserPreferenceAnswer;
+import com.cocktailpick.core.cocktail.vo.UserPreferenceAnswer;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

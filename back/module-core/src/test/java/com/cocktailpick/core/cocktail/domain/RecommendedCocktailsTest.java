@@ -10,6 +10,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.cocktailpick.core.cocktail.vo.UserPreferenceAnswer;
+
 class RecommendedCocktailsTest {
 	private List<Cocktail> cocktails;
 

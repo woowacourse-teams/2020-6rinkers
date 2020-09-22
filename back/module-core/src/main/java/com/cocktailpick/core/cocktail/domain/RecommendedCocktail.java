@@ -1,6 +1,6 @@
 package com.cocktailpick.core.cocktail.domain;
 
-import com.cocktailpick.back.cocktail.vo.UserPreferenceAnswer;
+import com.cocktailpick.core.cocktail.vo.UserPreferenceAnswer;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

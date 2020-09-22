@@ -10,6 +10,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import com.cocktailpick.common.exceptions.InvalidValueException;
+
 class TerminologyTypeTest {
 
 	@DisplayName("TerminologyType에 포함되어 있는 name인 경우 알맞은 객체를 반환한다.")

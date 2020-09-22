@@ -9,6 +9,9 @@ import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 
+import com.cocktailpick.common.exceptions.ErrorCode;
+import com.cocktailpick.common.exceptions.InvalidValueException;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -18,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Embeddable
 public class CocktailTags {
 	@OneToMany(mappedBy = "cocktail", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.EAGER)
-	private final List<CocktailTag> cocktailTags = new ArrayList<>();
+	private List<CocktailTag> cocktailTags = new ArrayList<>();
 
 	public static CocktailTags empty() {
 		return new CocktailTags();

@@ -7,12 +7,14 @@ import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
 
+import com.cocktailpick.common.exceptions.ErrorCode;
+import com.cocktailpick.common.exceptions.InvalidValueException;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 
 @Embeddable
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+// @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class Recipe {
 	@OneToMany(mappedBy = "cocktail", cascade = CascadeType.PERSIST, orphanRemoval = true)

@@ -1,0 +1,7 @@
+bootJar { enabled = false }
+jar { enabled = true }
+
+dependencies {
+    runtimeOnly 'com.h2database:h2'
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+}

@@ -2,8 +2,8 @@ package com.cocktailpick.core.tag.domain;
 
 import java.util.Arrays;
 
-import com.cocktailpick.back.common.exceptions.ErrorCode;
-import com.cocktailpick.back.common.exceptions.InvalidValueException;
+import com.cocktailpick.common.exceptions.ErrorCode;
+import com.cocktailpick.common.exceptions.InvalidValueException;
 
 import lombok.Getter;
 

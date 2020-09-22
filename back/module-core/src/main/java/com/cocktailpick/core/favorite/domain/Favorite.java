@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
+import com.cocktailpick.common.exceptions.ErrorCode;
+import com.cocktailpick.common.exceptions.InvalidValueException;
 import com.cocktailpick.core.cocktail.domain.Cocktail;
 import com.cocktailpick.core.common.domain.BaseTimeEntity;
 import com.cocktailpick.core.user.domain.User;

@@ -1,0 +1,73 @@
+package com.cocktailpick.api.user.service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.cocktailpick.api.cocktail.dto.CocktailResponse;
+import com.cocktailpick.api.favorite.dto.FavoriteRequest;
+import com.cocktailpick.api.user.dto.FavoriteCocktailIdsResponse;
+import com.cocktailpick.api.user.dto.UserUpdateRequest;
+import com.cocktailpick.common.exceptions.EntityNotFoundException;
+import com.cocktailpick.common.exceptions.ErrorCode;
+import com.cocktailpick.core.cocktail.domain.Cocktail;
+import com.cocktailpick.core.cocktail.domain.CocktailRepository;
+import com.cocktailpick.core.favorite.domain.Favorite;
+import com.cocktailpick.core.favorite.domain.FavoriteRepository;
+import com.cocktailpick.core.user.domain.User;
+import com.cocktailpick.core.user.domain.UserRepository;
+
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
+@Service
+public class UserService {
+	private final UserRepository userRepository;
+	private final FavoriteRepository favoriteRepository;
+	private final CocktailRepository cocktailRepository;
+
+	@Transactional
+	public void deleteCurrentUser(User user) {
+		userRepository.deleteById(user.getId());
+	}
+
+	@Transactional(readOnly = true)
+	public List<CocktailResponse> findFavorites(User user) {
+		return user.getFavorites().getFavorites().stream()
+			.map(Favorite::getCocktail)
+			.map(CocktailResponse::of)
+			.collect(Collectors.toList());
+	}
+
+	public void updateUser(User user, UserUpdateRequest userRequest) {
+		user.setName(userRequest.getName());
+		userRepository.save(user);
+	}
+
+	@Transactional
+	public Long addFavorite(User user, FavoriteRequest favoriteRequest) {
+		Favorite favorite = new Favorite();
+		Cocktail cocktail = cocktailRepository.findById(favoriteRequest.getCocktailId())
+			.orElseThrow(() -> new EntityNotFoundException(ErrorCode.COCKTAIL_NOT_FOUND));
+
+		favorite.setCocktail(cocktail);
+		favorite.setUser(user);
+
+		return favoriteRepository.save(favorite).getId();
+	}
+
+	@Transactional
+	public void deleteFavorite(User user, Long cocktailId) {
+		user.deleteFavorite(cocktailId);
+		userRepository.save(user);
+	}
+
+	public FavoriteCocktailIdsResponse findFavoriteCocktailIds(User user) {
+		List<Long> favoriteCocktailIds = user.findFavoriteCocktailIds();
+
+		return new FavoriteCocktailIdsResponse(favoriteCocktailIds);
+	}
+}

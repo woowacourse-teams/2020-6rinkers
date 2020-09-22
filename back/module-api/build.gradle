@@ -1,0 +1,31 @@
+plugins {
+    id 'org.asciidoctor.convert' version '1.5.8'
+}
+
+ext {
+    snippetsDir = file('build/generated-snippets')
+}
+
+test {
+    outputs.dir snippetsDir
+}
+
+asciidoctor {
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-security:2.2.1.RELEASE'
+    implementation 'org.springframework.security:spring-security-oauth2-client:5.2.1.RELEASE'
+    implementation 'io.jsonwebtoken:jjwt:0.5.1'
+    implementation group: 'com.opencsv', name: 'opencsv', version: '4.4'
+    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    testImplementation 'org.springframework.security:spring-security-test'
+    implementation 'io.rest-assured:rest-assured-common:3.3.0'
+    testImplementation 'io.rest-assured:spring-mock-mvc:3.3.0'
+    implementation "com.github.maricn:logback-slack-appender:1.4.0"
+}

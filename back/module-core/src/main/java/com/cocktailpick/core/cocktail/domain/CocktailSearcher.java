@@ -2,8 +2,8 @@ package com.cocktailpick.core.cocktail.domain;
 
 import java.util.List;
 
-import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
-import com.cocktailpick.back.common.exceptions.ErrorCode;
+import com.cocktailpick.common.exceptions.EntityNotFoundException;
+import com.cocktailpick.common.exceptions.ErrorCode;
 
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

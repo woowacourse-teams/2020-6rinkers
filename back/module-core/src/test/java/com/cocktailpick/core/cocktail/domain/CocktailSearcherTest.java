@@ -9,6 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import com.cocktailpick.common.exceptions.EntityNotFoundException;
+
 class CocktailSearcherTest {
 	private CocktailSearcher cocktailSearcher;
 
