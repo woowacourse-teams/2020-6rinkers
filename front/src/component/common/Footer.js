@@ -9,8 +9,8 @@ const Footer = () => {
   };
 
   return (
-    <div className="footerContainer">
-      <div className="linkContainer">
+    <div className="footer-container">
+      <div className="link-container">
         <div className="link github">
           <a href="https://github.com/woowacourse-teams/2020-6rinkers" target="_blank">
             <img src="/image/github_logo.png" alt="github logo" />

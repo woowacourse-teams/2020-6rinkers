@@ -1,4 +1,4 @@
-.headerContainer {
+.header-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,7 +8,7 @@
   flex-shrink: 0;
 }
 
-.adminHeaderContainer {
+.admin-header-container {
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -16,12 +16,12 @@
   height: 55px;
 }
 
-.adminHeaderContainer > a {
+.admin-header-container > a {
   border: var(--black) 1px solid;
   padding: 0.3rem 0.5rem;
 }
 
-.adminHeaderContainer > a:hover {
+.admin-header-container > a:hover {
   color: var(--white);
   background-color: var(--black);
 }
@@ -48,7 +48,7 @@
   touch-action: none;
 }
 
-.mobileNav {
+.mobile-nav {
   display: none;
 }
 
@@ -58,7 +58,7 @@
   cursor: pointer;
 }
 
-.textLink {
+.text-link {
   height: 100%;
   text-decoration: none;
   color: inherit;
@@ -83,7 +83,7 @@
   height: 100%;
 }
 
-.serviceItem {
+.service-item {
   display: flex;
   align-items: center;
   height: 100%;
@@ -92,7 +92,7 @@
   cursor: pointer;
 }
 
-.serviceItem:hover {
+.service-item:hover {
   background-color: var(--little-light-red);
   transition: 0.1s ease;
   color: var(--white);
@@ -118,7 +118,7 @@
     padding-bottom: 0;
   }
 
-  .mobileNav {
+  .mobile-nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -129,18 +129,18 @@
     touch-action: none;
   }
 
-  .sliderToggle {
+  .slider-toggle {
     z-index: 10;
   }
 
-  .hamburgerIcon,
-  .xIcon {
+  .hamburger-icon,
+  .x-icon {
     width: 22px;
     padding-top: 0.5rem;
     cursor: pointer;
   }
 
-  .serviceSlider {
+  .service-slider {
     position: absolute;
     top: 55px;
     width: 63vw;
@@ -152,7 +152,7 @@
     transition: all 0.35s;
   }
 
-  .serviceSlider.active {
+  .service-slider.active {
     display: flex;
     flex-direction: column;
     top: 55px;
@@ -164,7 +164,7 @@
     z-index: 5;
   }
 
-  .serviceSliderItem {
+  .service-slider-item {
     z-index: 7;
     font-size: 18px;
     padding: 0.5rem;
@@ -172,13 +172,13 @@
     color: var(--little-light-red);
   }
 
-  .serviceSlider.active .serviceSliderItem {
+  .service-slider.active .service-slider-item {
     padding: 1rem;
     color: var(--little-light-red);
     text-decoration: none;
   }
 
-  .serviceSlider.active .serviceSliderItem:hover {
+  .service-slider.active .service-slider-item:hover {
     color: var(--white);
     background-color: var(--little-light-red);
   }

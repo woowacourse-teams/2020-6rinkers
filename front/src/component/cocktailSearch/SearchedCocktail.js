@@ -10,11 +10,11 @@ const SearchedCocktail = ({ cocktail }) => {
 
   return (
     <div
-      className="searchedCocktailContainer"
+      className="searched-cocktail-container"
       data-search-cocktail={cocktail.id}
     >
-      <div className="searchedCocktailName">{cocktail.name}</div>
-      <div className="favoriteContainer">
+      <div className="searched-cocktail-name">{cocktail.name}</div>
+      <div className="favorite-container">
         {currentUser.role ? (
           <CocktailFavorite cocktailId={cocktail.id} />
         ) : (
@@ -22,11 +22,11 @@ const SearchedCocktail = ({ cocktail }) => {
         )}
       </div>
       <Link to={`/cocktails/${cocktail.id}`}>
-        <div className="searchedCocktailImage">
+        <div className="searched-cocktail-image">
           <img src={cocktail.imageUrl} alt={cocktail.name} />
         </div>
       </Link>
-      <div className="searchedCocktailTags">
+      <div className="searched-cocktail-tags">
         {cocktail.tags &&
           cocktail.tags
             .sort((a, b) => a.name.length - b.name.length)

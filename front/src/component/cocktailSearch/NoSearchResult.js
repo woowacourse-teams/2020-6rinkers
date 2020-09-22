@@ -2,9 +2,9 @@ import React from "react";
 
 const NoSearchResult = ({ type }) => {
   return (
-    <div className="noSearchResult">
+    <div className="no-search-result">
       검색 결과가 없습니다. 😥
-      <ul className="noSearchResultDescription">
+      <ul className="no-search-result-description">
         {type === "Name" && (
           <>
             <li>검색어의 철자와 띄어쓰기가 정확한지 확인해주세요.</li>

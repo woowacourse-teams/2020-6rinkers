@@ -56,7 +56,7 @@ const CocktailDetailSearch = (props) => {
           className="detail-info-image"
         />
       </div>
-      <div className="tags-container">
+      <div className="detail-tags-container">
         {cocktailData.tags &&
           cocktailData.tags.map((tag, index) => (
             <Link to={`/cocktails/search?tagIds=${tag.tagId}`}>

@@ -2,10 +2,10 @@ import React from "react";
 
 const CocktailInputContainer = ({ property, value, onChange, onEnter }) => {
   return (
-    <div className="inputContainer">
+    <div className="input-container">
       <div>{property}</div>
       <input
-        className="inputBox"
+        className="input-box"
         name={property}
         onChange={onChange}
         value={value}

@@ -22,6 +22,10 @@
   height: 0;
 }
 
+.detail-favorite-container > div > img {
+  cursor: pointer;
+}
+
 .detail-info-image-container {
   margin-bottom: 1.5rem;
   width: 18rem;
@@ -34,13 +38,13 @@
   height: 100%;
 }
 
-.tags-container,
+.detail-tags-container,
 .abv-and-taste-container,
 .recipe-container {
   padding: 0.3rem 0;
 }
 
-.tags-container {
+.detail-tags-container {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -98,7 +102,7 @@
     height: 100%;
   }
 
-  .tags-container,
+  .detail-tags-container,
   .abv-and-taste-container,
   .recipe-container {
     padding: 0.2rem 0;

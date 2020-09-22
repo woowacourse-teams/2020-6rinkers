@@ -52,7 +52,7 @@ const MoreButton = ({
   }
 
   return (
-    <button className="moreButton" onClick={onMoreButtonClick}>
+    <button className="more-button" onClick={onMoreButtonClick}>
       결과 더 보기
     </button>
   );

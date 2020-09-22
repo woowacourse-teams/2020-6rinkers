@@ -18,7 +18,7 @@ const ServiceSlider = ({ slider, toggleSlider, handleLogout }) => {
     <div className={isActive}>
       <NavLink
         to="/cocktails/search"
-        className="serviceSliderItem"
+        className="service-slider-item"
         activeClassName="navitem-active"
         onClick={toggleSlider}
       >
@@ -26,7 +26,7 @@ const ServiceSlider = ({ slider, toggleSlider, handleLogout }) => {
       </NavLink>
       <NavLink
         to="/bars"
-        className="serviceSliderItem"
+        className="service-slider-item"
         activeClassName="navitem-active"
         onClick={toggleSlider}
       >
@@ -34,7 +34,7 @@ const ServiceSlider = ({ slider, toggleSlider, handleLogout }) => {
       </NavLink>
       <NavLink
         to="/recommend"
-        className="serviceSliderItem"
+        className="service-slider-item"
         activeClassName="navitem-active"
         onClick={toggleSlider}
       >
@@ -44,13 +44,13 @@ const ServiceSlider = ({ slider, toggleSlider, handleLogout }) => {
         <>
           <NavLink
             to="/mypage"
-            className="serviceSliderItem"
+            className="service-slider-item"
             activeClassName="navitem-active"
             onClick={toggleSlider}
           >
             {currentUser.name}
           </NavLink>
-          <a onClick={closeAndLogout} className="serviceSliderItem">
+          <a onClick={closeAndLogout} className="service-slider-item">
             로그아웃
           </a>
         </>
@@ -58,7 +58,7 @@ const ServiceSlider = ({ slider, toggleSlider, handleLogout }) => {
         <>
           <NavLink
             to="/login"
-            className="serviceSliderItem"
+            className="service-slider-item"
             activeClassName="navitem-active"
             onClick={toggleSlider}
           >
@@ -66,7 +66,7 @@ const ServiceSlider = ({ slider, toggleSlider, handleLogout }) => {
           </NavLink>
           <NavLink
             to="/signup"
-            className="serviceSliderItem"
+            className="service-slider-item"
             activeClassName="navitem-active"
             onClick={toggleSlider}
           >
