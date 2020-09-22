@@ -51,7 +51,7 @@ const SearchContainer = ({ cocktails, setCocktails }) => {
       const response = await fetchPagedCocktailsContainingWord({
         contain: searchWord,
         id: 0,
-        size: 15,
+        size: 12,
       });
       const content = response.data;
 
