@@ -24,7 +24,7 @@ const NotFavoriteIcon = ({ cocktailId, setFavorites }) => {
 
   return (
     <div onClick={addFavoriteClick}>
-      <img src="/not_favorite.svg" style={{ width: 24 }} />
+      <img src="/not_favorite.svg" style={{ width: 23 }} />
     </div>
   );
 };
