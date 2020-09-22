@@ -41,17 +41,14 @@ const CocktailDetailSearch = (props) => {
   return (
     <div className="detail-info-container">
       {tagSearchClickInduceAlert()}
-      <div className="cocktailNameWithFavorite">
-        <div className="emptyName" />
-        <p className="cocktail-name">{cocktailData.cocktail.name}</p>
-        <div className="favoriteContainer">
+        <p className="detail-cocktail-name">{cocktailData.cocktail.name}</p>
+        <div className="detail-favorite-container">
           {role ? (
             <CocktailFavorite cocktailId={cocktailData.cocktail.id} />
           ) : (
             <div />
           )}
         </div>
-      </div>
       <div className="detail-info-image-container">
         <img
           src={cocktailData.cocktail.imageUrl}

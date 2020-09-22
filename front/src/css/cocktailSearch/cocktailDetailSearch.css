@@ -9,10 +9,17 @@
   padding: 3rem 0 0 0;
 }
 
-.cocktail-name {
-  margin-bottom: 1.5rem;
+.detail-cocktail-name {
   font-size: 1.5rem;
   color: var(--red);
+}
+
+.detail-favorite-container {
+  display: flex;
+  position: relative;
+  top: -1.9rem;
+  right: -8rem;
+  height: 0;
 }
 
 .detail-info-image-container {

@@ -84,8 +84,8 @@
 .favoriteContainer {
   display: flex;
   position: relative;
-  top: -1.5rem;
-  right: -6rem;
+  top: -2rem;
+  right: -6.3rem;
   height: 0;
 }
 
