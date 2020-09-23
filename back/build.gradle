@@ -46,6 +46,7 @@ dependencies {
     implementation 'io.rest-assured:rest-assured-common:3.3.0'
     testImplementation 'io.rest-assured:spring-mock-mvc:3.3.0'
     implementation("com.google.guava:guava:29.0-jre")
+    implementation "com.github.maricn:logback-slack-appender:1.4.0"
 }
 
 test {

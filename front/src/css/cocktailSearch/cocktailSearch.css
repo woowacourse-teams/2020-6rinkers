@@ -235,6 +235,19 @@
   transition: 0.5s;
 }
 
+.noSearchResult {
+  margin-top: 3rem;
+  font-size: 16px;
+}
+
+.noSearchResultDescription {
+  margin-top: 1rem;
+  margin-left: 2rem;
+  list-style: circle;
+  color: var(--little-gray);
+  font-size: 14px;
+}
+
 @media screen and (max-width: 1024px) {
   .searchedCocktailsContainer {
     grid-template-columns: repeat(2, 280px);
@@ -283,7 +296,7 @@
   .tagSelectButton {
     display: inline-block;
     padding: 0.1rem 0.5rem;
-    margin: 1.5rem auto;
+    margin: 2rem auto 3rem auto;
     outline: 0;
     border: solid 1px var(--sharp-red);
     border-radius: 0.4rem;
@@ -340,5 +353,9 @@
     background-color: white;
     color: gray;
     transition: 0s;
+  }
+
+  .noSearchResult {
+    margin: 0 2rem;
   }
 }
