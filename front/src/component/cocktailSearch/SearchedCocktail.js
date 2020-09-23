@@ -13,7 +13,10 @@ const SearchedCocktail = ({ cocktail }) => {
       className="searched-cocktail-container"
       data-search-cocktail={cocktail.id}
     >
-      <div className="searched-cocktail-name">{cocktail.name}</div>
+      <Link to={`/cocktails/${cocktail.id}`}>
+        <div className="searched-cocktail-name">{cocktail.name}</div>
+      </Link>
+
       <div className="favorite-container">
         {currentUser.role ? (
           <CocktailFavorite cocktailId={cocktail.id} />
