@@ -363,4 +363,8 @@
   .no-search-result {
     margin: 0 2rem;
   }
+
+  .no-more-result {
+    padding: 2rem 0;
+  }
 }

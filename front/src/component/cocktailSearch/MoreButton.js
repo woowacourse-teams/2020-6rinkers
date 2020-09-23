@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Alert from "react-s-alert";
 import {
   fetchPagedCocktailsContainingWord,
@@ -65,7 +65,7 @@ const MoreButton = ({
       결과 더 보기
     </button>
   ) : (
-    <div>더 이상 검색 결과가 없습니다.</div>
+    <div className="no-more-result">더 이상 검색 결과가 없습니다.</div>
   );
 };
 
