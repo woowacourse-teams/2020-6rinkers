@@ -8,12 +8,7 @@ const ResultSlide = ({ cocktail, key }) => {
       <div className="result-cocktail-name">{cocktail.name}</div>
       <Link to={`/cocktails/${cocktail.id}`}>
         <div className="result-cocktail-image">
-          <img
-            src={cocktail.imageUrl}
-            alt={cocktail.name}
-            width="70%"
-            height="100%;"
-          />
+          <img src={cocktail.imageUrl} alt={cocktail.name} />
         </div>
       </Link>
       <div className="result-cocktail-description">{cocktail.description}</div>
