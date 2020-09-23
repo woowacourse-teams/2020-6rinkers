@@ -1,11 +1,15 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Redirect } from "react-router-dom";
+import Alert from "react-s-alert";
 import AutoCocktailWords from "./AutoCocktailWords";
 import {
   fetchCocktailsContaining,
   fetchPagedCocktailsContainingWord,
 } from "../../api";
 import { DOWN, ENTER, ESC, UP } from "../../constants";
+import SearchedCocktails from "./SearchedCocktails";
+import MoreButton from "./MoreButton";
+import NoSearchResult from "./NoSearchResult";
 
 const SearchContainer = ({ cocktails, setCocktails }) => {
   const [autoCompletedCocktails, setAutoCompletedCocktails] = useState([]);
@@ -43,45 +47,19 @@ const SearchContainer = ({ cocktails, setCocktails }) => {
   };
 
   const fetchCocktails = async () => {
-    const response = await fetchPagedCocktailsContainingWord({
-      contain: searchWord,
-      id: 0,
-      size: 15,
-    });
-    const content = response.data;
+    try {
+      const response = await fetchPagedCocktailsContainingWord({
+        contain: searchWord,
+        id: 0,
+        size: 15,
+      });
+      const content = response.data;
 
-    setCocktails(content);
-  };
-
-  const loadCocktails = async (size) => {
-    const response = await fetchPagedCocktailsContainingWord({
-      contain: searchWord,
-      id: cocktails.length === 0 ? 0 : cocktails.slice(-1).pop().id,
-      size: size,
-    });
-
-    const content = response.data;
-    if (content.length === 0) {
-      return;
+      setCocktails(content);
+    } catch (e) {
+      Alert.error("칵테일을 불러오는데 실패했습니다.");
     }
-
-    await setCocktails(cocktails.concat(content));
   };
-
-  const infiniteScroll = useCallback(async () => {
-    const size = window.innerWidth > 700 ? 18 : 6;
-    const threshold = window.innerWidth > 700 ? 1600 : 1300;
-
-    if (
-      document.documentElement.scrollTop +
-        document.documentElement.clientHeight >=
-      document.documentElement.scrollHeight - threshold
-    ) {
-      window.removeEventListener("scroll", infiniteScroll, true);
-      await loadCocktails(size);
-      window.addEventListener("scroll", infiniteScroll, true);
-    }
-  }, [cocktails]);
 
   const search = () => {
     if (isNotFocus(highlightIndex)) {
@@ -129,17 +107,16 @@ const SearchContainer = ({ cocktails, setCocktails }) => {
       return;
     }
 
-    const response = await fetchCocktailsContaining(word);
-    const autoCompleted = response.data;
-    setAutoCompletedCocktails(autoCompleted);
-    setAutoBox(true);
-    highlightOut();
+    try {
+      const response = await fetchCocktailsContaining(word);
+      const autoCompleted = response.data;
+      setAutoCompletedCocktails(autoCompleted);
+      setAutoBox(true);
+      highlightOut();
+    } catch (e) {
+      Alert.error("칵테일 자동완성에 실패했습니다.");
+    }
   };
-
-  useEffect(() => {
-    window.addEventListener("scroll", infiniteScroll, true);
-    return () => window.removeEventListener("scroll", infiniteScroll, true);
-  }, [infiniteScroll]);
 
   useEffect(() => {
     fetchCocktails();
@@ -148,29 +125,44 @@ const SearchContainer = ({ cocktails, setCocktails }) => {
   return redirect ? (
     <Redirect push to={redirect} />
   ) : (
-    <div className="searchContainer">
-      <div className="search">
-        <input
-          className="cocktailSearchInput"
-          type="text"
-          placeholder="검색어를 입력하세요."
-          onChange={onChange}
-          onKeyDown={onKeyDown}
-          onMouseDown={highlightOut}
-          onBlur={onBlur}
-          ref={searchInput}
-        />
-        {!autoBox || (
-          <AutoCocktailWords
-            cocktails={autoCompletedCocktails}
-            highlightIndex={highlightIndex}
-            updateHighlight={setHighlightIndex}
-            onMouseDown={search}
+    <div>
+      <div className="searchContainer">
+        <div className="search">
+          <input
+            className="cocktailSearchInput"
+            type="text"
+            placeholder="검색어를 입력하세요."
+            onChange={onChange}
+            onKeyDown={onKeyDown}
+            onMouseDown={highlightOut}
+            onBlur={onBlur}
+            ref={searchInput}
           />
-        )}
-        <div className="searchButtonContainer" onMouseDown={search}>
-          <img className="searchButton" src="/image/search.svg" alt="search" />
+          {!autoBox || (
+            <AutoCocktailWords
+              cocktails={autoCompletedCocktails}
+              highlightIndex={highlightIndex}
+              updateHighlight={setHighlightIndex}
+              onMouseDown={search}
+            />
+          )}
+          <div className="searchButtonContainer" onMouseDown={search}>
+            <img
+              className="searchButton"
+              src="/image/search.svg"
+              alt="search"
+            />
+          </div>
         </div>
+      </div>
+      <div className="cocktailSearchContent">
+        {cocktails.length === 0 ? <NoSearchResult type="Name" /> : ""}
+        <SearchedCocktails cocktails={cocktails} />
+        <MoreButton
+          searchWord={searchWord}
+          cocktails={cocktails}
+          setCocktails={setCocktails}
+        />
       </div>
     </div>
   );

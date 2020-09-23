@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import queryString from "query-string";
-import SearchedCocktails from "./SearchedCocktails";
 import "../../css/cocktailSearch/cocktailSearch.css";
 import SearchContainer from "./SearchContainer";
 import TagFilterContainer from "./TagFilterContainer";
+import { favoriteClickInduceAlert } from "../alert/Alerts";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../recoil";
 
-const CocktailSearch = ({ role }) => {
+const CocktailSearch = () => {
   const [cocktails, setCocktails] = useState([]);
   const [tabIndex, setTabIndex] = useState(0);
+  const user = useRecoilValue(userState);
 
   const history = useHistory();
 
@@ -65,6 +68,7 @@ const CocktailSearch = ({ role }) => {
 
   return (
     <div className="cocktailSearchContainer">
+      {favoriteClickInduceAlert(user.authenticated)}
       <div className="searchTabContainerBox">
         <div className="searchTabContainer">
           {tabs.map((tab, index) => {
@@ -82,11 +86,6 @@ const CocktailSearch = ({ role }) => {
         </div>
       </div>
       <div>{tabs[tabIndex].content}</div>
-      <SearchedCocktails
-        cocktails={cocktails}
-        setCocktails={setCocktails}
-        role={role}
-      />
     </div>
   );
 };
