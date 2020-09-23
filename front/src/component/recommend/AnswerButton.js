@@ -12,9 +12,7 @@ const AnswerButton = ({ tagId, answer, onChangeAnswer }) => {
       </button>
       <button
         onClick={() => onChangeAnswer(tagId, "SOSO")}
-        className={
-          answer === "SOSO" ? "answer-button checked" : "answer-button"
-        }
+        className={answer === "SOSO" ? "answer-button checked" : "answer-button"}
       >
         {answerList[0].soso}
       </button>

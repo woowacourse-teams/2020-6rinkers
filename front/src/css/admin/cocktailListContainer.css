@@ -1,24 +1,24 @@
-.cocktailsList {
+.cocktails-list {
   display: flex;
   flex-direction: column;
 }
 
-.cocktailItem {
+.cocktail-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: var(--little-light-black) solid 2px;
 }
 
-.cocktailItem:hover {
+.cocktail-item:hover {
   background-color: var(--little-dark-white);
 }
 
-.cocktailItem > img {
+.cocktail-item > img {
   max-width: 68px;
 }
 
-.cocktailName {
+.cocktail-name {
   margin-left: 0.5rem;
 }
 

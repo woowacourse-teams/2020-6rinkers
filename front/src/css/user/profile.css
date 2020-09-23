@@ -81,7 +81,7 @@
 
 @media screen and (max-width: 700px) {
   .my-favorites {
-    width: 300px;
+    width: 85vw;
     height: 40vh;
   }
 

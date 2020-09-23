@@ -12,14 +12,14 @@ const TodayCocktail = () => {
   }, []);
 
   return (
-    <div className="todayCocktailContainer">
-      <div className="todayCocktailTitle">오늘의 칵테일</div>
+    <div className="today-cocktail-container">
+      <div className="today-cocktail-title">오늘의 칵테일</div>
       <Link to={`/cocktails/${todayCocktail.id}`}>
-        <div className="todayCocktailImage">
+        <div className="today-cocktail-image">
           <img src={todayCocktail.imageUrl} alt={todayCocktail.name} />
         </div>
       </Link>
-      <div className="todayCocktailName">{todayCocktail.name}</div>
+      <div className="today-cocktail-name">{todayCocktail.name}</div>
     </div>
   );
 };

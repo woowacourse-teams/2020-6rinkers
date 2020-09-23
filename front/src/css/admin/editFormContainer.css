@@ -1,9 +1,9 @@
-.cocktailsDeleteBtn {
+.cocktails-delete-btn {
   width: 160px;
   margin-top: 0.2rem;
 }
 
-.editForms {
+.edit-forms {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -11,7 +11,7 @@
   user-select: none;
 }
 
-.inputContainer {
+.input-container {
   margin-bottom: 0.8rem;
 }
 
@@ -20,7 +20,7 @@
   margin: 0.5rem;
 }
 
-.inputBox {
+.input-box {
   max-width: 400px;
   width: 30vw;
 }

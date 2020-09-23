@@ -159,4 +159,8 @@
   .form-item {
     width: 90%;
   }
+
+  .signup-link {
+    width: 100%;
+  }
 }

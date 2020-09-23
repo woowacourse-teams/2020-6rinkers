@@ -36,12 +36,12 @@
 }
 
 .soju,
-.riceWine,
+.rice-wine,
 .whisky {
   height: 4rem;
 }
 
-.sliderArea {
+.slider-area {
   width: 300px;
   margin: 1rem auto 3rem auto;
 }
@@ -122,12 +122,12 @@
   }
 
   .soju,
-  .riceWine,
+  .rice-wine,
   .whisky {
     height: 3rem;
   }
 
-  .sliderArea {
+  .slider-area {
     width: 90%;
     margin: 1rem auto 3rem auto;
   }

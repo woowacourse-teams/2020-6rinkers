@@ -4,9 +4,9 @@ import ServiceSlider from "./ServicesSlider";
 
 const MobileNav = ({ offSlider, toggleSlider, slider, handleLogout }) => {
   return (
-    <div className="mobileNav">
+    <div className="mobile-nav">
       <div className="logo-container">
-        <Link to="/" className="textLink" onClick={offSlider}>
+        <Link to="/" className="text-link" onClick={offSlider}>
           <img
             className="logo"
             src="/image/logo/CocktailPick_logo_FullName_transparent.png "
@@ -21,12 +21,12 @@ const MobileNav = ({ offSlider, toggleSlider, slider, handleLogout }) => {
           handleLogout={handleLogout}
         />
       )}
-      <div className="sliderToggle" onClick={toggleSlider}>
+      <div className="slider-toggle" onClick={toggleSlider}>
         {slider ? (
-          <img className="xIcon" src="/image/x.svg" alt="x" />
+          <img className="x-icon" src="/image/x.svg" alt="x" />
         ) : (
           <img
-            className="hamburgerIcon"
+            className="hamburger-icon"
             src="/image/hamburger.svg"
             alt="hamburger"
           />

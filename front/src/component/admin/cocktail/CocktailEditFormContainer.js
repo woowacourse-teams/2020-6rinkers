@@ -44,17 +44,17 @@ const CocktailEditFormContainer = ({
 
   return (
     <>
-      <div className="fileUploadContainer">
+      <div className="file-upload-container">
         <FileUploadContainer />
       </div>
       <button
-        className="cocktailsDeleteBtn"
+        className="cocktails-delete-btn"
         type="button"
         onClick={deleteAllCocktails}
       >
         모든 칵테일 삭제하기
       </button>
-      <div className="editForms">
+      <div className="edit-forms">
         {Object.keys(cocktail).map((property, index) => (
           <CocktailInputContainer
             property={property}

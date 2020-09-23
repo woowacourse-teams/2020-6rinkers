@@ -31,7 +31,7 @@ const Abv = ({ addAnswer }) => {
           {abvToImageConverter(abvs[1])}
         </div>
       </div>
-      <div className="sliderArea">
+      <div className="slider-area">
         <Range
           marks={{
             0: "무알콜",

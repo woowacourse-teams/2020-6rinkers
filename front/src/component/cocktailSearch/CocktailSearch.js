@@ -67,14 +67,14 @@ const CocktailSearch = () => {
   }, []);
 
   return (
-    <div className="cocktailSearchContainer">
+    <div className="cocktail-search-container">
       {favoriteClickInduceAlert(user.authenticated)}
-      <div className="searchTabContainerBox">
-        <div className="searchTabContainer">
+      <div className="search-tab-container-box">
+        <div className="search-tab-container">
           {tabs.map((tab, index) => {
             return (
               <button
-                className={index === tabIndex ? "clickedTab" : "unclickedTab"}
+                className={index === tabIndex ? "clicked-tab" : "unclicked-tab"}
                 key={index}
                 data-index={index}
                 onClick={onClickTab}

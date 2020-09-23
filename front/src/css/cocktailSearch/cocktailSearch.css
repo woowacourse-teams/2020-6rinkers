@@ -1,12 +1,13 @@
-.cocktailSearchContainer {
+.cocktail-search-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 100%;
   user-select: none;
+  overflow-anchor: none;
 }
 
-.searchContainer {
+.search-container {
   display: flex;
   position: relative;
   align-items: center;
@@ -35,29 +36,29 @@
   border: none;
 }
 
-.searchButtonContainer {
+.search-button-container {
   width: 28px;
   height: 28px;
   margin-right: 0.5rem;
   cursor: pointer;
 }
 
-.tagsContainer {
+.tags-container {
   background-color: gray;
   margin: 1rem;
   width: 100%;
   height: 5vh;
 }
 
-.searchedCocktailsContainer {
+.searched-cocktails-container {
   display: grid;
   grid-template-columns: repeat(3, 300px);
-  grid-auto-rows: minmax(auto, 410px);
+  grid-auto-rows: 410px;
   gap: 2em;
   margin: 3rem 0;
 }
 
-.searchedCocktailContainer {
+.searched-cocktail-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -68,11 +69,11 @@
   height: 100%;
 }
 
-.searchedCocktailContainer:hover {
+.searched-cocktail-container:hover {
   box-shadow: 0 0 20px 10px var(--little-dark-white);
 }
 
-.searchedCocktailName {
+.searched-cocktail-name {
   display: flex;
   justify-content: center;
   padding: 1.5rem 1.5rem 0.2rem 1.5rem;
@@ -80,15 +81,15 @@
   border-bottom: var(--little-light-black) 1px solid;
 }
 
-.favoriteContainer {
+.favorite-container {
   display: flex;
   position: relative;
-  top: -1.5rem;
-  right: -6rem;
+  top: -2rem;
+  right: -6.3rem;
   height: 0;
 }
 
-.searchedCocktailImage {
+.searched-cocktail-image {
   display: flex;
   justify-content: center;
   margin: 0.5rem 0;
@@ -96,35 +97,35 @@
   width: 280px;
 }
 
-.searchedCocktailImage > img {
+.searched-cocktail-image > img {
   height: 100%;
   width: 100%;
   pointer-events: none;
   object-fit: contain;
 }
 
-.searchedCocktailTags {
+.searched-cocktail-tags {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   margin: 1rem 0;
 }
 
-.searchTabContainerBox {
+.search-tab-container-box {
   display: flex;
   justify-content: flex-end;
   width: 60%;
 }
 
-.searchTabContainer {
+.search-tab-container {
   display: inline-block;
   align-self: flex-end;
   margin-top: 3rem;
   border-bottom: solid gray 1px;
 }
 
-.clickedTab,
-.unclickedTab {
+.clicked-tab,
+.unclicked-tab {
   outline: 0;
   display: inline-block;
   color: gray;
@@ -135,22 +136,22 @@
   cursor: pointer;
 }
 
-.clickedTab {
+.clicked-tab {
   color: var(--sharp-red);
   font-weight: bold;
   border-bottom-width: 2px;
   transition: 0.2s all;
 }
 
-.unclickedTab:hover {
+.unclicked-tab:hover {
   color: var(--little-light-red);
 }
 
-.cocktailSearchInput {
+.cocktail-search-input {
   margin-left: 8px;
 }
 
-.autoCocktailWords {
+.auto-cocktail-words {
   z-index: 100;
   position: absolute;
   top: 100%;
@@ -165,25 +166,25 @@
   cursor: default;
 }
 
-.autoCocktailWords .highlight {
+.auto-cocktail-words .highlight {
   background-color: var(--sharp-red);
   color: white;
 }
 
-.autoCocktailWord {
+.auto-cocktail-word {
   padding: 8px;
 }
 
-.tagSelectButtonContainer {
+.tag-select-button-container {
   display: flex;
   justify-content: center;
 }
 
-.tagSelectButton {
+.tag-select-button {
   display: none;
 }
 
-.tagFilterContainer {
+.tag-filter-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -191,7 +192,7 @@
   width: 80%;
 }
 
-.filterTag {
+.filter-tag {
   margin: 0.2rem 0.15rem;
   border: 0.02rem solid gray;
   padding: 0 0.4rem;
@@ -202,19 +203,19 @@
   transition: 0.3s all;
 }
 
-.selectedTag {
+.selected-tag {
   color: white;
   background-color: #a60000;
   transition: 0.3s all;
 }
 
-.cocktailSearchContent {
+.cocktail-search-content {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.moreButton {
+.more-button {
   margin-top: 0;
   margin-bottom: 0.5rem;
   outline: 0;
@@ -229,18 +230,18 @@
   cursor: pointer;
 }
 
-.moreButton:hover {
+.more-button:hover {
   background-color: var(--sharp-red);
   color: white;
   transition: 0.5s;
 }
 
-.noSearchResult {
+.no-search-result {
   margin-top: 3rem;
   font-size: 16px;
 }
 
-.noSearchResultDescription {
+.no-search-result-description {
   margin-top: 1rem;
   margin-left: 2rem;
   list-style: circle;
@@ -249,13 +250,13 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .searchedCocktailsContainer {
+  .searched-cocktails-container {
     grid-template-columns: repeat(2, 280px);
     justify-content: center;
     width: 80vw;
   }
 
-  .searchedCocktailContainer {
+  .searched-cocktail-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -266,34 +267,38 @@
     box-shadow: 0 0 20px 0 var(--little-dark-white);
   }
 
-  .searchedCocktailImage > img {
+  .searched-cocktail-image > img {
     width: 250px;
   }
 }
 
+.favorite-icon {
+  width: 23px;
+}
+
 @media screen and (max-width: 700px) {
-  .searchedCocktailsContainer {
+  .searched-cocktails-container {
     grid-template-columns: repeat(1, 280px);
     margin: 0;
   }
 
-  .searchTabContainerBox {
+  .search-tab-container-box {
     display: flex;
     justify-content: center;
     width: 100%;
     margin-top: 1rem;
   }
 
-  .searchTabContainer {
+  .search-tab-container {
     margin-top: 0.5rem;
   }
 
-  .clickedTab,
-  .unclickedTab {
+  .clicked-tab,
+  .unclicked-tab {
     padding: 0 3rem;
   }
 
-  .tagSelectButton {
+  .tag-select-button {
     display: inline-block;
     padding: 0.1rem 0.5rem;
     margin: 2rem auto 3rem auto;
@@ -306,7 +311,7 @@
     z-index: 1;
   }
 
-  .tagFilterContainer {
+  .tag-filter-container {
     top: -2rem;
     position: relative;
     display: none;
@@ -317,16 +322,16 @@
     box-shadow: 0 0 20px 0 var(--little-dark-white);
   }
 
-  .filterTag {
+  .filter-tag {
     margin: 0.4rem 0.4rem;
     font-size: 1rem;
   }
 
-  .searchContainer {
+  .search-container {
     margin: 2rem auto 3rem auto;
   }
 
-  .searchedCocktailImage {
+  .searched-cocktail-image {
     display: flex;
     justify-content: center;
     margin: 0.5rem 0;
@@ -334,7 +339,7 @@
     width: 220px;
   }
 
-  .searchedCocktailImage > img {
+  .searched-cocktail-image > img {
     height: 100%;
     width: 100%;
     pointer-events: none;
@@ -345,17 +350,17 @@
     height: 2rem;
   }
 
-  .moreButton {
+  .more-button {
     margin-top: 2rem;
   }
 
-  .moreButton:hover {
+  .more-button:hover {
     background-color: white;
     color: gray;
     transition: 0s;
   }
 
-  .noSearchResult {
+  .no-search-result {
     margin: 0 2rem;
   }
 }

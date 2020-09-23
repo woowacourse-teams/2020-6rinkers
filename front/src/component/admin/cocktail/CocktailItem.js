@@ -7,7 +7,7 @@ const CocktailItem = ({
 }) => {
   return (
     <div
-      className="cocktailItem"
+      className="cocktail-item"
       data-cocktail-id={cocktail.id}
       onClick={updateFromSelectedCocktail}
     >

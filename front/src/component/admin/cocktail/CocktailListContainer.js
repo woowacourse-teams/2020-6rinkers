@@ -23,7 +23,7 @@ const CocktailListContainer = ({ cocktail, updateFromSelectedCocktail }) => {
   }, [cocktail]);
 
   return (
-    <div className="cocktailsList">
+    <div className="cocktails-list">
       {cocktails.map((item, index) => (
         <CocktailItem
           cocktail={item}

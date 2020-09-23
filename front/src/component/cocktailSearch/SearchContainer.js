@@ -51,7 +51,7 @@ const SearchContainer = ({ cocktails, setCocktails }) => {
       const response = await fetchPagedCocktailsContainingWord({
         contain: searchWord,
         id: 0,
-        size: 15,
+        size: 12,
       });
       const content = response.data;
 
@@ -126,10 +126,10 @@ const SearchContainer = ({ cocktails, setCocktails }) => {
     <Redirect push to={redirect} />
   ) : (
     <div>
-      <div className="searchContainer">
+      <div className="search-container">
         <div className="search">
           <input
-            className="cocktailSearchInput"
+            className="cocktail-search-input"
             type="text"
             placeholder="검색어를 입력하세요."
             onChange={onChange}
@@ -146,16 +146,16 @@ const SearchContainer = ({ cocktails, setCocktails }) => {
               onMouseDown={search}
             />
           )}
-          <div className="searchButtonContainer" onMouseDown={search}>
+          <div className="search-button-container" onMouseDown={search}>
             <img
-              className="searchButton"
+              className="search-button"
               src="/image/search.svg"
               alt="search"
             />
           </div>
         </div>
       </div>
-      <div className="cocktailSearchContent">
+      <div className="cocktail-search-content">
         {cocktails.length === 0 ? <NoSearchResult type="Name" /> : ""}
         <SearchedCocktails cocktails={cocktails} />
         <MoreButton

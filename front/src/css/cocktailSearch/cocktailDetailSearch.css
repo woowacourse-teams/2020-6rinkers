@@ -9,10 +9,21 @@
   padding: 3rem 0 0 0;
 }
 
-.cocktail-name {
-  margin-bottom: 1.5rem;
+.detail-cocktail-name {
   font-size: 1.5rem;
   color: var(--red);
+}
+
+.detail-favorite-container {
+  display: flex;
+  position: relative;
+  top: -1.9rem;
+  right: -8rem;
+  height: 0;
+}
+
+.detail-favorite-container > div > img {
+  cursor: pointer;
 }
 
 .detail-info-image-container {
@@ -27,13 +38,13 @@
   height: 100%;
 }
 
-.tags-container,
+.detail-tags-container,
 .abv-and-taste-container,
 .recipe-container {
   padding: 0.3rem 0;
 }
 
-.tags-container {
+.detail-tags-container {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
@@ -91,7 +102,7 @@
     height: 100%;
   }
 
-  .tags-container,
+  .detail-tags-container,
   .abv-and-taste-container,
   .recipe-container {
     padding: 0.2rem 0;

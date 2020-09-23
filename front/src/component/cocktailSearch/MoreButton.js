@@ -12,7 +12,7 @@ const MoreButton = ({
   setCocktails,
 }) => {
   const loadCocktails = async () => {
-    const size = window.innerWidth > 700 ? 18 : 6;
+    const size = window.innerWidth > 700 ? 12 : 6;
 
     let response;
 
@@ -52,7 +52,7 @@ const MoreButton = ({
   }
 
   return (
-    <button className="moreButton" onClick={onMoreButtonClick}>
+    <button className="more-button" onClick={onMoreButtonClick}>
       결과 더 보기
     </button>
   );

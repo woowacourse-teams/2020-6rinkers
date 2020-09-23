@@ -3,7 +3,7 @@ import SearchedCocktail from "./SearchedCocktail";
 
 const SearchedCocktails = ({ cocktails }) => {
   return (
-    <div className="searchedCocktailsContainer">
+    <div className="searched-cocktails-container">
       {cocktails.length !== 0 &&
         cocktails.map((cocktail, index) => (
           <SearchedCocktail key={index} cocktail={cocktail} />
