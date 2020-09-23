@@ -1,2 +1,2 @@
 export const desktopCocktailSize = 12;
-export const mobileCocktailSize = 6;
+export const mobileCocktailSize = 10;
