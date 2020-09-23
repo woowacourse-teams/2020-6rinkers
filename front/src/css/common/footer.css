@@ -1,4 +1,4 @@
-.footerContainer {
+.footer-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,7 +9,7 @@
   flex-shrink: 0;
 }
 
-.linkContainer {
+.link-container {
   display: flex;
   align-items: center;
   justify-content: space-around;

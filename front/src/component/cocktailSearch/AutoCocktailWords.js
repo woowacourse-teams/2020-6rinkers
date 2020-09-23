@@ -24,7 +24,7 @@ const AutoCocktailWords = ({
 
   return (
     <ul
-      className="autoCocktailWords"
+      className="auto-cocktail-words"
       onMouseOver={onMouseOver}
       onMouseLeave={onMouseLeave}
       onMouseDown={onMouseDown}

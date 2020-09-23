@@ -3,7 +3,7 @@ import React from 'react';
 const FileUploadButton = ({resourceName, uploadResourceFile}) => {
     return (
         <button
-            className="fileUploadButton"
+            className="file-upload-button"
             type="button"
             onClick={(e) => uploadResourceFile(e, resourceName)}
         >

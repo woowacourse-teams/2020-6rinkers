@@ -21,7 +21,7 @@ const FavoriteIcon = ({ cocktailId, setFavorites }) => {
 
   return (
     <div onClick={deleteFavoriteClick}>
-      <img src="/favorite.svg" style={{ width: 20 }} />
+      <img className="favorite-icon" src="/favorite.svg"/>
     </div>
   );
 };

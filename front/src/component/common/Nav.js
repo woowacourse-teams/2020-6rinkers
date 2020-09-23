@@ -9,7 +9,7 @@ const Nav = ({ handleLogout }) => {
   return (
     <div className="nav">
       <div className="logo-container">
-        <Link to="/" className="textLink">
+        <Link to="/" className="text-link">
           <img
             className="logo"
             src="/image/logo/CocktailPick_logo_FullName_transparent.png"

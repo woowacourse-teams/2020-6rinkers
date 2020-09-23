@@ -27,7 +27,7 @@ const FileUploadContainer = () => {
   };
 
   return (
-    <div className="fileUpload">
+    <div className="file-upload">
       <input type="file" name="file" onChange={(e) => handleFile(e)} />
       <FileUploadButton
         resourceName={TAG_RESOURCE_NAME}

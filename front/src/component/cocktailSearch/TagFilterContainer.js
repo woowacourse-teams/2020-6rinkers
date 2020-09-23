@@ -30,7 +30,7 @@ const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
     const response = await fetchPagedCocktailsFilteredByTags({
       tagIds: selectedTagIds.join(","),
       id: 0,
-      size: 15,
+      size: 12,
     });
 
     const content = response.data;
@@ -84,21 +84,21 @@ const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
 
   return (
     <div>
-      <div className="tagSelectButtonContainer">
+      <div className="tag-select-button-container">
         <div
-          className="tagSelectButton"
+          className="tag-select-button"
           onClick={onTagSelectButtonClick}
           ref={tagSelectButtonRef}
         >
           태그 펼치기
         </div>
       </div>
-      <div className="tagFilterContainer" ref={tagFilterContainerRef}>
+      <div className="tag-filter-container" ref={tagFilterContainerRef}>
         {allTags.map((tag, index) => {
           return (
             <div
-              className={`filterTag ${
-                selectedTagIds.includes(tag.tagId) ? "selectedTag" : ""
+              className={`filter-tag ${
+                selectedTagIds.includes(tag.tagId) ? "selected-tag" : ""
               }`}
               key={index}
               data-id={tag.tagId}
@@ -109,7 +109,7 @@ const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
           );
         })}
       </div>
-      <div className="cocktailSearchContent">
+      <div className="cocktail-search-content">
         {cocktails.length === 0 ? <NoSearchResult type="Tags" /> : ""}
         <SearchedCocktails cocktails={cocktails} />
         <MoreButton

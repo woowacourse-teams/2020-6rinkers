@@ -11,7 +11,7 @@ export const abvToImageConverter = (value) => {
     return "🍺";
   }
   if (value >= 8 && value < 13) {
-    return <img className="riceWine" src="/image/rice_wine.png" alt="막걸리" />;
+    return <img className="rice-wine" src="/image/rice_wine.png" alt="막걸리" />;
   }
   if (value >= 13 && value < 18) {
     return "🍷";
