@@ -272,6 +272,10 @@
   }
 }
 
+.favorite-icon {
+  width: 23px;
+}
+
 @media screen and (max-width: 700px) {
   .searched-cocktails-container {
     grid-template-columns: repeat(1, 280px);
