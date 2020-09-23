@@ -38,19 +38,23 @@ const TagFilterContainer = ({
   };
 
   const fetchCocktails = async () => {
-    const size = isDesktop() ? desktopCocktailSize : mobileCocktailSize;
+    try {
+      const size = isDesktop() ? desktopCocktailSize : mobileCocktailSize;
 
-    const response = await fetchPagedCocktailsFilteredByTags({
-      tagIds: selectedTagIds.join(","),
-      id: 0,
-      size,
-    });
+      const response = await fetchPagedCocktailsFilteredByTags({
+        tagIds: selectedTagIds.join(","),
+        id: 0,
+        size,
+      });
 
-    const content = response.data;
+      const content = response.data;
 
-    content.length < size ? setMoreButton(false) : setMoreButton(true);
+      content.length < size ? setMoreButton(false) : setMoreButton(true);
 
-    setCocktails(content);
+      setCocktails(content);
+    } catch (e) {
+      Alert.error("칵테일을 불러오는데 실패했습니다.");
+    }
   };
 
   const onClickTag = (e) => {
