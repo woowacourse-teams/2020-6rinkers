@@ -1,9 +1,10 @@
 import Alert from "react-s-alert";
 import "react-s-alert/dist/s-alert-css-effects/jelly.css";
+import { isDesktop } from "../../constants";
 
 const loadConfig = () => {
   return {
-    position: window.innerWidth >= 700 ? "top-right" : "bottom",
+    position: isDesktop() ? "top-right" : "bottom",
     timeout: 1800,
     effect: "jelly",
     html: true,
@@ -14,7 +15,10 @@ export const recommendButtonClickInduceAlert = () => {
   if (localStorage.getItem("recommendButtonClickInduceAlert")) {
     return;
   }
-  Alert.info("<p>안녕하세요.</p><p>칵테일 추천 받기 버튼을 눌러 보세요.</p>", loadConfig());
+  Alert.info(
+    "<p>안녕하세요.</p><p>칵테일 추천 받기 버튼을 눌러 보세요.</p>",
+    loadConfig()
+  );
   localStorage.setItem("recommendButtonClickInduceAlert", "true");
 };
 
@@ -46,6 +50,9 @@ export const recommendResultClickInduceAlert = () => {
   if (localStorage.getItem("recommendResultClickInduceAlert")) {
     return;
   }
-  Alert.info("<p>이미지를 클릭하여</p><p>자세한 정보를 확인해 보세요.</p>", loadConfig());
+  Alert.info(
+    "<p>이미지를 클릭하여</p><p>자세한 정보를 확인해 보세요.</p>",
+    loadConfig()
+  );
   localStorage.setItem("recommendResultClickInduceAlert", "true");
 };

@@ -1,3 +1,6 @@
+export const MOBILE_WIDTH = 700;
+export const isDesktop = () => window.innerWidth > MOBILE_WIDTH;
+
 export const DOWN = 40;
 export const UP = 38;
 export const ENTER = 13;
