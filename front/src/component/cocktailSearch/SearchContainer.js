@@ -6,12 +6,21 @@ import {
   fetchCocktailsContaining,
   fetchPagedCocktailsContainingWord,
 } from "../../api";
-import { DOWN, ENTER, ESC, UP } from "../../constants";
+import { DOWN, ENTER, ESC, isDesktop, UP } from "../../constants";
 import SearchedCocktails from "./SearchedCocktails";
 import MoreButton from "./MoreButton";
 import NoSearchResult from "./NoSearchResult";
+import {
+  desktopCocktailSize,
+  mobileCocktailSize,
+} from "../../constants/CocktailSearch";
 
-const SearchContainer = ({ cocktails, setCocktails }) => {
+const SearchContainer = ({
+  cocktails,
+  setCocktails,
+  moreButton,
+  setMoreButton,
+}) => {
   const [autoCompletedCocktails, setAutoCompletedCocktails] = useState([]);
   const [highlightIndex, setHighlightIndex] = useState(-1);
   const [redirect, setRedirect] = useState("");
@@ -48,12 +57,16 @@ const SearchContainer = ({ cocktails, setCocktails }) => {
 
   const fetchCocktails = async () => {
     try {
+      const size = isDesktop() ? desktopCocktailSize : mobileCocktailSize;
+
       const response = await fetchPagedCocktailsContainingWord({
         contain: searchWord,
         id: 0,
-        size: 12,
+        size,
       });
       const content = response.data;
+
+      content.length < size ? setMoreButton(false) : setMoreButton(true);
 
       setCocktails(content);
     } catch (e) {
@@ -119,7 +132,7 @@ const SearchContainer = ({ cocktails, setCocktails }) => {
   };
 
   useEffect(() => {
-    fetchCocktails();
+    fetchCocktails().then();
   }, [searchWord]);
 
   return redirect ? (
@@ -162,6 +175,8 @@ const SearchContainer = ({ cocktails, setCocktails }) => {
           searchWord={searchWord}
           cocktails={cocktails}
           setCocktails={setCocktails}
+          moreButton={moreButton}
+          setMoreButton={setMoreButton}
         />
       </div>
     </div>

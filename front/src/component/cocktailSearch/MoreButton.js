@@ -1,18 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Alert from "react-s-alert";
 import {
   fetchPagedCocktailsContainingWord,
   fetchPagedCocktailsFilteredByTags,
 } from "../../api";
+import { isDesktop } from "../../constants";
+import {
+  desktopCocktailSize,
+  mobileCocktailSize,
+} from "../../constants/CocktailSearch";
 
 const MoreButton = ({
   searchWord,
   selectedTagIds,
   cocktails,
   setCocktails,
+  moreButton,
+  setMoreButton,
 }) => {
   const loadCocktails = async () => {
-    const size = window.innerWidth > 700 ? 12 : 6;
+    const size = isDesktop() ? desktopCocktailSize : mobileCocktailSize;
 
     let response;
 
@@ -32,9 +39,11 @@ const MoreButton = ({
 
     const content = response.data;
     if (content.length === 0) {
-      Alert.success("더 이상 검색 결과가 없습니다.");
+      setMoreButton(false);
       return;
     }
+
+    content.length < size ? setMoreButton(false) : setMoreButton(true);
 
     await setCocktails(cocktails.concat(content));
   };
@@ -51,10 +60,12 @@ const MoreButton = ({
     return <></>;
   }
 
-  return (
+  return moreButton ? (
     <button className="more-button" onClick={onMoreButtonClick}>
       결과 더 보기
     </button>
+  ) : (
+    <div>더 이상 검색 결과가 없습니다.</div>
   );
 };
 

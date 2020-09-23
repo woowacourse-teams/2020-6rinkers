@@ -5,8 +5,19 @@ import { fetchAllTags, fetchPagedCocktailsFilteredByTags } from "../../api";
 import SearchedCocktails from "./SearchedCocktails";
 import MoreButton from "./MoreButton";
 import NoSearchResult from "./NoSearchResult";
+import { isDesktop } from "../../constants";
+import {
+  desktopCocktailSize,
+  mobileCocktailSize,
+} from "../../constants/CocktailSearch";
 
-const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
+const TagFilterContainer = ({
+  cocktails,
+  setCocktails,
+  history,
+  moreButton,
+  setMoreButton,
+}) => {
   const [allTags, setAllTags] = useState([]);
   const [selectedTagIds, setSelectedTagIds] = useState([]);
   const tagFilterContainerRef = useRef(null);
@@ -27,13 +38,17 @@ const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
   };
 
   const fetchCocktails = async () => {
+    const size = isDesktop() ? desktopCocktailSize : mobileCocktailSize;
+
     const response = await fetchPagedCocktailsFilteredByTags({
       tagIds: selectedTagIds.join(","),
       id: 0,
-      size: 12,
+      size,
     });
 
     const content = response.data;
+
+    content.length < size ? setMoreButton(false) : setMoreButton(true);
 
     setCocktails(content);
   };
@@ -116,6 +131,8 @@ const TagFilterContainer = ({ cocktails, setCocktails, history }) => {
           selectedTagIds={selectedTagIds}
           cocktails={cocktails}
           setCocktails={setCocktails}
+          moreButton={moreButton}
+          setMoreButton={setMoreButton}
         />
       </div>
     </div>

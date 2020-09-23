@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import queryString from "query-string";
 import "../../css/cocktailSearch/cocktailSearch.css";
+import { useRecoilValue } from "recoil";
 import SearchContainer from "./SearchContainer";
 import TagFilterContainer from "./TagFilterContainer";
 import { favoriteClickInduceAlert } from "../alert/Alerts";
-import { useRecoilValue } from "recoil";
 import { userState } from "../../recoil";
 
 const CocktailSearch = () => {
+  const [moreButton, setMoreButton] = useState(true);
   const [cocktails, setCocktails] = useState([]);
   const [tabIndex, setTabIndex] = useState(0);
   const user = useRecoilValue(userState);
@@ -19,7 +20,12 @@ const CocktailSearch = () => {
     {
       title: "Name",
       content: (
-        <SearchContainer cocktails={cocktails} setCocktails={setCocktails} />
+        <SearchContainer
+          cocktails={cocktails}
+          setCocktails={setCocktails}
+          moreButton={moreButton}
+          setMoreButton={setMoreButton}
+        />
       ),
     },
     {
@@ -29,6 +35,8 @@ const CocktailSearch = () => {
           cocktails={cocktails}
           setCocktails={setCocktails}
           history={history}
+          moreButton={moreButton}
+          setMoreButton={setMoreButton}
         />
       ),
     },
