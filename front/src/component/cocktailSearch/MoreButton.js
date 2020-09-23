@@ -12,7 +12,7 @@ const MoreButton = ({
   setCocktails,
 }) => {
   const loadCocktails = async () => {
-    const size = window.innerWidth > 700 ? 18 : 6;
+    const size = window.innerWidth > 700 ? 12 : 6;
 
     let response;
 

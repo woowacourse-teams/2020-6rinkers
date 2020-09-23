@@ -53,7 +53,7 @@
 .searched-cocktails-container {
   display: grid;
   grid-template-columns: repeat(3, 300px);
-  grid-auto-rows: minmax(auto, 410px);
+  grid-auto-rows: 410px;
   gap: 2em;
   margin: 3rem 0;
 }
