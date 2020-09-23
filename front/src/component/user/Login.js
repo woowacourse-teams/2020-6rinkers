@@ -23,7 +23,7 @@ const Login = (props) => {
         });
       }, 100);
     }
-  });
+  }, []);
 
   if (authenticated) {
     return (
@@ -90,11 +90,8 @@ const LoginForm = () => {
         Alert.success("로그인되었습니다.");
         history.go("/");
       })
-      .catch((error) => {
-        Alert.error(
-          (error && error.response.data.message) ||
-            "로그인에 실패하였습니다. 다시 시도해주세요."
-        );
+      .catch((e) => {
+        Alert.error("로그인에 실패하였습니다. 다시 시도해주세요.");
       });
   };
 

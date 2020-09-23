@@ -77,9 +77,7 @@ const SignupForm = () => {
         history.push("/login");
       })
       .catch((e) => {
-        Alert.error(
-          (e && e.message) || "회원 가입에 실패했습니다. 다시 시도해주세요."
-        );
+        Alert.error("회원 가입에 실패했습니다. 다시 시도해주세요.");
       });
   };
 
