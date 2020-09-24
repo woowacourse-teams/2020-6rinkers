@@ -18,7 +18,7 @@ const SearchedCocktail = ({ cocktail }) => {
       </Link>
 
       <div className="favorite-container">
-        {currentUser.role ? (
+        {currentUser && currentUser.role ? (
           <CocktailFavorite cocktailId={cocktail.id} />
         ) : (
           <div />
