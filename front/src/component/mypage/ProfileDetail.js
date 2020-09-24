@@ -32,7 +32,7 @@ export default ({ user, setCurrentUser }) => {
     e.preventDefault();
     await withdraw();
     setCurrentUser({ currentUser: null, authenticated: false });
-    localStorage.setItem(ACCESS_TOKEN, null);
+    localStorage.removeItem(ACCESS_TOKEN);
   };
 
   return (
