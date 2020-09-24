@@ -5,7 +5,7 @@ const AutoCocktailWord = forwardRef(({cocktail, highlight, index}, ref) => {
   return (
     <Link to={`/cocktails/${cocktail.id}`}>
       <li
-        className={`autoCocktailWord ${highlight ? "highlight" : ""}`}
+        className={`auto-cocktail-word ${highlight ? "highlight" : ""}`}
         data-id={cocktail.id}
         data-index={index}
         ref={ref}

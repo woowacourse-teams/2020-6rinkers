@@ -117,6 +117,10 @@
   width: 100%;
 }
 
+.signup-link > a {
+  color: var(--red);
+  text-decoration: underline;
+}
 
 @media screen and (max-width: 700px) {
   .login-container {
@@ -154,5 +158,9 @@
 
   .form-item {
     width: 90%;
+  }
+
+  .signup-link {
+    width: 100%;
   }
 }

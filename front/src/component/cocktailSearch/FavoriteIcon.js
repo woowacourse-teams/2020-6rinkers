@@ -1,20 +1,27 @@
 import React from "react";
-import { deleteFavorite } from "../../api";
+import Alert from "react-s-alert";
+import {
+  deleteFavorite,
+  fetchFavoriteCocktailIds,
+  getCurrentUser,
+} from "../../api";
 
-const FavoriteIcon = ({ cocktailId, cocktails, setCocktails }) => {
+const FavoriteIcon = ({ cocktailId, setFavorites }) => {
   const deleteFavoriteClick = async () => {
-    await deleteFavorite(cocktailId);
+    try {
+      await deleteFavorite(cocktailId);
 
-    setCocktails(
-      cocktails.map((cocktail) =>
-        cocktail.id === cocktailId ? { ...cocktail, favorite: false } : cocktail
-      )
-    );
+      fetchFavoriteCocktailIds().then((response) => {
+        setFavorites(response.data);
+      });
+    } catch (e) {
+      Alert.error("즐겨찾기를 삭제하는데 실패했습니다.");
+    }
   };
 
   return (
     <div onClick={deleteFavoriteClick}>
-      <img src="/favorite.svg" style={{ width: 20 }} />
+      <img className="favorite-icon" src="/favorite.svg"/>
     </div>
   );
 };

@@ -4,10 +4,14 @@ import ServiceSlider from "./ServicesSlider";
 
 const MobileNav = ({ offSlider, toggleSlider, slider, handleLogout }) => {
   return (
-    <div className="mobileNav">
-      <div className="title">
-        <Link to="/" className="textLink" onClick={offSlider}>
-          Cocktail<span className="highlightCharacter">P</span>ick
+    <div className="mobile-nav">
+      <div className="logo-container">
+        <Link to="/" className="text-link" onClick={offSlider}>
+          <img
+            className="logo"
+            src="/image/logo/CocktailPick_logo_FullName_transparent.png "
+            alt="logo"
+          />
         </Link>
       </div>
       {slider && (
@@ -17,12 +21,12 @@ const MobileNav = ({ offSlider, toggleSlider, slider, handleLogout }) => {
           handleLogout={handleLogout}
         />
       )}
-      <div className="sliderToggle" onClick={toggleSlider}>
+      <div className="slider-toggle" onClick={toggleSlider}>
         {slider ? (
-          <img className="xIcon" src="/image/x.svg" alt="x" />
+          <img className="x-icon" src="/image/x.svg" alt="x" />
         ) : (
           <img
-            className="hamburgerIcon"
+            className="hamburger-icon"
             src="/image/hamburger.svg"
             alt="hamburger"
           />

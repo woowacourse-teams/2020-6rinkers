@@ -3,6 +3,7 @@ package com.cocktailpick.back.security.oauth2;
 import static com.cocktailpick.back.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository.*;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -31,7 +32,7 @@ public class OAuth2AuthenticationFailureHandler extends SimpleUrlAuthenticationF
 			.orElse(("/"));
 
 		targetUrl = UriComponentsBuilder.fromUriString(targetUrl)
-			.queryParam("error", exception.getLocalizedMessage())
+			.queryParam("error", URLEncoder.encode(exception.getMessage(), "UTF-8"))
 			.build().toUriString();
 
 		httpCookieOAuth2AuthorizationRequestRepository.removeAuthorizationRequestCookies(request, response);

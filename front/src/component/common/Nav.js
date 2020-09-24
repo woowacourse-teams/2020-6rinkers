@@ -8,9 +8,13 @@ const Nav = ({ handleLogout }) => {
   const { authenticated, currentUser } = useRecoilValue(userState);
   return (
     <div className="nav">
-      <div className="title">
-        <Link to="/" className="textLink">
-          Cocktail<span className="highlightCharacter">P</span>ick
+      <div className="logo-container">
+        <Link to="/" className="text-link">
+          <img
+            className="logo"
+            src="/image/logo/CocktailPick_logo_FullName_transparent.png"
+            alt="logo"
+          />
         </Link>
       </div>
       <Service

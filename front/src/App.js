@@ -1,20 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
+import React, {useEffect, useState} from "react";
+import {useRecoilState, useSetRecoilState} from "recoil";
 import "./index.css";
 import Alert from "react-s-alert";
 import Routes from "./router/Routes";
-import { ACCESS_TOKEN, USER_PROTOTYPE } from "./constants";
+import {ACCESS_TOKEN, USER_PROTOTYPE} from "./constants";
 import "react-s-alert/dist/s-alert-default.css";
 import "react-s-alert/dist/s-alert-css-effects/slide.css";
-import { userState } from "./recoil";
-import { getCurrentUser } from "./api/index";
+import {favoriteState, userState} from "./recoil";
+import {fetchFavoriteCocktailIds, getCurrentUser} from "./api/index";
 
 const App = () => {
+  useEffect(() => {
+    window.Kakao.init(`${process.env.REACT_APP_KAKAO_KEY}`);
+  }, [])
+
   const [cocktails, setCocktails] = useState([]);
   const [user, setUser] = useRecoilState(userState);
+  const setFavorites = useSetRecoilState(favoriteState);
   const [loading, setLoading] = useState(false);
 
-  const { authenticated, currentUser } = user;
+  const {authenticated, currentUser} = user;
 
   const loadCurrentlyLoggedInUser = () => {
     setLoading(true);
@@ -41,20 +46,30 @@ const App = () => {
     Alert.success("로그아웃되었습니다.");
   };
 
+  const loadFavoriteCocktailIds = async () => {
+    await fetchFavoriteCocktailIds().then((response) => {
+      setFavorites(response.data);
+    });
+  };
+
   useEffect(() => {
     if (localStorage.getItem(ACCESS_TOKEN)) {
       loadCurrentlyLoggedInUser();
     }
   }, []);
 
+  useEffect(() => {
+    if (localStorage.getItem(ACCESS_TOKEN)) {
+      loadFavoriteCocktailIds();
+    }
+  }, []);
+
   return (
-    <div className="App">
-      <Routes
-        cocktails={cocktails}
-        setCocktails={setCocktails}
-        authenticated={authenticated}
-        currentUser={currentUser}
-        handleLogout={handleLogout}
+      <div className="App">
+        <Routes
+            authenticated={authenticated}
+            currentUser={currentUser}
+            handleLogout={handleLogout}
         loading={loading}
       />
       <Alert

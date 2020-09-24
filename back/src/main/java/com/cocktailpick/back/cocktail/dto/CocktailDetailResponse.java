@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cocktailpick.back.cocktail.domain.Cocktail;
-import com.cocktailpick.back.favorite.domain.Favorites;
 import com.cocktailpick.back.recipe.dto.RecipeItemResponse;
 import com.cocktailpick.back.tag.dto.TagResponse;
 import lombok.AccessLevel;
@@ -40,9 +39,7 @@ public class CocktailDetailResponse {
 
 	private List<RecipeItemResponse> recipe;
 
-	private boolean favorite;
-
-	public static CocktailDetailResponse of(Cocktail cocktail, boolean isFavorite) {
+	public static CocktailDetailResponse of(Cocktail cocktail) {
 		return new CocktailDetailResponse(
 			cocktail.getId(),
 			cocktail.getName(),
@@ -54,20 +51,15 @@ public class CocktailDetailResponse {
 			cocktail.isSweet(),
 			cocktail.isSour(),
 			cocktail.isBitter(),
-			RecipeItemResponse.listOf(cocktail.getRecipe()),
-			isFavorite
+			RecipeItemResponse.listOf(cocktail.getRecipe())
 		);
 	}
 
-	public static List<CocktailDetailResponse> listOf(List<Cocktail> recommend, Favorites favorites) {
+	public static List<CocktailDetailResponse> listOf(List<Cocktail> recommend) {
 		List<CocktailDetailResponse> cocktailDetailResponses = new ArrayList<>();
 
 		for (Cocktail cocktail : recommend) {
-			if (favorites.isContainCocktail(cocktail)) {
-				cocktailDetailResponses.add(CocktailDetailResponse.of(cocktail, true));
-			} else {
-				cocktailDetailResponses.add(CocktailDetailResponse.of(cocktail, false));
-			}
+			cocktailDetailResponses.add(of(cocktail));
 		}
 
 		return cocktailDetailResponses;

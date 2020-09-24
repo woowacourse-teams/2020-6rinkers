@@ -1,7 +1,12 @@
 import React, { useState } from "react";
-import { createCocktailsByCsv, createTagsByCsv } from "../../../api";
+import { createResourceByCsv } from "../../../api";
+import FileUploadButton from "../../mypage/FileUploadButton";
 
 const FileUploadContainer = () => {
+  const TAG_RESOURCE_NAME = "tags";
+  const COCKTAIL_RESOURCE_NAME = "cocktails";
+  const TERMINOLOGY_RESOURCE_NAME = "terminologies";
+
   const [file, setFile] = useState({});
   const handleFile = (e) => {
     setFile({ file: e.target.files[0] });
@@ -11,43 +16,31 @@ const FileUploadContainer = () => {
     setFile({});
   };
 
-  const onUploadTagFile = (e) => {
+  const uploadResourceFile = (e, resourceName) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("file", file.file);
 
-    createTagsByCsv(formData);
-
-    resetFile();
-  };
-
-  const onUploadCocktailFile = (e) => {
-    e.preventDefault();
-    const formData = new FormData();
-    formData.append("file", file.file);
-
-    createCocktailsByCsv(formData);
+    createResourceByCsv(resourceName, formData);
 
     resetFile();
   };
 
   return (
-    <div className="fileUpload">
+    <div className="file-upload">
       <input type="file" name="file" onChange={(e) => handleFile(e)} />
-      <button
-        className="fileUploadButton"
-        type="button"
-        onClick={onUploadTagFile}
-      >
-        태그 CSV 파일 업로드
-      </button>
-      <button
-        className="fileUploadButton"
-        type="button"
-        onClick={onUploadCocktailFile}
-      >
-        칵테일 CSV 파일 업로드
-      </button>
+      <FileUploadButton
+        resourceName={TAG_RESOURCE_NAME}
+        uploadResourceFile={uploadResourceFile}
+      />
+      <FileUploadButton
+        resourceName={COCKTAIL_RESOURCE_NAME}
+        uploadResourceFile={uploadResourceFile}
+      />
+      <FileUploadButton
+        resourceName={TERMINOLOGY_RESOURCE_NAME}
+        uploadResourceFile={uploadResourceFile}
+      />
     </div>
   );
 };

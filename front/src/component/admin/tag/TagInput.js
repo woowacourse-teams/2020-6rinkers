@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import { createTag, updateTag, fetchAllTags } from "../../../api";
+import { createTag, updateTag } from "../../../api";
 import dataToTagRequest from "../../../utils/admin/tagConverter";
 import "../../../css/admin/tagAdmin.css";
 
@@ -57,7 +57,7 @@ const TagInput = ({ tag, setTag }) => {
   return (
     <TagInputContainer>
       <input
-        className="tagInput"
+        className="tag-input"
         value={tag.name}
         placeholder="추가할 태그명을 입력해주세요."
         onChange={onTagNameChange}
@@ -75,7 +75,7 @@ const TagInput = ({ tag, setTag }) => {
       <Button type="submit" onClick={onSubmit}>
         등록
       </Button>
-      <button className="updateButton" type="submit" onClick={onUpdate}>
+      <button className="update-button" type="submit" onClick={onUpdate}>
         수정
       </button>
     </TagInputContainer>

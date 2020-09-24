@@ -36,12 +36,12 @@
 }
 
 .soju,
-.riceWine,
+.rice-wine,
 .whisky {
   height: 4rem;
 }
 
-.sliderArea {
+.slider-area {
   width: 300px;
   margin: 1rem auto 3rem auto;
 }
@@ -62,6 +62,19 @@
   height: 20px !important;
   width: 20px !important;
   border: solid 2px var(--light-red) !important;
+  animation: handle 0.3s linear;
+  animation-iteration-count: 3;
+  animation-direction: alternate;
+}
+
+@keyframes handle{
+  from {
+    margin-left: 4%;
+  }
+
+  to {
+    margin-right: 4%;
+  }
 }
 
 .rc-slider-handle-click-focused,
@@ -109,12 +122,12 @@
   }
 
   .soju,
-  .riceWine,
+  .rice-wine,
   .whisky {
     height: 3rem;
   }
 
-  .sliderArea {
+  .slider-area {
     width: 90%;
     margin: 1rem auto 3rem auto;
   }

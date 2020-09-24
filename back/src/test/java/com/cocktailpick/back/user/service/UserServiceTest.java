@@ -22,6 +22,7 @@ import com.cocktailpick.back.user.domain.AuthProvider;
 import com.cocktailpick.back.user.domain.Role;
 import com.cocktailpick.back.user.domain.User;
 import com.cocktailpick.back.user.domain.UserRepository;
+import com.cocktailpick.back.user.dto.UserUpdateRequest;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
@@ -77,10 +78,25 @@ class UserServiceTest {
 		user.setFavorites(favorites);
 	}
 
+	@DisplayName("사용자 이름을 수정한다.")
+	@Test
+	void updateUser() {
+		UserUpdateRequest userUpdateRequest = new UserUpdateRequest("작은곰");
+		userService.updateUser(user, userUpdateRequest);
+
+		assertThat(user.getName()).isEqualTo(userUpdateRequest.getName());
+	}
+
 	@DisplayName("즐겨찾기를 조회한다.")
 	@Test
 	void findFavoritesTest() {
 		assertThat(userService.findFavorites(user).size()).isEqualTo(1);
+	}
+
+	@DisplayName("즐겨찾기한 칵테일의 id를 조회한다.")
+	@Test
+	void findFavoriteCocktailIdsTest() {
+		assertThat(userService.findFavoriteCocktailIds(user).getIds().size()).isEqualTo(1);
 	}
 
 	@DisplayName("즐겨찾기를 추가한다.")
@@ -99,5 +115,13 @@ class UserServiceTest {
 		userService.deleteFavorite(user, 1L);
 
 		assertThat(user.getFavorites().getFavorites().size()).isEqualTo(0);
+	}
+
+	@DisplayName("회원 탈퇴한다.")
+	@Test
+	void deleteCurrentUser() {
+		userService.deleteCurrentUser(user);
+
+		verify(userRepository).deleteById(anyLong());
 	}
 }

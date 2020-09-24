@@ -26,7 +26,10 @@ import com.cocktailpick.back.common.WithMockCustomUser;
 import com.cocktailpick.back.common.documentation.DocumentationWithSecurity;
 import com.cocktailpick.back.favorite.dto.FavoriteRequest;
 import com.cocktailpick.back.tag.dto.TagResponse;
+import com.cocktailpick.back.user.docs.UserDocumentation;
 import com.cocktailpick.back.user.domain.User;
+import com.cocktailpick.back.user.dto.FavoriteCocktailIdsResponse;
+import com.cocktailpick.back.user.dto.UserUpdateRequest;
 import com.cocktailpick.back.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -59,9 +62,9 @@ class UserControllerTest extends DocumentationWithSecurity {
 	void findFavorites() throws Exception {
 		List<CocktailResponse> cocktailResponses = Arrays.asList(
 			new CocktailResponse(1L, "싱가폴 슬링", "https://naver.com",
-				Collections.singletonList(new TagResponse(1L, "마지막 양심", "컨셉")), false),
+				Collections.singletonList(new TagResponse(1L, "마지막 양심", "컨셉"))),
 			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
-				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")), false)
+				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")))
 		);
 		when(userService.findFavorites(any())).thenReturn(cocktailResponses);
 
@@ -69,6 +72,21 @@ class UserControllerTest extends DocumentationWithSecurity {
 			.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			.andDo(print());
+	}
+
+	@DisplayName("즐겨찾기한 칵테일의 id를 조회한다.")
+	@WithMockCustomUser
+	@Test
+	void findFavoriteCocktailIdsTest() throws Exception {
+		FavoriteCocktailIdsResponse favoriteCocktailIdsResponse = new FavoriteCocktailIdsResponse(
+			Arrays.asList(1L, 2L, 3L));
+		when(userService.findFavoriteCocktailIds(any())).thenReturn(favoriteCocktailIdsResponse);
+
+		mockMvc.perform(get("/api/user/me/favoriteIds").accept(MediaType.APPLICATION_JSON)
+			.header("authorization", "Bearer Token"))
+			.andExpect(status().isOk())
+			.andDo(print())
+			.andDo(UserDocumentation.findFavoriteCocktailIds());
 	}
 
 	@DisplayName("즐겨찾기를 추가한다.")
@@ -92,8 +110,38 @@ class UserControllerTest extends DocumentationWithSecurity {
 	void deleteFavorite() throws Exception {
 		doNothing().when(userService).deleteFavorite(any(), anyLong());
 
-		mockMvc.perform(delete("/api/user/me/favorites/{id}", 1L))
+		mockMvc.perform(delete("/api/user/me/favorites?cocktailId={cocktailId}", 1L))
 			.andExpect(status().isNoContent())
 			.andDo(print());
+	}
+
+	@DisplayName("사용자 정보를 수정한다.")
+	@WithMockCustomUser
+	@Test
+	void updateCurrentUser() throws Exception {
+		doNothing().when(userService).updateUser(any(), any());
+
+		UserUpdateRequest userUpdateRequest = new UserUpdateRequest("작은곰");
+
+		mockMvc.perform(patch("/api/user/me")
+			.header("authorization", "Bearer ADMIN_TOKEN")
+			.contentType(MediaType.APPLICATION_JSON)
+			.content(objectMapper.writeValueAsString(userUpdateRequest)))
+			.andExpect(status().isOk())
+			.andDo(print())
+			.andDo(UserDocumentation.updateUser());
+	}
+
+	@DisplayName("회원 탈퇴한다.")
+	@WithMockCustomUser
+	@Test
+	void deleteCurrentUser() throws Exception {
+		doNothing().when(userService).deleteCurrentUser(any());
+
+		mockMvc.perform(delete("/api/user/me")
+			.header("authorization", "Bearer ADMIN_TOKEN"))
+			.andExpect(status().isNoContent())
+			.andDo(print())
+			.andDo(UserDocumentation.deleteMe());
 	}
 }

@@ -9,7 +9,7 @@ import org.springframework.restdocs.payload.JsonFieldType;
 
 public class UserDocumentation {
 	public static RestDocumentationResultHandler findMe() {
-		return document("user/me",
+		return document("user/find",
 			requestHeaders(
 				headerWithName("authorization").description("Bearer 토큰")),
 			responseFields(
@@ -24,5 +24,31 @@ public class UserDocumentation {
 				fieldWithPath("myFavorites").type(JsonFieldType.ARRAY).description("접속한 user의 즐겨찾기")
 			)
 		);
+	}
+
+	public static RestDocumentationResultHandler updateUser() {
+		return document("user/me",
+			requestHeaders(
+				headerWithName("authorization").description("Bearer 토큰")),
+			requestFields(
+				fieldWithPath("name").type(JsonFieldType.STRING).description("수정할 user의 이름")
+			)
+		);
+	}
+
+	public static RestDocumentationResultHandler deleteMe() {
+		return document("user/delete",
+			requestHeaders(
+				headerWithName("authorization").description("Bearer 토큰")));
+	}
+
+	public static RestDocumentationResultHandler findFavoriteCocktailIds() {
+		return document("user/findFavoriteIds",
+			requestHeaders(
+				headerWithName("authorization").description("Bearer 토큰")
+			),
+			responseFields(
+				fieldWithPath("ids").type(JsonFieldType.ARRAY).description("즐겨찾기 등록한 칵테일의 id들")
+			));
 	}
 }

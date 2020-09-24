@@ -1,9 +1,10 @@
-.adminHeaderContainer {
+.admin-header-container {
   border-bottom: var(--black) 2px solid;
 }
 
-.adminTitle {
+.admin-title {
   font-size: 24px;
+  margin-right: 2rem;
 }
 
 .admin {
@@ -13,7 +14,7 @@
   overflow: hidden;
 }
 
-.editFormContainer {
+.edit-form-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,16 +25,16 @@
   padding-bottom: 3rem;
 }
 
-.fileUpload {
+.file-upload {
   display: flex;
   flex-direction: column;
 }
 
-.fileUploadButton {
+.file-upload-button {
   margin: 0.2rem;
 }
 
-.cocktailListContainer {
+.cocktail-list-container {
   width: 100%;
   height: 100%;
   flex: 1;

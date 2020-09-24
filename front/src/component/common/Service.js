@@ -7,21 +7,21 @@ const Service = ({ authenticated, currentUser, handleLogout }) => {
       <div className="options">
         <NavLink
           to="/cocktails/search"
-          className="serviceItem"
+          className="service-item"
           activeClassName="nav-active"
         >
           칵테일 찾기
         </NavLink>
         <NavLink
         to="/bars"
-        className="serviceItem"
+        className="service-item"
         activeClassName="navitem-active"
       >
         바 찾기
       </NavLink>
         <NavLink
           to="/recommend"
-          className="serviceItem"
+          className="service-item"
           activeClassName="nav-active"
         >
           칵테일 추천 받기
@@ -30,19 +30,19 @@ const Service = ({ authenticated, currentUser, handleLogout }) => {
       <div className="options">
         {authenticated ? (
           <>
-            <NavLink to="/mypage" className="serviceItem">
+            <NavLink to="/mypage" className="service-item">
               {currentUser.name}
             </NavLink>
-            <a onClick={handleLogout} className="serviceItem">
+            <a onClick={handleLogout} className="service-item">
               로그아웃
             </a>
           </>
         ) : (
           <>
-            <NavLink to="/login" className="serviceItem">
+            <NavLink to="/login" className="service-item">
               로그인
             </NavLink>
-            <NavLink to="/signup" className="serviceItem">
+            <NavLink to="/signup" className="service-item">
               회원가입
             </NavLink>
           </>

@@ -4,7 +4,7 @@ import { useRecoilValue } from "recoil/dist";
 import Alert from "react-s-alert";
 import { userState } from "../../recoil";
 import { signup } from "../../api";
-import { GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL } from "../../constants";
+import { GOOGLE_AUTH_URL } from "../../constants";
 import "../../css/user/signup.css";
 
 const Signup = (props) => {
@@ -29,7 +29,7 @@ const Signup = (props) => {
         </div>
         <SignupForm {...props} />
         <span className="login-link">
-          이미 계정이 있으신가요? <Link to="/login">로그인 하기!!</Link>
+          이미 계정이 있으신가요? <Link to="/login">로그인 하기!</Link>
         </span>
       </div>
     </div>
@@ -77,9 +77,7 @@ const SignupForm = () => {
         history.push("/login");
       })
       .catch((e) => {
-        Alert.error(
-          (e && e.message) || "회원 가입에 실패했습니다. 다시 시도해주세요."
-        );
+        Alert.error("회원 가입에 실패했습니다. 다시 시도해주세요.");
       });
   };
 

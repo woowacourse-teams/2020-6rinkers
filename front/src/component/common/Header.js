@@ -15,7 +15,7 @@ const Header = ({ handleLogout }) => {
   };
 
   return (
-    <div className="headerContainer">
+    <div className="header-container">
       <Nav handleLogout={handleLogout} />
       {slider && <div className="cover" onClick={toggleSlider} />}
       <MobileNav

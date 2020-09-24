@@ -1,6 +1,7 @@
 package com.cocktailpick.back.favorite.domain;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -47,5 +48,11 @@ public class Favorites {
 	public boolean isDuplicated(Favorite inputFavorite) {
 		return favorites.stream()
 			.anyMatch(favorite -> favorite.isContainCocktail(inputFavorite.getCocktail()));
+	}
+
+	public List<Long> findFavoriteCocktailIds() {
+		return favorites.stream()
+			.map(Favorite::getCocktailId)
+			.collect(Collectors.toList());
 	}
 }

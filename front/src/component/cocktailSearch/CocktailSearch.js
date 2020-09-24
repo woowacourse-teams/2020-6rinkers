@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import queryString from "query-string";
-import SearchedCocktails from "./SearchedCocktails";
 import "../../css/cocktailSearch/cocktailSearch.css";
+import { useRecoilValue } from "recoil";
 import SearchContainer from "./SearchContainer";
 import TagFilterContainer from "./TagFilterContainer";
+import { favoriteClickInduceAlert } from "../alert/Alerts";
+import { userState } from "../../recoil";
 
-const CocktailSearch = ({ role }) => {
+const CocktailSearch = () => {
+  const [moreButton, setMoreButton] = useState(true);
   const [cocktails, setCocktails] = useState([]);
   const [tabIndex, setTabIndex] = useState(0);
+  const user = useRecoilValue(userState);
 
   const history = useHistory();
 
@@ -16,7 +20,12 @@ const CocktailSearch = ({ role }) => {
     {
       title: "Name",
       content: (
-        <SearchContainer cocktails={cocktails} setCocktails={setCocktails} />
+        <SearchContainer
+          cocktails={cocktails}
+          setCocktails={setCocktails}
+          moreButton={moreButton}
+          setMoreButton={setMoreButton}
+        />
       ),
     },
     {
@@ -26,6 +35,8 @@ const CocktailSearch = ({ role }) => {
           cocktails={cocktails}
           setCocktails={setCocktails}
           history={history}
+          moreButton={moreButton}
+          setMoreButton={setMoreButton}
         />
       ),
     },
@@ -64,13 +75,14 @@ const CocktailSearch = ({ role }) => {
   }, []);
 
   return (
-    <div className="cocktailSearchContainer">
-      <div className="searchTabContainerBox">
-        <div className="searchTabContainer">
+    <div className="cocktail-search-container">
+      {favoriteClickInduceAlert(user.authenticated)}
+      <div className="search-tab-container-box">
+        <div className="search-tab-container">
           {tabs.map((tab, index) => {
             return (
               <button
-                className={index === tabIndex ? "clickedTab" : "unclickedTab"}
+                className={index === tabIndex ? "clicked-tab" : "unclicked-tab"}
                 key={index}
                 data-index={index}
                 onClick={onClickTab}
@@ -82,11 +94,6 @@ const CocktailSearch = ({ role }) => {
         </div>
       </div>
       <div>{tabs[tabIndex].content}</div>
-      <SearchedCocktails
-        cocktails={cocktails}
-        setCocktails={setCocktails}
-        role={role}
-      />
     </div>
   );
 };

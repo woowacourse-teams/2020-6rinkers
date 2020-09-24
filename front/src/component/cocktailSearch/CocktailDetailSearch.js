@@ -6,10 +6,14 @@ import RecipeItems from "./RecipeItems";
 import CocktailFavorite from "./CocktailFavorite";
 import { DARK_GREEN, DARK_BLUE } from "../../constants/Color";
 import { Link } from "react-router-dom";
+import Alert from "react-s-alert";
+import { useRecoilValue } from "recoil";
+import { userState } from "../../recoil";
+import { tagSearchClickInduceAlert } from "../alert/Alerts";
 
 const CocktailDetailSearch = (props) => {
   const { id } = props.match.params;
-  const role = props.location.role;
+  const role = useRecoilValue(userState).currentUser.role;
   const [cocktailData, setCocktailData] = useState({
     cocktail: {},
     tags: [],
@@ -17,13 +21,17 @@ const CocktailDetailSearch = (props) => {
   });
 
   const onLoadCocktail = async () => {
-    const response = await fetchCocktail(id);
-    const { data } = response;
-    setCocktailData({
-      cocktail: data,
-      tags: data.tags,
-      recipe: data.recipe,
-    });
+    try {
+      const response = await fetchCocktail(id);
+      const { data } = response;
+      setCocktailData({
+        cocktail: data,
+        tags: data.tags,
+        recipe: data.recipe,
+      });
+    } catch (e) {
+      Alert.error("칵테일 상세 조회에 실패했습니다.");
+    }
   };
 
   useEffect(() => {
@@ -32,21 +40,15 @@ const CocktailDetailSearch = (props) => {
 
   return (
     <div className="detail-info-container">
-      <div className="cocktailNameWithFavorite">
-        <div className="emptyName" />
-        <p className="cocktail-name">{cocktailData.cocktail.name}</p>
-        <div className="favoriteContainer">
+      {tagSearchClickInduceAlert()}
+        <p className="detail-cocktail-name">{cocktailData.cocktail.name}</p>
+        <div className="detail-favorite-container">
           {role ? (
-            <CocktailFavorite
-              cocktail={cocktailData.cocktail}
-              cocktails={props.cocktails}
-              setCocktails={props.setCocktails}
-            />
+            <CocktailFavorite cocktailId={cocktailData.cocktail.id} />
           ) : (
             <div />
           )}
         </div>
-      </div>
       <div className="detail-info-image-container">
         <img
           src={cocktailData.cocktail.imageUrl}
@@ -54,7 +56,7 @@ const CocktailDetailSearch = (props) => {
           className="detail-info-image"
         />
       </div>
-      <div className="tags-container">
+      <div className="detail-tags-container">
         {cocktailData.tags &&
           cocktailData.tags.map((tag, index) => (
             <Link to={`/cocktails/search?tagIds=${tag.tagId}`}>

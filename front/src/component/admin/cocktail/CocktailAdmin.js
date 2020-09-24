@@ -50,14 +50,14 @@ const CocktailAdmin = () => {
 
   return (
     <div className="admin">
-      <div className="editFormContainer">
+      <div className="edit-form-container">
         <CocktailEditFormContainer
           cocktail={cocktail}
           onUpdateCocktail={onUpdateCocktail}
           onResetCocktail={onResetCocktail}
         />
       </div>
-      <div className="cocktailListContainer">
+      <div className="cocktail-list-container">
         <CocktailListContainer
           cocktail={cocktail}
           updateFromSelectedCocktail={updateFromSelectedCocktail}

@@ -12,7 +12,6 @@ import com.cocktailpick.back.cocktail.domain.CocktailRepository;
 import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.RecommendRequest;
 import com.cocktailpick.back.common.EntityMapper;
-import com.cocktailpick.back.favorite.domain.Favorites;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +23,7 @@ public class CocktailRecommendService {
 	private final TagRepository tagRepository;
 	private final FilteringAndScoringRecommendService filteringAndScoringRecommendService;
 
-	public List<CocktailDetailResponse> recommend(RecommendRequest recommendRequest, Favorites favorites) {
+	public List<CocktailDetailResponse> recommend(RecommendRequest recommendRequest) {
 		List<Cocktail> cocktails = cocktailRepository.findAll();
 
 		EntityMapper<Long, Tag> entityMapper = tagRepository.findAll()
@@ -34,6 +33,6 @@ public class CocktailRecommendService {
 		List<Cocktail> recommend = filteringAndScoringRecommendService.recommend(cocktails, entityMapper,
 			recommendRequest);
 
-		return CocktailDetailResponse.listOf(recommend, favorites);
+		return CocktailDetailResponse.listOf(recommend);
 	}
 }

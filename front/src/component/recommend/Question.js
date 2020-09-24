@@ -12,7 +12,7 @@ import "../../css/recommend/question.css";
 
 const INITIAL_STAGE = 1;
 
-const Question = ({ setCocktails }) => {
+const Question = ({ setRecommendedCocktails }) => {
   const [answers, setAnswers] = useState({});
   const [stage, setStage] = useState(INITIAL_STAGE);
   const [question, setQuestion] = useState(questions[stage - 1]);
@@ -35,7 +35,7 @@ const Question = ({ setCocktails }) => {
 
   const recommendCocktails = async () => {
     const response = await createRecommend(answers);
-    setCocktails(response.data);
+    setRecommendedCocktails(response.data);
     history.push("/result");
   };
 

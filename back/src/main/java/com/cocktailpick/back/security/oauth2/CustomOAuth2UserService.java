@@ -53,8 +53,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 			user = userOptional.get();
 			if (!user.getProvider()
 				.equals(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()))) {
-				throw new OAuth2AuthenticationProcessingException(user.getProvider() + " 로 로그인하셨네요." + user.getProvider() +
-					" 계정으로 로그인 해주세요.");
+				throw new OAuth2AuthenticationProcessingException("이미 등록된 회원입니다.");
 			}
 			user = updateExistingUser(user, oAuth2UserInfo);
 		} else {

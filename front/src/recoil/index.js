@@ -1,5 +1,5 @@
 import { atom } from "recoil";
-import { USER_PROTOTYPE } from "../constants";
+import { TERMINOLOGY_ADMIN_PROTOTYPE, USER_PROTOTYPE } from "../constants";
 
 export const userState = atom({
   key: "userState",
@@ -9,5 +9,31 @@ export const userState = atom({
   },
   persistence_UNSTABLE: {
     type: "userState",
+  },
+});
+
+export const favoriteState = atom({
+  key: "favoriteState",
+  default: {
+    ids: [],
+  },
+  persistence_UNSTABLE: {
+    type: "favoriteState",
+  },
+});
+
+export const terminologyAdminState = atom({
+  key: "terminologyAdminState",
+  default: TERMINOLOGY_ADMIN_PROTOTYPE,
+  persistence_UNSTABLE: {
+    type: "terminologyAdminState",
+  },
+});
+
+export const terminologiesAdminState = atom({
+  key: "terminologiesAdminState",
+  default: [],
+  persistence_UNSTABLE: {
+    type: "terminologiesAdminState",
   },
 });

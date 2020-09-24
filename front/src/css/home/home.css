@@ -9,7 +9,7 @@
   margin-top: 5rem;
 }
 
-.todayCocktailContainer {
+.today-cocktail-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,28 +19,28 @@
   border-radius: var(--base-border-radius);
 }
 
-.todayCocktailContainer:hover {
+.today-cocktail-container:hover {
   box-shadow: 0 0 20px 10px var(--little-dark-white);
 }
 
-.todayCocktailTitle {
+.today-cocktail-title {
   font-size: 20px;
   border-bottom: var(--little-light-black) 1px solid;
   padding: 0 3rem;
 }
 
-.todayCocktailImage > img {
+.today-cocktail-image > img {
   max-width: 450px;
   max-height: 450px;
   pointer-events: none;
 }
 
-.todayCocktailName {
+.today-cocktail-name {
   color: var(--red);
   margin-bottom: 2rem;
 }
 
-.homeRecommendation {
+.home-recommendation {
   display: flex;
   align-items: center;
   height: auto;
@@ -52,7 +52,7 @@
   transition: 0.4s ease-in-out;
 }
 
-.homeRecommendation:hover {
+.home-recommendation:hover {
   color: var(--black);
   background-color: var(--little-light-red);
   border: var(--light-red) 1px solid;
@@ -60,13 +60,13 @@
   transition: 0.4s ease-in-out;
 }
 
-.homeRecommendation a {
+.home-recommendation a {
   color: var(--black);
   text-decoration: none;
   transition: 0.4s ease-in-out;
 }
 
-.homeRecommendation:hover a {
+.home-recommendation:hover a {
   color: var(--white);
   text-decoration: none;
   transition: 0.4s ease-in-out;
@@ -81,7 +81,7 @@
     margin-top: 1rem;
   }
 
-  .todayCocktailContainer {
+  .today-cocktail-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -92,31 +92,31 @@
     margin: 0.7rem 0;
   }
 
-  .todayCocktailContainer:hover {
+  .today-cocktail-container:hover {
     box-shadow: 0 0 20px 0 var(--little-dark-white);
   }
 
-  .todayCocktailTitle {
+  .today-cocktail-title {
     font-size: 18px;
   }
 
-  .todayCocktailImage {
+  .today-cocktail-image {
     display: flex;
     justify-content: center;
   }
 
-  .todayCocktailImage > img {
+  .today-cocktail-image > img {
     width: 100%;
     height: 100%;
   }
 
-  .homeRecommendation {
+  .home-recommendation {
     margin-top: 1rem;
     padding: 0.6rem 1rem;
     transition: none;
   }
 
-  .homeRecommendation:hover {
+  .home-recommendation:hover {
     color: var(--black);
     transition: none;
   }
