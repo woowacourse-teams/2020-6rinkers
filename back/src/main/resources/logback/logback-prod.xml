@@ -3,7 +3,7 @@
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
     <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
-    <property file="${user.dir}/back/src/main/resources/config/logback-slack.properties"/>
+    <springProperty scope="context" name="webhookUri" source="webhook.uri"/>
 
     <property name="LOG_FILE" value="logback"/>
     <property name="LOG_PATH" value="./logs/debug"/>
