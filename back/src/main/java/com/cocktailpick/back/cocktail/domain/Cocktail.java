@@ -27,7 +27,11 @@ import lombok.NoArgsConstructor;
 public class Cocktail extends BaseTimeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cocktail_sequence_gen")
-	@SequenceGenerator(name = "cocktail_sequence_gen", sequenceName = "cocktail_sequence")
+	@SequenceGenerator(
+		name = "cocktail_sequence_gen",
+		sequenceName = "cocktail_sequence",
+		allocationSize = 1
+	)
 	private Long id;
 
 	private String name;

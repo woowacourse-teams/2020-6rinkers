@@ -25,7 +25,11 @@ import lombok.NoArgsConstructor;
 public class Favorite extends BaseTimeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "favorite_sequence_gen")
-	@SequenceGenerator(name = "favorite_sequence_gen", sequenceName = "favorite_sequence")
+	@SequenceGenerator(
+		name = "favorite_sequence_gen",
+		sequenceName = "favorite_sequence",
+		allocationSize = 1
+	)
 	private Long id;
 
 	@ManyToOne

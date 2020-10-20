@@ -23,7 +23,11 @@ import lombok.NoArgsConstructor;
 public class Terminology extends BaseTimeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "terminology_sequence_gen")
-	@SequenceGenerator(name = "terminology_sequence_gen", sequenceName = "terminology_sequence")
+	@SequenceGenerator(
+		name = "terminology_sequence_gen",
+		sequenceName = "terminology_sequence",
+		allocationSize = 1
+	)
 	private Long id;
 
 	@Unique
