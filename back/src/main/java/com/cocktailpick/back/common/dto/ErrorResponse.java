@@ -2,6 +2,7 @@ package com.cocktailpick.back.common.dto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.validation.BindingResult;
@@ -42,7 +43,10 @@ public class ErrorResponse {
 	}
 
 	public static ErrorResponse of(MethodArgumentTypeMismatchException e) {
-		String value = e.getValue() == null ? "" : e.getValue().toString();
+		String value = Optional.ofNullable(e.getValue())
+			.map(Object::toString)
+			.orElse("");
+
 		List<ErrorResponse.FieldError> errors = ErrorResponse.FieldError.of(
 			e.getName(), value, e.getErrorCode());
 		return new ErrorResponse(ErrorCode.INVALID_TYPE_VALUE, errors);
