@@ -42,23 +42,22 @@ public class CocktailService {
 	private final CocktailFindStrategyFactory cocktailFindStrategyFactory;
 
 	@Transactional(readOnly = true)
-	public List<CocktailResponse> findAllCocktails(Favorites favorites) {
-		return Collections.unmodifiableList(CocktailResponse.listOf(cocktailRepository.findAll(), favorites));
+	public List<CocktailResponse> findAllCocktails() {
+		return Collections.unmodifiableList(CocktailResponse.listOf(cocktailRepository.findAll()));
 	}
 
 	@Transactional(readOnly = true)
-	public List<CocktailResponse> findPageContainingWord(String contain, long id, int size, Favorites favorites) {
+	public List<CocktailResponse> findPageContainingWord(String contain, long id, int size) {
 		Pageable pageRequest = PageRequest.of(0, size);
 
 		List<Cocktail> cocktails = cocktailRepository.findByNameContainingAndIdGreaterThan(contain, id, pageRequest)
 			.getContent();
 
-		return Collections.unmodifiableList(CocktailResponse.listOf(cocktails, favorites));
+		return Collections.unmodifiableList(CocktailResponse.listOf(cocktails));
 	}
 
 	@Transactional(readOnly = true)
-	public List<CocktailResponse> findPageFilteredByTags(List<Long> tagIds, long id, int size,
-		Favorites favorites) {
+	public List<CocktailResponse> findPageFilteredByTags(List<Long> tagIds, long id, int size) {
 		List<Cocktail> persistCocktails = cocktailRepository.findByIdGreaterThan(id);
 
 		List<Cocktail> cocktails = persistCocktails.stream()
@@ -66,11 +65,11 @@ public class CocktailService {
 			.limit(size)
 			.collect(Collectors.toList());
 
-		return CocktailResponse.listOf(cocktails, favorites);
+		return CocktailResponse.listOf(cocktails);
 	}
 
 	@Transactional(readOnly = true)
-	public CocktailDetailResponse findCocktail(Long id, Favorites favorites) {
+	public CocktailDetailResponse findCocktail(Long id) {
 		Cocktail cocktail = findById(id);
 		return CocktailDetailResponse.of(cocktail);
 	}
@@ -183,6 +182,6 @@ public class CocktailService {
 	@Transactional(readOnly = true)
 	public List<CocktailResponse> findByNameContaining(String name) {
 		List<Cocktail> cocktailsContainingName = cocktailRepository.findByNameContaining(name);
-		return CocktailResponse.listOf(cocktailsContainingName, Favorites.empty());
+		return CocktailResponse.listOf(cocktailsContainingName);
 	}
 }

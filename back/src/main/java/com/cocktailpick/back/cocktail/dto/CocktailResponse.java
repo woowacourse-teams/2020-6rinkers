@@ -30,7 +30,7 @@ public class CocktailResponse {
 			TagResponse.listOf(cocktail.getTags()));
 	}
 
-	public static List<CocktailResponse> listOf(List<Cocktail> cocktails, Favorites favorites) {
+	public static List<CocktailResponse> listOf(List<Cocktail> cocktails) {
 		List<CocktailResponse> cocktailResponses = new ArrayList<>();
 
 		for (Cocktail cocktail : cocktails) {

@@ -39,7 +39,6 @@ import com.cocktailpick.back.cocktail.vo.UserPreferenceAnswer;
 import com.cocktailpick.back.common.WithMockCustomUser;
 import com.cocktailpick.back.common.documentation.DocumentationWithSecurity;
 import com.cocktailpick.back.tag.dto.TagResponse;
-import com.cocktailpick.back.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(controllers = CocktailController.class)
@@ -49,9 +48,6 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 
 	@MockBean
 	private CocktailRecommendService cocktailRecommendService;
-
-	@MockBean
-	private UserService userService;
 
 	private Cocktail blueHawaii;
 
@@ -108,7 +104,7 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
 				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")))
 		);
-		given(cocktailService.findAllCocktails(any())).willReturn(cocktailResponses);
+		given(cocktailService.findAllCocktails()).willReturn(cocktailResponses);
 
 		mockMvc.perform(get("/api/cocktails")
 			.accept(MediaType.APPLICATION_JSON))
@@ -127,7 +123,7 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 			new CocktailResponse(2L, "블루 하와이", "https://daum.net",
 				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")))
 		);
-		given(cocktailService.findPageContainingWord(anyString(), anyLong(), anyInt(), any())).willReturn(
+		given(cocktailService.findPageContainingWord(anyString(), anyLong(), anyInt())).willReturn(
 			cocktailResponses);
 
 		mockMvc.perform(get("/api/cocktails/contain-word")
@@ -146,7 +142,7 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 	void findCocktail() throws Exception {
 		CocktailDetailResponse cocktailDetailResponse = CocktailDetailResponse.of(blueHawaii);
 		cocktailDetailResponse = cocktailDetailResponse.withId(1L);
-		given(cocktailService.findCocktail(anyLong(), any())).willReturn(cocktailDetailResponse);
+		given(cocktailService.findCocktail(anyLong())).willReturn(cocktailDetailResponse);
 
 		mockMvc.perform(RestDocumentationRequestBuilders.get("/api/cocktails/{id}", 1L)
 			.accept(MediaType.APPLICATION_JSON))
@@ -182,7 +178,7 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 				Arrays.asList(new TagResponse(1L, "쫄깃쫄깃", "식감"), new TagResponse(2L, "짭쪼름", "맛")))
 		);
 
-		given(cocktailService.findPageFilteredByTags(anyList(), anyLong(), anyInt(), any())).willReturn(
+		given(cocktailService.findPageFilteredByTags(anyList(), anyLong(), anyInt())).willReturn(
 			cocktailResponses);
 
 		mockMvc.perform((get("/api/cocktails/contain-tags"))

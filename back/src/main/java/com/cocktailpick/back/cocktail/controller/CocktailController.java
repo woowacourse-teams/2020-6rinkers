@@ -26,8 +26,6 @@ import com.cocktailpick.back.cocktail.dto.CocktailResponse;
 import com.cocktailpick.back.cocktail.dto.RecommendRequest;
 import com.cocktailpick.back.cocktail.service.CocktailRecommendService;
 import com.cocktailpick.back.cocktail.service.CocktailService;
-import com.cocktailpick.back.security.CurrentUser;
-import com.cocktailpick.back.user.domain.User;
 import lombok.RequiredArgsConstructor;
 
 @CrossOrigin("*")
@@ -39,28 +37,26 @@ public class CocktailController {
 	private final CocktailRecommendService cocktailRecommendService;
 
 	@GetMapping
-	public ResponseEntity<List<CocktailResponse>> findCocktails(@CurrentUser User user) {
-		return ResponseEntity.ok(cocktailService.findAllCocktails(user.getFavorites()));
+	public ResponseEntity<List<CocktailResponse>> findCocktails() {
+		return ResponseEntity.ok(cocktailService.findAllCocktails());
 	}
 
 	@GetMapping("/contain-word")
-	public ResponseEntity<List<CocktailResponse>> findPageContainingWord(@CurrentUser User user,
+	public ResponseEntity<List<CocktailResponse>> findPageContainingWord(
 		@RequestParam(defaultValue = "") String contain, @RequestParam long id, @RequestParam int size) {
-		List<CocktailResponse> cocktailResponses = cocktailService.findPageContainingWord(contain, id, size,
-			user.getFavorites());
+		List<CocktailResponse> cocktailResponses = cocktailService.findPageContainingWord(contain, id, size);
 		return ResponseEntity.ok(cocktailResponses);
 	}
 
 	@GetMapping("/contain-tags")
-	public ResponseEntity<List<CocktailResponse>> findPageFilteredByTags(@CurrentUser User user,
+	public ResponseEntity<List<CocktailResponse>> findPageFilteredByTags(
 		@RequestParam(defaultValue = "") List<Long> tagIds, @RequestParam long id, @RequestParam int size) {
-		return ResponseEntity.ok(cocktailService.findPageFilteredByTags(tagIds, id, size, user.getFavorites()));
+		return ResponseEntity.ok(cocktailService.findPageFilteredByTags(tagIds, id, size));
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<CocktailDetailResponse> findCocktail(@CurrentUser User user,
-		@PathVariable Long id) {
-		return ResponseEntity.ok(cocktailService.findCocktail(id, user.getFavorites()));
+	public ResponseEntity<CocktailDetailResponse> findCocktail(@PathVariable Long id) {
+		return ResponseEntity.ok(cocktailService.findCocktail(id));
 	}
 
 	@PostMapping
@@ -94,8 +90,7 @@ public class CocktailController {
 	}
 
 	@PostMapping("/recommend")
-	public ResponseEntity<List<CocktailDetailResponse>> recommend(@CurrentUser User user,
-		@RequestBody RecommendRequest recommendRequests) {
+	public ResponseEntity<List<CocktailDetailResponse>> recommend(@RequestBody RecommendRequest recommendRequests) {
 		List<CocktailDetailResponse> cocktailDetailResponses = cocktailRecommendService.recommend(recommendRequests);
 		return ResponseEntity.ok(cocktailDetailResponses);
 	}
