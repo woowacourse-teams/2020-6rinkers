@@ -59,13 +59,12 @@ public class RecommendedCocktails {
 			.forEachOrdered(it -> sortedMap.put(it.getKey(), it.getValue()));
 
 		List<RecommendedCocktail> cocktails = new ArrayList<>();
-		for (Integer score : sortedMap.keySet()) {
+		for (List<RecommendedCocktail> value : sortedMap.values()) {
 			if (cocktails.size() >= DEFAULT_RECOMMEND_COUNT) {
 				break;
 			}
-			List<RecommendedCocktail> recommendedCocktails = sortedMap.get(score);
-			Collections.shuffle(recommendedCocktails);
-			cocktails.addAll(recommendedCocktails);
+			Collections.shuffle(value);
+			cocktails.addAll(value);
 		}
 
 		return cocktails.stream()
