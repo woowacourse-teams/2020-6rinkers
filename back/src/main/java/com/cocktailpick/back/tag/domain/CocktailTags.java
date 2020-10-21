@@ -65,7 +65,7 @@ public class CocktailTags {
 
 	private boolean containTagId(Long tagId) {
 		return cocktailTags.stream()
-				.map(CocktailTag::tagId)
+			.map(CocktailTag::tagId)
 			.anyMatch(oneTagId -> oneTagId.equals(tagId));
 	}
 }

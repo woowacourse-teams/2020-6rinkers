@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cocktailpick.back.cocktail.domain.Cocktail;
-import com.cocktailpick.back.favorite.domain.Favorites;
 import com.cocktailpick.back.tag.dto.TagResponse;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -30,7 +29,7 @@ public class CocktailResponse {
 			TagResponse.listOf(cocktail.getTags()));
 	}
 
-	public static List<CocktailResponse> listOf(List<Cocktail> cocktails, Favorites favorites) {
+	public static List<CocktailResponse> listOf(List<Cocktail> cocktails) {
 		List<CocktailResponse> cocktailResponses = new ArrayList<>();
 
 		for (Cocktail cocktail : cocktails) {

@@ -11,8 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -20,7 +18,6 @@ import org.hibernate.annotations.Where;
 import com.cocktailpick.back.common.domain.BaseTimeEntity;
 import com.cocktailpick.back.favorite.domain.Favorite;
 import com.cocktailpick.back.favorite.domain.Favorites;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -42,7 +39,6 @@ public class User extends BaseTimeEntity {
 	@Column(nullable = false)
 	private String name;
 
-	@Email
 	@Column(nullable = false)
 	private String email;
 
@@ -51,10 +47,8 @@ public class User extends BaseTimeEntity {
 	@Column(nullable = false)
 	private Boolean emailVerified = false;
 
-	@JsonIgnore
 	private String password;
 
-	@NotNull
 	@Enumerated(EnumType.STRING)
 	private AuthProvider provider;
 
@@ -68,8 +62,8 @@ public class User extends BaseTimeEntity {
 	private boolean deleted;
 
 	@Builder
-	public User(Long id, String name, @Email String email, String imageUrl, Boolean emailVerified, String password,
-		@NotNull AuthProvider provider, String providerId, Role role,
+	public User(Long id, String name, String email, String imageUrl, Boolean emailVerified, String password,
+		AuthProvider provider, String providerId, Role role,
 		Favorites favorites) {
 		this.id = id;
 		this.name = name;
