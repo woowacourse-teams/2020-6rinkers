@@ -1,8 +1,8 @@
 package com.cocktailpick.back.common.domain;
 
+import static com.cocktailpick.back.common.Fixtures.*;
 import static org.assertj.core.api.Assertions.*;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import org.junit.jupiter.api.DisplayName;
@@ -18,12 +18,5 @@ public class DailyDateTest {
 
 		assertThat(DailyDate.of(sixOClock).getDate())
 			.isEqualTo(createDate(2020, 7, 27, 0, 0));
-	}
-
-	public static Date createDate(int year, int month, int date, int hour, int minute) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.clear();
-		calendar.set(year, month - 1, date, hour, minute);
-		return calendar.getTime();
 	}
 }

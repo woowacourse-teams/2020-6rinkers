@@ -6,7 +6,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-public class TagTest {
+class TagTest {
 	@DisplayName("같은 태그인지 확인한다.")
 	@ParameterizedTest
 	@CsvSource({"초코,초코,true", "탄산,분위기있는,false", "연인과함께,연인과함께,true", "부드러운,부드러울뻔한,false"})

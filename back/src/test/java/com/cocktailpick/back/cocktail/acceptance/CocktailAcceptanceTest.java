@@ -29,7 +29,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.MultiPartSpecification;
 
 @DisplayName("Cocktail 인수/통합 테스트")
-public class CocktailAcceptanceTest extends AcceptanceTest {
+class CocktailAcceptanceTest extends AcceptanceTest {
 
 	@DisplayName("모든 칵테일을 조회한다.")
 	@Test

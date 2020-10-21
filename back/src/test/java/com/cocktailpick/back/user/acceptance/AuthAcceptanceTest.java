@@ -10,14 +10,15 @@ import org.junit.jupiter.api.Test;
 import com.cocktailpick.back.common.acceptance.AcceptanceTest;
 import com.cocktailpick.back.user.dto.LoginRequest;
 import com.cocktailpick.back.user.dto.SignUpRequest;
+
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 
 @DisplayName("Auth 인수/통합 테스트")
-public class AuthAcceptanceTest extends AcceptanceTest {
+class AuthAcceptanceTest extends AcceptanceTest {
 
-    public static SignUpRequest signUpRequest;
-    public static LoginRequest loginRequest;
+    static SignUpRequest signUpRequest;
+    static LoginRequest loginRequest;
 
     @Override
     @BeforeEach
@@ -31,7 +32,7 @@ public class AuthAcceptanceTest extends AcceptanceTest {
 
     @DisplayName("회원가입 요청을 한다.")
     @Test
-    public void signUp() {
+    void signUp() {
         // when
         ExtractableResponse<Response> response = requestSignUp(signUpRequest);
 
@@ -41,7 +42,7 @@ public class AuthAcceptanceTest extends AcceptanceTest {
 
     @DisplayName("로그인 요청을 한다.")
     @Test
-    public void login() {
+    void login() {
         // given
         requestSignUp(signUpRequest);
 

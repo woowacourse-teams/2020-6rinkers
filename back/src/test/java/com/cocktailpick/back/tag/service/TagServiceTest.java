@@ -24,7 +24,7 @@ import com.cocktailpick.back.tag.domain.TagType;
 import com.cocktailpick.back.tag.dto.TagRequest;
 
 @ExtendWith(MockitoExtension.class)
-public class TagServiceTest {
+class TagServiceTest {
 	private TagService tagService;
 
 	@Mock

@@ -11,13 +11,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.junit.jupiter.params.provider.Arguments;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
@@ -34,17 +32,13 @@ import com.cocktailpick.back.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.back.cocktail.dto.CocktailRequest;
 import com.cocktailpick.back.cocktail.dto.CocktailResponse;
 import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
-import com.cocktailpick.back.favorite.domain.Favorite;
-import com.cocktailpick.back.favorite.domain.Favorites;
 import com.cocktailpick.back.recipe.domain.RecipeItem;
 import com.cocktailpick.back.tag.domain.Tag;
 import com.cocktailpick.back.tag.domain.TagRepository;
 import com.cocktailpick.back.tag.domain.TagType;
-import com.cocktailpick.back.user.domain.EmptyUser;
-import com.cocktailpick.back.user.domain.User;
 
 @ExtendWith(MockitoExtension.class)
-public class CocktailServiceTest {
+class CocktailServiceTest {
 	private CocktailService cocktailService;
 
 	@Mock

@@ -72,7 +72,7 @@ class UserServiceTest {
 		user.setImageUrl("image.com");
 		user.setName("toney");
 		user.setPassword("password");
-		user.setProvider(AuthProvider.local);
+		user.setProvider(AuthProvider.LOCAL);
 		user.setRole(Role.ROLE_USER);
 		user.setProviderId("local");
 		user.setFavorites(favorites);
@@ -114,7 +114,7 @@ class UserServiceTest {
 	void deleteFavoriteTest() {
 		userService.deleteFavorite(user, 1L);
 
-		assertThat(user.getFavorites().getFavorites().size()).isEqualTo(0);
+		assertThat(user.getFavorites().getFavorites().size()).isZero();
 	}
 
 	@DisplayName("회원 탈퇴한다.")

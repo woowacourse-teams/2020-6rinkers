@@ -1,6 +1,6 @@
 package com.cocktailpick.back.common.util;
 
-import static com.cocktailpick.back.common.domain.DailyDateTest.*;
+import static com.cocktailpick.back.common.Fixtures.*;
 import static org.assertj.core.api.Assertions.*;
 
 import java.util.Date;

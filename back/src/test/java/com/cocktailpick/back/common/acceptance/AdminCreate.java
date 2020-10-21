@@ -30,7 +30,7 @@ public class AdminCreate {
 		user.setName(ADMIN_NAME);
 		user.setEmail(ADMIN_EMAIL);
 		user.setPassword(ADMIN_PASSWORD);
-		user.setProvider(AuthProvider.local);
+		user.setProvider(AuthProvider.LOCAL);
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user.setRole(Role.ROLE_ADMIN);
 
