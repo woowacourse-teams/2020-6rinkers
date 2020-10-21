@@ -22,7 +22,7 @@ public class DailyDate {
 
 			return new DailyDate(simpleDateFormat.parse(format));
 		} catch (ParseException e) {
-			throw new RuntimeException();
+			throw new IllegalArgumentException("날짜를 파싱할 수 없습니다.");
 		}
 	}
 
