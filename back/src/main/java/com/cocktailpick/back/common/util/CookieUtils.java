@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.util.SerializationUtils;
 
 public class CookieUtils {
+	private CookieUtils() {
+		throw new IllegalStateException("CookieUtils Class cannot be instantiated.");
+	}
 
 	public static Optional<Cookie> getCookie(HttpServletRequest request, String name) {
 		Cookie[] cookies = request.getCookies();

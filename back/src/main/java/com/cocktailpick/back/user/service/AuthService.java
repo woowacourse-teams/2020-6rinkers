@@ -18,6 +18,7 @@ import com.cocktailpick.back.user.domain.UserRepository;
 import com.cocktailpick.back.user.dto.AuthResponse;
 import com.cocktailpick.back.user.dto.LoginRequest;
 import com.cocktailpick.back.user.dto.SignUpRequest;
+
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -55,7 +56,7 @@ public class AuthService {
 		user.setName(signUpRequest.getName());
 		user.setEmail(signUpRequest.getEmail());
 		user.setPassword(signUpRequest.getPassword());
-		user.setProvider(AuthProvider.local);
+		user.setProvider(AuthProvider.LOCAL);
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user.setRole(Role.ROLE_USER);
 
