@@ -26,7 +26,6 @@ import com.cocktailpick.back.common.domain.DailyDate;
 import com.cocktailpick.back.common.exceptions.EntityNotFoundException;
 import com.cocktailpick.back.common.exceptions.ErrorCode;
 import com.cocktailpick.back.common.util.NumberOfDaily;
-import com.cocktailpick.back.favorite.domain.Favorites;
 import com.cocktailpick.back.recipe.domain.RecipeItem;
 import com.cocktailpick.back.tag.domain.CocktailTag;
 import com.cocktailpick.back.tag.domain.Tag;

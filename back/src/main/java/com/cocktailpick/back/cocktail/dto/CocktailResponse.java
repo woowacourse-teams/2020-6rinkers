@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.cocktailpick.back.cocktail.domain.Cocktail;
-import com.cocktailpick.back.favorite.domain.Favorites;
 import com.cocktailpick.back.tag.dto.TagResponse;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

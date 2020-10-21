@@ -11,8 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -20,7 +18,6 @@ import org.hibernate.annotations.Where;
 import com.cocktailpick.back.common.domain.BaseTimeEntity;
 import com.cocktailpick.back.favorite.domain.Favorite;
 import com.cocktailpick.back.favorite.domain.Favorites;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
