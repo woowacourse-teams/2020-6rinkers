@@ -1,0 +1,31 @@
+spring:
+  profiles:
+    include: security
+    active: test
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=mysql;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+  flyway:
+    enabled: false
+logging:
+  level:
+    org:
+      hibernate:
+        type: trace
+  config: classpath:logback/logback-local.xml
+app:
+  oauth2:
+    authorizedRedirectUris:
+      - http://localhost:3000/oauth2/redirect
