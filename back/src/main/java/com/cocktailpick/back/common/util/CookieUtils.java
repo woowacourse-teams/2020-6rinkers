@@ -11,7 +11,7 @@ import org.springframework.util.SerializationUtils;
 
 public class CookieUtils {
 	private CookieUtils() {
-		throw new IllegalStateException("CookieUtils Class cannot be instantiated.");
+		throw new IllegalStateException("CookieUtils의 인스턴스는 생성할 수 없습니다.");
 	}
 
 	public static Optional<Cookie> getCookie(HttpServletRequest request, String name) {

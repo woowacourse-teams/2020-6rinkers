@@ -17,8 +17,8 @@ import io.restassured.response.Response;
 @DisplayName("Auth 인수/통합 테스트")
 class AuthAcceptanceTest extends AcceptanceTest {
 
-    static SignUpRequest signUpRequest;
-    static LoginRequest loginRequest;
+    private static SignUpRequest signUpRequest;
+    private static LoginRequest loginRequest;
 
     @Override
     @BeforeEach

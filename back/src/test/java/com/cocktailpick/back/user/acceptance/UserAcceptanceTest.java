@@ -23,9 +23,9 @@ import io.restassured.response.Response;
 @DisplayName("User 인수/통합 테스트")
 class UserAcceptanceTest extends AcceptanceTest {
 
-    public static SignUpRequest signUpRequest;
-    public static LoginRequest loginRequest;
-    public static AuthResponse authResponse;
+    private static SignUpRequest signUpRequest;
+    private static LoginRequest loginRequest;
+    private static AuthResponse authResponse;
 
     @Override
     @BeforeEach
