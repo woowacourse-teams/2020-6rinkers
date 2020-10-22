@@ -12,6 +12,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import com.cocktailpick.back.common.dto.ErrorResponse;
 import com.cocktailpick.back.common.exceptions.BusinessException;
 import com.cocktailpick.back.common.exceptions.ErrorCode;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -50,6 +51,13 @@ public class GlobalExceptionHandler {
 		log.warn(e.getMessage(), e);
 		ErrorResponse response = ErrorResponse.of(ErrorCode.AUTH_ERROR);
 		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(IllegalStateException.class)
+	protected ResponseEntity<ErrorResponse> handleIllegalStateException(IllegalStateException e) {
+		log.error(e.getMessage(), e);
+		ErrorResponse response = ErrorResponse.of(ErrorCode.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@ExceptionHandler(Exception.class)

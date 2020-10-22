@@ -12,13 +12,14 @@ import org.springframework.http.MediaType;
 import com.cocktailpick.back.common.acceptance.AcceptanceTest;
 import com.cocktailpick.back.dictionary.dto.TerminologyRequest;
 import com.cocktailpick.back.user.dto.AuthResponse;
+
 import io.restassured.builder.MultiPartSpecBuilder;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import io.restassured.specification.MultiPartSpecification;
 
 @DisplayName("Terminology 인수/통합 테스트")
-public class TerminologyAcceptanceTest extends AcceptanceTest {
+class TerminologyAcceptanceTest extends AcceptanceTest {
 
 	@DisplayName("용어 csv 파일을 저장한다.")
 	@Test

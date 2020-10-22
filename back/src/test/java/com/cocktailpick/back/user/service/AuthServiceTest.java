@@ -65,7 +65,7 @@ class AuthServiceTest {
 		user.setImageUrl("image.com");
 		user.setName("hi");
 		user.setPassword("password");
-		user.setProvider(AuthProvider.local);
+		user.setProvider(AuthProvider.LOCAL);
 		user.setRole(Role.ROLE_USER);
 		user.setProviderId("local");
 
@@ -87,7 +87,7 @@ class AuthServiceTest {
 		user.setImageUrl("image.com");
 		user.setName("hi");
 		user.setPassword("password");
-		user.setProvider(AuthProvider.local);
+		user.setProvider(AuthProvider.LOCAL);
 		user.setRole(Role.ROLE_USER);
 		user.setProviderId("local");
 

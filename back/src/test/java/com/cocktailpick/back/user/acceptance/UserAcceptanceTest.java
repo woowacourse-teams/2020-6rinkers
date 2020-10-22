@@ -16,15 +16,16 @@ import com.cocktailpick.back.user.dto.AuthResponse;
 import com.cocktailpick.back.user.dto.LoginRequest;
 import com.cocktailpick.back.user.dto.SignUpRequest;
 import com.cocktailpick.back.user.dto.UserUpdateRequest;
+
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 
 @DisplayName("User 인수/통합 테스트")
-public class UserAcceptanceTest extends AcceptanceTest {
+class UserAcceptanceTest extends AcceptanceTest {
 
-    public static SignUpRequest signUpRequest;
-    public static LoginRequest loginRequest;
-    public static AuthResponse authResponse;
+    private static SignUpRequest signUpRequest;
+    private static LoginRequest loginRequest;
+    private static AuthResponse authResponse;
 
     @Override
     @BeforeEach

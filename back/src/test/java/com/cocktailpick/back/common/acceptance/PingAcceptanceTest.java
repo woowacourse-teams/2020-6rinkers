@@ -10,15 +10,15 @@ import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 
 @DisplayName("Ping 인수/통합 테스트")
-public class PingAcceptanceTest extends AcceptanceTest {
+class PingAcceptanceTest extends AcceptanceTest {
 
-    @DisplayName("Ping 컨트롤러를 테스트한다.")
-    @Test
-    void ping() {
-        // when
-        ExtractableResponse<Response> response = requestPing();
+	@DisplayName("Ping 컨트롤러를 테스트한다.")
+	@Test
+	void ping() {
+		// when
+		ExtractableResponse<Response> response = requestPing();
 
-        // then
-        assertThatStatusIsOk(response);
-    }
+		// then
+		assertThatStatusIsOk(response);
+	}
 }

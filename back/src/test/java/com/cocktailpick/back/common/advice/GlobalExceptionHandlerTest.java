@@ -31,7 +31,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @ContextConfiguration(classes = {GlobalExceptionHandlerTest.TestController.class, GlobalExceptionHandler.class})
 @WebMvcTest(controllers = GlobalExceptionHandlerTest.TestController.class)
-public class GlobalExceptionHandlerTest {
+class GlobalExceptionHandlerTest {
 	private MockMvc mockMvc;
 
 	private ObjectMapper objectMapper;

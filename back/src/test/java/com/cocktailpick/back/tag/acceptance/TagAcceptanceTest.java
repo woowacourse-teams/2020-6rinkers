@@ -20,7 +20,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.MultiPartSpecification;
 
 @DisplayName("Tag 인수/통합 테스트")
-public class TagAcceptanceTest extends AcceptanceTest {
+class TagAcceptanceTest extends AcceptanceTest {
 
 	@DisplayName("태그 csv 파일을 저장한다.")
 	@Test

@@ -18,8 +18,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 public class TokenAuthenticationFilter extends OncePerRequestFilter {
-
 	private static final Logger logger = LoggerFactory.getLogger(TokenAuthenticationFilter.class);
+
 	@Autowired
 	private TokenProvider tokenProvider;
 	@Autowired

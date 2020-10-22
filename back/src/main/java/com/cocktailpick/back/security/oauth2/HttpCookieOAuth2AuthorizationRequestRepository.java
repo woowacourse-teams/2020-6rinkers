@@ -15,7 +15,7 @@ public class HttpCookieOAuth2AuthorizationRequestRepository implements
 	AuthorizationRequestRepository<OAuth2AuthorizationRequest> {
 	public static final String OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME = "oauth2_auth_request";
 	public static final String REDIRECT_URI_PARAM_COOKIE_NAME = "redirect_uri";
-	private static final int cookieExpireSeconds = 180;
+	private static final int COOKIE_EXPIRE_SECONDS = 180;
 
 	@Override
 	public OAuth2AuthorizationRequest loadAuthorizationRequest(HttpServletRequest request) {
@@ -34,10 +34,11 @@ public class HttpCookieOAuth2AuthorizationRequestRepository implements
 		}
 
 		CookieUtils.addCookie(response, OAUTH2_AUTHORIZATION_REQUEST_COOKIE_NAME,
-			CookieUtils.serialize(authorizationRequest), cookieExpireSeconds);
+			CookieUtils.serialize(authorizationRequest), COOKIE_EXPIRE_SECONDS);
 		String redirectUriAfterLogin = request.getParameter(REDIRECT_URI_PARAM_COOKIE_NAME);
 		if (StringUtils.isNotBlank(redirectUriAfterLogin)) {
-			CookieUtils.addCookie(response, REDIRECT_URI_PARAM_COOKIE_NAME, redirectUriAfterLogin, cookieExpireSeconds);
+			CookieUtils.addCookie(response, REDIRECT_URI_PARAM_COOKIE_NAME, redirectUriAfterLogin,
+				COOKIE_EXPIRE_SECONDS);
 		}
 	}
 

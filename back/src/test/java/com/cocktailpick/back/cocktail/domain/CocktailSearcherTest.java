@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.*;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -34,7 +35,9 @@ class CocktailSearcherTest {
 	@DisplayName("입력된 칵테일 목록이 빌 경우 예외 처리한다.")
 	@Test
 	void findInException() {
-		assertThatThrownBy(() -> cocktailSearcher.findIn(Collections.emptyList()))
+		List<Cocktail> cocktails = Collections.emptyList();
+
+		assertThatThrownBy(() -> cocktailSearcher.findIn(cocktails))
 			.isInstanceOf(EntityNotFoundException.class);
 	}
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PingController {
 
 	@GetMapping
-	ResponseEntity<Void> ping() {
+	public ResponseEntity<Void> ping() {
 		return ResponseEntity.ok().build();
 	}
 }

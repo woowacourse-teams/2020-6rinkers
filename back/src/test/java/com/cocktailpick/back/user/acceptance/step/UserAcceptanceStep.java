@@ -92,7 +92,7 @@ public class UserAcceptanceStep {
 			() -> assertThat(userResponse.getEmail()).isEqualTo(signUpRequest.getEmail()),
 			() -> assertThat(userResponse.getId()).isNotNull(),
 			() -> assertThat(userResponse.getName()).isEqualTo(signUpRequest.getName()),
-			() -> assertThat(userResponse.getProvider()).isEqualTo(AuthProvider.local.toString()),
+			() -> assertThat(userResponse.getProvider()).isEqualTo(AuthProvider.LOCAL.toString()),
 			() -> assertThat(userResponse.getRole()).isEqualTo(Role.ROLE_USER.toString())
 		);
 	}
