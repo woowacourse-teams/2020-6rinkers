@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.common.base.CaseFormat;
 
 @Service
-@Profile("local")
+@Profile("test")
 public class DatabaseCleanUp implements InitializingBean {
     @PersistenceContext
     private EntityManager entityManager;

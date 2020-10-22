@@ -33,7 +33,11 @@ import lombok.Setter;
 public class User extends BaseTimeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence_gen")
-	@SequenceGenerator(name = "user_sequence_gen", sequenceName = "user_sequence")
+	@SequenceGenerator(
+		name = "user_sequence_gen",
+		sequenceName = "user_sequence",
+		allocationSize = 1
+	)
 	private Long id;
 
 	@Column(nullable = false)

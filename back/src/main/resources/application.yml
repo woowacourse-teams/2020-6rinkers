@@ -1,0 +1,4 @@
+# default profiles
+spring:
+  profiles:
+    active: local

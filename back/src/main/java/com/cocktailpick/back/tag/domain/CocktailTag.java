@@ -1,12 +1,18 @@
 package com.cocktailpick.back.tag.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+
 import com.cocktailpick.back.cocktail.domain.Cocktail;
 import com.cocktailpick.back.common.domain.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
@@ -14,7 +20,11 @@ import javax.persistence.*;
 public class CocktailTag extends BaseTimeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cocktail_tag_sequence_gen")
-	@SequenceGenerator(name = "cocktail_tag_sequence_gen", sequenceName = "cocktail_tag_sequence")
+	@SequenceGenerator(
+		name = "cocktail_tag_sequence_gen",
+		sequenceName = "cocktail_tag_sequence",
+		allocationSize = 1
+	)
 	private Long id;
 
 	@ManyToOne

@@ -12,7 +12,7 @@ import com.cocktailpick.back.user.domain.User;
 import com.cocktailpick.back.user.domain.UserRepository;
 
 @Service
-@Profile("local")
+@Profile("test")
 public class AdminCreate {
 	public static final String ADMIN_NAME = "두강";
 	public static final String ADMIN_EMAIL = "cocktailpick@gamil.com";

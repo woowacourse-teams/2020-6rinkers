@@ -21,7 +21,11 @@ import lombok.NoArgsConstructor;
 public class RecipeItem extends BaseTimeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "recipe_item_sequence_gen")
-	@SequenceGenerator(name = "recipe_item_sequence_gen", sequenceName = "recipe_item_sequence")
+	@SequenceGenerator(
+		name = "recipe_item_sequence_gen",
+		sequenceName = "recipe_item_sequence",
+		allocationSize = 1
+	)
 	private Long id;
 
 	private String ingredient;
