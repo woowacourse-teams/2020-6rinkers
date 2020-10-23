@@ -29,8 +29,7 @@ public class Cocktail extends BaseTimeEntity {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cocktail_sequence_gen")
 	@SequenceGenerator(
 		name = "cocktail_sequence_gen",
-		sequenceName = "cocktail_sequence",
-		allocationSize = 1
+		sequenceName = "cocktail_sequence"
 	)
 	private Long id;
 

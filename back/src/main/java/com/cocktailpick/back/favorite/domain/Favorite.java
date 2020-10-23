@@ -27,8 +27,7 @@ public class Favorite extends BaseTimeEntity {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "favorite_sequence_gen")
 	@SequenceGenerator(
 		name = "favorite_sequence_gen",
-		sequenceName = "favorite_sequence",
-		allocationSize = 1
+		sequenceName = "favorite_sequence"
 	)
 	private Long id;
 

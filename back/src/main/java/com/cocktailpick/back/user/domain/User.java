@@ -35,8 +35,7 @@ public class User extends BaseTimeEntity {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence_gen")
 	@SequenceGenerator(
 		name = "user_sequence_gen",
-		sequenceName = "user_sequence",
-		allocationSize = 1
+		sequenceName = "user_sequence"
 	)
 	private Long id;
 
