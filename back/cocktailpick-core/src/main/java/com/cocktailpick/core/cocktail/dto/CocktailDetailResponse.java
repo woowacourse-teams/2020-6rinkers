@@ -1,4 +1,4 @@
-package com.cocktailpick.common.cocktail.dto;
+package com.cocktailpick.core.cocktail.dto;
 
 import java.util.ArrayList;
 import java.util.List;

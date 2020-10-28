@@ -7,9 +7,9 @@ import java.util.function.Function;
 
 import org.springframework.stereotype.Service;
 
-import com.cocktailpick.common.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.core.cocktail.domain.Cocktail;
 import com.cocktailpick.core.cocktail.domain.CocktailRepository;
+import com.cocktailpick.core.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.core.cocktail.dto.RecommendRequest;
 import com.cocktailpick.core.tag.domain.Tag;
 import com.cocktailpick.core.tag.domain.TagRepository;

@@ -4,10 +4,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.cocktailpick.core.common.exceptions.EntityNotFoundException;
 import com.cocktailpick.core.common.exceptions.ErrorCode;
@@ -19,7 +19,6 @@ import com.cocktailpick.core.tag.domain.TagRepository;
 import com.cocktailpick.core.tag.domain.TagType;
 import com.cocktailpick.core.tag.dto.TagRequest;
 import com.cocktailpick.core.tag.dto.TagResponse;
-import com.cocktailpick.core.util.csv.OpenCsvReader;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
@@ -31,11 +30,8 @@ public class TagService {
 	private final CocktailTagRepository cocktailTagRepository;
 
 	@Transactional
-	public void saveAll(MultipartFile file) {
-		TagCsvReader tagCsvReader = new TagCsvReader(OpenCsvReader.from(file));
-		List<Tag> tags = tagCsvReader.getTags();
-
-		tagRepository.saveAll(tags);
+	public void saveAll(List<TagRequest> tagRequests) {
+		tagRepository.saveAll(tagRequests.stream().map(TagRequest::toTag).collect(Collectors.toList()));
 	}
 
 	@Transactional(readOnly = true)

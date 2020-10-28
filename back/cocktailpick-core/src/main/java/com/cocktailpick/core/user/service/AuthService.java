@@ -57,7 +57,7 @@ public class AuthService {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		user.setRole(Role.ROLE_USER);
 
-		User result = userRepository.save(user);
+		User result = userRepository.spasswordEncoder.ave(user);
 		return result.getId();
 	}
 }

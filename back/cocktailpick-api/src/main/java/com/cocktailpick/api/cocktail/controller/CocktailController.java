@@ -1,5 +1,6 @@
 package com.cocktailpick.api.cocktail.controller;
 
+import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
@@ -20,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cocktailpick.api.csv.CocktailCsvReader;
+import com.cocktailpick.api.csv.OpenCsvReader;
+import com.cocktailpick.core.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.core.cocktail.dto.CocktailRequest;
 import com.cocktailpick.core.cocktail.dto.CocktailResponse;
 import com.cocktailpick.core.cocktail.dto.RecommendRequest;
@@ -54,7 +58,7 @@ public class CocktailController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<com.cocktailpick.common.cocktail.dto.CocktailDetailResponse> findCocktail(
+	public ResponseEntity<CocktailDetailResponse> findCocktail(
 		@PathVariable Long id) {
 		return ResponseEntity.ok(cocktailService.findCocktail(id));
 	}
@@ -90,16 +94,17 @@ public class CocktailController {
 	}
 
 	@PostMapping("/recommend")
-	public ResponseEntity<List<com.cocktailpick.common.cocktail.dto.CocktailDetailResponse>> recommend(
+	public ResponseEntity<List<CocktailDetailResponse>> recommend(
 		@RequestBody RecommendRequest recommendRequests) {
-		List<com.cocktailpick.common.cocktail.dto.CocktailDetailResponse> cocktailDetailResponses = cocktailRecommendService
+		List<CocktailDetailResponse> cocktailDetailResponses = cocktailRecommendService
 			.recommend(recommendRequests);
 		return ResponseEntity.ok(cocktailDetailResponses);
 	}
 
 	@PostMapping("/upload/csv")
-	public ResponseEntity<Void> addCocktailsByCsv(@RequestPart MultipartFile file) {
-		cocktailService.saveAll(file);
+	public ResponseEntity<Void> addCocktailsByCsv(@RequestPart MultipartFile file) throws IOException {
+		CocktailCsvReader cocktailCsvReader = new CocktailCsvReader(OpenCsvReader.from(file.getInputStream()));
+		cocktailService.saveAll(cocktailCsvReader.getCocktailRequests());
 		return ResponseEntity.created(URI.create("/api/cocktails")).build();
 	}
 

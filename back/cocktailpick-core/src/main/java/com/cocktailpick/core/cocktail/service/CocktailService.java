@@ -1,6 +1,5 @@
 package com.cocktailpick.core.cocktail.service;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -19,6 +18,7 @@ import com.cocktailpick.core.cocktail.domain.Cocktail;
 import com.cocktailpick.core.cocktail.domain.CocktailFindStrategyFactory;
 import com.cocktailpick.core.cocktail.domain.CocktailRepository;
 import com.cocktailpick.core.cocktail.domain.CocktailSearcher;
+import com.cocktailpick.core.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.core.cocktail.dto.CocktailRequest;
 import com.cocktailpick.core.cocktail.dto.CocktailResponse;
 import com.cocktailpick.core.common.exceptions.EntityNotFoundException;
@@ -28,7 +28,6 @@ import com.cocktailpick.core.tag.domain.CocktailTag;
 import com.cocktailpick.core.tag.domain.Tag;
 import com.cocktailpick.core.tag.domain.TagRepository;
 import com.cocktailpick.core.util.EntityMapper;
-import com.cocktailpick.core.util.csv.OpenCsvReader;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
@@ -67,9 +66,9 @@ public class CocktailService {
 	}
 
 	@Transactional(readOnly = true)
-	public com.cocktailpick.common.cocktail.dto.CocktailDetailResponse findCocktail(Long id) {
+	public CocktailDetailResponse findCocktail(Long id) {
 		Cocktail cocktail = findById(id);
-		return com.cocktailpick.common.cocktail.dto.CocktailDetailResponse.of(cocktail);
+		return CocktailDetailResponse.of(cocktail);
 	}
 
 	@Transactional
@@ -112,10 +111,7 @@ public class CocktailService {
 	}
 
 	@Transactional
-	public void saveAll(File file) {
-		CocktailCsvReader cocktailCsvReader = createCsvReader(file);
-		List<CocktailRequest> cocktailRequests = cocktailCsvReader.getCocktailRequests();
-
+	public void saveAll(List<CocktailRequest> cocktailRequests) {
 		List<Tag> allTags = tagRepository.findAll();
 		EntityMapper<String, Tag> tagMapper = mapTagToName(allTags);
 
@@ -141,10 +137,6 @@ public class CocktailService {
 			tagMapper.put(tag.getName(), tag);
 		}
 		return tagMapper;
-	}
-
-	private CocktailCsvReader createCsvReader(File file) {
-		return new CocktailCsvReader(OpenCsvReader.from(file));
 	}
 
 	private void setCocktail(Cocktail cocktail, List<RecipeItem> recipeItems) {
