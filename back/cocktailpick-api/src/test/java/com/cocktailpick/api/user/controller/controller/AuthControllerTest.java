@@ -12,12 +12,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 
 import com.cocktailpick.api.common.documentation.DocumentationWithSecurity;
-import com.cocktailpick.api.user.controller.AuthController;
 import com.cocktailpick.api.user.controller.docs.AuthDocumentation;
 import com.cocktailpick.core.user.dto.AuthResponse;
 import com.cocktailpick.core.user.dto.LoginRequest;
 import com.cocktailpick.core.user.dto.SignUpRequest;
-import com.cocktailpick.core.user.service.AuthService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(controllers = AuthController.class)

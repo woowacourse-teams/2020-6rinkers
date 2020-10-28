@@ -9,14 +9,18 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cocktailpick.core.cocktail.domain.Cocktail;
 import com.cocktailpick.core.cocktail.domain.CocktailRepository;
 import com.cocktailpick.core.cocktail.dto.CocktailResponse;
+import com.cocktailpick.core.common.exceptions.AuthException;
 import com.cocktailpick.core.common.exceptions.EntityNotFoundException;
 import com.cocktailpick.core.common.exceptions.ErrorCode;
 import com.cocktailpick.core.favorite.domain.Favorite;
 import com.cocktailpick.core.favorite.domain.FavoriteRepository;
 import com.cocktailpick.core.favorite.dto.FavoriteRequest;
+import com.cocktailpick.core.user.domain.AuthProvider;
+import com.cocktailpick.core.user.domain.Role;
 import com.cocktailpick.core.user.domain.User;
 import com.cocktailpick.core.user.domain.UserRepository;
 import com.cocktailpick.core.user.dto.FavoriteCocktailIdsResponse;
+import com.cocktailpick.core.user.dto.SignUpRequest;
 import com.cocktailpick.core.user.dto.UserUpdateRequest;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +31,22 @@ public class UserService {
 	private final UserRepository userRepository;
 	private final FavoriteRepository favoriteRepository;
 	private final CocktailRepository cocktailRepository;
+
+	public Long registerUser(SignUpRequest signUpRequest) {
+		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+			throw new AuthException(ErrorCode.DUPLICATED_EMAIL);
+		}
+
+		User user = new User();
+		user.setName(signUpRequest.getName());
+		user.setEmail(signUpRequest.getEmail());
+		user.setPassword(signUpRequest.getPassword());
+		user.setProvider(AuthProvider.LOCAL);
+		user.setRole(Role.ROLE_USER);
+
+		User result = userRepository.save(user);
+		return result.getId();
+	}
 
 	@Transactional
 	public void deleteCurrentUser(User user) {

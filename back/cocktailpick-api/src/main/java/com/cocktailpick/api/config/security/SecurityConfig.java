@@ -16,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.cocktailpick.api.security.CustomUserDetailsService;
+import com.cocktailpick.api.security.LoginFilter;
 import com.cocktailpick.api.security.RestAuthenticationEntryPoint;
 import com.cocktailpick.api.security.TokenAuthenticationFilter;
 import com.cocktailpick.api.security.oauth2.CustomOAuth2UserService;
@@ -138,5 +139,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.failureHandler(oAuth2AuthenticationFailureHandler);
 
 		http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(loginFilter(), UsernamePasswordAuthenticationFilter.class);
+	}
+
+	private LoginFilter loginFilter() {
+		LoginFilter loginFilter = new LoginFilter();
+		loginFilter.setFilterProcessesUrl("/api/user/login");
+		return loginFilter;
 	}
 }

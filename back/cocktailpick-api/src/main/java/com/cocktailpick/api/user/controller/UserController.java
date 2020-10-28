@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -21,6 +22,7 @@ import com.cocktailpick.core.cocktail.dto.CocktailResponse;
 import com.cocktailpick.core.favorite.dto.FavoriteRequest;
 import com.cocktailpick.core.user.domain.User;
 import com.cocktailpick.core.user.dto.FavoriteCocktailIdsResponse;
+import com.cocktailpick.core.user.dto.SignUpRequest;
 import com.cocktailpick.core.user.dto.UserUpdateRequest;
 import com.cocktailpick.core.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +32,15 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RestController
 public class UserController {
+	private final PasswordEncoder passwordEncoder;
 	private final UserService userService;
+
+	@PostMapping("/signup")
+	public ResponseEntity<Void> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
+		signUpRequest.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
+		Long userId = userService.registerUser(signUpRequest);
+		return ResponseEntity.created(URI.create("/api/user/" + userId)).build();
+	}
 
 	@GetMapping("/me")
 	public ResponseEntity<com.cocktailpick.common.user.dto.UserResponse> getCurrentUser(@CurrentUser User user) {
