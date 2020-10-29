@@ -3,9 +3,9 @@ plugins {
     id 'org.springframework.boot' version '2.3.1.RELEASE'
 }
 
-//repositories {
-//    mavenCentral()
-//} 중복 해결 가능해보입니다.
+repositories {
+    mavenCentral()
+}
 
 bootJar.enabled = false
 
@@ -74,18 +74,5 @@ subprojects {
                 excludes = ["*.dto", "*.dto.*", "*.BackApplication", "*.security.*", "*.common.exceptions.*", "*.common.util.*", "*.AuthService.*", "*.EmptyUser"]
             }
         }
-    }
-}
-
-project(':cocktailpick-core') {
-    dependencies {
-        implementation project(':cocktailpick-common')
-    }
-}
-
-project(':cocktailpick-api') {
-    dependencies {
-        implementation project(':cocktailpick-core')
-        implementation project(':cocktailpick-common')
     }
 }

@@ -1,4 +1,4 @@
-package com.cocktailpick.api;
+package com.cocktailpick;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

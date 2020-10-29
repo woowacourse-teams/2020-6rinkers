@@ -10,7 +10,7 @@ import java.util.List;
 import org.springframework.http.MediaType;
 
 import com.cocktailpick.api.user.controller.acceptance.step.AuthAcceptanceStep;
-import com.cocktailpick.common.cocktail.dto.CocktailDetailResponse;
+import com.cocktailpick.core.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.core.cocktail.dto.CocktailRequest;
 import com.cocktailpick.core.cocktail.dto.CocktailResponse;
 import com.cocktailpick.core.cocktail.dto.RecommendRequest;

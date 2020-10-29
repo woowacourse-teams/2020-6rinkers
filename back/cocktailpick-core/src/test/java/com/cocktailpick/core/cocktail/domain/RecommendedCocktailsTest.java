@@ -54,7 +54,7 @@ class RecommendedCocktailsTest {
 			cocktail -> cocktail.getName().equals(cocktail1.getName()));
 
 		assertThat(eliminate).extracting("recommendedCocktails").asInstanceOf(InstanceOfAssertFactories.LIST)
-			.extracting("com/cocktailpick/core/cocktail")
+			.extracting("cocktail")
 			.containsExactlyInAnyOrder(cocktail2, cocktail3, cocktail4);
 	}
 
@@ -66,7 +66,7 @@ class RecommendedCocktailsTest {
 			cocktail -> cocktail.getName().equals(cocktail1.getName()), UserPreferenceAnswer.NO);
 
 		assertThat(eliminate).extracting("recommendedCocktails").asInstanceOf(InstanceOfAssertFactories.LIST)
-			.extracting("com/cocktailpick/core/cocktail")
+			.extracting("cocktail")
 			.containsExactlyInAnyOrder(cocktail2, cocktail3, cocktail4);
 	}
 

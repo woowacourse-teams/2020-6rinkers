@@ -1,5 +1,6 @@
 package com.cocktailpick.api.tag.controller.acceptance.step;
 
+import static com.cocktailpick.api.user.controller.acceptance.step.AuthAcceptanceStep.*;
 import static io.restassured.RestAssured.*;
 import static org.apache.http.HttpHeaders.*;
 import static org.assertj.core.api.Assertions.*;

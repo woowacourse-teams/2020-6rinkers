@@ -16,6 +16,9 @@ asciidoctor {
 }
 
 dependencies {
+    implementation project(':cocktailpick-core')
+    implementation project(':cocktailpick-common')
+
     implementation group: 'com.opencsv', name: 'opencsv', version: '4.4'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -23,6 +26,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security:2.2.1.RELEASE'
     implementation 'org.springframework.security:spring-security-oauth2-client:5.2.1.RELEASE'
     implementation 'io.jsonwebtoken:jjwt:0.5.1'
+    runtimeOnly 'com.h2database:h2'
     asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     testImplementation 'org.springframework.security:spring-security-test'

@@ -4,6 +4,7 @@ import static com.cocktailpick.core.common.exceptions.ErrorCode.*;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -38,8 +39,10 @@ public class TerminologyService {
 	@Transactional
 	public Long save(TerminologyRequest terminologyRequest) {
 		Terminology terminology = terminologyRequest.toTerminology();
-		terminologyRepository.findByName(terminology.getName())
-			.orElseThrow(() -> new InvalidValueException(TERMINOLOGY_DUPLICATED));
+		Optional<Terminology> existed = terminologyRepository.findByName(terminology.getName());
+		if (existed.isPresent()) {
+			throw new InvalidValueException(TERMINOLOGY_DUPLICATED);
+		}
 		return terminologyRepository.save(terminology).getId();
 	}
 

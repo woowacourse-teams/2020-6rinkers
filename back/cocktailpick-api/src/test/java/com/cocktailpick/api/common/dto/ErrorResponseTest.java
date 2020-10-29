@@ -10,7 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import com.cocktailpick.back.common.exceptions.ErrorCode;
+import com.cocktailpick.core.common.exceptions.ErrorCode;
 
 @ExtendWith(MockitoExtension.class)
 class ErrorResponseTest {

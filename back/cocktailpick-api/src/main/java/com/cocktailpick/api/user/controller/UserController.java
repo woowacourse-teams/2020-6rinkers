@@ -35,6 +35,7 @@ public class UserController {
 	private final PasswordEncoder passwordEncoder;
 	private final UserService userService;
 
+	@PreAuthorize("isAnonymous()")
 	@PostMapping("/signup")
 	public ResponseEntity<Void> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
 		signUpRequest.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));

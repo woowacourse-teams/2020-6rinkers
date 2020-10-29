@@ -105,7 +105,18 @@ public class UserAcceptanceStep {
 
 		assertAll(
 			() -> assertThat(cocktailResponses).hasSize(2),
-			() -> assertThat(cocktailResponses).extracting(CocktailResponse::getId).containsExactlyInAnyOrderElementsOf(favoriteIds)
+			() -> assertThat(cocktailResponses).extracting(CocktailResponse::getId)
+				.containsExactlyInAnyOrderElementsOf(favoriteIds)
 		);
+	}
+
+	public static ExtractableResponse<Response> requestSignUp(SignUpRequest signUpRequest) {
+		return given().log().all()
+			.contentType(MediaType.APPLICATION_JSON_VALUE)
+			.body(signUpRequest)
+			.when()
+			.post("/api/user/signup")
+			.then().log().all()
+			.extract();
 	}
 }

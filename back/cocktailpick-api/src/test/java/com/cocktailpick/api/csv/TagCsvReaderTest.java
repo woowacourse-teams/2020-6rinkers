@@ -11,8 +11,8 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.cocktailpick.api.tag.controller.Fixtures;
-import com.cocktailpick.core.tag.domain.Tag;
 import com.cocktailpick.core.tag.domain.TagType;
+import com.cocktailpick.core.tag.dto.TagRequest;
 
 class TagCsvReaderTest {
 	private MultipartFile multipartFile;
@@ -25,10 +25,10 @@ class TagCsvReaderTest {
 	}
 
 	@Test
-	void getTags() {
-		TagCsvReader tagCsvReader = new TagCsvReader(OpenCsvReader.from(multipartFile));
+	void getTags() throws Exception {
+		TagCsvReader tagCsvReader = new TagCsvReader(OpenCsvReader.from(multipartFile.getInputStream()));
 
-		List<Tag> actual = tagCsvReader.getTagRequests();
+		List<TagRequest> actual = tagCsvReader.getTagRequests();
 
 		assertAll(
 			() -> assertThat(actual).hasSize(3),

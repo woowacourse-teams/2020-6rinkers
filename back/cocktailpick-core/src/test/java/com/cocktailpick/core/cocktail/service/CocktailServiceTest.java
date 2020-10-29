@@ -1,6 +1,8 @@
 package com.cocktailpick.core.cocktail.service;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,19 +15,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.mock.web.MockMultipartFile;
 
 import com.cocktailpick.core.cocktail.domain.Cocktail;
 import com.cocktailpick.core.cocktail.domain.CocktailFindStrategyFactory;
 import com.cocktailpick.core.cocktail.domain.CocktailRepository;
 import com.cocktailpick.core.cocktail.domain.CocktailSearcher;
 import com.cocktailpick.core.cocktail.domain.Flavor;
+import com.cocktailpick.core.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.core.cocktail.dto.CocktailRequest;
 import com.cocktailpick.core.cocktail.dto.CocktailResponse;
 import com.cocktailpick.core.common.exceptions.EntityNotFoundException;
@@ -108,11 +109,11 @@ class CocktailServiceTest {
 			.name("마티니")
 			.build();
 
-		Mockito.when(cocktailRepository.findAll()).thenReturn(Arrays.asList(peachCrush, martini));
+		when(cocktailRepository.findAll()).thenReturn(Arrays.asList(peachCrush, martini));
 
 		List<CocktailResponse> cocktails = cocktailService.findAllCocktails();
 
-		Assertions.assertThat(cocktails).extracting("name")
+		assertThat(cocktails).extracting("name")
 			.containsExactly(peachCrush.getName(), martini.getName());
 	}
 
@@ -131,8 +132,8 @@ class CocktailServiceTest {
 
 		Page<Cocktail> cocktailPage = new PageImpl<>(Arrays.asList(peachCrush, martini));
 
-		Mockito.when(cocktailRepository.findByNameContainingAndIdGreaterThan(
-			ArgumentMatchers.any(), ArgumentMatchers.anyLong(), ArgumentMatchers.any())).thenReturn(cocktailPage);
+		when(cocktailRepository.findByNameContainingAndIdGreaterThan(
+			any(), anyLong(), any())).thenReturn(cocktailPage);
 
 		assertThat(cocktailService.findPageContainingWord("", 0, 2)).hasSize(2);
 	}
@@ -141,10 +142,10 @@ class CocktailServiceTest {
 	@Test
 	void findPageFilteredByTags() {
 		Cocktail cocktail = Mockito.mock(Cocktail.class);
-		Mockito.when(cocktail.containTagIds(ArgumentMatchers.anyList())).thenReturn(true);
+		when(cocktail.containTagIds(anyList())).thenReturn(true);
 
 		List<Cocktail> cocktails = new ArrayList<>(Collections.nCopies(20, cocktail));
-		Mockito.when(cocktailRepository.findByIdGreaterThan(ArgumentMatchers.anyLong())).thenReturn(cocktails);
+		when(cocktailRepository.findByIdGreaterThan(anyLong())).thenReturn(cocktails);
 
 		assertThat(
 			cocktailService.findPageFilteredByTags(Arrays.asList(0L, 1L, 2L), 0, 15)).hasSize(15);
@@ -154,10 +155,10 @@ class CocktailServiceTest {
 	@Test
 	void findPageFilteredByTags_WhenCocktailsSmallerThanSize() {
 		Cocktail cocktail = Mockito.mock(Cocktail.class);
-		Mockito.when(cocktail.containTagIds(ArgumentMatchers.anyList())).thenReturn(true);
+		when(cocktail.containTagIds(anyList())).thenReturn(true);
 
 		List<Cocktail> cocktails = new ArrayList<>(Collections.nCopies(5, cocktail));
-		Mockito.when(cocktailRepository.findByIdGreaterThan(ArgumentMatchers.anyLong())).thenReturn(cocktails);
+		when(cocktailRepository.findByIdGreaterThan(anyLong())).thenReturn(cocktails);
 
 		assertThat(cocktailService.findPageFilteredByTags(Collections.emptyList(), 0, 15)).hasSize(
 			5);
@@ -166,9 +167,9 @@ class CocktailServiceTest {
 	@DisplayName("단일 칵테일을 조회한다.")
 	@Test
 	void findCocktail() {
-		Mockito.when(cocktailRepository.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.of(blueHawaii));
+		when(cocktailRepository.findById(anyLong())).thenReturn(Optional.of(blueHawaii));
 
-		com.cocktailpick.common.cocktail.dto.CocktailDetailResponse cocktailDetailResponse = cocktailService.findCocktail(
+		CocktailDetailResponse cocktailDetailResponse = cocktailService.findCocktail(
 			1L);
 
 		org.junit.jupiter.api.Assertions.assertAll(
@@ -196,7 +197,7 @@ class CocktailServiceTest {
 	@DisplayName("단일 조회 시 해당하는 id가 없으면 예외 처리한다")
 	@Test
 	void findCocktailException() {
-		Mockito.when(cocktailRepository.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.empty());
+		when(cocktailRepository.findById(anyLong())).thenReturn(Optional.empty());
 
 		Assertions.assertThatThrownBy(() -> cocktailService.findCocktail(0L))
 			.isInstanceOf(EntityNotFoundException.class);
@@ -205,12 +206,12 @@ class CocktailServiceTest {
 	@DisplayName("칵테일을 생성한다.")
 	@Test
 	void save() {
-		Mockito.when(tagRepository.findByNameIn(ArgumentMatchers.anyList())).thenReturn(Collections.singletonList(tag));
-		Mockito.when(cocktailRepository.save(ArgumentMatchers.any())).thenReturn(blueHawaii);
+		when(tagRepository.findByNameIn(anyList())).thenReturn(Collections.singletonList(tag));
+		when(cocktailRepository.save(any())).thenReturn(blueHawaii);
 
 		cocktailService.save(cocktailRequest);
 
-		Mockito.verify(cocktailRepository).save(ArgumentMatchers.any());
+		verify(cocktailRepository).save(any());
 	}
 
 	@DisplayName("칵테일을 수정한다.")
@@ -223,8 +224,8 @@ class CocktailServiceTest {
 			.quantity("두ml")
 			.build();
 
-		Mockito.when(cocktailRepository.findById(ArgumentMatchers.anyLong())).thenReturn(Optional.of(blueHawaii));
-		Mockito.when(tagRepository.findByNameIn(ArgumentMatchers.anyList()))
+		when(cocktailRepository.findById(anyLong())).thenReturn(Optional.of(blueHawaii));
+		when(tagRepository.findByNameIn(anyList()))
 			.thenReturn(Collections.singletonList(bearTag));
 
 		cocktailService.updateCocktail(1L, cocktailRequest);
@@ -243,7 +244,7 @@ class CocktailServiceTest {
 	void deleteCocktail() {
 		cocktailService.deleteCocktail(1L);
 
-		Mockito.verify(cocktailRepository).deleteById(1L);
+		verify(cocktailRepository).deleteById(1L);
 	}
 
 	@DisplayName("모든 칵테일을 삭제한다.")
@@ -251,20 +252,40 @@ class CocktailServiceTest {
 	void deleteAllCocktails() {
 		cocktailService.deleteAllCocktails();
 
-		Mockito.verify(cocktailRepository).deleteAll();
+		verify(cocktailRepository).deleteAll();
 	}
 
-	@DisplayName("csv 파일로 칵테일을 저장한다.")
+	@DisplayName("여러 요청의 칵테일을 저장한다.")
 	@Test
 	void saveAll() {
-		MultipartFile file = new MockMultipartFile("file", "칵테일.csv", "text/csv",
-			Fixtures.THREE_COCKTAILS_CSV_CONTENT.getBytes());
-		Mockito.when(tagRepository.findAll()).thenReturn(Fixtures.FOUR_TAGS);
+		List<CocktailRequest> cocktailRequests = Arrays.asList(
+			CocktailRequest.builder()
+				.liquor(Collections.emptyList())
+				.liquorQuantity(Collections.emptyList())
+				.special(Collections.emptyList())
+				.specialQuantity(Collections.emptyList())
+				.tag(Collections.emptyList())
+				.build(),
+			CocktailRequest.builder()
+				.liquor(Collections.emptyList())
+				.liquorQuantity(Collections.emptyList())
+				.special(Collections.emptyList())
+				.specialQuantity(Collections.emptyList())
+				.tag(Collections.emptyList())
+				.build(),
+			CocktailRequest.builder()
+				.liquor(Collections.emptyList())
+				.liquorQuantity(Collections.emptyList())
+				.special(Collections.emptyList())
+				.specialQuantity(Collections.emptyList())
+				.tag(Collections.emptyList())
+				.build()
+		);
 
-		cocktailService.saveAll(file);
+		cocktailService.saveAll(cocktailRequests);
 
-		Mockito.verify(tagRepository).findAll();
-		Mockito.verify(cocktailRepository).saveAll(ArgumentMatchers.any());
+		verify(tagRepository).findAll();
+		verify(cocktailRepository).saveAll(any());
 	}
 
 	@DisplayName("오늘의 칵테일을 조회한다.")
@@ -274,19 +295,19 @@ class CocktailServiceTest {
 		Cocktail second = Cocktail.builder().name("토니 진").build();
 		Cocktail third = Cocktail.builder().name("작곰 진").build();
 
-		Mockito.when(cocktailFindStrategyFactory.createCocktailSearcher(ArgumentMatchers.anyLong()))
+		when(cocktailFindStrategyFactory.createCocktailSearcher(anyLong()))
 			.thenReturn(cocktailSearcher);
-		Mockito.when(cocktailSearcher.findIn(ArgumentMatchers.anyList())).thenReturn(second);
-		Mockito.when(cocktailRepository.findAll()).thenReturn(Arrays.asList(first, second, third));
+		when(cocktailSearcher.findIn(anyList())).thenReturn(second);
+		when(cocktailRepository.findAll()).thenReturn(Arrays.asList(first, second, third));
 
 		assertThat(cocktailService.findCocktailOfToday().getName()).isEqualTo("토니 진");
 	}
 
 	@Test
 	void containName() {
-		Mockito.when(cocktailRepository.findByNameContaining("두강")).thenReturn(ArgumentMatchers.anyList());
+		when(cocktailRepository.findByNameContaining("두강")).thenReturn(anyList());
 
 		List<CocktailResponse> cocktailResponses = cocktailService.findByNameContaining("두강");
-		Assertions.assertThat(cocktailResponses).isNotNull();
+		assertThat(cocktailResponses).isNotNull();
 	}
 }

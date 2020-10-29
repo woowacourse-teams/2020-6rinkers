@@ -4,7 +4,6 @@ import static org.assertj.core.api.Assertions.*;
 
 import java.util.Arrays;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -125,9 +124,9 @@ class CocktailRepositoryTest {
 		CocktailTag.associate(blueHawaii, tag);
 
 		cocktailRepository.saveAndFlush(blueHawaii);
-		Assertions.assertThat(recipeItemRepository.findAll()).hasSize(1);
+		assertThat(recipeItemRepository.findAll()).hasSize(1);
 
 		cocktailRepository.deleteById(blueHawaii.getId());
-		Assertions.assertThat(recipeItemRepository.findAll()).isEmpty();
+		assertThat(recipeItemRepository.findAll()).isEmpty();
 	}
 }

@@ -5,6 +5,7 @@ import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -13,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.mock.web.MockMultipartFile;
 
 import com.cocktailpick.core.tag.domain.CocktailTagRepository;
 import com.cocktailpick.core.tag.domain.Tag;
@@ -39,10 +39,10 @@ class TagServiceTest {
 	@DisplayName("태그 csv 파일을 저장한다.")
 	@Test
 	void saveAll() {
-		MultipartFile file = new MockMultipartFile("file", "태그.csv", "text/csv",
-			THREE_TAGS_CSV_CONTENT.getBytes());
+		List<TagRequest> tagRequests = Arrays.asList(new TagRequest("초코", TagType.CONCEPT.name()),
+			new TagRequest("탄산", TagType.ABV.name()));
 
-		tagService.saveAll(file);
+		tagService.saveAll(tagRequests);
 
 		verify(tagRepository).saveAll(anyCollection());
 	}

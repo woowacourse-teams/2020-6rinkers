@@ -14,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.cocktailpick.core.cocktail.domain.Cocktail;
 import com.cocktailpick.core.cocktail.domain.CocktailRepository;
+import com.cocktailpick.core.common.exceptions.AuthException;
 import com.cocktailpick.core.favorite.domain.Favorite;
 import com.cocktailpick.core.favorite.domain.FavoriteRepository;
 import com.cocktailpick.core.favorite.domain.Favorites;
@@ -22,6 +23,7 @@ import com.cocktailpick.core.user.domain.AuthProvider;
 import com.cocktailpick.core.user.domain.Role;
 import com.cocktailpick.core.user.domain.User;
 import com.cocktailpick.core.user.domain.UserRepository;
+import com.cocktailpick.core.user.dto.SignUpRequest;
 import com.cocktailpick.core.user.dto.UserUpdateRequest;
 
 @ExtendWith(MockitoExtension.class)
@@ -76,6 +78,51 @@ class UserServiceTest {
 		user.setRole(Role.ROLE_USER);
 		user.setProviderId("local");
 		user.setFavorites(favorites);
+	}
+
+	@DisplayName("회원가입을 한다.")
+	@Test
+	void registerUser() {
+		SignUpRequest signUpRequest = new SignUpRequest("아이디", "a@email.com", "password");
+
+		User user = new User();
+		user.setId(1L);
+		user.setEmail("a@email.com");
+		user.setEmailVerified(true);
+		user.setImageUrl("image.com");
+		user.setName("hi");
+		user.setPassword("password");
+		user.setProvider(AuthProvider.LOCAL);
+		user.setRole(Role.ROLE_USER);
+		user.setProviderId("local");
+
+		when(userRepository.existsByEmail(any())).thenReturn(false);
+		when(userRepository.save(any())).thenReturn(user);
+
+		assertThat(userService.registerUser(signUpRequest)).isEqualTo(user.getId());
+	}
+
+	@DisplayName("중복되는 이메일일 경우 예외처리한다.")
+	@Test
+	void registerUserWithException() {
+		SignUpRequest signUpRequest = new SignUpRequest("아이디", "a@email.com", "password");
+
+		User user = new User();
+		user.setId(1L);
+		user.setEmail("a@email.com");
+		user.setEmailVerified(true);
+		user.setImageUrl("image.com");
+		user.setName("hi");
+		user.setPassword("password");
+		user.setProvider(AuthProvider.LOCAL);
+		user.setRole(Role.ROLE_USER);
+		user.setProviderId("local");
+
+		when(userRepository.existsByEmail(any())).thenReturn(true);
+
+		assertThatThrownBy(() -> userService.registerUser(signUpRequest))
+			.isInstanceOf(AuthException.class)
+			.hasMessageContaining("존재하는");
 	}
 
 	@DisplayName("사용자 이름을 수정한다.")

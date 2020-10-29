@@ -33,7 +33,7 @@ class UserAcceptanceTest extends AcceptanceTest {
 
 		// given
 		signUpRequest = new SignUpRequest("그니", "kuenhwi@gmail.com", "그니의 비밀번호");
-		AuthAcceptanceStep.requestSignUp(signUpRequest);
+		UserAcceptanceStep.requestSignUp(signUpRequest);
 
 		loginRequest = new LoginRequest("kuenhwi@gmail.com", "그니의 비밀번호");
 		authResponse = AuthAcceptanceStep.requestTokenByLogin(loginRequest);
@@ -91,7 +91,7 @@ class UserAcceptanceTest extends AcceptanceTest {
 
 		loginRequest = new LoginRequest("kuenhwi@gmail.com", "그니의 비밀번호");
 
-		AuthAcceptanceStep.requestSignUp(signUpRequest);
+		UserAcceptanceStep.requestSignUp(signUpRequest);
 		AuthResponse reAuthResponse = AuthAcceptanceStep.requestTokenByLogin(loginRequest);
 
 		// when
@@ -167,5 +167,16 @@ class UserAcceptanceTest extends AcceptanceTest {
 
 		// then
 		AcceptanceStep.assertThatStatusIsNoContent(response);
+	}
+
+	@DisplayName("회원가입 요청을 한다.")
+	@Test
+	void signUp() {
+		// when
+		ExtractableResponse<Response> response = UserAcceptanceStep.requestSignUp(
+			new SignUpRequest("두강", "doo@gmail.com", "두강 비밀번호"));
+
+		// then
+		AcceptanceStep.assertThatStatusIsCreated(response);
 	}
 }

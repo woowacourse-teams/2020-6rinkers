@@ -14,8 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.cocktailpick.core.common.exceptions.EntityNotFoundException;
 import com.cocktailpick.core.common.exceptions.ErrorCode;
@@ -23,6 +21,7 @@ import com.cocktailpick.core.common.exceptions.InvalidValueException;
 import com.cocktailpick.core.terminology.domain.Terminology;
 import com.cocktailpick.core.terminology.domain.TerminologyRepository;
 import com.cocktailpick.core.terminology.domain.TerminologyType;
+import com.cocktailpick.core.terminology.dto.TerminologyRequest;
 import com.cocktailpick.core.terminology.dto.TerminologyResponse;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,11 +33,20 @@ class TerminologyServiceTest {
 	@Mock
 	private TerminologyRepository terminologyRepository;
 
+	private TerminologyRequest terminologyRequest;
+
 	private Terminology terminology;
 
 	@BeforeEach
 	void setUp() {
 		terminologyService = new TerminologyService(terminologyRepository);
+
+		terminologyRequest = TerminologyRequest.builder()
+			.name("보드카")
+			.terminologyType("술")
+			.description("러시아의 술입니다.")
+			.imageUrl(VODKA_IMAGE_URL)
+			.build();
 
 		terminology = Terminology.builder()
 			.id(1L)
@@ -54,7 +62,7 @@ class TerminologyServiceTest {
 	void save() {
 		when(terminologyRepository.save(any())).thenReturn(terminology);
 
-		Long persistId = terminologyService.save(terminology);
+		Long persistId = terminologyService.save(terminologyRequest);
 
 		verify(terminologyRepository).save(any());
 		assertThat(persistId).isEqualTo(1L);
@@ -65,18 +73,18 @@ class TerminologyServiceTest {
 	void saveWithException() {
 		when(terminologyRepository.findByName(anyString())).thenReturn(Optional.of(terminology));
 
-		assertThatThrownBy(() -> terminologyService.save(terminology))
+		assertThatThrownBy(() -> terminologyService.save(terminologyRequest))
 			.isInstanceOf(InvalidValueException.class)
 			.hasMessage(TERMINOLOGY_DUPLICATED.getMessage());
 	}
 
-	@DisplayName("복수의 용어를 csv 파일을 이용해 저장한다.")
+	@DisplayName("다수의 용어 저장 요청을 수행한다.")
 	@Test
 	void saveAll() {
-		MultipartFile file = new MockMultipartFile("file", "용어.csv", "text/csv",
-			FOUR_TERMINOLOGIES_CSV_CONTENT.getBytes());
-
-		terminologyService.saveAll(file);
+		List<TerminologyRequest> terminologyRequests = Arrays.asList(
+			TerminologyRequest.builder().name("하나").terminologyType(TerminologyType.ALCOHOL.getTypeName()).build(),
+			TerminologyRequest.builder().name("둘").terminologyType(TerminologyType.ALCOHOL.getTypeName()).build());
+		terminologyService.saveAll(terminologyRequests);
 
 		verify(terminologyRepository).saveAll(anyList());
 	}
@@ -130,14 +138,14 @@ class TerminologyServiceTest {
 	void update() {
 		when(terminologyRepository.findById(anyLong())).thenReturn(Optional.of(terminology));
 
-		Terminology updatingTerminology = Terminology.builder()
+		TerminologyRequest updatingTerminologyRequest = TerminologyRequest.builder()
 			.name(terminology.getName())
 			.description("보드카는 도수가 높습니다.")
-			.terminologyType(terminology.getTerminologyType())
+			.terminologyType("술")
 			.imageUrl(terminology.getImageUrl())
 			.build();
 
-		terminologyService.update(updatingTerminology, 1L);
+		terminologyService.update(updatingTerminologyRequest, 1L);
 
 		assertThat(terminology.getDescription()).isEqualTo("보드카는 도수가 높습니다.");
 	}

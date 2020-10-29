@@ -29,6 +29,7 @@ import com.cocktailpick.api.common.documentation.DocumentationWithSecurity;
 import com.cocktailpick.core.cocktail.domain.Cocktail;
 import com.cocktailpick.core.cocktail.domain.Flavor;
 import com.cocktailpick.core.cocktail.dto.AbvAnswer;
+import com.cocktailpick.core.cocktail.dto.CocktailDetailResponse;
 import com.cocktailpick.core.cocktail.dto.CocktailRequest;
 import com.cocktailpick.core.cocktail.dto.CocktailResponse;
 import com.cocktailpick.core.cocktail.dto.FlavorAnswer;
@@ -139,8 +140,7 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 	@DisplayName("칵테일을 단일 조회한다.")
 	@Test
 	void findCocktail() throws Exception {
-		com.cocktailpick.common.cocktail.dto.CocktailDetailResponse cocktailDetailResponse = com.cocktailpick.common.cocktail.dto.CocktailDetailResponse
-			.of(blueHawaii);
+		CocktailDetailResponse cocktailDetailResponse = CocktailDetailResponse.of(blueHawaii);
 		cocktailDetailResponse = cocktailDetailResponse.withId(1L);
 		given(cocktailService.findCocktail(anyLong())).willReturn(cocktailDetailResponse);
 
@@ -296,8 +296,7 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 	@DisplayName("칵테일을 추천한다.")
 	@Test
 	void recommendCocktail() throws Exception {
-		com.cocktailpick.common.cocktail.dto.CocktailDetailResponse blueHawaiiResponse = com.cocktailpick.common.cocktail.dto.CocktailDetailResponse
-			.of(blueHawaii);
+		CocktailDetailResponse blueHawaiiResponse = CocktailDetailResponse.of(blueHawaii);
 		blueHawaiiResponse = blueHawaiiResponse.withId(1L);
 		AbvAnswer abvAnswer = new AbvAnswer(100, 0);
 		List<TagPreferenceAnswer> moodAnswers = Collections.singletonList(

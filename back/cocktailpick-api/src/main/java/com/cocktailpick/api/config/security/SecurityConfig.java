@@ -17,8 +17,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.cocktailpick.api.security.CustomUserDetailsService;
 import com.cocktailpick.api.security.LoginFilter;
+import com.cocktailpick.api.security.LoginSuccessHandler;
 import com.cocktailpick.api.security.RestAuthenticationEntryPoint;
 import com.cocktailpick.api.security.TokenAuthenticationFilter;
+import com.cocktailpick.api.security.TokenProvider;
 import com.cocktailpick.api.security.oauth2.CustomOAuth2UserService;
 import com.cocktailpick.api.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.cocktailpick.api.security.oauth2.OAuth2AuthenticationFailureHandler;
@@ -39,6 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private final OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
 
 	private final OAuth2AuthenticationFailureHandler oAuth2AuthenticationFailureHandler;
+
+	private final TokenProvider tokenProvider;
 
 	@Bean
 	public TokenAuthenticationFilter tokenAuthenticationFilter() {
@@ -142,9 +146,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http.addFilterBefore(loginFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
 
-	private LoginFilter loginFilter() {
+	private LoginFilter loginFilter() throws Exception {
 		LoginFilter loginFilter = new LoginFilter();
 		loginFilter.setFilterProcessesUrl("/api/user/login");
+		loginFilter.setAuthenticationManager(authenticationManagerBean());
+		loginFilter.setAuthenticationSuccessHandler(new LoginSuccessHandler(tokenProvider));
 		return loginFilter;
 	}
 }

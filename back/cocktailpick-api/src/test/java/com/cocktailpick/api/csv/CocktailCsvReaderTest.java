@@ -23,8 +23,8 @@ class CocktailCsvReaderTest {
 	}
 
 	@Test
-	void getCocktailRequests() {
-		CocktailCsvReader cocktailCsvReader = new CocktailCsvReader(OpenCsvReader.from(multipartFile));
+	void getCocktailRequests() throws Exception {
+		CocktailCsvReader cocktailCsvReader = new CocktailCsvReader(OpenCsvReader.from(multipartFile.getInputStream()));
 		List<CocktailRequest> cocktailRequests = cocktailCsvReader.getCocktailRequests();
 
 		Assertions.assertAll(

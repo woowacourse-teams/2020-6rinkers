@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import com.cocktailpick.api.common.acceptance.AcceptanceTest;
 import com.cocktailpick.api.common.acceptance.step.AcceptanceStep;
 import com.cocktailpick.api.user.controller.acceptance.step.AuthAcceptanceStep;
+import com.cocktailpick.api.user.controller.acceptance.step.UserAcceptanceStep;
 import com.cocktailpick.core.user.dto.LoginRequest;
 import com.cocktailpick.core.user.dto.SignUpRequest;
 import io.restassured.response.ExtractableResponse;
@@ -28,26 +29,16 @@ class AuthAcceptanceTest extends AcceptanceTest {
         loginRequest = new LoginRequest("kuenhwi@gmail.com", "그니의 비밀번호");
     }
 
-    @DisplayName("회원가입 요청을 한다.")
-    @Test
-    void signUp() {
-        // when
-		ExtractableResponse<Response> response = AuthAcceptanceStep.requestSignUp(signUpRequest);
-
-        // then
-		AcceptanceStep.assertThatStatusIsCreated(response);
-    }
-
     @DisplayName("로그인 요청을 한다.")
     @Test
     void login() {
-        // given
-		AuthAcceptanceStep.requestSignUp(signUpRequest);
+		// given
+		UserAcceptanceStep.requestSignUp(signUpRequest);
 
-        // when
+		// when
 		ExtractableResponse<Response> response = AuthAcceptanceStep.requestLogin(loginRequest);
 
-        // then
+		// then
 		AcceptanceStep.assertThatStatusIsOk(response);
-    }
+	}
 }

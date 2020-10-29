@@ -1,9 +1,10 @@
 package com.cocktailpick.api.common.acceptance;
 
+import static com.cocktailpick.api.common.acceptance.step.AcceptanceStep.*;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import com.cocktailpick.api.common.acceptance.step.AcceptanceStep;
 import com.cocktailpick.api.common.acceptance.step.PingAcceptanceStep;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -18,6 +19,6 @@ class PingAcceptanceTest extends AcceptanceTest {
 		ExtractableResponse<Response> response = PingAcceptanceStep.requestPing();
 
 		// then
-		AcceptanceStep.assertThatStatusIsOk(response);
+		assertThatStatusIsOk(response);
 	}
 }

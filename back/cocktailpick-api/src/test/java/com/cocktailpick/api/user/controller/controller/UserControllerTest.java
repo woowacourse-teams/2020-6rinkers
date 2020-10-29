@@ -1,8 +1,11 @@
 package com.cocktailpick.api.user.controller.controller;
 
 import static org.mockito.Mockito.*;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -24,12 +27,14 @@ import org.springframework.web.context.WebApplicationContext;
 import com.cocktailpick.api.common.WithMockCustomUser;
 import com.cocktailpick.api.common.documentation.DocumentationWithSecurity;
 import com.cocktailpick.api.user.controller.UserController;
+import com.cocktailpick.api.user.controller.docs.AuthDocumentation;
 import com.cocktailpick.api.user.controller.docs.UserDocumentation;
 import com.cocktailpick.core.cocktail.dto.CocktailResponse;
 import com.cocktailpick.core.favorite.dto.FavoriteRequest;
 import com.cocktailpick.core.tag.dto.TagResponse;
 import com.cocktailpick.core.user.domain.User;
 import com.cocktailpick.core.user.dto.FavoriteCocktailIdsResponse;
+import com.cocktailpick.core.user.dto.SignUpRequest;
 import com.cocktailpick.core.user.dto.UserUpdateRequest;
 import com.cocktailpick.core.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -144,5 +149,20 @@ class UserControllerTest extends DocumentationWithSecurity {
 			.andExpect(status().isNoContent())
 			.andDo(print())
 			.andDo(UserDocumentation.deleteMe());
+	}
+
+	@DisplayName("회원가입을 한다.")
+	@Test
+	void registerUser() throws Exception {
+		SignUpRequest signUpRequest = new SignUpRequest("아이디", "a@email.com", "password");
+
+		when(userService.registerUser(any())).thenReturn(1L);
+
+		mockMvc.perform(post("/api/user/signup")
+			.content(new ObjectMapper().writeValueAsBytes(signUpRequest))
+			.contentType(MediaType.APPLICATION_JSON))
+			.andExpect(status().isCreated())
+			.andDo(print())
+			.andDo(AuthDocumentation.signup());
 	}
 }

@@ -2,6 +2,7 @@ package com.cocktailpick.api.tag.controller.acceptance;
 
 import static com.cocktailpick.api.tag.controller.Fixtures.*;
 import static com.cocktailpick.api.tag.controller.acceptance.step.TagAcceptanceStep.*;
+import static com.cocktailpick.api.user.controller.acceptance.step.AuthAcceptanceStep.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
