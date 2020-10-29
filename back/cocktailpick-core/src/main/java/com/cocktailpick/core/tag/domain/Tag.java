@@ -23,8 +23,7 @@ public class Tag extends BaseTimeEntity {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "tag_sequence_gen")
 	@SequenceGenerator(
 		name = "tag_sequence_gen",
-		sequenceName = "tag_sequence",
-		allocationSize = 1
+		sequenceName = "tag_sequence"
 	)
 	private Long id;
 

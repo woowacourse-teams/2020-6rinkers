@@ -23,8 +23,7 @@ public class RecipeItem extends BaseTimeEntity {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "recipe_item_sequence_gen")
 	@SequenceGenerator(
 		name = "recipe_item_sequence_gen",
-		sequenceName = "recipe_item_sequence",
-		allocationSize = 1
+		sequenceName = "recipe_item_sequence"
 	)
 	private Long id;
 

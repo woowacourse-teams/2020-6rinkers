@@ -19,6 +19,7 @@ dependencies {
     implementation project(':cocktailpick-core')
     implementation project(':cocktailpick-common')
 
+    implementation 'org.flywaydb:flyway-core'
     implementation group: 'com.opencsv', name: 'opencsv', version: '4.4'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'

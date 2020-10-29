@@ -25,8 +25,7 @@ public class Terminology extends BaseTimeEntity {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "terminology_sequence_gen")
 	@SequenceGenerator(
 		name = "terminology_sequence_gen",
-		sequenceName = "terminology_sequence",
-		allocationSize = 1
+		sequenceName = "terminology_sequence"
 	)
 	private Long id;
 
