@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ACCESS_TOKEN } from "../constants";
+import {ACCESS_TOKEN} from "../constants";
 
 const client = axios.create({
   baseURL: `//${process.env.REACT_APP_HOST}`,
@@ -139,9 +139,9 @@ export const withdraw = () => {
   });
 };
 export const login = (loginRequest) =>
-  client.post("/api/auth/login", loginRequest);
+  client.post("/api/user/login", loginRequest);
 export const signup = (signupRequest) =>
-  client.post("/api/auth/signup", signupRequest);
+  client.post("/api/user/signup", signupRequest);
 
 export const fetchMyFavorites = () => {
   client.get("/api/user/me/favorites", {

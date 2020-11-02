@@ -1,1 +1,4 @@
 rootProject.name = 'back'
+include 'cocktailpick-core'
+include 'cocktailpick-api'
+include 'cocktailpick-common'

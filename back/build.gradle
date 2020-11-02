@@ -1,99 +1,78 @@
 plugins {
-    id 'org.springframework.boot' version '2.3.1.RELEASE'
-    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
-    id 'org.asciidoctor.convert' version '1.5.8'
     id 'java'
-    id 'jacoco'
-}
-
-group = 'com.cocktailpick'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '1.8'
-
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
-    }
+    id 'org.springframework.boot' version '2.3.1.RELEASE'
 }
 
 repositories {
     mavenCentral()
 }
 
-ext {
-    set('snippetsDir', file("build/generated-snippets"))
-}
+bootJar.enabled = false
 
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-security:2.2.1.RELEASE'
-    implementation 'org.springframework.security:spring-security-oauth2-client:5.2.1.RELEASE'
-    implementation 'io.jsonwebtoken:jjwt:0.5.1'
-    implementation group: 'com.opencsv', name: 'opencsv', version: '4.4'
-    compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
-    runtimeOnly 'com.h2database:h2'
-    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
-    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
-    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
-    testImplementation 'org.springframework.security:spring-security-test'
-    implementation 'io.rest-assured:rest-assured-common:3.3.0'
-    testImplementation 'io.rest-assured:spring-mock-mvc:3.3.0'
-    implementation("com.google.guava:guava:29.0-jre")
-    implementation "com.github.maricn:logback-slack-appender:1.4.0"
-    implementation 'org.flywaydb:flyway-core'
-}
+subprojects {
+    group 'com.cocktailpick'
+    version '1.0'
 
-test {
-    outputs.dir snippetsDir
-    useJUnitPlatform()
-    finalizedBy 'jacocoTestReport'
-}
+    apply plugin: 'java'
+    apply plugin: 'org.springframework.boot'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'jacoco'
 
-jacocoTestReport {
-    reports {
-        html.enabled true
-        xml.enabled false
-        csv.enabled true
-    }
-    finalizedBy 'jacocoTestCoverageVerification'
-}
+    sourceCompatibility = 1.8
 
-jacocoTestCoverageVerification {
-    violationRules {
-        rule {
-            enabled = true
-            element = 'CLASS'
-
-            limit {
-                counter = 'METHOD'
-                value = 'COVEREDRATIO'
-                minimum = 0.60
-            }
-
-            limit {
-                counter = 'INSTRUCTION'
-                value = 'COVEREDRATIO'
-                minimum = 0.60
-            }
-
-            excludes = ["*.dto", "*.dto.*", "*.BackApplication", "*.security.*", "*.common.exceptions.*", "*.common.util.*", "*.AuthService.*", "*.EmptyUser"]
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
         }
-
     }
-}
 
-ext {
-    snippetsDir = file('build/generated-snippets')
-}
+    repositories {
+        mavenCentral()
+    }
 
-asciidoctor {
-    inputs.dir snippetsDir
-    dependsOn test
+    dependencies {
+        implementation 'com.google.guava:guava:29.0-jre'
+        compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        testImplementation('org.springframework.boot:spring-boot-starter-test') {
+            exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+        }
+    }
+
+    test {
+        useJUnitPlatform()
+        finalizedBy 'jacocoTestReport'
+    }
+
+    jacocoTestReport {
+        reports {
+            html.enabled true
+            xml.enabled false
+            csv.enabled true
+        }
+        finalizedBy 'jacocoTestCoverageVerification'
+    }
+
+    jacocoTestCoverageVerification {
+        violationRules {
+            rule {
+                enabled = true
+                element = 'CLASS'
+
+                limit {
+                    counter = 'METHOD'
+                    value = 'COVEREDRATIO'
+                    minimum = 0.60
+                }
+
+                limit {
+                    counter = 'INSTRUCTION'
+                    value = 'COVEREDRATIO'
+                    minimum = 0.60
+                }
+
+                excludes = ["*.dto", "*.dto.*", "*.BackApplication", "*.security.*", "*.common.exceptions.*", "*.common.util.*", "*.AuthService.*", "*.EmptyUser"]
+            }
+        }
+    }
 }
