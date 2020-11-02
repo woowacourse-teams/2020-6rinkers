@@ -71,7 +71,7 @@ subprojects {
                     minimum = 0.60
                 }
 
-                excludes = ["*.dto", "*.dto.*", "*.BackApplication", "*.security.*", "*.common.exceptions.*", "*.common.util.*", "*.AuthService.*", "*.EmptyUser"]
+                excludes = ["*.dto", "*.dto.*", "*.BackApplication", "*.config.*", "*.security.*", "*.exceptions.*", "*.util.*", "*.EmptyUser"]
             }
         }
     }
