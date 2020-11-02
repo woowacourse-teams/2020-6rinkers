@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,7 @@ public class CocktailService {
 	private final TagRepository tagRepository;
 	private final CocktailFindStrategyFactory cocktailFindStrategyFactory;
 
+	@Cacheable(value = "cocktails")
 	@Transactional(readOnly = true)
 	public List<CocktailResponse> findAllCocktails() {
 		return Collections.unmodifiableList(CocktailResponse.listOf(cocktailRepository.findAll()));

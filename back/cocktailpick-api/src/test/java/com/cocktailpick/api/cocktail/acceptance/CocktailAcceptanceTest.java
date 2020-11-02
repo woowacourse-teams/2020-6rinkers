@@ -59,6 +59,38 @@ class CocktailAcceptanceTest extends AcceptanceTest {
 		assertThatFindThreeCocktails(response);
 	}
 
+	@DisplayName("모든 칵테일 조회 시, 캐싱이 되어있는지 확인한다.")
+	@Test
+	void checkAllCocktailsCached() {
+		// given
+		AuthResponse authResponse = requestAdminAuth();
+
+		MultiPartSpecification tagCsvFile = new MultiPartSpecBuilder(FOUR_TAGS_CSV_CONTENT.getBytes())
+			.fileName("tags.csv")
+			.controlName("file")
+			.mimeType(MediaType.TEXT_PLAIN_VALUE)
+			.build();
+
+		requestToAddTagsByCsv(tagCsvFile, authResponse);
+
+		MultiPartSpecification cocktailCsvFile = new MultiPartSpecBuilder(THREE_COCKTAILS_CSV_CONTENT.getBytes())
+			.fileName("cocktails.csv")
+			.controlName("file")
+			.mimeType(MediaType.TEXT_PLAIN_VALUE)
+			.build();
+
+		requestToAddCocktailsByCsv(cocktailCsvFile, authResponse);
+
+		// when
+		ExtractableResponse<Response> firstAttempt = requestToFindCocktails();
+		ExtractableResponse<Response> secondAttempt = requestToFindCocktails();
+		ExtractableResponse<Response> thirdAttempt = requestToFindCocktails();
+
+		//then
+		assertThatFirstAttemptTakeLongerThanNextAttempt(firstAttempt, secondAttempt);
+		assertThatFirstAttemptTakeLongerThanNextAttempt(firstAttempt, thirdAttempt);
+	}
+
 	@DisplayName("특정 단어가 포함된 칵테일을 원하는 수 만큼 조회한다.")
 	@Test
 	void findPageContainingWord() {

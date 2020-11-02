@@ -212,4 +212,9 @@ public class CocktailAcceptanceStep {
 			() -> assertThat(cocktailResponses).extracting("name").contains("갓마더", "그래스호퍼")
 		);
 	}
+
+	public static void assertThatFirstAttemptTakeLongerThanNextAttempt(ExtractableResponse<Response> firstAttempt,
+		ExtractableResponse<Response> nextAttempt) {
+		assertThat(firstAttempt.time()).isGreaterThan(nextAttempt.time());
+	}
 }
