@@ -2,3 +2,8 @@
 spring:
   profiles:
     active: local
+server:
+  servlet:
+    session:
+      cookie:
+        secure: true
