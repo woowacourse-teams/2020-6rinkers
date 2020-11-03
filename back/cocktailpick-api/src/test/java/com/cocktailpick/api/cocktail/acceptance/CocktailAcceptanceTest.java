@@ -236,11 +236,34 @@ class CocktailAcceptanceTest extends AcceptanceTest {
 			authResponse);
 
 		// when
-		ExtractableResponse<Response> response = requestToUpdateCocktail(createdLocation,
-			MALIBU_ORANGE, authResponse);
+		ExtractableResponse<Response> response = requestToUpdateCocktail(createdLocation, MALIBU_ORANGE, authResponse);
 
 		// then
 		assertThatStatusIsOk(response);
+	}
+
+	@DisplayName("칵테일 수정시, 이전에 캐싱된 칵테일 데이터를 수정된 칵테일 데이터로 변경하여 캐싱한다.")
+	@Test
+	void checkUpdatedCocktailCached() {
+		// given
+		AuthResponse authResponse = requestAdminAuth();
+
+		TagRequest sweetTag = new TagRequest("단맛", TagType.FLAVOR.getTagType());
+		TagRequest sourTag = new TagRequest("신맛", TagType.FLAVOR.getTagType());
+
+		requestToAddTag(sweetTag, authResponse);
+		requestToAddTag(sourTag, authResponse);
+
+		String createdLocation = requestToAddCocktailAndGetLocation(KAHLUA_MILK_REQUEST, authResponse);
+		Long cocktailId = Long.parseLong(createdLocation.split("/")[3]);
+
+		// when
+		requestToFindCocktail(createdLocation);
+		assertThatCachingCorrectData(KAHLUA_MILK_REQUEST, cocktailId, cacheManager);
+		requestToUpdateCocktail(createdLocation, MALIBU_ORANGE, authResponse);
+
+		// then
+		assertThatCachingCorrectData(MALIBU_ORANGE, cocktailId, cacheManager);
 	}
 
 	@DisplayName("칵테일을 삭제한다.")

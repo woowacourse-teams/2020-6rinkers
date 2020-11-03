@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -89,14 +90,16 @@ public class CocktailService {
 		return cocktail.getId();
 	}
 
+	@CachePut(value = "cocktail", key = "#id")
 	@Transactional
-	public void updateCocktail(Long id, CocktailRequest cocktailRequest) {
+	public CocktailDetailResponse updateCocktail(Long id, CocktailRequest cocktailRequest) {
 		Cocktail cocktail = findById(id);
 		Cocktail requestCocktail = cocktailRequest.toCocktail();
 		List<RecipeItem> recipeItems = cocktailRequest.toRecipeItems();
 		List<Tag> tags = tagRepository.findByNameIn(cocktailRequest.getTag());
 
-		cocktail.update(requestCocktail, tags, recipeItems);
+		Cocktail updatedCocktail = cocktail.update(requestCocktail, tags, recipeItems);
+		return CocktailDetailResponse.of(updatedCocktail);
 	}
 
 	private Cocktail findById(Long id) {

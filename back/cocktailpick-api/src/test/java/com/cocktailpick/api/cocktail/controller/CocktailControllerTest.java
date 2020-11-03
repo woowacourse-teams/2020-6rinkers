@@ -208,8 +208,6 @@ class CocktailControllerTest extends DocumentationWithSecurity {
 	@DisplayName("칵테일을 수정한다.")
 	@Test
 	void updateCocktail() throws Exception {
-		doNothing().when(cocktailService).updateCocktail(anyLong(), any());
-
 		CocktailRequest updateCocktailRequest = CocktailRequest.builder()
 			.abv(40)
 			.description("작곰 맛 칵테일")

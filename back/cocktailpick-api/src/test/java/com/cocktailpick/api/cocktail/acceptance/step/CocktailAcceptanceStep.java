@@ -6,8 +6,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.http.HttpHeaders.*;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.http.MediaType;
 
 import com.cocktailpick.api.user.controller.acceptance.step.AuthAcceptanceStep;
@@ -228,5 +230,13 @@ public class CocktailAcceptanceStep {
 
 	public static void assertThatCachedCocktailsNull(Cache.ValueWrapper cachedCocktails) {
 		assertThat(cachedCocktails).isNull();
+	}
+
+	public static void assertThatCachingCorrectData(CocktailRequest request, Long id, CacheManager cacheManager) {
+		CocktailDetailResponse cachedData = Objects.requireNonNull(cacheManager.getCache("cocktail"))
+			.get(id, CocktailDetailResponse.class);
+
+		assert cachedData != null;
+		assertThat(request.getName()).isEqualTo(cachedData.getName());
 	}
 }
