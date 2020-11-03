@@ -68,6 +68,7 @@ public class CocktailService {
 		return CocktailResponse.listOf(cocktails);
 	}
 
+	@Cacheable(value = "cocktail", key = "#id")
 	@Transactional(readOnly = true)
 	public CocktailDetailResponse findCocktail(Long id) {
 		Cocktail cocktail = findById(id);

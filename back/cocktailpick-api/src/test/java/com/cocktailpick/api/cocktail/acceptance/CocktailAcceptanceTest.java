@@ -180,6 +180,28 @@ class CocktailAcceptanceTest extends AcceptanceTest {
 		assertThatFindKahlua(response);
 	}
 
+	@DisplayName("칵테일 조회시, 캐싱되어 있는지 확인한다.")
+	@Test
+	void checkCocktailCached() {
+		// given
+		AuthResponse authResponse = requestAdminAuth();
+
+		TagRequest tagRequest = new TagRequest("단맛", TagType.FLAVOR.getTagType());
+
+		requestToAddTag(tagRequest, authResponse);
+
+		String createdLocation = requestToAddCocktailAndGetLocation(KAHLUA_MILK_REQUEST, authResponse);
+
+		// when
+		ExtractableResponse<Response> firstAttempt = requestToFindCocktail(createdLocation);
+		ExtractableResponse<Response> secondAttempt = requestToFindCocktail(createdLocation);
+		ExtractableResponse<Response> thirdAttempt = requestToFindCocktail(createdLocation);
+
+		// then
+		assertThatFirstAttemptTakeLongerThanNextAttempt(firstAttempt, secondAttempt);
+		assertThatFirstAttemptTakeLongerThanNextAttempt(firstAttempt, thirdAttempt);
+	}
+
 	@DisplayName("칵테일을 추가한다.")
 	@Test
 	void addCocktail() {
