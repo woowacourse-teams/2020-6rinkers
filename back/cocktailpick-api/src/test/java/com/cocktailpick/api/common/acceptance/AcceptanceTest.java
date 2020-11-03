@@ -1,9 +1,12 @@
 package com.cocktailpick.api.common.acceptance;
 
+import java.util.Objects;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.cache.CacheManager;
 
 import io.restassured.RestAssured;
 
@@ -18,6 +21,9 @@ public abstract class AcceptanceTest {
     @Autowired
     private AdminCreate adminCreate;
 
+    @Autowired
+    private CacheManager cacheManager;
+
     @BeforeEach
     public void setUp() {
         if (RestAssured.port == RestAssured.UNDEFINED_PORT) {
@@ -28,5 +34,13 @@ public abstract class AcceptanceTest {
         databaseCleanup.execute();
 
         adminCreate.execute();
+
+        clearCacheManager();
+    }
+
+    private void clearCacheManager() {
+        for (String cacheName : cacheManager.getCacheNames()) {
+            Objects.requireNonNull(cacheManager.getCache(cacheName)).clear();
+        }
     }
 }
