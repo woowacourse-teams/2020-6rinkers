@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -107,6 +108,7 @@ public class CocktailService {
 		cocktailRepository.deleteById(id);
 	}
 
+	@CacheEvict(value = "cocktails")
 	@Transactional
 	public void deleteAllCocktails() {
 		cocktailRepository.deleteAll();

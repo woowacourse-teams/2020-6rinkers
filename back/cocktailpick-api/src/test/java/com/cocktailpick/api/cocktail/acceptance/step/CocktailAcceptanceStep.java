@@ -7,6 +7,7 @@ import static org.springframework.http.HttpHeaders.*;
 
 import java.util.List;
 
+import org.springframework.cache.Cache;
 import org.springframework.http.MediaType;
 
 import com.cocktailpick.api.user.controller.acceptance.step.AuthAcceptanceStep;
@@ -216,5 +217,16 @@ public class CocktailAcceptanceStep {
 	public static void assertThatFirstAttemptTakeLongerThanNextAttempt(ExtractableResponse<Response> firstAttempt,
 		ExtractableResponse<Response> nextAttempt) {
 		assertThat(firstAttempt.time()).isGreaterThan(nextAttempt.time());
+	}
+
+	public static void assertThatCocktailResponseSizeIsSameWith(Cache.ValueWrapper cachedCocktails, int size) {
+		List<CocktailResponse> responses = (List<CocktailResponse>)cachedCocktails.get();
+
+		assert responses != null;
+		assertThat(responses.size()).isEqualTo(size);
+	}
+
+	public static void assertThatCachedCocktailsNull(Cache.ValueWrapper cachedCocktails) {
+		assertThat(cachedCocktails).isNull();
 	}
 }

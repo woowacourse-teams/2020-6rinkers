@@ -9,9 +9,14 @@ import static com.cocktailpick.api.user.controller.acceptance.step.AuthAcceptanc
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.interceptor.SimpleKey;
 import org.springframework.http.MediaType;
 
 import com.cocktailpick.api.common.acceptance.AcceptanceTest;
@@ -29,6 +34,8 @@ import io.restassured.specification.MultiPartSpecification;
 
 @DisplayName("Cocktail 인수/통합 테스트")
 class CocktailAcceptanceTest extends AcceptanceTest {
+	@Autowired
+	private CacheManager cacheManager;
 
 	@DisplayName("모든 칵테일을 조회한다.")
 	@Test
@@ -262,6 +269,42 @@ class CocktailAcceptanceTest extends AcceptanceTest {
 
 		// then
 		assertThatStatusIsNoContent(response);
+	}
+
+	@DisplayName("모든 칵테일을 삭제 시, 캐싱된 전체 칵테일이 삭제되는지 확인")
+	@Test
+	void checkCachedAllCocktailsRemoved() {
+		// given
+		AuthResponse authResponse = requestAdminAuth();
+		Cache.ValueWrapper cachedCocktails;
+
+		MultiPartSpecification tagCsvFile = new MultiPartSpecBuilder(FOUR_TAGS_CSV_CONTENT.getBytes())
+			.fileName("tags.csv")
+			.controlName("file")
+			.mimeType(MediaType.TEXT_PLAIN_VALUE)
+			.build();
+
+		requestToAddTagsByCsv(tagCsvFile, authResponse);
+
+		MultiPartSpecification csvFile = new MultiPartSpecBuilder(THREE_COCKTAILS_CSV_CONTENT.getBytes())
+			.fileName("cocktails.csv")
+			.controlName("file")
+			.mimeType(MediaType.TEXT_PLAIN_VALUE)
+			.build();
+
+		requestToAddCocktailsByCsv(csvFile, authResponse);
+		requestToFindCocktails();
+
+		cachedCocktails = Objects.requireNonNull(cacheManager.getCache("cocktails")).get(SimpleKey.EMPTY);
+		assert cachedCocktails != null;
+		assertThatCocktailResponseSizeIsSameWith(cachedCocktails, 3);
+
+		// when
+		requestToDeleteAllCocktails(authResponse);
+		cachedCocktails = Objects.requireNonNull(cacheManager.getCache("cocktails")).get(SimpleKey.EMPTY);
+
+		// then
+		assertThatCachedCocktailsNull(cachedCocktails);
 	}
 
 	@DisplayName("오늘의 칵테일을 조회한다.")
