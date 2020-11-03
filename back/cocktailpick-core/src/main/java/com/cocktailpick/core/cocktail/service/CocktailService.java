@@ -107,6 +107,7 @@ public class CocktailService {
 			.orElseThrow(() -> new EntityNotFoundException(ErrorCode.COCKTAIL_NOT_FOUND));
 	}
 
+	@CacheEvict(value = "cocktail", key = "#id")
 	@Transactional
 	public void deleteCocktail(Long id) {
 		cocktailRepository.deleteById(id);
