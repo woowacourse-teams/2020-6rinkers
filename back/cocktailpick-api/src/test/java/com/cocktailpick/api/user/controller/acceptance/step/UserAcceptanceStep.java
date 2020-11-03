@@ -17,6 +17,7 @@ import com.cocktailpick.core.user.domain.AuthProvider;
 import com.cocktailpick.core.user.domain.Role;
 import com.cocktailpick.core.user.dto.AuthResponse;
 import com.cocktailpick.core.user.dto.SignUpRequest;
+import com.cocktailpick.core.user.dto.UserResponse;
 import com.cocktailpick.core.user.dto.UserUpdateRequest;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
@@ -84,8 +85,7 @@ public class UserAcceptanceStep {
 
 	public static void assertThatGetCurrentUserSuccess(ExtractableResponse<Response> response,
 		SignUpRequest signUpRequest) {
-		com.cocktailpick.common.user.dto.UserResponse userResponse = response.as(
-			com.cocktailpick.common.user.dto.UserResponse.class);
+		UserResponse userResponse = response.as(UserResponse.class);
 
 		assertAll(
 			() -> assertThat(userResponse.getEmail()).isEqualTo(signUpRequest.getEmail()),
