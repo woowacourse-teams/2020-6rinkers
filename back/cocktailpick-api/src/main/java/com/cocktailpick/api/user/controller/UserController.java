@@ -23,6 +23,7 @@ import com.cocktailpick.core.favorite.dto.FavoriteRequest;
 import com.cocktailpick.core.user.domain.User;
 import com.cocktailpick.core.user.dto.FavoriteCocktailIdsResponse;
 import com.cocktailpick.core.user.dto.SignUpRequest;
+import com.cocktailpick.core.user.dto.UserResponse;
 import com.cocktailpick.core.user.dto.UserUpdateRequest;
 import com.cocktailpick.core.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -44,12 +45,12 @@ public class UserController {
 	}
 
 	@GetMapping("/me")
-	public ResponseEntity<com.cocktailpick.common.user.dto.UserResponse> getCurrentUser(@CurrentUser User user) {
-		return ResponseEntity.ok(com.cocktailpick.common.user.dto.UserResponse.of(user));
+	public ResponseEntity<UserResponse> getCurrentUser(@CurrentUser User user) {
+		return ResponseEntity.ok(UserResponse.of(user));
 	}
 
 	@PatchMapping("/me")
-	public ResponseEntity<com.cocktailpick.common.user.dto.UserResponse> updateCurrentUser(@CurrentUser User user,
+	public ResponseEntity<UserResponse> updateCurrentUser(@CurrentUser User user,
 		@RequestBody @Valid UserUpdateRequest userRequest) {
 		userService.updateUser(user, userRequest);
 		return ResponseEntity.ok().build();

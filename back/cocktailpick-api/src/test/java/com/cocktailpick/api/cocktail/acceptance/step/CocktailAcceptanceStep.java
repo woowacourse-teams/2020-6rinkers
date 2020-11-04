@@ -6,7 +6,10 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.http.HttpHeaders.*;
 
 import java.util.List;
+import java.util.Objects;
 
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.http.MediaType;
 
 import com.cocktailpick.api.user.controller.acceptance.step.AuthAcceptanceStep;
@@ -211,5 +214,33 @@ public class CocktailAcceptanceStep {
 			() -> assertThat(cocktailResponses).hasSize(2),
 			() -> assertThat(cocktailResponses).extracting("name").contains("갓마더", "그래스호퍼")
 		);
+	}
+
+	public static void assertThatFirstAttemptTakeLongerThanNextAttempt(ExtractableResponse<Response> firstAttempt,
+		ExtractableResponse<Response> nextAttempt) {
+		assertThat(firstAttempt.time()).isGreaterThan(nextAttempt.time());
+	}
+
+	public static void assertThatCocktailResponseSizeIsSameWith(Cache.ValueWrapper cachedCocktails, int size) {
+		List<CocktailResponse> responses = (List<CocktailResponse>)cachedCocktails.get();
+
+		assert responses != null;
+		assertThat(responses.size()).isEqualTo(size);
+	}
+
+	public static void assertThatCachedCocktailsNull(Cache.ValueWrapper cachedCocktails) {
+		assertThat(cachedCocktails).isNull();
+	}
+
+	public static void assertThatCachingCorrectData(CocktailRequest request, Long id, CacheManager cacheManager) {
+		CocktailDetailResponse cachedData = Objects.requireNonNull(cacheManager.getCache("cocktail"))
+			.get(id, CocktailDetailResponse.class);
+
+		assert cachedData != null;
+		assertThat(request.getName()).isEqualTo(cachedData.getName());
+	}
+
+	public static void assertThatCachedCocktailIsNull(Long id, CacheManager cacheManager) {
+		assertThat(cacheManager.getCache("cocktail").get(id, CocktailDetailResponse.class)).isNull();
 	}
 }

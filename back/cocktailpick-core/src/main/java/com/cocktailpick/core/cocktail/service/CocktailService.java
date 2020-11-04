@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -38,6 +41,7 @@ public class CocktailService {
 	private final TagRepository tagRepository;
 	private final CocktailFindStrategyFactory cocktailFindStrategyFactory;
 
+	@Cacheable(value = "cocktails")
 	@Transactional(readOnly = true)
 	public List<CocktailResponse> findAllCocktails() {
 		return Collections.unmodifiableList(CocktailResponse.listOf(cocktailRepository.findAll()));
@@ -65,6 +69,7 @@ public class CocktailService {
 		return CocktailResponse.listOf(cocktails);
 	}
 
+	@Cacheable(value = "cocktail", key = "#id")
 	@Transactional(readOnly = true)
 	public CocktailDetailResponse findCocktail(Long id) {
 		Cocktail cocktail = findById(id);
@@ -85,14 +90,16 @@ public class CocktailService {
 		return cocktail.getId();
 	}
 
+	@CachePut(value = "cocktail", key = "#id")
 	@Transactional
-	public void updateCocktail(Long id, CocktailRequest cocktailRequest) {
+	public CocktailDetailResponse updateCocktail(Long id, CocktailRequest cocktailRequest) {
 		Cocktail cocktail = findById(id);
 		Cocktail requestCocktail = cocktailRequest.toCocktail();
 		List<RecipeItem> recipeItems = cocktailRequest.toRecipeItems();
 		List<Tag> tags = tagRepository.findByNameIn(cocktailRequest.getTag());
 
-		cocktail.update(requestCocktail, tags, recipeItems);
+		Cocktail updatedCocktail = cocktail.update(requestCocktail, tags, recipeItems);
+		return CocktailDetailResponse.of(updatedCocktail);
 	}
 
 	private Cocktail findById(Long id) {
@@ -100,11 +107,13 @@ public class CocktailService {
 			.orElseThrow(() -> new EntityNotFoundException(ErrorCode.COCKTAIL_NOT_FOUND));
 	}
 
+	@CacheEvict(value = "cocktail", key = "#id")
 	@Transactional
 	public void deleteCocktail(Long id) {
 		cocktailRepository.deleteById(id);
 	}
 
+	@CacheEvict(value = "cocktails")
 	@Transactional
 	public void deleteAllCocktails() {
 		cocktailRepository.deleteAll();

@@ -1,4 +1,4 @@
-package com.cocktailpick.common.user.dto;
+package com.cocktailpick.core.user.dto;
 
 import java.util.List;
 import java.util.stream.Collectors;
