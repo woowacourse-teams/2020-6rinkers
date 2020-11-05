@@ -24,7 +24,7 @@ public class CocktailRecommendService {
 	private final FilteringAndScoringRecommendService filteringAndScoringRecommendService;
 
 	public List<CocktailDetailResponse> recommend(RecommendRequest recommendRequest) {
-		List<Cocktail> cocktails = cocktailRepository.findAll();
+		List<Cocktail> cocktails = cocktailRepository.findAllWithCocktailTagsAndRecipe();
 
 		EntityMapper<Long, Tag> entityMapper = tagRepository.findAll()
 			.stream()
