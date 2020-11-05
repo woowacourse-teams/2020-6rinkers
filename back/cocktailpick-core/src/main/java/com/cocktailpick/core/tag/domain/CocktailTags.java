@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @Embeddable
 public class CocktailTags {
-	@OneToMany(mappedBy = "cocktail", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "cocktail", cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<CocktailTag> cocktailTags = new ArrayList<>();
 
 	public static CocktailTags empty() {

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -17,6 +18,7 @@ public interface CocktailRepository extends JpaRepository<Cocktail, Long> {
 	@Query("select c from Cocktail c left join fetch c.cocktailTags where c.id > :id")
 	List<Cocktail> findByIdGreaterThanWithCocktailTags(long id);
 
-	@Query("select c from Cocktail c left join fetch c.cocktailTags left join fetch c.recipe")
+	@EntityGraph(attributePaths = {"cocktailTags", "recipe"}, type = EntityGraph.EntityGraphType.FETCH)
+	@Query("select distinct c from Cocktail c")
 	List<Cocktail> findAllWithCocktailTagsAndRecipe();
 }
