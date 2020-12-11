@@ -34,8 +34,9 @@ jobs:
       - name: Build ReactJS
         env: 
           CI: false
+          REACT_APP_KAKAO_KEY: ${{ secrets.REACT_APP_KAKAO_KEY }}
         working-directory: ./front
-        run: npm run build
+        run: npm run build:prod
         
       - name: Transfer to S3 for serving static
         uses: jakejarvis/s3-sync-action@master
@@ -47,4 +48,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_MANAGER_SECRET_ACCESS_KEY }}
           AWS_REGION: ap-northeast-2
           SOURCE_DIR: './front/build'
-          REACT_APP_KAKAO_KEY: ${{ secrets.REACT_APP_KAKAO_KEY }}
+          
