@@ -32,5 +32,7 @@ jobs:
         run: npm install
 
       - name: Build ReactJS
+        env: 
+          CI: false
         working-directory: ./front
         run: npm run build
