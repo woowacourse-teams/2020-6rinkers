@@ -28,8 +28,8 @@ jobs:
       - name: Checkout 
         uses: actions/checkout@v2
         with:
-          submodule: true
-          token: ${{ secrets.SUBMODULE_DB_MIGRATION }} 
+          submodules: recursive
+          token: ${{ secrets.SUBMODULE_TOKEN }} 
 
 #       - name: Checkout doogang submodule
 #         uses: actions/checkout@v2
