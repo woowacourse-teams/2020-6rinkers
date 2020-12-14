@@ -55,6 +55,13 @@ jobs:
         run: ./gradlew clean build
         shell: bash
 
+      - name: Zip jar file
+        working-directory: ./back/cocktailpick-api/build/libs
+        run: |
+          zip -r back.zip *
+          rm *.jar
+        shell: bash
+
       - name: Transfer to S3 for serving static
         uses: jakejarvis/s3-sync-action@master
         with:
