@@ -24,13 +24,11 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
-      - name: Checkout guni submodule
+    
+      - name: Checkout 
         uses: actions/checkout@v2
         with:
-          repository: KueNiYam/6rinkers-db-migration
+          submodule: true
           token: ${{ secrets.SUBMODULE_DB_MIGRATION }} 
 
 #       - name: Checkout doogang submodule
@@ -40,11 +38,6 @@ jobs:
 #           token: ${{ secrets.GitHub_PAT }} 
       
       
-            # Runs a single command using the runners shell
-      - name: echo pwd
-        run: pwd
-      
-      
       - name: Install Java
         uses: actions/setup-java@v1
         with:
@@ -52,7 +45,9 @@ jobs:
       
       - name: Grant execute permisson for gradlew
         working-directory: ./back
-        run: chmod +x gradlew
+        run: |
+          pwd
+          chmod +x gradlew
         shell: bash
         
       - name: Build with Gradle
