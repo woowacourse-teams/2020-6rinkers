@@ -11,6 +11,10 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+defaults:
+  run:
+    working-directory: ./back
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -41,12 +45,12 @@ jobs:
           java-version: 1.8
       
       - name: Grant execute permisson for gradlew
-        working-directory: ./back
+#         working-directory: ./back
         run: chmod +x gradlew
         shell: bash
         
       - name: Build with Gradle
-        working-directory: ./back/
+#         working-directory: ./back
         run: ./gradlew clean build
         shell: bash
 
