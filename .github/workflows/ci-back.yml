@@ -29,6 +29,7 @@ jobs:
           java-version: 1.8
       
       - name: Grant execute permisson for gradlew
+        working-directory: ./back
         run: chmod +x gradlew
         shell: bash
         
