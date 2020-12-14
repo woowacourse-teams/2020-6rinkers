@@ -44,6 +44,11 @@ jobs:
         with:
           java-version: 1.8
       
+      - name: print pwd
+        run: |
+          pwd
+          echo "pwd"
+      
       - name: Grant execute permisson for gradlew
 #         working-directory: ./back
         run: chmod +x gradlew
