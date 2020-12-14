@@ -39,10 +39,11 @@ jobs:
 #           repository: my-org/my-private-tools
 #           token: ${{ secrets.GitHub_PAT }} 
       
-      - name: print pwd
-        run: |
-          pwd
-          echo "pwd"
+      
+            # Runs a single command using the runners shell
+      - name: echo pwd
+        run: pwd
+      
       
       - name: Install Java
         uses: actions/setup-java@v1
