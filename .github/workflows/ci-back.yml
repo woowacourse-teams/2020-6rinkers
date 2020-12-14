@@ -39,15 +39,15 @@ jobs:
 #           repository: my-org/my-private-tools
 #           token: ${{ secrets.GitHub_PAT }} 
       
-      - name: Install Java
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.8
-      
       - name: print pwd
         run: |
           pwd
           echo "pwd"
+      
+      - name: Install Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
       
       - name: Grant execute permisson for gradlew
 #         working-directory: ./back
