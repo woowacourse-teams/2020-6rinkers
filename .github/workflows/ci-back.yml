@@ -22,8 +22,18 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-        with: 
-          submodules: true 
+
+      - name: Checkout guni submodule
+        uses: actions/checkout@v2
+        with:
+          repository: KueNiYam/6rinkers-db-migration
+          token: ${{ secrets.SUBMODULE_DB_MIGRATION }} 
+
+#       - name: Checkout doogang submodule
+#         uses: actions/checkout@v2
+#         with:
+#           repository: my-org/my-private-tools
+#           token: ${{ secrets.GitHub_PAT }} 
       
       - name: Install Java
         uses: actions/setup-java@v1
