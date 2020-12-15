@@ -4,7 +4,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: ~/docker/jdk/jar
+    destination: /home/ubuntu/docker/jdk/jar
     overwrite: yes
 
 permissions:
