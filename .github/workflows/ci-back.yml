@@ -58,7 +58,8 @@ jobs:
       - name: Zip jar file
         working-directory: ./back/cocktailpick-api/build/libs
         run: |
-          zip back.zip *.jar ../../../appspec.yml
+          mv ../../../appspec.yml .
+          zip back.zip *.jar appspec.yml
           rm *.jar
         shell: bash
 
