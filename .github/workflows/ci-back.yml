@@ -61,6 +61,7 @@ jobs:
           mv ../../../appspec.yml .
           zip back.zip *.jar appspec.yml
           rm *.jar
+          rm *.yml
         shell: bash
 
       - name: Transfer to S3 for serving static
