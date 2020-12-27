@@ -76,9 +76,10 @@ jobs:
           SOURCE_DIR: './back/cocktailpick-api/build/libs'
           
       - name: run code deploy
-        run: aws deploy create-deployment \
+        run: >
+          aws deploy create-deployment 
           --region ap-northeast-2
-          --application-name cocktailpick-prod \
-          --deployment-config-name CodeDeployDefault.OneAtATime \
-          --deployment-group-name cocktailpick-deploy-group \
+          --application-name cocktailpick-prod 
+          --deployment-config-name CodeDeployDefault.OneAtATime 
+          --deployment-group-name cocktailpick-deploy-group 
           --s3-location bucket=cocktail-pick-back-bucket,bundleType=zip,key=back.zip
