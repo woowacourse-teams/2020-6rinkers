@@ -59,9 +59,11 @@ jobs:
         working-directory: ./back/cocktailpick-api/build/libs
         run: |
           mv ../../../appspec.yml .
-          zip back.zip *.jar appspec.yml
+          mv ../../../deploy.sh .
+          zip back.zip *.jar appspec.yml deploy.sh
           rm *.jar
           rm *.yml
+          rm *.sh
         shell: bash
 
       - name: Configure AWS credentials
