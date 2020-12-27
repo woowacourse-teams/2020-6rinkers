@@ -12,3 +12,9 @@ permissions:
     pattern: "**"
     owner: ubuntu
     group: ubuntu
+
+hooks:
+  AfterInstall:
+    - location: deploy.sh
+      timeout: 60
+      runas: root
