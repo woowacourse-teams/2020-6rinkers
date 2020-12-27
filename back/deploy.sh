@@ -2,6 +2,6 @@
 
 cd ..
 
-docker container stop $(docker container ps -a -q --filter ancestor=back)
+docker rm $(docker container ps -a -q --filter ancestor=back)
 
 docker run -d back
