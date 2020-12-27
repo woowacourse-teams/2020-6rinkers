@@ -72,7 +72,15 @@ jobs:
           aws-region: ap-northeast-2
 
       - name: Transfer to S3 for serving static
-        run: aws s3 cp --region ap-northease-2 ./back/cocktailpick-api/build/libs/* s3://cocktail-pick-back-bucket/back.zip
+        uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: cocktail-pick-back-bucket
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_MANAGER_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_MANAGER_SECRET_ACCESS_KEY }}
+          AWS_REGION: ap-northeast-2
+          SOURCE_DIR: './back/cocktailpick-api/build/libs'
           
       - name: run code deploy
         run: >
