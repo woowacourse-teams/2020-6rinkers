@@ -64,21 +64,19 @@ jobs:
           rm *.yml
         shell: bash
 
-      - name: Transfer to S3 for serving static
-        uses: jakejarvis/s3-sync-action@master
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          args: --acl public-read --follow-symlinks --delete
-        env:
-          AWS_S3_BUCKET: cocktail-pick-back-bucket
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_MANAGER_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_MANAGER_SECRET_ACCESS_KEY }}
-          AWS_REGION: ap-northeast-2
-          SOURCE_DIR: './back/cocktailpick-api/build/libs'
+          aws-access-key-id: ${{ secrets.AWS_IAM_MANAGER_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_IAM_MANAGER_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+
+      - name: Transfer to S3 for serving static
+        run: aws s3 cp --region ap-northease-2 ./back/cocktailpick-api/build/libs/* s3://cocktail-pick-back-bucket/back.zip
           
       - name: run code deploy
         run: >
           aws deploy create-deployment 
-          --region ap-northeast-2
           --application-name cocktailpick-prod 
           --deployment-config-name CodeDeployDefault.OneAtATime 
           --deployment-group-name cocktailpick-deploy-group 
