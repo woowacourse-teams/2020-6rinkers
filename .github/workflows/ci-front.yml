@@ -49,11 +49,10 @@ jobs:
       - name: Transfer to S3 for serving static
         uses: jakejarvis/s3-sync-action@master
         with:
-          args: --acl public-read --follow-symlinks --delete
+          args: --acl public-read --follow-symlinks --delete --include '/front/front.zip'
         env:
           AWS_S3_BUCKET: cocktail-pick-front-bucket
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_MANAGER_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_MANAGER_SECRET_ACCESS_KEY }}
           AWS_REGION: ap-northeast-2
-          SOURCE_DIR: './front/front.zip'
           
