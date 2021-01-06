@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ServiceSlider from "./ServicesSlider";
 
-const MobileNav = ({ offSlider, toggleSlider, slider, handleLogout }) => {
+const MobileNav = ({ offSlider, toggleSlider, slider }) => {
   return (
     <div className="mobile-nav">
       <div className="logo-container">
@@ -14,13 +13,6 @@ const MobileNav = ({ offSlider, toggleSlider, slider, handleLogout }) => {
           />
         </Link>
       </div>
-      {slider && (
-        <ServiceSlider
-          slider={slider}
-          toggleSlider={toggleSlider}
-          handleLogout={handleLogout}
-        />
-      )}
       <div className="slider-toggle" onClick={toggleSlider}>
         {slider ? (
           <img className="x-icon" src="/image/x.svg" alt="x" />
