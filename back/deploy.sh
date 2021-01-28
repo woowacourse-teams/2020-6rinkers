@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-\cp -f back.jar ../back.jar
+\cp -f cocktailpick-api-1.0.jar ../back.jar
 
 #cd ..
 #
