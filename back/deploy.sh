@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-\cp -f cocktailpick-api-1.0.jar ../back.jar
+\cp -f /home/ubuntu/docker/jdk/jar/cocktailpick-api-1.0.jar /home/ubuntu/docker/jdk/back.jar
 
 #cd ..
 #
