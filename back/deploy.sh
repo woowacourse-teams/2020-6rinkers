@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-cd ..
+\cp -f back.jar ../back.jar
 
-docker rm $(docker container ps -a -q --filter ancestor=back)
-
-docker run -d --name jdk back
+#cd ..
+#
+#docker rm $(docker container ps -a -q --filter ancestor=back)
+#
+#docker run -d --name jdk back
