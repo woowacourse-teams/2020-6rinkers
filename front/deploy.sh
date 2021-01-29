@@ -7,10 +7,14 @@ docker rm $(docker container ps -a -q --filter name=jdk)
 
 docker rmi $(docker images --filter=reference='back:*' -qa)
 
+# build back image
 docker build --tag back /home/ubuntu/docker/jdk
 
-docker run -d --name jdk back
+# run jdk(back) container
+docker-compose up -d jdk
 
-sleep 2
+# pause for prevent memory overload
+sleep 5
 
-docker-compose-restart nginx
+# restart nginx(front) container
+docker-compose restart nginx
