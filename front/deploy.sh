@@ -17,4 +17,4 @@ docker-compose up -f /home/ubuntu/docker/docker-compose.yml -d jdk
 sleep 5
 
 # restart nginx(front) container
-docker-compose restart -f /home/ubuntu/docker/docker-compose.yml nginx
+docker-compose restart nginx
