@@ -11,10 +11,10 @@ docker rmi $(docker images --filter=reference='back:*' -qa)
 docker build --tag back /home/ubuntu/docker/jdk
 
 # run jdk(back) container
-docker-compose up -d jdk
+docker-compose up -f /home/ubuntu/docker/docker-compose.yml -d jdk
 
 # pause for prevent memory overload
 sleep 5
 
 # restart nginx(front) container
-docker-compose restart nginx
+docker-compose restart -f /home/ubuntu/docker/docker-compose.yml nginx
