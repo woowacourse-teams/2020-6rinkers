@@ -37,8 +37,7 @@ jobs:
       
       - name: Zip build folder with appspec.yml and deploy.md
         working-directory: ./front
-        run: |
-          zip -r front.zip build appspec.yml deploy.sh
+        run: zip -r front.zip build appspec.yml deploy.sh
         shell: bash
         
       - name: Configure AWS credentials

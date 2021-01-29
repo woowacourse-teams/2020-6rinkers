@@ -31,13 +31,6 @@ jobs:
           submodules: recursive
           token: ${{ secrets.SUBMODULE_TOKEN }} 
 
-#       - name: Checkout doogang submodule
-#         uses: actions/checkout@v2
-#         with:
-#           repository: my-org/my-private-tools
-#           token: ${{ secrets.GitHub_PAT }} 
-      
-      
       - name: Install Java
         uses: actions/setup-java@v1
         with:
@@ -45,9 +38,7 @@ jobs:
       
       - name: Grant execute permisson for gradlew
         working-directory: ./back
-        run: |
-          pwd
-          chmod +x gradlew
+        run: chmod +x gradlew
         shell: bash
         
       - name: Build with Gradle
@@ -61,9 +52,6 @@ jobs:
           mv ../../../appspec.yml .
           mv ../../../deploy.sh .
           zip back.zip *.jar appspec.yml deploy.sh
-          rm *.jar
-          rm *.yml
-          rm *.sh
         shell: bash
 
       - name: Configure AWS credentials
