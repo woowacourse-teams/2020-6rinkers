@@ -11,7 +11,7 @@ docker rmi $(docker images --filter=reference='back:*' -qa)
 docker build --tag back /home/ubuntu/docker/jdk
 
 # run jdk(back) container
-docker-compose up -f /home/ubuntu/docker/docker-compose.yml -d jdk
+docker-compose -f /home/ubuntu/docker/docker-compose.yml up -d jdk
 
 # pause for prevent memory overload
 sleep 5
