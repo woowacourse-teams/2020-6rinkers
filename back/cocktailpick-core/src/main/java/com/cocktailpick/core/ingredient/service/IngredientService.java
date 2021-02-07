@@ -7,6 +7,9 @@ import com.cocktailpick.core.ingredient.domain.IngredientRepository;
 import com.cocktailpick.core.ingredient.dto.IngredientRequest;
 import com.cocktailpick.core.ingredient.dto.IngredientResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +30,7 @@ public class IngredientService {
         return savedIngredient.getId();
     }
 
+    @Cacheable(value = "ingredients")
     @Transactional(readOnly = true)
     public List<IngredientResponse> findAll() {
         List<Ingredient> ingredients = ingredientRepository.findAll();
@@ -34,6 +38,7 @@ public class IngredientService {
         return Collections.unmodifiableList(IngredientResponse.listOf(ingredients));
     }
 
+    @Cacheable(value = "ingredient", key = "#id")
     @Transactional(readOnly = true)
     public IngredientResponse findIngredient(Long id) {
         Ingredient ingredient = findById(id);
@@ -45,10 +50,18 @@ public class IngredientService {
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.INGREDIENT_NOT_FOUND));
     }
 
+    @CachePut(value = "ingredient", key = "#id")
+    @Transactional
     public void updateIngredient(Long id, IngredientRequest ingredientRequest) {
         Ingredient ingredient = findById(id);
         Ingredient requestIngredient = ingredientRequest.toIngredient();
 
         ingredient.update(requestIngredient);
+    }
+
+    @CacheEvict(value = "ingredient", key = "#id")
+    @Transactional
+    public void deleteIngredient(Long id) {
+        ingredientRepository.deleteById(id);
     }
 }

@@ -1,5 +1,6 @@
 package com.cocktailpick.api.ingredient.controller;
 
+import com.cocktailpick.api.cocktail.docs.CocktailDocumentation;
 import com.cocktailpick.api.common.documentation.DocumentationWithSecurity;
 import com.cocktailpick.api.ingredient.docs.IngredientDocumentation;
 import com.cocktailpick.core.ingredient.dto.IngredientRequest;
@@ -22,6 +23,7 @@ import java.util.Collections;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -119,4 +121,18 @@ public class IngredientControllerTest extends DocumentationWithSecurity {
                 .andDo(print())
                 .andDo(IngredientDocumentation.updateIngredient());
     }
+
+    @WithMockUser(roles = "ADMIN")
+    @DisplayName("재료를 삭제한다.")
+    @Test
+    void deleteIngredient() throws Exception {
+        doNothing().when(ingredientService).deleteIngredient(any());
+
+        mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/ingredients/{id}", 1L)
+                .header("authorization", "Bearer ADMIN_TOKEN"))
+                .andExpect(status().isNoContent())
+                .andDo(print())
+                .andDo(IngredientDocumentation.deleteIngredient());
+    }
+
 }

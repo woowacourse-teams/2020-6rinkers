@@ -2,7 +2,6 @@ package com.cocktailpick.api.ingredient.docs;
 
 import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
 import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.test.web.servlet.ResultHandler;
 
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
@@ -13,7 +12,7 @@ import static org.springframework.restdocs.request.RequestDocumentation.pathPara
 
 public class IngredientDocumentation {
     public static RestDocumentationResultHandler createIngredient() {
-        return document("/ingredients/create",
+        return document("ingredients/create",
                 requestFields(
                         fieldWithPath("title").type(JsonFieldType.STRING).description("재료 이름"),
                         fieldWithPath("color").type(JsonFieldType.STRING).description("재료 색깔"),
@@ -25,7 +24,7 @@ public class IngredientDocumentation {
     }
 
     public static RestDocumentationResultHandler findAll() {
-        return document("/ingredients/findAll",
+        return document("ingredients/findAll",
                 responseFields(
                         fieldWithPath("[].title").type(JsonFieldType.STRING).description("재료 이름"),
                         fieldWithPath("[].color").type(JsonFieldType.STRING).description("재료 색깔"),
@@ -34,7 +33,7 @@ public class IngredientDocumentation {
     }
 
     public static RestDocumentationResultHandler findIngredient() {
-        return document("/ingredients/find",
+        return document("ingredients/find",
                 pathParameters(
                         parameterWithName("id").description("조회할 재료 ID")
                 ),
@@ -47,7 +46,7 @@ public class IngredientDocumentation {
     }
 
     public static RestDocumentationResultHandler updateIngredient() {
-        return document("/ingredients/update",
+        return document("ingredients/update",
                 pathParameters(
                         parameterWithName("id").description("수정할 재료 ID")
                 ),
@@ -55,6 +54,13 @@ public class IngredientDocumentation {
                         fieldWithPath("title").type(JsonFieldType.STRING).description("재료 이름"),
                         fieldWithPath("color").type(JsonFieldType.STRING).description("재료 색깔"),
                         fieldWithPath("abv").type(JsonFieldType.NUMBER).description("재료 도수")
+                ));
+    }
+
+    public static RestDocumentationResultHandler deleteIngredient() {
+        return document("ingredients/delete",
+                pathParameters(
+                        parameterWithName("id").description("삭제할 재료 ID")
                 ));
     }
 }
