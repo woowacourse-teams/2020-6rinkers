@@ -33,6 +33,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final String ADMIN = "ADMIN";
+	private static final String USER = "USER";
 
 	private final CustomUserDetailsService customUserDetailsService;
 
@@ -125,6 +126,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.hasRole(ADMIN)
 			.antMatchers(HttpMethod.DELETE, "/api/terminologies/**")
 			.hasRole(ADMIN)
+			.antMatchers(HttpMethod.POST, "/api/ingredients")
+			.hasRole(USER)
 			.anyRequest()
 			.permitAll()
 			.and()
