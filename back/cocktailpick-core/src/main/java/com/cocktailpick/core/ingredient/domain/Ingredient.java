@@ -32,4 +32,10 @@ public class Ingredient extends BaseTimeEntity {
         this.color = color;
         this.abv = abv;
     }
+
+    public void update(Ingredient requestIngredient) {
+        this.title = requestIngredient.title;
+        this.color = requestIngredient.color;
+        this.abv = requestIngredient.abv;
+    }
 }

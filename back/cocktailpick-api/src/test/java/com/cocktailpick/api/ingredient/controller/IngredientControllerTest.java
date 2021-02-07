@@ -2,7 +2,7 @@ package com.cocktailpick.api.ingredient.controller;
 
 import com.cocktailpick.api.common.documentation.DocumentationWithSecurity;
 import com.cocktailpick.api.ingredient.docs.IngredientDocumentation;
-import com.cocktailpick.core.ingredient.dto.IngredientCreateRequest;
+import com.cocktailpick.core.ingredient.dto.IngredientRequest;
 import com.cocktailpick.core.ingredient.dto.IngredientResponse;
 import com.cocktailpick.core.ingredient.service.IngredientService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -36,14 +36,14 @@ public class IngredientControllerTest extends DocumentationWithSecurity {
 
     private ObjectMapper objectMapper;
 
-    private IngredientCreateRequest ingredientCreateRequest;
+    private IngredientRequest ingredientRequest;
 
     private IngredientResponse ingredientResponse;
 
     @BeforeEach
     public void setUp(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentationContextProvider) {
         super.setUp(webApplicationContext, restDocumentationContextProvider);
-        ingredientCreateRequest = IngredientCreateRequest.builder()
+        ingredientRequest = IngredientRequest.builder()
                 .title("test")
                 .color("#000000")
                 .abv(15.2)
@@ -66,7 +66,7 @@ public class IngredientControllerTest extends DocumentationWithSecurity {
 
         mockMvc.perform(post("/api/ingredients")
                 .header("authorization", "Bearer ADMIN_TOKEN")
-                .content(objectMapper.writeValueAsString(ingredientCreateRequest))
+                .content(objectMapper.writeValueAsString(ingredientRequest))
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(header().string("Location", "/api/ingredients/1"))
@@ -99,5 +99,24 @@ public class IngredientControllerTest extends DocumentationWithSecurity {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andDo(IngredientDocumentation.findIngredient());
+    }
+
+    @WithMockUser(roles = "ADMIN")
+    @DisplayName("특정 재료를 수정하다.")
+    @Test
+    void updateIngredient() throws Exception {
+        IngredientRequest updateIngredientRequest = IngredientRequest.builder()
+                .title("test")
+                .color("#010101")
+                .abv(15.6)
+                .build();
+
+        mockMvc.perform(RestDocumentationRequestBuilders.put("/api/ingredients/{id}", 1L)
+                .header("authorization", "Bearer ADMIN_TOKEN")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(updateIngredientRequest)))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andDo(IngredientDocumentation.updateIngredient());
     }
 }

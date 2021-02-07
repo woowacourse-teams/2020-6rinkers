@@ -4,7 +4,7 @@ import com.cocktailpick.core.common.exceptions.EntityNotFoundException;
 import com.cocktailpick.core.common.exceptions.ErrorCode;
 import com.cocktailpick.core.ingredient.domain.Ingredient;
 import com.cocktailpick.core.ingredient.domain.IngredientRepository;
-import com.cocktailpick.core.ingredient.dto.IngredientCreateRequest;
+import com.cocktailpick.core.ingredient.dto.IngredientRequest;
 import com.cocktailpick.core.ingredient.dto.IngredientResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,8 +20,8 @@ public class IngredientService {
     private final IngredientRepository ingredientRepository;
 
     @Transactional
-    public Long save(IngredientCreateRequest ingredientCreateRequest) {
-        Ingredient ingredient = ingredientCreateRequest.toIngredient();
+    public Long save(IngredientRequest ingredientRequest) {
+        Ingredient ingredient = ingredientRequest.toIngredient();
         Ingredient savedIngredient = ingredientRepository.save(ingredient);
 
         return savedIngredient.getId();
@@ -34,6 +34,7 @@ public class IngredientService {
         return Collections.unmodifiableList(IngredientResponse.listOf(ingredients));
     }
 
+    @Transactional(readOnly = true)
     public IngredientResponse findIngredient(Long id) {
         Ingredient ingredient = findById(id);
         return IngredientResponse.of(ingredient);
@@ -42,5 +43,12 @@ public class IngredientService {
     private Ingredient findById(Long id) {
         return ingredientRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(ErrorCode.INGREDIENT_NOT_FOUND));
+    }
+
+    public void updateIngredient(Long id, IngredientRequest ingredientRequest) {
+        Ingredient ingredient = findById(id);
+        Ingredient requestIngredient = ingredientRequest.toIngredient();
+
+        ingredient.update(requestIngredient);
     }
 }

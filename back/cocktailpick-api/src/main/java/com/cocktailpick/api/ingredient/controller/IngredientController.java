@@ -1,6 +1,6 @@
 package com.cocktailpick.api.ingredient.controller;
 
-import com.cocktailpick.core.ingredient.dto.IngredientCreateRequest;
+import com.cocktailpick.core.ingredient.dto.IngredientRequest;
 import com.cocktailpick.core.ingredient.dto.IngredientResponse;
 import com.cocktailpick.core.ingredient.service.IngredientService;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +18,8 @@ public class IngredientController {
     private final IngredientService ingredientService;
 
     @PostMapping
-    public ResponseEntity<Void> createIngredient(@RequestBody IngredientCreateRequest ingredientCreateRequest) {
-       Long saveId = ingredientService.save(ingredientCreateRequest);
+    public ResponseEntity<Void> createIngredient(@RequestBody IngredientRequest ingredientRequest) {
+       Long saveId = ingredientService.save(ingredientRequest);
        return ResponseEntity.created(URI.create("/api/ingredients/" + saveId)).build();
     }
 
@@ -32,5 +32,11 @@ public class IngredientController {
     @GetMapping("/{id}")
     public ResponseEntity<IngredientResponse> findIngredient(@PathVariable Long id) {
         return ResponseEntity.ok(ingredientService.findIngredient(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateIngredient(@PathVariable Long id, @RequestBody IngredientRequest ingredientRequest) {
+        ingredientService.updateIngredient(id, ingredientRequest);
+        return ResponseEntity.ok().build();
     }
 }

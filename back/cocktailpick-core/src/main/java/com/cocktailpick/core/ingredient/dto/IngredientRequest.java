@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class IngredientCreateRequest {
+public class IngredientRequest {
     @NotBlank
     private String title;
     @NotBlank
@@ -17,7 +17,7 @@ public class IngredientCreateRequest {
     private Double abv;
 
     @Builder
-    public IngredientCreateRequest(@NotBlank String title, @NotBlank String color, @NotNull Double abv) {
+    public IngredientRequest(@NotBlank String title, @NotBlank String color, @NotNull Double abv) {
         this.title = title;
         this.color = color;
         this.abv = abv;
