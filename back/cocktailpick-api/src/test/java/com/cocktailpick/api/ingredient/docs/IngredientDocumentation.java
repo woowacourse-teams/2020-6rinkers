@@ -19,7 +19,7 @@ public class IngredientDocumentation {
                         fieldWithPath("abv").type(JsonFieldType.NUMBER).description("재료 도수")
                 ),
                 responseHeaders(
-                        headerWithName("Location").description("생성된 재료 id")
+                        headerWithName("Location").description("생성된 재료 ID")
                 ));
     }
 

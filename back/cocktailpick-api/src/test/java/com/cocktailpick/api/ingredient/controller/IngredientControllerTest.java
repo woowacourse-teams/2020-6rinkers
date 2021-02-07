@@ -91,7 +91,7 @@ public class IngredientControllerTest extends DocumentationWithSecurity {
     }
 
     @WithMockUser(roles = "USER")
-    @DisplayName("특정 재료를 조회한다.")
+    @DisplayName("특정 재료를 id로 조회한다.")
     @Test
     void findIngredient() throws Exception {
         given(ingredientService.findIngredient(anyLong())).willReturn(ingredientResponse);
@@ -104,7 +104,7 @@ public class IngredientControllerTest extends DocumentationWithSecurity {
     }
 
     @WithMockUser(roles = "ADMIN")
-    @DisplayName("특정 재료를 수정하다.")
+    @DisplayName("특정 재료를 수정한다.")
     @Test
     void updateIngredient() throws Exception {
         IngredientRequest updateIngredientRequest = IngredientRequest.builder()
