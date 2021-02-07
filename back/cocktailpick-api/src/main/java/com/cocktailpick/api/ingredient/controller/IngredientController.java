@@ -28,4 +28,9 @@ public class IngredientController {
         List<IngredientResponse> ingredientResponses = ingredientService.findAll();
         return ResponseEntity.ok(ingredientResponses);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<IngredientResponse> findIngredient(@PathVariable Long id) {
+        return ResponseEntity.ok(ingredientService.findIngredient(id));
+    }
 }

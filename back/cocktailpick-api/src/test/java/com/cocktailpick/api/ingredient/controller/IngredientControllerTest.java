@@ -13,11 +13,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Collections;
 
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.BDDMockito.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -84,5 +86,18 @@ public class IngredientControllerTest extends DocumentationWithSecurity {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andDo(IngredientDocumentation.findAll());
+    }
+
+    @WithMockUser(roles = "USER")
+    @DisplayName("특정 재료를 조회한다.")
+    @Test
+    void findIngredient() throws Exception {
+        given(ingredientService.findIngredient(anyLong())).willReturn(ingredientResponse);
+
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/api/ingredients/{id}", 1L)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andDo(IngredientDocumentation.findIngredient());
     }
 }

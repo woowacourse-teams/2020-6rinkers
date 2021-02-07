@@ -1,5 +1,7 @@
 package com.cocktailpick.core.ingredient.service;
 
+import com.cocktailpick.core.common.exceptions.EntityNotFoundException;
+import com.cocktailpick.core.common.exceptions.ErrorCode;
 import com.cocktailpick.core.ingredient.domain.Ingredient;
 import com.cocktailpick.core.ingredient.domain.IngredientRepository;
 import com.cocktailpick.core.ingredient.dto.IngredientCreateRequest;
@@ -32,4 +34,13 @@ public class IngredientService {
         return Collections.unmodifiableList(IngredientResponse.listOf(ingredients));
     }
 
+    public IngredientResponse findIngredient(Long id) {
+        Ingredient ingredient = findById(id);
+        return IngredientResponse.of(ingredient);
+    }
+
+    private Ingredient findById(Long id) {
+        return ingredientRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException(ErrorCode.INGREDIENT_NOT_FOUND));
+    }
 }
