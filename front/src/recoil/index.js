@@ -1,5 +1,9 @@
 import { atom } from "recoil";
-import { TERMINOLOGY_ADMIN_PROTOTYPE, USER_PROTOTYPE } from "../constants";
+import {
+  INGREDIENT_ADMIN_PROTOTYPE,
+  TERMINOLOGY_ADMIN_PROTOTYPE,
+  USER_PROTOTYPE,
+} from "../constants";
 
 export const userState = atom({
   key: "userState",
@@ -35,5 +39,21 @@ export const terminologiesAdminState = atom({
   default: [],
   persistence_UNSTABLE: {
     type: "terminologiesAdminState",
+  },
+});
+
+export const ingredientAdminState = atom({
+  key: "ingredientAdminState",
+  default: INGREDIENT_ADMIN_PROTOTYPE,
+  persistence_UNSTABLE: {
+    type: "ingredientAdminState",
+  },
+});
+
+export const ingredientsAdminState = atom({
+  key: "ingredientsAdminState",
+  default: [],
+  persistence_UNSTABLE: {
+    type: "ingredientsAdminState",
   },
 });
