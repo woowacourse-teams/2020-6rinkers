@@ -9,6 +9,7 @@ const AdminHeader = () => {
       <Link to="/">홈으로</Link>
       <Link to="/admin/cocktails">칵테일</Link>
       <Link to="/admin/tags">태그</Link>
+      <Link to="/admin/ingredients">재료</Link>
       <Link to="/admin/terminologies">용어</Link>
     </div>
   );
