@@ -1,5 +1,11 @@
 package com.cocktailpick.api.config.security;
 
+import com.cocktailpick.api.security.*;
+import com.cocktailpick.api.security.oauth2.CustomOAuth2UserService;
+import com.cocktailpick.api.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
+import com.cocktailpick.api.security.oauth2.OAuth2AuthenticationFailureHandler;
+import com.cocktailpick.api.security.oauth2.OAuth2AuthenticationSuccessHandler;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -15,24 +21,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.cocktailpick.api.security.CustomUserDetailsService;
-import com.cocktailpick.api.security.LoginFilter;
-import com.cocktailpick.api.security.LoginSuccessHandler;
-import com.cocktailpick.api.security.RestAuthenticationEntryPoint;
-import com.cocktailpick.api.security.TokenAuthenticationFilter;
-import com.cocktailpick.api.security.TokenProvider;
-import com.cocktailpick.api.security.oauth2.CustomOAuth2UserService;
-import com.cocktailpick.api.security.oauth2.HttpCookieOAuth2AuthorizationRequestRepository;
-import com.cocktailpick.api.security.oauth2.OAuth2AuthenticationFailureHandler;
-import com.cocktailpick.api.security.oauth2.OAuth2AuthenticationSuccessHandler;
-import lombok.RequiredArgsConstructor;
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private static final String ADMIN = "ADMIN";
+	private static final String USER = "USER";
 
 	private final CustomUserDetailsService customUserDetailsService;
 
@@ -125,6 +120,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.hasRole(ADMIN)
 			.antMatchers(HttpMethod.DELETE, "/api/terminologies/**")
 			.hasRole(ADMIN)
+			.antMatchers(HttpMethod.POST, "/api/ingredients")
+			.hasRole(USER)
+			.antMatchers(HttpMethod.GET, "/api/ingredients/**")
+			.hasRole(USER)
+			.antMatchers(HttpMethod.PUT, "/api/ingredients/**")
+			.hasRole("ADMIN")
+			.antMatchers(HttpMethod.DELETE, "/api/ingredients/**")
+			.hasRole("ADMIN")
 			.anyRequest()
 			.permitAll()
 			.and()
