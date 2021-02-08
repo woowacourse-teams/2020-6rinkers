@@ -77,7 +77,7 @@ public class IngredientControllerTest extends DocumentationWithSecurity {
     }
 
     @WithMockUser(roles = "USER")
-    @DisplayName("재료를 모두 조회한다.")
+    @DisplayName("특정 재료를 조회한다.")
     @Test
     void findAllIngredients() throws Exception {
         given(ingredientService.findAll()).willReturn(Collections.singletonList(ingredientResponse));
