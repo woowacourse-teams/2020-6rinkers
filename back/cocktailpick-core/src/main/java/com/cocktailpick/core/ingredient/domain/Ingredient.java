@@ -1,27 +1,37 @@
 package com.cocktailpick.core.ingredient.domain;
 
-import com.cocktailpick.core.common.domain.BaseTimeEntity;
-import lombok.*;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
+import com.cocktailpick.core.common.domain.BaseTimeEntity;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 @Getter
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
 public class Ingredient extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ingredient_sequence")
     @SequenceGenerator(
-            name = "ingredient_sequence_gen",
-            sequenceName = "ingredient_sequence"
+        name = "ingredient_sequence_gen",
+        sequenceName = "ingredient_sequence"
     )
     private Long id;
+
     @NotBlank
     private String title;
+
     @NotBlank
     private String color;
+
     @NotNull
     private Double abv;
 
