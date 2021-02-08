@@ -106,10 +106,20 @@ export const createIngredient = (data) => {
     },
   });
 };
-export const fetchAllIngredients = () => client.get("/api/ingredients");
-export const fetchIngredient = (id) => client.get(`/api/ingredients/${id}`);
+export const fetchAllIngredients = () =>
+  client.get("/api/ingredients", {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+    },
+  });
+export const fetchIngredient = (id) =>
+  client.get(`/api/ingredients/${id}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+    },
+  });
 export const updateIngredient = (id, data) => {
-  client.delete(`/api/ingredients/${id}`, data, {
+  client.put(`/api/ingredients/${id}`, data, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
     },
