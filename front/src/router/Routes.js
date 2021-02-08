@@ -17,6 +17,7 @@ import Login from "../component/user/Login";
 import Signup from "../component/user/Signup";
 import MyProfile from "../component/mypage/MyProfile";
 import TerminologyAdmin from "../component/admin/terminology/TerminologyAdmin";
+import IngredientAdmin from "../component/admin/ingredient/IngredientAdmin";
 
 const Routes = ({ handleLogout, loading }) => {
   const [recommendedCocktails, setRecommendedCocktails] = useState([]);
@@ -66,6 +67,9 @@ const Routes = ({ handleLogout, loading }) => {
           </Route>
           <Route path="/admin/terminologies">
             <TerminologyAdmin />
+          </Route>
+          <Route path="/admin/ingredients">
+            <IngredientAdmin />
           </Route>
           <Route path="/cocktails/search">
             <CocktailSearch />

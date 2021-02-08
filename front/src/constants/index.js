@@ -26,6 +26,13 @@ export const TERMINOLOGY_ADMIN_PROTOTYPE = {
   imageUrl: "",
 };
 
+export const INGREDIENT_ADMIN_PROTOTYPE = {
+  id: 0,
+  title: "",
+  color: "",
+  abv: "",
+}
+
 export const ACCESS_TOKEN = "accessToken";
 export const API_BASE_URL = `//${process.env.REACT_APP_HOST}`;
 export const OAUTH2_REDIRECT_URI = `${API_BASE_URL}/oauth2/redirect`;
