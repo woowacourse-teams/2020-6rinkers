@@ -1,5 +1,5 @@
 import axios from "axios";
-import {ACCESS_TOKEN} from "../constants";
+import { ACCESS_TOKEN } from "../constants";
 
 const client = axios.create({
   baseURL: `//${process.env.REACT_APP_HOST}`,
@@ -99,6 +99,29 @@ export const deleteTerminology = (id) =>
       Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
     },
   });
+export const createIngredient = (data) => {
+  client.post("/api/ingredients", data, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+    },
+  });
+};
+export const fetchAllIngredients = () => client.get("/api/ingredients");
+export const fetchIngredient = (id) => client.get(`/api/ingredients/${id}`);
+export const updateIngredient = (id, data) => {
+  client.delete(`/api/ingredients/${id}`, data, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+    },
+  });
+};
+export const deleteIngredient = (id) => {
+  client.delete(`/api/ingredients/${id}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+    },
+  });
+};
 
 export const createRecommend = (recommend) =>
   client.post(`/api/cocktails/recommend`, recommend);
