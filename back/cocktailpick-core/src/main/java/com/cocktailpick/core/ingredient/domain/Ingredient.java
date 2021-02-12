@@ -27,7 +27,7 @@ public class Ingredient extends BaseTimeEntity {
     private Long id;
 
     @NotBlank
-    private String title;
+    private String name;
 
     @NotBlank
     private String color;
@@ -36,15 +36,15 @@ public class Ingredient extends BaseTimeEntity {
     private Double abv;
 
     @Builder
-    public Ingredient(Long id, @NotBlank String title, @NotBlank String color, @NotNull Double abv) {
+    public Ingredient(Long id, @NotBlank String name, @NotBlank String color, @NotNull Double abv) {
         this.id = id;
-        this.title = title;
+        this.name = name;
         this.color = color;
         this.abv = abv;
     }
 
     public void update(Ingredient requestIngredient) {
-        this.title = requestIngredient.title;
+        this.name = requestIngredient.name;
         this.color = requestIngredient.color;
         this.abv = requestIngredient.abv;
     }

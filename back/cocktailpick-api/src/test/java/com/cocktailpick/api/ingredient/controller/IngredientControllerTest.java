@@ -46,13 +46,14 @@ public class IngredientControllerTest extends DocumentationWithSecurity {
     public void setUp(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentationContextProvider) {
         super.setUp(webApplicationContext, restDocumentationContextProvider);
         ingredientRequest = IngredientRequest.builder()
-                .title("test")
+                .name("test")
                 .color("#000000")
                 .abv(15.2)
                 .build();
 
         ingredientResponse = IngredientResponse.builder()
-                .title("test")
+                .id(1L)
+                .name("test")
                 .color("#000000")
                 .abv(15.2)
                 .build();
@@ -60,7 +61,7 @@ public class IngredientControllerTest extends DocumentationWithSecurity {
         objectMapper = new ObjectMapper();
     }
 
-    @WithMockUser(roles = "USER")
+    @WithMockUser(roles = "ADMIN")
     @DisplayName("재료를 생성한다.")
     @Test
     void createIngredient() throws Exception {
@@ -83,7 +84,7 @@ public class IngredientControllerTest extends DocumentationWithSecurity {
         given(ingredientService.findAll()).willReturn(Collections.singletonList(ingredientResponse));
 
         mockMvc.perform(get("/api/ingredients")
-                .header("authorization", "Bearer ADMIN_TOKEN")
+                .header("authorization", "Bearer USER_TOKEN")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andDo(print())
@@ -108,7 +109,7 @@ public class IngredientControllerTest extends DocumentationWithSecurity {
     @Test
     void updateIngredient() throws Exception {
         IngredientRequest updateIngredientRequest = IngredientRequest.builder()
-                .title("test")
+                .name("test")
                 .color("#010101")
                 .abv(15.6)
                 .build();
@@ -134,5 +135,4 @@ public class IngredientControllerTest extends DocumentationWithSecurity {
                 .andDo(print())
                 .andDo(IngredientDocumentation.deleteIngredient());
     }
-
 }
