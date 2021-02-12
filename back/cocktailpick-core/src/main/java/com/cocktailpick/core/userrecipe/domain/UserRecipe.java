@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 public class UserRecipe {
-    @OneToMany(mappedBy = "user_cocktail", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "userCocktail", cascade = CascadeType.PERSIST)
     private List<UserRecipeItem> userRecipe = new ArrayList<>();
 
     public static UserRecipe empty() {
