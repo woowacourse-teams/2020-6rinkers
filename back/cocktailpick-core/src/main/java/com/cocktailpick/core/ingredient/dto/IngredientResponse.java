@@ -13,14 +13,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class IngredientResponse {
     private Long id;
-    private String title;
+    private String name;
     private String color;
     private Double abv;
 
     @Builder
-    public IngredientResponse(Long id, String title, String color, Double abv) {
+    public IngredientResponse(Long id, String name, String color, Double abv) {
         this.id = id;
-        this.title = title;
+        this.name = name;
         this.color = color;
         this.abv = abv;
     }
@@ -28,7 +28,7 @@ public class IngredientResponse {
     public static IngredientResponse of(Ingredient ingredient) {
         return IngredientResponse.builder()
             .id(ingredient.getId())
-            .title(ingredient.getTitle())
+            .name(ingredient.getName())
             .abv(ingredient.getAbv())
             .color(ingredient.getColor())
             .build();

@@ -10,22 +10,22 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class IngredientRequest {
     @NotBlank
-    private String title;
+    private String name;
     @NotBlank
     private String color;
     @NotNull
     private Double abv;
 
     @Builder
-    public IngredientRequest(@NotBlank String title, @NotBlank String color, @NotNull Double abv) {
-        this.title = title;
+    public IngredientRequest(@NotBlank String name, @NotBlank String color, @NotNull Double abv) {
+        this.name = name;
         this.color = color;
         this.abv = abv;
     }
 
     public Ingredient toIngredient() {
         return Ingredient.builder()
-                .title(title)
+                .name(name)
                 .color(color)
                 .abv(abv)
                 .build();

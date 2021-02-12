@@ -37,5 +37,5 @@ public class UserCocktail extends BaseTimeEntity {
     private Long memberId;
 
     @Embedded
-    private UserRecipe recipe = UserRecipe.empty();
+    private UserRecipe userRecipe = UserRecipe.empty();
 }

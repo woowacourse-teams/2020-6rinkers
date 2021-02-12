@@ -14,7 +14,7 @@ public class IngredientDocumentation {
     public static RestDocumentationResultHandler createIngredient() {
         return document("ingredients/create",
                 requestFields(
-                        fieldWithPath("title").type(JsonFieldType.STRING).description("재료 이름"),
+                        fieldWithPath("name").type(JsonFieldType.STRING).description("재료 이름"),
                         fieldWithPath("color").type(JsonFieldType.STRING).description("재료 색깔"),
                         fieldWithPath("abv").type(JsonFieldType.NUMBER).description("재료 도수")
                 ),
@@ -26,7 +26,8 @@ public class IngredientDocumentation {
     public static RestDocumentationResultHandler findAll() {
         return document("ingredients/findAll",
                 responseFields(
-                        fieldWithPath("[].title").type(JsonFieldType.STRING).description("재료 이름"),
+                        fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("재료 id"),
+                        fieldWithPath("[].name").type(JsonFieldType.STRING).description("재료 이름"),
                         fieldWithPath("[].color").type(JsonFieldType.STRING).description("재료 색깔"),
                         fieldWithPath("[].abv").type(JsonFieldType.NUMBER).description("재료 도수")
                 ));
@@ -38,7 +39,8 @@ public class IngredientDocumentation {
                         parameterWithName("id").description("조회할 재료 ID")
                 ),
                 responseFields(
-                        fieldWithPath("title").type(JsonFieldType.STRING).description("재료 이름"),
+                        fieldWithPath("id").type(JsonFieldType.NUMBER).description("재료 id"),
+                        fieldWithPath("name").type(JsonFieldType.STRING).description("재료 이름"),
                         fieldWithPath("color").type(JsonFieldType.STRING).description("재료 색깔"),
                         fieldWithPath("abv").type(JsonFieldType.NUMBER).description("재료 도수")
                 )
@@ -51,7 +53,7 @@ public class IngredientDocumentation {
                         parameterWithName("id").description("수정할 재료 ID")
                 ),
                 requestFields(
-                        fieldWithPath("title").type(JsonFieldType.STRING).description("재료 이름"),
+                        fieldWithPath("name").type(JsonFieldType.STRING).description("재료 이름"),
                         fieldWithPath("color").type(JsonFieldType.STRING).description("재료 색깔"),
                         fieldWithPath("abv").type(JsonFieldType.NUMBER).description("재료 도수")
                 ));
