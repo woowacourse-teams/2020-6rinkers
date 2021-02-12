@@ -48,7 +48,7 @@ public class IngredientService {
 
     @CachePut(value = "ingredient", key = "#id")
     @Transactional
-    public void updateIngredient(Long id, IngredientRequest ingredientRequest) {
+    public void update(Long id, IngredientRequest ingredientRequest) {
         Ingredient ingredient = findById(id);
         Ingredient requestIngredient = ingredientRequest.toIngredient();
 
@@ -57,7 +57,7 @@ public class IngredientService {
 
     @CacheEvict(value = "ingredient", key = "#id")
     @Transactional
-    public void deleteIngredient(Long id) {
+    public void delete(Long id) {
         ingredientRepository.deleteById(id);
     }
 }

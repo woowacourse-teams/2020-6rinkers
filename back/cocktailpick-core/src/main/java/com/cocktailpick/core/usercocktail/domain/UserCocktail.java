@@ -12,6 +12,7 @@ import javax.validation.constraints.NotNull;
 import com.cocktailpick.core.common.domain.BaseTimeEntity;
 import com.cocktailpick.core.userrecipe.domain.UserRecipe;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,7 +26,7 @@ public class UserCocktail extends BaseTimeEntity {
         name = "user_cocktail_sequence_gen",
         sequenceName = "user_cocktail_sequence"
     )
-    private String id;
+    private Long id;
 
     @NotBlank
     private String name;
@@ -38,4 +39,12 @@ public class UserCocktail extends BaseTimeEntity {
 
     @Embedded
     private UserRecipe userRecipe = UserRecipe.empty();
+
+    @Builder
+    public UserCocktail(Long id, String name, String description, Long memberId) {
+        this.id = id;
+        this.name = name;
+        this. description = description;
+        this. memberId = memberId;
+    }
 }

@@ -1,6 +1,5 @@
 package com.cocktailpick.api.ingredient.controller;
 
-import com.cocktailpick.api.cocktail.docs.CocktailDocumentation;
 import com.cocktailpick.api.common.documentation.DocumentationWithSecurity;
 import com.cocktailpick.api.ingredient.docs.IngredientDocumentation;
 import com.cocktailpick.core.ingredient.dto.IngredientRequest;
@@ -127,7 +126,7 @@ public class IngredientControllerTest extends DocumentationWithSecurity {
     @DisplayName("재료를 삭제한다.")
     @Test
     void deleteIngredient() throws Exception {
-        doNothing().when(ingredientService).deleteIngredient(any());
+        doNothing().when(ingredientService).delete(any());
 
         mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/ingredients/{id}", 1L)
                 .header("authorization", "Bearer ADMIN_TOKEN"))
