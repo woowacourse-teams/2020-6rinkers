@@ -1,14 +1,23 @@
 package com.cocktailpick.api.ingredient.controller;
 
+import java.net.URI;
+import java.util.List;
+
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.cocktailpick.core.ingredient.dto.IngredientRequest;
 import com.cocktailpick.core.ingredient.dto.IngredientResponse;
 import com.cocktailpick.core.ingredient.service.IngredientService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
-import java.util.List;
 
 @CrossOrigin("*")
 @RequiredArgsConstructor
@@ -19,8 +28,8 @@ public class IngredientController {
 
     @PostMapping
     public ResponseEntity<Void> createIngredient(@RequestBody IngredientRequest ingredientRequest) {
-       Long saveId = ingredientService.save(ingredientRequest);
-       return ResponseEntity.created(URI.create("/api/ingredients/" + saveId)).build();
+        Long saveId = ingredientService.save(ingredientRequest);
+        return ResponseEntity.created(URI.create("/api/ingredients/" + saveId)).build();
     }
 
     @GetMapping
@@ -35,14 +44,15 @@ public class IngredientController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateIngredient(@PathVariable Long id, @RequestBody IngredientRequest ingredientRequest) {
-        ingredientService.updateIngredient(id, ingredientRequest);
+    public ResponseEntity<Void> updateIngredient(@PathVariable Long id,
+        @RequestBody IngredientRequest ingredientRequest) {
+        ingredientService.update(id, ingredientRequest);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteIngredient(@PathVariable Long id) {
-        ingredientService.deleteIngredient(id);
+        ingredientService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }
