@@ -9,7 +9,6 @@ import com.cocktailpick.core.ingredient.domain.Ingredient;
 import com.cocktailpick.core.usercocktail.domain.UserCocktail;
 
 class UserRecipeItemTest {
-    @SuppressWarnings("checkstyle:RegexpSingleline")
     @DisplayName("유저 레시피를 생성한다.")
     @Test
     void create() {
