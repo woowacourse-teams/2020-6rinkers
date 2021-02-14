@@ -1,12 +1,7 @@
 package com.cocktailpick.core.userrecipe.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import com.cocktailpick.core.common.domain.BaseTimeEntity;
 import com.cocktailpick.core.ingredient.domain.Ingredient;
@@ -35,6 +30,13 @@ public class UserRecipeItem extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name = "user_cocktail_id")
     private UserCocktail userCocktail;
+
+    @NotNull
+    private int quantity;
+
+    @Enumerated(EnumType.STRING)
+    private QuantityUnit quantityUnit;
+
 
     @Builder
     public UserRecipeItem(Ingredient ingredient, UserCocktail userCocktail) {
