@@ -17,7 +17,7 @@ export const bartenderSaying = [
   "조심하세요🚨 칵테일의 매력에서 빠져나올 수 없으실테니까요😀",
 ];
 
-export const questions = [
+export const recommendationQuestions = [
   intro[Math.floor(Math.random() * intro.length)], // INTRO
   "첫 질문입니다!\n이런 느낌의 칵테일은 어떠세요?", // CONCEPT
   "도수는 어느 정도가 좋으신가요?\n최저 도수와 최대 도수의 범위를 정해주세요!", // ABV
@@ -25,6 +25,14 @@ export const questions = [
   "마시고 싶은 칵테일의 맛을 골라주세요.", // TASTE
   "이제 한 가지만 더 여쭤볼게요.\n다음 중 먹고 싶지 않은 재료들을\n모두 골라주세요!", // DISLIKE
 ];
+
+export const userCocktailQuestions = {
+  name: "칵테일의 이름은 무엇인가요?",
+  ingredients: "어떤 재료가 들어가요?",
+  glass: "어떤 잔으로 계량할까요?",
+  amount: "얼마나 넣으면 좋을까요?",
+  recipe: "입력하신 정보를 확인해보세요.",
+};
 
 export const answerList = [
   {
