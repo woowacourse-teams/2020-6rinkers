@@ -1,35 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 import StepProgressBar from "./StepProgressBar";
 import "react-step-progress-bar/styles.css";
 import "../../css/userCocktail/userCocktail.css";
 import Question from "./Question";
 import Name from "./Name";
+import Ingredient from "./Ingredient";
+import Glass from "./Glass";
+import Amount from "./Amount";
+import Recipe from "./Recipe";
 
 const UserCocktail = () => {
-  const currentPath = window.location.pathname.replace("/my-cocktail/", "");
-  const INITIAL_PATH = "";
+  const INITIAL_STAGE = "";
+  const [stage, setStage] = useState("name"); // INITIAL_STAGE로 바꿔야함
 
   const renderContents = () => {
-    switch (currentPath) {
-      case INITIAL_PATH:
+    switch (stage) {
+      case INITIAL_STAGE:
         return <div> 처음 화면이니까 </div>;
       case "name":
-        return <Name />;
+        return <Name setStage={setStage} />;
       case "ingredients":
-        return <div> ingredients 화면이니까 </div>;
+        return <Ingredient setStage={setStage} />;
       case "glass":
-        return <div> glass 화면이니까 </div>;
+        return <Glass setStage={setStage} />;
       case "amount":
-        return <div> amount 화면이니까 </div>;
+        return <Amount setStage={setStage} />;
       case "recipe":
-        return <div> recipe 화면이니까 </div>;
+        return <Recipe setStage={setStage} />;
+    }
+  };
+
+  const convertToPercent = (stage) => {
+    switch (stage) {
+      case INITIAL_STAGE:
+        return "0";
+      case "name":
+        return "0";
+      case "ingredients":
+        return "25";
+      case "glass":
+        return "50";
+      case "amount":
+        return "75";
+      case "recipe":
+        return "100";
     }
   };
 
   return (
     <div className="user-cocktail">
-      {currentPath !== INITIAL_PATH && <StepProgressBar percent={"34"} />}
-      <Question stage="name" />
+      {stage !== INITIAL_STAGE && (
+        <StepProgressBar percent={convertToPercent(stage)} />
+      )}
+      <Question stage={stage} />
       {renderContents()}
     </div>
   );
