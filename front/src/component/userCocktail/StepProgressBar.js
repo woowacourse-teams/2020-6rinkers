@@ -40,6 +40,15 @@ const StepProgressBar = ({ percent }) => {
           </div>
         )}
       </Step>
+      <Step>
+        {({ accomplished, index }) => (
+          <div
+            className={`indexed-step ${accomplished ? "accomplished" : null}`}
+          >
+            {index + 1}
+          </div>
+        )}
+      </Step>
     </ProgressBar>
   );
 };
