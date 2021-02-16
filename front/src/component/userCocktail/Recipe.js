@@ -1,20 +1,19 @@
 import React from "react";
-import { useRecoilState } from "recoil";
 import { useHistory } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import { userCocktailState } from "../../recoil";
 
-const Name = ({ setStage }) => {
+const Recipe = ({ setStage }) => {
   const history = useHistory();
   const [userCocktail, setUserCocktail] = useRecoilState(userCocktailState);
 
-  const onNameChange = (e) => {
-    setUserCocktail({
-      ...userCocktail,
-      name: e.target.value,
-    });
+  const onNext = (e) => {
+    e.preventDefault();
+    history.push("/my-cocktail/description");
+    setStage("description");
   };
 
-  const onNext = (e) => {
+  const onIngredient = (e) => {
     e.preventDefault();
     history.push("/my-cocktail/ingredients");
     setStage("ingredients");
@@ -22,13 +21,19 @@ const Name = ({ setStage }) => {
 
   return (
     <>
-      <div>name 화면입니다.</div>
-      <input className="name-input" onChange={onNameChange} type="text" />
+      <div>recipe 화면입니다.</div>
+      <button
+        className="ingredient-button"
+        type="submit"
+        onClick={onIngredient}
+      >
+        재료 추가하기
+      </button>
       <button className="next-button" type="submit" onClick={onNext}>
-        칵테일 재료를 정해보아요
+        끝!
       </button>
     </>
   );
 };
 
-export default Name;
+export default Recipe;
