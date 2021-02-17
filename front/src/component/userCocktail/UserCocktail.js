@@ -33,17 +33,17 @@ const UserCocktail = () => {
   const convertToPercent = (stage) => {
     switch (stage) {
       case INITIAL_STAGE:
-        return "0";
+        return 0;
       case "name":
-        return "0";
+        return 0;
       case "ingredients":
-        return "25";
+        return 25;
       case "glass":
-        return "50";
+        return 50;
       case "amount":
-        return "75";
+        return 75;
       case "recipe":
-        return "100";
+        return 100;
     }
   };
 
