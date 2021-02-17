@@ -1,15 +1,14 @@
 package com.cocktailpick.core.userrecipe.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Embeddable;
 import javax.persistence.OneToMany;
-
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import java.util.ArrayList;
+import java.util.List;
 
 @Embeddable
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -20,5 +19,9 @@ public class UserRecipe {
 
     public static UserRecipe empty() {
         return new UserRecipe();
+    }
+
+    public void addUserRecipeItem(UserRecipeItem userRecipeItem) {
+        userRecipe.add(userRecipeItem);
     }
 }
