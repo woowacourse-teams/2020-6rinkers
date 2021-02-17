@@ -6,16 +6,18 @@ import { userCocktailState } from "../../recoil";
 const Name = ({ setStage }) => {
   const history = useHistory();
   const [userCocktail, setUserCocktail] = useRecoilState(userCocktailState);
+  let name = "";
 
   const onNameChange = (e) => {
-    setUserCocktail({
-      ...userCocktail,
-      name: e.target.value,
-    });
+    name = e.target.value;
   };
 
   const onNext = (e) => {
     e.preventDefault();
+    setUserCocktail({
+      ...userCocktail,
+      name: name,
+    });
     history.push("/my-cocktail/ingredients");
     setStage("ingredients");
   };
