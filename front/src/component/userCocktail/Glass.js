@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import div from "infinite-react-carousel";
@@ -8,9 +8,23 @@ import GlassItem from "./GlassItem";
 const Glass = ({ setStage }) => {
   const history = useHistory();
   const [userCocktail, setUserCocktail] = useRecoilState(userCocktailState);
+  const [selected, setSelected] = useState({ id: 0, name: "기본값" });
 
   const onNext = (e) => {
     e.preventDefault();
+    const lastRecipe = userCocktail.recipe[userCocktail.recipe.length - 1];
+    setUserCocktail({
+      ...userCocktail,
+      recipe: [
+        ...userCocktail.recipe.slice(0, -1),
+        {
+          ingredientId: lastRecipe.ingredientId,
+          ingredientName: lastRecipe.ingredientName,
+          glassId: selected.id,
+          glassName: selected.name,
+        },
+      ],
+    });
     history.push("/my-cocktail/amount");
     setStage("amount");
   };
@@ -26,16 +40,29 @@ const Glass = ({ setStage }) => {
       { id: 6, name: "네 잔" },
     ];
 
+  const onSelect = (e) => {
+    const selectedId = e.target.dataset.id;
+    const found = glasses.find((it) => it.id == selectedId);
+    setSelected(found);
+  };
+
   return (
     <div className="glass-container">
       <div>glass 화면입니다.</div>
+      <div>
+        <div>{selected.name}</div>
+        <button>X</button>
+      </div>
       <div>
         {"재료: " +
           userCocktail.recipe[userCocktail.recipe.length - 1].ingredientName}
       </div>
       <div>
         {/*Slider로 수정*/}
-        {glasses && glasses.map((it) => <GlassItem glass={it} key={it.id} />)}
+        {glasses &&
+          glasses.map((it) => (
+            <GlassItem glass={it} key={it.id} onSelect={onSelect} />
+          ))}
       </div>
       <button className="next-button" type="submit" onClick={onNext}>
         얼마나 따라야 할까요?
