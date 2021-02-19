@@ -35,12 +35,12 @@ export const INGREDIENT_ADMIN_PROTOTYPE = {
 
 export const USER_COCKTAIL_PROTOTYPE = {
   name: "",
-  recipe: [
+  userRecipeItemRequests: [
     // {
     //   ingredientId: "",
     //   ingredientName: "",
-    //   glass: "",
-    //   amount: "",
+    //   quantityUnit: "",
+    //   quantity: "",
     // },
   ],
   description: "",
