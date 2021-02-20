@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { questions } from "./const";
+import { recommendationQuestions } from "./const";
 import { createRecommend } from "../../api";
 import Dislike from "./Dislike";
 import Intro from "./Intro";
@@ -15,7 +15,7 @@ const INITIAL_STAGE = 1;
 const Question = ({ setRecommendedCocktails }) => {
   const [answers, setAnswers] = useState({});
   const [stage, setStage] = useState(INITIAL_STAGE);
-  const [question, setQuestion] = useState(questions[stage - 1]);
+  const [question, setQuestion] = useState(recommendationQuestions[stage - 1]);
 
   const addAnswer = (type, answer) => {
     const wrappedAnswer = { [type]: answer };
@@ -23,7 +23,7 @@ const Question = ({ setRecommendedCocktails }) => {
       setAnswers({ ...answers, ...wrappedAnswer });
     }
     setStage(stage + 1);
-    setQuestion(questions[stage]);
+    setQuestion(recommendationQuestions[stage]);
   };
 
   const history = useHistory();

@@ -2,6 +2,7 @@ import { atom } from "recoil";
 import {
   INGREDIENT_ADMIN_PROTOTYPE,
   TERMINOLOGY_ADMIN_PROTOTYPE,
+  USER_COCKTAIL_PROTOTYPE,
   USER_PROTOTYPE,
 } from "../constants";
 
@@ -55,5 +56,13 @@ export const ingredientsAdminState = atom({
   default: [],
   persistence_UNSTABLE: {
     type: "ingredientsAdminState",
+  },
+});
+
+export const userCocktailState = atom({
+  key: "userCocktailState",
+  default: USER_COCKTAIL_PROTOTYPE,
+  persist_UNSTABLE: {
+    type: "userCocktailState",
   },
 });

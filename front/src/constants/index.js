@@ -31,7 +31,20 @@ export const INGREDIENT_ADMIN_PROTOTYPE = {
   title: "",
   color: "",
   abv: "",
-}
+};
+
+export const USER_COCKTAIL_PROTOTYPE = {
+  name: "",
+  userRecipeItemRequests: [
+    // {
+    //   ingredientId: "",
+    //   ingredientName: "",
+    //   quantityUnit: "",
+    //   quantity: "",
+    // },
+  ],
+  description: "",
+};
 
 export const ACCESS_TOKEN = "accessToken";
 export const API_BASE_URL = `//${process.env.REACT_APP_HOST}`;
