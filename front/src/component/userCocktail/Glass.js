@@ -12,11 +12,14 @@ const Glass = ({ setStage }) => {
 
   const onNext = (e) => {
     e.preventDefault();
-    const lastRecipe = userCocktail.recipe[userCocktail.recipe.length - 1];
+    const lastRecipe =
+      userCocktail.userRecipeItemRequests[
+        userCocktail.userRecipeItemRequests.length - 1
+      ];
     setUserCocktail({
       ...userCocktail,
-      recipe: [
-        ...userCocktail.recipe.slice(0, -1),
+      userRecipeItemRequests: [
+        ...userCocktail.userRecipeItemRequests.slice(0, -1),
         {
           ingredientId: lastRecipe.ingredientId,
           ingredientName: lastRecipe.ingredientName,
@@ -56,7 +59,9 @@ const Glass = ({ setStage }) => {
       </div>
       <div>
         {"재료: " +
-          userCocktail.recipe[userCocktail.recipe.length - 1].ingredientName}
+          userCocktail.userRecipeItemRequests[
+            userCocktail.userRecipeItemRequests.length - 1
+          ].ingredientName}
       </div>
       <div>
         {/*Slider로 수정*/}

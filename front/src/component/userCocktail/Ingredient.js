@@ -18,8 +18,8 @@ const Ingredient = ({ setStage }) => {
     e.preventDefault();
     setUserCocktail({
       ...userCocktail,
-      recipe: [
-        ...userCocktail.recipe,
+      userRecipeItemRequests: [
+        ...userCocktail.userRecipeItemRequests,
         { ingredientId: selected.id, ingredientName: selected.name },
       ],
     });
