@@ -46,7 +46,7 @@ const Glass = ({ setStage }) => {
 
   const onSelect = (e) => {
     const selectedId = e.target.dataset.id;
-    const found = glasses.find((it) => it.id == selectedId);
+    const found = glasses.find((it) => it.id === parseInt(selectedId));
     setSelected(found);
   };
 

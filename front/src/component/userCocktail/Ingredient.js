@@ -45,7 +45,7 @@ const Ingredient = ({ setStage }) => {
 
   const onSelect = (e) => {
     const selectedId = e.target.dataset.id;
-    const found = ingredients().find((it) => it.id == selectedId);
+    const found = ingredients().find((it) => it.id === parseInt(selectedId));
     setSelected(found);
   };
 

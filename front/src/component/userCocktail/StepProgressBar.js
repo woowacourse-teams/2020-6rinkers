@@ -6,45 +6,35 @@ const StepProgressBar = ({ percent }) => {
     <ProgressBar className="step-progress-bar" percent={percent}>
       <Step>
         {({ accomplished, index }) => (
-          <div
-            className={`indexed-step ${accomplished ? "accomplished" : null}`}
-          >
+          <div className={`indexed-step ${accomplished ? "accomplished" : ""}`}>
             {index + 1}
           </div>
         )}
       </Step>
       <Step>
         {({ accomplished, index }) => (
-          <div
-            className={`indexed-step ${accomplished ? "accomplished" : null}`}
-          >
+          <div className={`indexed-step ${accomplished ? "accomplished" : ""}`}>
             {index + 1}
           </div>
         )}
       </Step>
       <Step>
         {({ accomplished, index }) => (
-          <div
-            className={`indexed-step ${accomplished ? "accomplished" : null}`}
-          >
+          <div className={`indexed-step ${accomplished ? "accomplished" : ""}`}>
             {index + 1}
           </div>
         )}
       </Step>
       <Step>
         {({ accomplished, index }) => (
-          <div
-            className={`indexed-step ${accomplished ? "accomplished" : null}`}
-          >
+          <div className={`indexed-step ${accomplished ? "accomplished" : ""}`}>
             {index + 1}
           </div>
         )}
       </Step>
       <Step>
         {({ accomplished, index }) => (
-          <div
-            className={`indexed-step ${accomplished ? "accomplished" : null}`}
-          >
+          <div className={`indexed-step ${accomplished ? "accomplished" : ""}`}>
             {index + 1}
           </div>
         )}
