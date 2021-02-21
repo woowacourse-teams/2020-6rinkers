@@ -22,7 +22,7 @@ public class UserRecipeItemRequest {
     private String quantityUnit;
 
     @Builder
-    public UserRecipeItemRequest(@NotNull Long ingredientId, @NotNull int quantity, @NotBlank String quantityUnit) {
+    public UserRecipeItemRequest(Long ingredientId, int quantity, String quantityUnit) {
         this.ingredientId = ingredientId;
         this.quantity = quantity;
         this.quantityUnit = quantityUnit;
