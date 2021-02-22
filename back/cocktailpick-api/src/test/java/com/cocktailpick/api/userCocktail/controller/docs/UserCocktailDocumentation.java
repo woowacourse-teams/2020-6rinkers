@@ -43,4 +43,33 @@ public class UserCocktailDocumentation {
 					.description("재료 양 단위")
 			));
 	}
+
+	public static RestDocumentationResultHandler findUserCocktails() {
+		return document("UserCocktails/findAll",
+			responseFields(
+				fieldWithPath("userCocktailResponses").type(JsonFieldType.ARRAY).description("나만의 레시피 목록"),
+				fieldWithPath("userCocktailResponses.[].name").type(JsonFieldType.STRING).description("나만의 레시피 이름"),
+				fieldWithPath("userCocktailResponses.[].description").type(JsonFieldType.STRING)
+					.description("나만의 레시피 설명"),
+				fieldWithPath("userCocktailResponses.[].userRecipeItemResponses").type(JsonFieldType.ARRAY)
+					.description("재료 목록"),
+				fieldWithPath("userCocktailResponses.[].userRecipeItemResponses.[].ingredientId").type(
+					JsonFieldType.NUMBER)
+					.description("재료 ID"),
+				fieldWithPath("userCocktailResponses.[].userRecipeItemResponses.[].ingredientName").type(
+					JsonFieldType.STRING)
+					.description("재료 이름"),
+				fieldWithPath("userCocktailResponses.[].userRecipeItemResponses.[].ingredientColor").type(
+					JsonFieldType.STRING)
+					.description("재료 색"),
+				fieldWithPath("userCocktailResponses.[].userRecipeItemResponses.[].ingredientAbv").type(
+					JsonFieldType.NUMBER)
+					.description("재료 도수"),
+				fieldWithPath("userCocktailResponses.[].userRecipeItemResponses.[].quantity").type(JsonFieldType.NUMBER)
+					.description("재료 양"),
+				fieldWithPath("userCocktailResponses.[].userRecipeItemResponses.[].quantityUnit").type(
+					JsonFieldType.STRING)
+					.description("재료 양 단위")
+			));
+	}
 }

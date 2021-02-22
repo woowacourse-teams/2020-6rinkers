@@ -1,5 +1,7 @@
 package com.cocktailpick.core.usercocktail.service;
 
+import static java.util.stream.Collectors.*;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +17,7 @@ import com.cocktailpick.core.usercocktail.domain.UserCocktail;
 import com.cocktailpick.core.usercocktail.domain.UserCocktailRepository;
 import com.cocktailpick.core.usercocktail.dto.UserCocktailCreateRequest;
 import com.cocktailpick.core.usercocktail.dto.UserCocktailResponse;
+import com.cocktailpick.core.usercocktail.dto.UserCocktailResponses;
 import com.cocktailpick.core.userrecipe.domain.UserRecipeItem;
 import com.cocktailpick.core.userrecipe.dto.UserRecipeItemRequest;
 
@@ -59,5 +62,13 @@ public class UserCocktailService {
     private UserCocktail findUserCocktailById(Long id) {
         return userCocktailRepository.findById(id)
             .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USERCOCKTAIL_NOT_FOUND));
+    }
+
+    public UserCocktailResponses findUserCocktails() {
+        List<UserCocktail> userCocktails = userCocktailRepository.findAll();
+
+        return userCocktails.stream()
+            .map(UserCocktailResponse::of)
+            .collect(collectingAndThen(toList(), UserCocktailResponses::new));
     }
 }

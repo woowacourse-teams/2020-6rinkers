@@ -15,6 +15,7 @@ import com.cocktailpick.api.security.CurrentUser;
 import com.cocktailpick.core.user.domain.User;
 import com.cocktailpick.core.usercocktail.dto.UserCocktailCreateRequest;
 import com.cocktailpick.core.usercocktail.dto.UserCocktailResponse;
+import com.cocktailpick.core.usercocktail.dto.UserCocktailResponses;
 import com.cocktailpick.core.usercocktail.service.UserCocktailService;
 
 import lombok.RequiredArgsConstructor;
@@ -36,5 +37,10 @@ public class UserCocktailController {
     @GetMapping("/{id}")
     public ResponseEntity<UserCocktailResponse> findUserCocktail(@PathVariable Long id) {
         return ResponseEntity.ok(userCocktailService.findUserCocktail(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<UserCocktailResponses> findUserCocktails() {
+        return ResponseEntity.ok(userCocktailService.findUserCocktails());
     }
 }

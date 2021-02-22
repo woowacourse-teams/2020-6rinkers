@@ -25,6 +25,7 @@ import com.cocktailpick.api.userCocktail.controller.UserCocktailController;
 import com.cocktailpick.api.userCocktail.controller.docs.UserCocktailDocumentation;
 import com.cocktailpick.core.usercocktail.dto.UserCocktailCreateRequest;
 import com.cocktailpick.core.usercocktail.dto.UserCocktailResponse;
+import com.cocktailpick.core.usercocktail.dto.UserCocktailResponses;
 import com.cocktailpick.core.usercocktail.dto.UserRecipeItemResponse;
 import com.cocktailpick.core.usercocktail.service.UserCocktailService;
 import com.cocktailpick.core.userrecipe.dto.UserRecipeItemRequest;
@@ -47,13 +48,13 @@ class UserCocktailControllerTest extends DocumentationWithSecurity {
 
     @BeforeEach
     public void setUp(WebApplicationContext webApplicationContext,
-                      RestDocumentationContextProvider restDocumentationContextProvider) {
+        RestDocumentationContextProvider restDocumentationContextProvider) {
         super.setUp(webApplicationContext, restDocumentationContextProvider);
 
         userRecipeItemRequest = UserRecipeItemRequest.builder()
             .ingredientId(1L)
             .quantity(123.0)
-                .quantityUnit("SOJU").build();
+            .quantityUnit("SOJU").build();
 
         userCocktailCreateRequest = UserCocktailCreateRequest.builder()
             .name("name")
@@ -102,5 +103,21 @@ class UserCocktailControllerTest extends DocumentationWithSecurity {
             .andExpect(status().isOk())
             .andDo(print())
             .andDo(UserCocktailDocumentation.findUserCocktailById());
+    }
+
+    @DisplayName("나만의 레시피를 전체 조회한다.")
+    @WithMockCustomUser
+    @Test
+    void findUserCocktails() throws Exception {
+        UserCocktailResponses userCocktailResponses = new UserCocktailResponses(
+            Collections.singletonList(userCocktailResponse));
+
+        given(userCocktailService.findUserCocktails()).willReturn(userCocktailResponses);
+
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/api/user-cocktails")
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andDo(print())
+            .andDo(UserCocktailDocumentation.findUserCocktails());
     }
 }
