@@ -74,8 +74,12 @@ const Amount = ({ setStage }) => {
       <div>
         {/*Slider로 수정*/}
         {units &&
-          units.map((it) => (
-            <div className="amount-unit-container" onClick={onSelect}>
+          units.map((it, index) => (
+            <div
+              className="amount-unit-container"
+              onClick={onSelect}
+              key={"amount" + index}
+            >
               <div className="amount-unit" data-id={it.id}>
                 {it.name}
               </div>
