@@ -36,12 +36,11 @@ const Glass = ({ setStage }) => {
     // api로 받아오든 내부에 있는 값을 가져오든 해야한다.
     // 값도 바뀌어야 한다. 백에서 원하는 SOJU BEER PAPER SHOT PIECE를 가지고 이미지 링크와 한글 이름이 필요하다.
     [
-      { id: 1, name: "반 잔" },
-      { id: 2, name: "반의 반 잔" },
-      { id: 3, name: "한 잔" },
-      { id: 4, name: "두 잔" },
-      { id: 5, name: "세 잔" },
-      { id: 6, name: "네 잔" },
+      { id: 1, name: "SOJU" },
+      { id: 2, name: "BEER" },
+      { id: 3, name: "PAPER" },
+      { id: 4, name: "SHOT" },
+      { id: 5, name: "PIECE" },
     ];
 
   const onSelect = (e) => {
