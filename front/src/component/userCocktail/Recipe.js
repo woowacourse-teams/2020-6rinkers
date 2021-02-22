@@ -6,11 +6,22 @@ import { userCocktailState } from "../../recoil";
 const Recipe = ({ setStage }) => {
   const history = useHistory();
   const [userCocktail, setUserCocktail] = useRecoilState(userCocktailState);
+  let description = "";
 
-  const onNext = (e) => {
+  const onDescriptionChange = (e) => {
+    description = e.target.value;
+  };
+
+  const onSave = (e) => {
     e.preventDefault();
-    history.push("/my-cocktail/description");
-    setStage("description");
+
+    setUserCocktail({
+      ...userCocktail,
+      description: description,
+    });
+
+    history.push("/my-cocktail");
+    setStage("");
   };
 
   const onIngredient = (e) => {
@@ -53,7 +64,12 @@ const Recipe = ({ setStage }) => {
       >
         재료 추가하기
       </button>
-      <button className="next-button" type="submit" onClick={onNext}>
+      <input
+        type="text"
+        placeholder="만든 칵테일에 대해 설명해주세요."
+        onChange={onDescriptionChange}
+      />
+      <button className="next-button" type="submit" onClick={onSave}>
         끝!
       </button>
     </>

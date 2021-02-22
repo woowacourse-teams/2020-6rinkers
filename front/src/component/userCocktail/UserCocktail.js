@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import StepProgressBar from "./StepProgressBar";
 import "react-step-progress-bar/styles.css";
 import "../../css/userCocktail/userCocktail.css";
@@ -8,6 +8,8 @@ import Ingredient from "./Ingredient";
 import Glass from "./Glass";
 import Amount from "./Amount";
 import Recipe from "./Recipe";
+import List from "./UserCocktailItems";
+import UserCocktailItems from "./UserCocktailItems";
 
 const UserCocktail = () => {
   const INITIAL_STAGE = "";
@@ -16,7 +18,7 @@ const UserCocktail = () => {
   const renderContents = () => {
     switch (stage) {
       case INITIAL_STAGE:
-        return <div> 처음 화면이니까 </div>;
+        return <UserCocktailItems setStage={setStage} />;
       case "name":
         return <Name setStage={setStage} />;
       case "ingredients":
