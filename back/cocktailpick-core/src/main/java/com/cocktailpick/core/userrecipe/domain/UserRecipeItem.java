@@ -1,15 +1,24 @@
 package com.cocktailpick.core.userrecipe.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
+
 import com.cocktailpick.core.common.domain.BaseTimeEntity;
 import com.cocktailpick.core.ingredient.domain.Ingredient;
 import com.cocktailpick.core.usercocktail.domain.UserCocktail;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -32,13 +41,14 @@ public class UserRecipeItem extends BaseTimeEntity {
     private UserCocktail userCocktail;
 
     @NotNull
-    private int quantity;
+    private Double quantity;
 
     @Enumerated(EnumType.STRING)
     private QuantityUnit quantityUnit;
 
     @Builder
-    public UserRecipeItem(Ingredient ingredient, UserCocktail userCocktail, @NotNull int quantity, QuantityUnit quantityUnit) {
+    public UserRecipeItem(Ingredient ingredient, UserCocktail userCocktail, @NotNull Double quantity,
+        QuantityUnit quantityUnit) {
         this.ingredient = ingredient;
         this.userCocktail = userCocktail;
         this.quantity = quantity;

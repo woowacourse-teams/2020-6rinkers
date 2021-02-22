@@ -27,9 +27,10 @@ public enum ErrorCode {
 	UNAUTHORIZED_REDIRECT_URI(400, "AU_003", "인증되지 않은 REDIRECT_URI입니다."),
 	BAD_LOGIN(400, "AU_004", "잘못된 아이디 또는 패스워드입니다."),
 
-	INGREDIENT_NOT_FOUND(400, "IN_001", "재료를 찾을 수 없습니다.");
+	INGREDIENT_NOT_FOUND(400, "IN_001", "재료를 찾을 수 없습니다."),
+	USERCOCKTAIL_NOT_FOUND(400, "UC_001", "나만의 레시피를 찾을 수 없습니다.");
 
-    private final String code;
+	private final String code;
 	private final String message;
 	private final int status;
 

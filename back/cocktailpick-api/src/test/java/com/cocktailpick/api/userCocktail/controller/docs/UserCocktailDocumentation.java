@@ -1,27 +1,46 @@
 package com.cocktailpick.api.userCocktail.controller.docs;
 
+import static org.springframework.restdocs.headers.HeaderDocumentation.*;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+
 import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
 import org.springframework.restdocs.payload.JsonFieldType;
 
-import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
-import static org.springframework.restdocs.headers.HeaderDocumentation.responseHeaders;
-import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
-
 public class UserCocktailDocumentation {
-    public static RestDocumentationResultHandler createUserCocktail() {
-        return document("UserCocktails/create",
-                requestFields(
-                        fieldWithPath("name").type(JsonFieldType.STRING).description("칵테일 이름"),
-                        fieldWithPath("description").type(JsonFieldType.STRING).description("칵테일 설명"),
-                        fieldWithPath("userRecipeItemRequests").type(JsonFieldType.ARRAY).description("재료 목록"),
-                        fieldWithPath("userRecipeItemRequests.[].ingredientId").type(JsonFieldType.NUMBER).description("재료 ID"),
-                        fieldWithPath("userRecipeItemRequests.[].quantity").type(JsonFieldType.NUMBER).description("재료 양"),
-                        fieldWithPath("userRecipeItemRequests.[].quantityUnit").type(JsonFieldType.STRING).description("재료 양 단위")
-                ),
-                responseHeaders(
-                        headerWithName("Location").description("생성된 칵테일 id")
-                ));
-    }
+	public static RestDocumentationResultHandler createUserCocktail() {
+		return document("UserCocktails/create",
+			requestFields(
+				fieldWithPath("name").type(JsonFieldType.STRING).description("칵테일 이름"),
+				fieldWithPath("description").type(JsonFieldType.STRING).description("칵테일 설명"),
+				fieldWithPath("userRecipeItemRequests").type(JsonFieldType.ARRAY).description("재료 목록"),
+				fieldWithPath("userRecipeItemRequests.[].ingredientId").type(JsonFieldType.NUMBER).description("재료 ID"),
+				fieldWithPath("userRecipeItemRequests.[].quantity").type(JsonFieldType.NUMBER).description("재료 양"),
+				fieldWithPath("userRecipeItemRequests.[].quantityUnit").type(JsonFieldType.STRING)
+					.description("재료 양 단위")
+			),
+			responseHeaders(
+				headerWithName("Location").description("생성된 칵테일 id")
+			));
+	}
+
+	public static RestDocumentationResultHandler findUserCocktailById() {
+		return document("UserCocktails/find",
+			responseFields(
+				fieldWithPath("name").type(JsonFieldType.STRING).description("나만의 레시피 이름"),
+				fieldWithPath("description").type(JsonFieldType.STRING).description("나만의 레시피 설명"),
+				fieldWithPath("userRecipeItemResponses").type(JsonFieldType.ARRAY).description("재료 목록"),
+				fieldWithPath("userRecipeItemResponses.[].ingredientId").type(JsonFieldType.NUMBER)
+					.description("재료 ID"),
+				fieldWithPath("userRecipeItemResponses.[].ingredientName").type(JsonFieldType.STRING)
+					.description("재료 이름"),
+				fieldWithPath("userRecipeItemResponses.[].ingredientColor").type(JsonFieldType.STRING)
+					.description("재료 색"),
+				fieldWithPath("userRecipeItemResponses.[].ingredientAbv").type(JsonFieldType.NUMBER)
+					.description("재료 도수"),
+				fieldWithPath("userRecipeItemResponses.[].quantity").type(JsonFieldType.NUMBER).description("재료 양"),
+				fieldWithPath("userRecipeItemResponses.[].quantityUnit").type(JsonFieldType.STRING)
+					.description("재료 양 단위")
+			));
+	}
 }

@@ -1,20 +1,25 @@
 package com.cocktailpick.core.usercocktail.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.cocktailpick.core.common.exceptions.EntityNotFoundException;
+import com.cocktailpick.core.common.exceptions.ErrorCode;
 import com.cocktailpick.core.ingredient.domain.Ingredient;
 import com.cocktailpick.core.ingredient.domain.IngredientRepository;
 import com.cocktailpick.core.user.domain.User;
 import com.cocktailpick.core.usercocktail.domain.UserCocktail;
 import com.cocktailpick.core.usercocktail.domain.UserCocktailRepository;
 import com.cocktailpick.core.usercocktail.dto.UserCocktailCreateRequest;
+import com.cocktailpick.core.usercocktail.dto.UserCocktailResponse;
 import com.cocktailpick.core.userrecipe.domain.UserRecipeItem;
 import com.cocktailpick.core.userrecipe.dto.UserRecipeItemRequest;
+
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 @Service
@@ -44,5 +49,15 @@ public class UserCocktailService {
         for (UserRecipeItem userRecipeItem : userRecipeItems) {
             userRecipeItem.setUserCocktail(userCocktail);
         }
+    }
+
+    public UserCocktailResponse findUserCocktail(Long id) {
+        UserCocktail userCocktail = findUserCocktailById(id);
+        return UserCocktailResponse.of(userCocktail);
+    }
+
+    private UserCocktail findUserCocktailById(Long id) {
+        return userCocktailRepository.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USERCOCKTAIL_NOT_FOUND));
     }
 }
