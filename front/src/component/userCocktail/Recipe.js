@@ -19,9 +19,33 @@ const Recipe = ({ setStage }) => {
     setStage("ingredients");
   };
 
+  const removeRecipe = (e) => {
+    if (!window.confirm("정말 레시피를 제거하시겠습니까?")) {
+      return;
+    }
+    const selectedIndex = parseInt(e.target.dataset.id);
+    const recipeRequests = [...userCocktail.userRecipeItemRequests];
+    recipeRequests.splice(selectedIndex, 1);
+
+    setUserCocktail({
+      ...userCocktail,
+      userRecipeItemRequests: recipeRequests,
+    });
+  };
+
+  const recipe = userCocktail.userRecipeItemRequests.map((it, index) => (
+    <div key={"recipe" + index}>
+      {it.ingredientName} {it.glassName} {it.amountName}
+      <button onClick={removeRecipe} data-id={index}>
+        X
+      </button>
+    </div>
+  ));
+
   return (
     <>
       <div>recipe 화면입니다.</div>
+      {recipe}
       <button
         className="ingredient-button"
         type="submit"
