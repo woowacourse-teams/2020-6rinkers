@@ -24,7 +24,7 @@ const Amount = ({ setStage }) => {
           ingredientId: lastRecipe.ingredientId,
           ingredientName: lastRecipe.ingredientName,
           glassId: lastRecipe.id,
-          glassName: lastRecipe.name,
+          glassName: lastRecipe.glassName,
           amountId: selected.id,
           amountName: selected.name,
         },
