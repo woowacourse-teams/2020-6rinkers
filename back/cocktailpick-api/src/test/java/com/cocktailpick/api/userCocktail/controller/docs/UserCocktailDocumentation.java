@@ -27,6 +27,9 @@ public class UserCocktailDocumentation {
 
 	public static RestDocumentationResultHandler findUserCocktailById() {
 		return document("UserCocktails/find",
+			pathParameters(
+				parameterWithName("id").description("수정할 칵테일 ID")
+			),
 			responseFields(
 				fieldWithPath("id").type(JsonFieldType.NUMBER).description("나만의 레시피 아이디"),
 				fieldWithPath("name").type(JsonFieldType.STRING).description("나만의 레시피 이름"),
@@ -78,6 +81,9 @@ public class UserCocktailDocumentation {
 
 	public static RestDocumentationResultHandler updateUserCocktails() {
 		return document("UserCocktails/update",
+			pathParameters(
+				parameterWithName("id").description("수정할 칵테일 ID")
+			),
 			requestFields(
 				fieldWithPath("name").type(JsonFieldType.STRING).description("업데이트될 나만의 레시피 이름"),
 				fieldWithPath("description").type(JsonFieldType.STRING).description("업데이트 될 나만의 레시피 설명"),
