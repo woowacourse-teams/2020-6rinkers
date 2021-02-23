@@ -6,14 +6,16 @@ import java.util.stream.Collectors;
 import com.cocktailpick.core.usercocktail.domain.UserCocktail;
 import com.cocktailpick.core.userrecipe.domain.UserRecipeItem;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 @Getter
 public class UserCocktailResponse {
+	private Long id;
 	private String name;
 	private String description;
 	private List<UserRecipeItemResponse> userRecipeItemResponses;
@@ -31,6 +33,7 @@ public class UserCocktailResponse {
 				.build())
 			.collect(Collectors.toList());
 
-		return new UserCocktailResponse(userCocktail.getName(), userCocktail.getDescription(), userRecipeItemResponses);
+		return new UserCocktailResponse(userCocktail.getId(), userCocktail.getName(), userCocktail.getDescription(),
+			userRecipeItemResponses);
 	}
 }

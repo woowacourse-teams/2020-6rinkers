@@ -71,7 +71,7 @@ class UserCocktailControllerTest extends DocumentationWithSecurity {
             .quantityUnit("PAPER")
             .build();
 
-        userCocktailResponse = new UserCocktailResponse("test", "test Description",
+        userCocktailResponse = new UserCocktailResponse(1L, "test", "test Description",
             Collections.singletonList(userRecipeItemResponse));
 
         objectMapper = new ObjectMapper();

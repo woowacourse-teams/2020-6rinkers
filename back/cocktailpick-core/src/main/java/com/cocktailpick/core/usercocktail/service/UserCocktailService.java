@@ -54,6 +54,7 @@ public class UserCocktailService {
         }
     }
 
+    @Transactional(readOnly = true)
     public UserCocktailResponse findUserCocktail(Long id) {
         UserCocktail userCocktail = findUserCocktailById(id);
         return UserCocktailResponse.of(userCocktail);
@@ -64,6 +65,7 @@ public class UserCocktailService {
             .orElseThrow(() -> new EntityNotFoundException(ErrorCode.USERCOCKTAIL_NOT_FOUND));
     }
 
+    @Transactional(readOnly = true)
     public UserCocktailResponses findUserCocktails() {
         List<UserCocktail> userCocktails = userCocktailRepository.findAll();
 

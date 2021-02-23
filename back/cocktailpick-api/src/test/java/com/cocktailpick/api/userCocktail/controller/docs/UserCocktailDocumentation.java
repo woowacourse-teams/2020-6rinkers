@@ -48,6 +48,7 @@ public class UserCocktailDocumentation {
 		return document("UserCocktails/findAll",
 			responseFields(
 				fieldWithPath("userCocktailResponses").type(JsonFieldType.ARRAY).description("나만의 레시피 목록"),
+				fieldWithPath("userCocktailResponses.[].id").type(JsonFieldType.NUMBER).description("나만의 레시피 아이디"),
 				fieldWithPath("userCocktailResponses.[].name").type(JsonFieldType.STRING).description("나만의 레시피 이름"),
 				fieldWithPath("userCocktailResponses.[].description").type(JsonFieldType.STRING)
 					.description("나만의 레시피 설명"),
