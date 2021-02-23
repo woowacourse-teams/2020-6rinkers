@@ -138,4 +138,18 @@ class UserCocktailControllerTest extends DocumentationWithSecurity {
             .andDo(print())
             .andDo(UserCocktailDocumentation.updateUserCocktails());
     }
+
+    @DisplayName("나만의 레시피를 삭제한다.")
+    @WithMockCustomUser
+    @Test
+    void deleteUserCocktail() throws Exception {
+        doNothing().when(userCocktailService).deleteUserCocktail(any(), anyLong());
+
+        mockMvc.perform(RestDocumentationRequestBuilders.delete("/api/user-cocktails/{id}", 1L)
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isNoContent())
+            .andDo(print())
+            .andDo(UserCocktailDocumentation.deleteUserCocktail());
+
+    }
 }

@@ -3,6 +3,7 @@ package com.cocktailpick.api.userCocktail.controller.docs;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 
 import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
 import org.springframework.restdocs.payload.JsonFieldType;
@@ -89,5 +90,12 @@ public class UserCocktailDocumentation {
 					.description("업데이트 될 재료 양 단위")
 			)
 		);
+	}
+
+	public static RestDocumentationResultHandler deleteUserCocktail() {
+		return document("UserCocktails/delete",
+			pathParameters(
+				parameterWithName("id").description("수정할 칵테일 ID")
+			));
 	}
 }

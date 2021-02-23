@@ -89,7 +89,7 @@ public class User extends BaseTimeEntity {
 		return favorites.isDuplicated(favorite);
 	}
 
-	public boolean isNotPossibleToUpdateUserCocktail(Long userId) {
+	public boolean isNotPossibleToAccessUserCocktail(Long userId) {
 		return !this.id.equals(userId) || this.role != Role.ROLE_ADMIN;
 	}
 

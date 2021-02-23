@@ -79,7 +79,7 @@ public class UserCocktailService {
     public void updateUserCocktail(User user, Long id, UserCocktailRequest updateUserCocktailRequest) {
         UserCocktail userCocktail = findUserCocktailById(id);
 
-        if (user.isNotPossibleToUpdateUserCocktail(userCocktail.getMemberId())) {
+        if (user.isNotPossibleToAccessUserCocktail(userCocktail.getMemberId())) {
             throw new AuthException(ErrorCode.USERCOCKTAIL_UNAUTHORIZED);
         }
 
@@ -93,5 +93,16 @@ public class UserCocktailService {
         List<UserRecipeItem> userRecipeItems = updateUserCocktailRequest.toUserRecipeItems(ingredients);
 
         userCocktail.update(updateUserCocktail, userRecipeItems);
+    }
+
+    @Transactional
+    public void deleteUserCocktail(User user, Long id) {
+        UserCocktail userCocktail = findUserCocktailById(id);
+
+        if (user.isNotPossibleToAccessUserCocktail(userCocktail.getMemberId())) {
+            throw new AuthException(ErrorCode.USERCOCKTAIL_UNAUTHORIZED);
+        }
+
+        userCocktailRepository.deleteById(id);
     }
 }
