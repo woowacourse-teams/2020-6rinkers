@@ -23,7 +23,7 @@ import com.cocktailpick.api.common.WithMockCustomUser;
 import com.cocktailpick.api.common.documentation.DocumentationWithSecurity;
 import com.cocktailpick.api.userCocktail.controller.UserCocktailController;
 import com.cocktailpick.api.userCocktail.controller.docs.UserCocktailDocumentation;
-import com.cocktailpick.core.usercocktail.dto.UserCocktailCreateRequest;
+import com.cocktailpick.core.usercocktail.dto.UserCocktailRequest;
 import com.cocktailpick.core.usercocktail.dto.UserCocktailResponse;
 import com.cocktailpick.core.usercocktail.dto.UserCocktailResponses;
 import com.cocktailpick.core.usercocktail.dto.UserRecipeItemResponse;
@@ -36,7 +36,7 @@ class UserCocktailControllerTest extends DocumentationWithSecurity {
     @MockBean
     private UserCocktailService userCocktailService;
 
-    private UserCocktailCreateRequest userCocktailCreateRequest;
+    private UserCocktailRequest userCocktailRequest;
 
     private UserRecipeItemRequest userRecipeItemRequest;
 
@@ -56,7 +56,7 @@ class UserCocktailControllerTest extends DocumentationWithSecurity {
             .quantity(123.0)
             .quantityUnit("SOJU").build();
 
-        userCocktailCreateRequest = UserCocktailCreateRequest.builder()
+        userCocktailRequest = UserCocktailRequest.builder()
             .name("name")
             .description("description")
             .userRecipeItemRequests(Collections.singletonList(userRecipeItemRequest))
@@ -84,7 +84,7 @@ class UserCocktailControllerTest extends DocumentationWithSecurity {
         given(userCocktailService.save(any(), any())).willReturn(1L);
 
         mockMvc.perform(post("/api/user-cocktails")
-            .content(objectMapper.writeValueAsString(userCocktailCreateRequest))
+            .content(objectMapper.writeValueAsString(userCocktailRequest))
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isCreated())
             .andExpect(header().string("Location", "/api/user-cocktails/1"))
@@ -119,5 +119,23 @@ class UserCocktailControllerTest extends DocumentationWithSecurity {
             .andExpect(status().isOk())
             .andDo(print())
             .andDo(UserCocktailDocumentation.findUserCocktails());
+    }
+
+    @DisplayName("나만의 레시피를 수정한다.")
+    @WithMockCustomUser
+    @Test
+    void updateUserCocktail() throws Exception {
+        UserCocktailRequest userCocktailupdateRequest = UserCocktailRequest.builder()
+            .name("updateUserCocktail")
+            .description("해피해킹 없이는 살 수 없는 몸이 돼었어")
+            .userRecipeItemRequests(Collections.singletonList(userRecipeItemRequest))
+            .build();
+
+        mockMvc.perform(RestDocumentationRequestBuilders.put("/api/user-cocktails/{id}", 1L)
+            .content(objectMapper.writeValueAsString(userCocktailupdateRequest))
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andDo(print())
+            .andDo(UserCocktailDocumentation.updateUserCocktails());
     }
 }

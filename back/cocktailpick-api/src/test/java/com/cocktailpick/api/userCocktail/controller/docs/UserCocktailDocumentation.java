@@ -11,8 +11,8 @@ public class UserCocktailDocumentation {
 	public static RestDocumentationResultHandler createUserCocktail() {
 		return document("UserCocktails/create",
 			requestFields(
-				fieldWithPath("name").type(JsonFieldType.STRING).description("칵테일 이름"),
-				fieldWithPath("description").type(JsonFieldType.STRING).description("칵테일 설명"),
+				fieldWithPath("name").type(JsonFieldType.STRING).description("나만의 레시피 이름"),
+				fieldWithPath("description").type(JsonFieldType.STRING).description("나만의 레시피 설명"),
 				fieldWithPath("userRecipeItemRequests").type(JsonFieldType.ARRAY).description("재료 목록"),
 				fieldWithPath("userRecipeItemRequests.[].ingredientId").type(JsonFieldType.NUMBER).description("재료 ID"),
 				fieldWithPath("userRecipeItemRequests.[].quantity").type(JsonFieldType.NUMBER).description("재료 양"),
@@ -27,6 +27,7 @@ public class UserCocktailDocumentation {
 	public static RestDocumentationResultHandler findUserCocktailById() {
 		return document("UserCocktails/find",
 			responseFields(
+				fieldWithPath("id").type(JsonFieldType.NUMBER).description("나만의 레시피 아이디"),
 				fieldWithPath("name").type(JsonFieldType.STRING).description("나만의 레시피 이름"),
 				fieldWithPath("description").type(JsonFieldType.STRING).description("나만의 레시피 설명"),
 				fieldWithPath("userRecipeItemResponses").type(JsonFieldType.ARRAY).description("재료 목록"),
@@ -72,5 +73,21 @@ public class UserCocktailDocumentation {
 					JsonFieldType.STRING)
 					.description("재료 양 단위")
 			));
+	}
+
+	public static RestDocumentationResultHandler updateUserCocktails() {
+		return document("UserCocktails/update",
+			requestFields(
+				fieldWithPath("name").type(JsonFieldType.STRING).description("업데이트될 나만의 레시피 이름"),
+				fieldWithPath("description").type(JsonFieldType.STRING).description("업데이트 될 나만의 레시피 설명"),
+				fieldWithPath("userRecipeItemRequests").type(JsonFieldType.ARRAY).description("업데이트 될 재료 목록"),
+				fieldWithPath("userRecipeItemRequests.[].ingredientId").type(JsonFieldType.NUMBER)
+					.description("업데이트 될 재료 ID"),
+				fieldWithPath("userRecipeItemRequests.[].quantity").type(JsonFieldType.NUMBER)
+					.description("업데이트 될 재료 양"),
+				fieldWithPath("userRecipeItemRequests.[].quantityUnit").type(JsonFieldType.STRING)
+					.description("업데이트 될 재료 양 단위")
+			)
+		);
 	}
 }

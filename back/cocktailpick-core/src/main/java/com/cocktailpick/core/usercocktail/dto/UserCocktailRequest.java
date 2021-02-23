@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
-public class UserCocktailCreateRequest {
+public class UserCocktailRequest {
     @NotBlank
     private String name;
     @NotBlank
@@ -26,7 +26,8 @@ public class UserCocktailCreateRequest {
     private List<UserRecipeItemRequest> userRecipeItemRequests;
 
     @Builder
-    public UserCocktailCreateRequest(@NotBlank String name, @NotBlank String description, List<UserRecipeItemRequest> userRecipeItemRequests) {
+    public UserCocktailRequest(@NotBlank String name, @NotBlank String description,
+        List<UserRecipeItemRequest> userRecipeItemRequests) {
         this.name = name;
         this.description = description;
         this.userRecipeItemRequests = userRecipeItemRequests;

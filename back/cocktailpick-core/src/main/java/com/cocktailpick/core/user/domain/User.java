@@ -18,6 +18,7 @@ import org.hibernate.annotations.Where;
 import com.cocktailpick.core.common.domain.BaseTimeEntity;
 import com.cocktailpick.core.favorite.domain.Favorite;
 import com.cocktailpick.core.favorite.domain.Favorites;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -86,6 +87,10 @@ public class User extends BaseTimeEntity {
 
 	public boolean isDuplicated(Favorite favorite) {
 		return favorites.isDuplicated(favorite);
+	}
+
+	public boolean isNotPossibleToUpdateUserCocktail(Long userId) {
+		return !this.id.equals(userId) || this.role != Role.ROLE_ADMIN;
 	}
 
 	public List<Long> findFavoriteCocktailIds() {

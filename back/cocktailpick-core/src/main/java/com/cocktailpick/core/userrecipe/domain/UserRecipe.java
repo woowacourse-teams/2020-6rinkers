@@ -36,4 +36,8 @@ public class UserRecipe {
             .map(UserRecipeItem::getIngredient)
             .collect(Collectors.toList());
     }
+
+    public void clear() {
+        this.userRecipe = new ArrayList<>();
+    }
 }
