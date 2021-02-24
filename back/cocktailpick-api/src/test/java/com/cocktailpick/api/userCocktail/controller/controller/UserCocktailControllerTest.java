@@ -125,14 +125,14 @@ class UserCocktailControllerTest extends DocumentationWithSecurity {
     @WithMockCustomUser
     @Test
     void updateUserCocktail() throws Exception {
-        UserCocktailRequest userCocktailupdateRequest = UserCocktailRequest.builder()
+        UserCocktailRequest userCocktailUpdateRequest = UserCocktailRequest.builder()
             .name("updateUserCocktail")
             .description("해피해킹 없이는 살 수 없는 몸이 돼었어")
             .userRecipeItemRequests(Collections.singletonList(userRecipeItemRequest))
             .build();
 
         mockMvc.perform(RestDocumentationRequestBuilders.put("/api/user-cocktails/{id}", 1L)
-            .content(objectMapper.writeValueAsString(userCocktailupdateRequest))
+            .content(objectMapper.writeValueAsString(userCocktailUpdateRequest))
             .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk())
             .andDo(print())
@@ -150,6 +150,5 @@ class UserCocktailControllerTest extends DocumentationWithSecurity {
             .andExpect(status().isNoContent())
             .andDo(print())
             .andDo(UserCocktailDocumentation.deleteUserCocktail());
-
     }
 }
