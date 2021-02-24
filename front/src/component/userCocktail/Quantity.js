@@ -3,9 +3,8 @@ import { useHistory } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { userCocktailState } from "../../recoil";
 import div from "infinite-react-carousel";
-import GlassItem from "./GlassItem";
 
-const Amount = ({ setStage }) => {
+const Quantity = ({ setStage }) => {
   const history = useHistory();
   const [userCocktail, setUserCocktail] = useRecoilState(userCocktailState);
   const [selected, setSelected] = useState({ id: 0, name: "기본값" });
@@ -23,10 +22,10 @@ const Amount = ({ setStage }) => {
         {
           ingredientId: lastRecipe.ingredientId,
           ingredientName: lastRecipe.ingredientName,
-          glassId: lastRecipe.id,
-          glassName: lastRecipe.glassName,
-          amountId: selected.id,
-          amountName: selected.name,
+          quantityUnitId: lastRecipe.quantityUnitId,
+          quantityUnitName: lastRecipe.quantityUnitName,
+          quantityId: selected.id,
+          quantityName: selected.name,
         },
       ],
     });
@@ -54,7 +53,7 @@ const Amount = ({ setStage }) => {
 
   return (
     <div>
-      <div>amount 화면입니다.</div>
+      <div>quantity 화면입니다.</div>
       <div>
         <div>{selected.name}</div>
         <button>X</button>
@@ -69,18 +68,18 @@ const Amount = ({ setStage }) => {
         {"잔 종류: " +
           userCocktail.userRecipeItemRequests[
             userCocktail.userRecipeItemRequests.length - 1
-          ].glassName}
+          ].quantityUnitName}
       </div>
       <div>
         {/*Slider로 수정*/}
         {units &&
           units.map((it, index) => (
             <div
-              className="amount-unit-container"
+              className="quantity-unit-container"
               onClick={onSelect}
-              key={"amount" + index}
+              key={"quantity" + index}
             >
-              <div className="amount-unit" data-id={it.id}>
+              <div className="quantity-unit" data-id={it.id}>
                 {it.name}
               </div>
             </div>
@@ -93,4 +92,4 @@ const Amount = ({ setStage }) => {
   );
 };
 
-export default Amount;
+export default Quantity;

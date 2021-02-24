@@ -46,7 +46,7 @@ const Recipe = ({ setStage }) => {
 
   const recipe = userCocktail.userRecipeItemRequests.map((it, index) => (
     <div key={"recipe" + index}>
-      {it.ingredientName} {it.glassName} {it.amountName}
+      {it.ingredientName} {it.quantityUnitName} {it.quantityName}
       <button onClick={removeRecipe} data-id={index}>
         X
       </button>
