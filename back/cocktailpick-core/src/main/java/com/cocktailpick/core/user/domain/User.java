@@ -90,7 +90,7 @@ public class User extends BaseTimeEntity {
 	}
 
 	public boolean isNotPossibleToAccessUserCocktail(Long userId) {
-		return !this.id.equals(userId) || this.role != Role.ROLE_ADMIN;
+		return !this.id.equals(userId) && this.role != Role.ROLE_ADMIN;
 	}
 
 	public List<Long> findFavoriteCocktailIds() {
