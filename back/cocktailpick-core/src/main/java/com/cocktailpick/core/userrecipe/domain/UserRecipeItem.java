@@ -1,16 +1,20 @@
 package com.cocktailpick.core.userrecipe.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.NotNull;
 
 import com.cocktailpick.core.common.domain.BaseTimeEntity;
 import com.cocktailpick.core.ingredient.domain.Ingredient;
 import com.cocktailpick.core.usercocktail.domain.UserCocktail;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,8 +27,8 @@ public class UserRecipeItem extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_recipe_item_sequence_gen")
     @SequenceGenerator(
-        name = "user_recipe_item_sequence_gen",
-        sequenceName = "user_recipe_item_sequence"
+            name = "user_recipe_item_sequence_gen",
+            sequenceName = "user_recipe_item_sequence"
     )
     private Long id;
 
@@ -36,9 +40,23 @@ public class UserRecipeItem extends BaseTimeEntity {
     @JoinColumn(name = "user_cocktail_id")
     private UserCocktail userCocktail;
 
+    @NotNull
+    private Double quantity;
+
+    @Enumerated(EnumType.STRING)
+    private QuantityUnit quantityUnit;
+
     @Builder
-    public UserRecipeItem(Ingredient ingredient, UserCocktail userCocktail) {
+    public UserRecipeItem(Ingredient ingredient, UserCocktail userCocktail, @NotNull Double quantity,
+        QuantityUnit quantityUnit) {
         this.ingredient = ingredient;
         this.userCocktail = userCocktail;
+        this.quantity = quantity;
+        this.quantityUnit = quantityUnit;
+    }
+
+    public void setUserCocktail(UserCocktail userCocktail) {
+        this.userCocktail = userCocktail;
+        userCocktail.getUserRecipe().addUserRecipeItem(this);
     }
 }

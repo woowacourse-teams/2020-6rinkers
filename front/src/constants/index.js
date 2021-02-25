@@ -39,8 +39,10 @@ export const USER_COCKTAIL_PROTOTYPE = {
     // {
     //   ingredientId: "",
     //   ingredientName: "",
-    //   quantityUnit: "",
-    //   quantity: "",
+    //   quantityUnitId: "",
+    //   quantityUnitName: "",
+    //   quantityId: "",
+    //   quantityName: "",
     // },
   ],
   description: "",

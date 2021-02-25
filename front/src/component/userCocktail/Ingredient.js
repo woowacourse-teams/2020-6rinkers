@@ -23,8 +23,8 @@ const Ingredient = ({ setStage }) => {
         { ingredientId: selected.id, ingredientName: selected.name },
       ],
     });
-    history.push("/my-cocktail/glass");
-    setStage("glass");
+    history.push("/my-cocktail/quantity-unit");
+    setStage("quantity-unit");
   };
 
   const ingredients = () => {
