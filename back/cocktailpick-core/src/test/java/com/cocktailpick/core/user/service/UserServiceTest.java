@@ -137,6 +137,7 @@ class UserServiceTest {
 	@DisplayName("즐겨찾기를 조회한다.")
 	@Test
 	void findFavoritesTest() {
+		when(userRepository.findById(anyLong())).thenReturn(Optional.ofNullable(user));
 		assertThat(userService.findFavorites(user).size()).isEqualTo(1);
 	}
 

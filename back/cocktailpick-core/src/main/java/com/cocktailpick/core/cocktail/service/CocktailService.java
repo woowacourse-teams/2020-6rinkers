@@ -44,14 +44,16 @@ public class CocktailService {
 	@Cacheable(value = "cocktails")
 	@Transactional(readOnly = true)
 	public List<CocktailResponse> findAllCocktails() {
-		return Collections.unmodifiableList(CocktailResponse.listOf(cocktailRepository.findAll()));
+		return Collections.unmodifiableList(
+			CocktailResponse.listOf(cocktailRepository.findAllWithCocktailTagsAndRecipe()));
 	}
 
 	@Transactional(readOnly = true)
 	public List<CocktailResponse> findPageContainingWord(String contain, long id, int size) {
 		Pageable pageRequest = PageRequest.of(0, size);
 
-		List<Cocktail> cocktails = cocktailRepository.findByNameContainingAndIdGreaterThan(contain, id, pageRequest)
+		List<Cocktail> cocktails = cocktailRepository.findByNameContainingAndIdGreaterThanWithCocktailTags(contain, id,
+			pageRequest)
 			.getContent();
 
 		return Collections.unmodifiableList(CocktailResponse.listOf(cocktails));
@@ -59,7 +61,7 @@ public class CocktailService {
 
 	@Transactional(readOnly = true)
 	public List<CocktailResponse> findPageFilteredByTags(List<Long> tagIds, long id, int size) {
-		List<Cocktail> persistCocktails = cocktailRepository.findByIdGreaterThan(id);
+		List<Cocktail> persistCocktails = cocktailRepository.findByIdGreaterThanWithCocktailTags(id);
 
 		List<Cocktail> cocktails = persistCocktails.stream()
 			.filter(cocktail -> cocktail.containTagIds(tagIds))
@@ -172,7 +174,7 @@ public class CocktailService {
 		CocktailSearcher cocktailSearcher = cocktailFindStrategyFactory.createCocktailSearcher(
 			NumberOfDaily.generateBy(dailyDate));
 
-		List<Cocktail> cocktails = cocktailRepository.findAll();
+		List<Cocktail> cocktails = cocktailRepository.findAllWithCocktailTagsAndRecipe();
 
 		Cocktail cocktailOfToday = cocktailSearcher.findIn(cocktails);
 		return CocktailResponse.of(cocktailOfToday);
@@ -180,7 +182,7 @@ public class CocktailService {
 
 	@Transactional(readOnly = true)
 	public List<CocktailResponse> findByNameContaining(String name) {
-		List<Cocktail> cocktailsContainingName = cocktailRepository.findByNameContaining(name);
+		List<Cocktail> cocktailsContainingName = cocktailRepository.findByNameContainingWithCocktailTags(name);
 		return CocktailResponse.listOf(cocktailsContainingName);
 	}
 }

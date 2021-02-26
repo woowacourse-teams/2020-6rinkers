@@ -149,7 +149,7 @@ class CocktailRecommendServiceTest {
 	@ParameterizedTest
 	@MethodSource("provideUsers")
 	void recommend(User user) {
-		Mockito.when(cocktailRepository.findAll()).thenReturn(cocktails);
+		Mockito.when(cocktailRepository.findAllWithCocktailTagsAndRecipe()).thenReturn(cocktails);
 		Mockito.when(tagRepository.findAll()).thenReturn(tags);
 		Mockito.when(filteringAndScoringRecommendService.recommend(ArgumentMatchers.anyList(), ArgumentMatchers.any(),
 			ArgumentMatchers

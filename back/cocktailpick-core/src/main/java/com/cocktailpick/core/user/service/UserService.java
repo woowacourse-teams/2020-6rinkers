@@ -55,7 +55,10 @@ public class UserService {
 
 	@Transactional(readOnly = true)
 	public List<CocktailResponse> findFavorites(User user) {
-		return user.getFavorites().getFavorites().stream()
+		User actual = userRepository.findById(user.getId())
+			.orElseThrow(() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND));
+
+		return actual.getFavorites().getFavorites().stream()
 			.map(Favorite::getCocktail)
 			.map(CocktailResponse::of)
 			.collect(Collectors.toList());

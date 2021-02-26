@@ -2,3 +2,5 @@
 spring:
   profiles:
     active: local
+server:
+  shutdown: graceful

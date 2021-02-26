@@ -109,7 +109,7 @@ class CocktailServiceTest {
 			.name("마티니")
 			.build();
 
-		when(cocktailRepository.findAll()).thenReturn(Arrays.asList(peachCrush, martini));
+		when(cocktailRepository.findAllWithCocktailTagsAndRecipe()).thenReturn(Arrays.asList(peachCrush, martini));
 
 		List<CocktailResponse> cocktails = cocktailService.findAllCocktails();
 
@@ -132,7 +132,7 @@ class CocktailServiceTest {
 
 		Page<Cocktail> cocktailPage = new PageImpl<>(Arrays.asList(peachCrush, martini));
 
-		when(cocktailRepository.findByNameContainingAndIdGreaterThan(
+		when(cocktailRepository.findByNameContainingAndIdGreaterThanWithCocktailTags(
 			any(), anyLong(), any())).thenReturn(cocktailPage);
 
 		assertThat(cocktailService.findPageContainingWord("", 0, 2)).hasSize(2);
@@ -145,7 +145,7 @@ class CocktailServiceTest {
 		when(cocktail.containTagIds(anyList())).thenReturn(true);
 
 		List<Cocktail> cocktails = new ArrayList<>(Collections.nCopies(20, cocktail));
-		when(cocktailRepository.findByIdGreaterThan(anyLong())).thenReturn(cocktails);
+		when(cocktailRepository.findByIdGreaterThanWithCocktailTags(anyLong())).thenReturn(cocktails);
 
 		assertThat(
 			cocktailService.findPageFilteredByTags(Arrays.asList(0L, 1L, 2L), 0, 15)).hasSize(15);
@@ -158,7 +158,7 @@ class CocktailServiceTest {
 		when(cocktail.containTagIds(anyList())).thenReturn(true);
 
 		List<Cocktail> cocktails = new ArrayList<>(Collections.nCopies(5, cocktail));
-		when(cocktailRepository.findByIdGreaterThan(anyLong())).thenReturn(cocktails);
+		when(cocktailRepository.findByIdGreaterThanWithCocktailTags(anyLong())).thenReturn(cocktails);
 
 		assertThat(cocktailService.findPageFilteredByTags(Collections.emptyList(), 0, 15)).hasSize(
 			5);
@@ -298,14 +298,14 @@ class CocktailServiceTest {
 		when(cocktailFindStrategyFactory.createCocktailSearcher(anyLong()))
 			.thenReturn(cocktailSearcher);
 		when(cocktailSearcher.findIn(anyList())).thenReturn(second);
-		when(cocktailRepository.findAll()).thenReturn(Arrays.asList(first, second, third));
+		when(cocktailRepository.findAllWithCocktailTagsAndRecipe()).thenReturn(Arrays.asList(first, second, third));
 
 		assertThat(cocktailService.findCocktailOfToday().getName()).isEqualTo("토니 진");
 	}
 
 	@Test
 	void containName() {
-		when(cocktailRepository.findByNameContaining("두강")).thenReturn(anyList());
+		when(cocktailRepository.findByNameContainingWithCocktailTags("두강")).thenReturn(anyList());
 
 		List<CocktailResponse> cocktailResponses = cocktailService.findByNameContaining("두강");
 		assertThat(cocktailResponses).isNotNull();
