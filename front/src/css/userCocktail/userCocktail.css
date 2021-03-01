@@ -34,7 +34,3 @@
 .RSPBprogressBar .RSPBprogression {
     background: var(--little-light-red) !important;
 }
-
-.quantity-unit-item-image {
-    max-width: 100px;
-}
