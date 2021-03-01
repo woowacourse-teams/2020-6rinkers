@@ -28,7 +28,7 @@ export const TERMINOLOGY_ADMIN_PROTOTYPE = {
 
 export const INGREDIENT_ADMIN_PROTOTYPE = {
   id: 0,
-  title: "",
+  name: "",
   color: "",
   abv: "",
 };
