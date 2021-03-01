@@ -27,6 +27,12 @@ const Ingredient = ({ setStage }) => {
 
   const onNext = (e) => {
     e.preventDefault();
+
+    if (selected.id === 0) {
+      alert("재료를 선택해주세요!");
+      return;
+    }
+
     setUserCocktail({
       ...userCocktail,
       userRecipeItemRequests: [

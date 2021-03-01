@@ -14,6 +14,12 @@ const Name = ({ setStage }) => {
 
   const onNext = (e) => {
     e.preventDefault();
+
+    if (name === "") {
+      alert("이름을 입력해주세요!");
+      return;
+    }
+
     setUserCocktail({
       ...userCocktail,
       name: name,
