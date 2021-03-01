@@ -1,5 +1,5 @@
 import React from "react";
-import { userCocktailQuestions } from "../recommend/const";
+import { userCocktailQuestions } from "../const";
 
 const Question = ({ stage }) => {
   return <div>{userCocktailQuestions[stage]}</div>;

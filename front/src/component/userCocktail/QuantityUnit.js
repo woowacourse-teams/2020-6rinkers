@@ -4,6 +4,7 @@ import { useRecoilState } from "recoil";
 import div from "infinite-react-carousel";
 import { userCocktailState } from "../../recoil";
 import QuantityUnitItem from "./QuantityUnitItem";
+import { quantityUnits } from "../const";
 
 const QuantityUnit = ({ setStage }) => {
   const history = useHistory();
@@ -32,19 +33,8 @@ const QuantityUnit = ({ setStage }) => {
     setStage("quantity");
   };
 
-  const quantityUnits =
-    // api로 받아오든 내부에 있는 값을 가져오든 해야한다.
-    // 값도 바뀌어야 한다. 백에서 원하는 SOJU BEER PAPER SHOT PIECE를 가지고 이미지 링크와 한글 이름이 필요하다.
-    [
-      { id: 1, name: "SOJU" },
-      { id: 2, name: "BEER" },
-      { id: 3, name: "PAPER" },
-      { id: 4, name: "SHOT" },
-      { id: 5, name: "PIECE" },
-    ];
-
   const onSelect = (e) => {
-    const selectedId = e.target.dataset.id;
+    const selectedId = e.currentTarget.dataset.id;
     const found = quantityUnits.find((it) => it.id === parseInt(selectedId));
     setSelected(found);
   };

@@ -26,6 +26,14 @@ export const recommendationQuestions = [
   "이제 한 가지만 더 여쭤볼게요.\n다음 중 먹고 싶지 않은 재료들을\n모두 골라주세요!", // DISLIKE
 ];
 
+export const answerList = [
+  {
+    yes: "매우 좋아요",
+    soso: "좋아요",
+    no: "그저 그래요",
+  },
+];
+
 export const userCocktailQuestions = {
   name: "칵테일의 이름은 무엇인가요?",
   ingredients: "어떤 재료가 들어가요?",
@@ -34,10 +42,10 @@ export const userCocktailQuestions = {
   recipe: "입력하신 정보를 확인해보세요.",
 };
 
-export const answerList = [
-  {
-    yes: "매우 좋아요",
-    soso: "좋아요",
-    no: "그저 그래요",
-  },
+export const quantityUnits = [
+  { id: 1, name: "소주잔", path: "/image/userCocktail/soju.png" },
+  { id: 2, name: "맥주잔", path: "/image/userCocktail/beer.png" },
+  { id: 3, name: "양주잔", path: "/image/userCocktail/shot.png" },
+  { id: 4, name: "종이컵", path: "/image/userCocktail/paper.png" },
+  { id: 5, name: "n개", path: "/image/userCocktail/piece.png" },
 ];
