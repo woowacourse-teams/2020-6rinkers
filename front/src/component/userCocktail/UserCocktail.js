@@ -12,7 +12,7 @@ import UserCocktailItems from "./UserCocktailItems";
 
 const UserCocktail = () => {
   const INITIAL_STAGE = "";
-  const [stage, setStage] = useState("name"); // INITIAL_STAGE로 바꿔야함
+  const [stage, setStage] = useState(INITIAL_STAGE);
 
   const renderContents = () => {
     switch (stage) {
