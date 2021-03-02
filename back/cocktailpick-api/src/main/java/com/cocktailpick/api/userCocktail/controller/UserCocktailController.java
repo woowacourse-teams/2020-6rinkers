@@ -2,6 +2,8 @@ package com.cocktailpick.api.userCocktail.controller;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,7 +21,6 @@ import com.cocktailpick.core.usercocktail.dto.UserCocktailRequest;
 import com.cocktailpick.core.usercocktail.dto.UserCocktailResponse;
 import com.cocktailpick.core.usercocktail.dto.UserCocktailResponses;
 import com.cocktailpick.core.usercocktail.service.UserCocktailService;
-
 import lombok.RequiredArgsConstructor;
 
 @CrossOrigin("*")
@@ -31,7 +32,8 @@ public class UserCocktailController {
 
     @PostMapping
     public ResponseEntity<Void> createUserCocktail(@CurrentUser User user,
-        @RequestBody UserCocktailRequest userCocktailRequest) {
+        @Valid @RequestBody UserCocktailRequest userCocktailRequest) {
+        System.err.println("@@@@@" + userCocktailRequest.getName() + userCocktailRequest.getDescription());
         Long saveId = userCocktailService.save(user, userCocktailRequest);
         return ResponseEntity.created(URI.create("/api/user-cocktails/" + saveId)).build();
     }

@@ -43,9 +43,34 @@ export const userCocktailQuestions = {
 };
 
 export const quantityUnits = [
-  { id: 1, name: "소주잔", path: "/image/userCocktail/soju.png" },
-  { id: 2, name: "맥주잔", path: "/image/userCocktail/beer.png" },
-  { id: 3, name: "양주잔", path: "/image/userCocktail/shot.png" },
-  { id: 4, name: "종이컵", path: "/image/userCocktail/paper.png" },
-  { id: 5, name: "n개", path: "/image/userCocktail/piece.png" },
+  {
+    id: 1,
+    name: "소주잔",
+    path: "/image/userCocktail/soju.png",
+    quantityUnit: "SOJU",
+  },
+  {
+    id: 2,
+    name: "맥주잔",
+    path: "/image/userCocktail/beer.png",
+    quantityUnit: "BEER",
+  },
+  {
+    id: 3,
+    name: "양주잔",
+    path: "/image/userCocktail/shot.png",
+    quantityUnit: "SHOT",
+  },
+  {
+    id: 4,
+    name: "종이컵",
+    path: "/image/userCocktail/paper.png",
+    quantityUnit: "PAPER",
+  },
+  {
+    id: 5,
+    name: "n개",
+    path: "/image/userCocktail/piece.png",
+    quantityUnit: "PIECE",
+  },
 ];

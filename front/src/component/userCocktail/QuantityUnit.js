@@ -15,6 +15,12 @@ const QuantityUnit = ({ setStage }) => {
 
   const onNext = (e) => {
     e.preventDefault();
+
+    if (selected.id === 0) {
+      alert("어떤 잔을 이용하실건가요?");
+      return;
+    }
+
     const lastRecipe =
       userCocktail.userRecipeItemRequests[
         userCocktail.userRecipeItemRequests.length - 1
@@ -28,6 +34,7 @@ const QuantityUnit = ({ setStage }) => {
           ingredientName: lastRecipe.ingredientName,
           quantityUnitId: selected.id,
           quantityUnitName: selected.name,
+          quantityUnit: selected.quantityUnit,
         },
       ],
     });

@@ -35,6 +35,7 @@ export const INGREDIENT_ADMIN_PROTOTYPE = {
 
 export const USER_COCKTAIL_PROTOTYPE = {
   name: "",
+  description: "",
   userRecipeItemRequests: [
     // {
     //   ingredientId: "",
@@ -45,7 +46,6 @@ export const USER_COCKTAIL_PROTOTYPE = {
     //   quantityName: "",
     // },
   ],
-  description: "",
 };
 
 export const ACCESS_TOKEN = "accessToken";

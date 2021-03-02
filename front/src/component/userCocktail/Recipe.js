@@ -1,27 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { userCocktailState } from "../../recoil";
+import { createUserCocktail } from "../../api";
 
 const Recipe = ({ setStage }) => {
   const history = useHistory();
   const [userCocktail, setUserCocktail] = useRecoilState(userCocktailState);
-  let description = "";
+  const [description, setDescription] = useState("default");
 
   const onDescriptionChange = (e) => {
-    description = e.target.value;
+    setDescription(e.target.value);
   };
 
-  const onSave = (e) => {
-    e.preventDefault();
-
+  const updateDescription = () => {
     setUserCocktail({
       ...userCocktail,
       description: description,
     });
+  };
+
+  useEffect(() => {
+    setUserCocktail({
+      ...userCocktail,
+      description: description,
+    });
+  }, [description]);
+
+  const onSave = async (e) => {
+    e.preventDefault();
+    await updateDescription();
+    await createUserCocktail(renderToCreateRequest(userCocktail));
+
+    // todo 전역 데이터 초기화 해야함
 
     history.push("/my-cocktail");
     setStage("");
+  };
+
+  const renderToCreateRequest = (data) => {
+    const userRecipeItemRequests = [];
+    for (const userRecipeItemRequest of data.userRecipeItemRequests) {
+      userRecipeItemRequests.push({
+        ingredientId: userRecipeItemRequest.ingredientId,
+        quantity: userRecipeItemRequest.quantity,
+        quantityUnit: userRecipeItemRequest.quantityUnit,
+      });
+    }
+
+    return {
+      name: data.name,
+      description: data.description,
+      userRecipeItemRequests: userRecipeItemRequests,
+    };
   };
 
   const onIngredient = (e) => {

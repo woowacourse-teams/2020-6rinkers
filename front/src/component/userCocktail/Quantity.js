@@ -11,6 +11,12 @@ const Quantity = ({ setStage }) => {
 
   const onNext = (e) => {
     e.preventDefault();
+
+    if (selected.id === 0) {
+      alert("얼마나 넣으실지 선택해주세요!");
+      return;
+    }
+
     const lastRecipe =
       userCocktail.userRecipeItemRequests[
         userCocktail.userRecipeItemRequests.length - 1
@@ -24,8 +30,10 @@ const Quantity = ({ setStage }) => {
           ingredientName: lastRecipe.ingredientName,
           quantityUnitId: lastRecipe.quantityUnitId,
           quantityUnitName: lastRecipe.quantityUnitName,
+          quantityUnit: lastRecipe.quantityUnit,
           quantityId: selected.id,
           quantityName: selected.name,
+          quantity: selected.quantity,
         },
       ],
     });
@@ -37,12 +45,12 @@ const Quantity = ({ setStage }) => {
     // api로 받아오든 내부에 있는 값을 가져오든 해야한다.
     // 값도 바뀌어야 한다. 잔의 종류에 따라 멘트가 다르게 나와야 한다. Piece일 경우에는 개로 표현한다던가.
     [
-      { id: 1, name: "반 잔" },
-      { id: 2, name: "반의 반 잔" },
-      { id: 3, name: "한 잔" },
-      { id: 4, name: "두 잔" },
-      { id: 5, name: "세 잔" },
-      { id: 6, name: "네 잔" },
+      { id: 1, name: "반 잔", quantity: 0.5 },
+      { id: 2, name: "반의 반 잔", quantity: 0.25 },
+      { id: 3, name: "한 잔", quantity: 1.0 },
+      { id: 4, name: "두 잔", quantity: 2.0 },
+      { id: 5, name: "세 잔", quantity: 3.0 },
+      { id: 6, name: "네 잔", quantity: 4.0 },
     ];
 
   const onSelect = (e) => {
