@@ -11,9 +11,10 @@ const UserCocktailItems = ({ setStage }) => {
   const history = useHistory();
 
   const fetchUserCocktails = async () => {
-    const response = await fetchAllUserCocktails();
-    // todo  추가하기
-    // setUserCocktails(response.data);
+    const output = await fetchAllUserCocktails();
+    const data = output.data;
+    const response = data.userCocktailResponses;
+    setUserCocktails(response);
   };
 
   useEffect(() => {
@@ -28,8 +29,10 @@ const UserCocktailItems = ({ setStage }) => {
 
   return (
     <>
-      <div>{userCocktail.name}</div>
-      <div>{userCocktail.description}</div>
+      {userCocktails &&
+        userCocktails.map((it, index) => (
+          <div key={`user-cocktail-${index}`}>{it.name}</div>
+        ))}
       <button onClick={onCreate}>나도 만들기</button>
     </>
   );

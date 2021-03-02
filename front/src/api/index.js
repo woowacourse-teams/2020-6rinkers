@@ -204,18 +204,16 @@ export const deleteFavorite = (cocktailId) =>
     },
   });
 
-export const createUserCocktail = (data) => {
+export const createUserCocktail = (data) =>
   client.post("/api/user-cocktails", data, {
     headers: {
       Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
     },
   });
-};
 
-export const fetchAllUserCocktails = () => {
+export const fetchAllUserCocktails = () =>
   client.get("/api/user-cocktails", {
     headers: {
       Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
     },
   });
-};

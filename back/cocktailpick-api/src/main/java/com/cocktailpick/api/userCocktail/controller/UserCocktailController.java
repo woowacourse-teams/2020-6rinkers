@@ -33,7 +33,6 @@ public class UserCocktailController {
     @PostMapping
     public ResponseEntity<Void> createUserCocktail(@CurrentUser User user,
         @Valid @RequestBody UserCocktailRequest userCocktailRequest) {
-        System.err.println("@@@@@" + userCocktailRequest.getName() + userCocktailRequest.getDescription());
         Long saveId = userCocktailService.save(user, userCocktailRequest);
         return ResponseEntity.created(URI.create("/api/user-cocktails/" + saveId)).build();
     }
