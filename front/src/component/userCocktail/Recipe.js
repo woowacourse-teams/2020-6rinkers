@@ -8,13 +8,18 @@ import { USER_COCKTAIL_PROTOTYPE } from "../../constants";
 const Recipe = ({ setStage }) => {
   const history = useHistory();
   const [userCocktail, setUserCocktail] = useRecoilState(userCocktailState);
-  const [description, setDescription] = useState("default");
+  const [description, setDescription] = useState("");
 
   const onDescriptionChange = (e) => {
     setDescription(e.target.value);
   };
 
   const updateDescription = () => {
+    if (description === "") {
+      alert("어떤 칵테일인지 설명해주세요.");
+      return;
+    }
+
     setUserCocktail({
       ...userCocktail,
       description: description,
