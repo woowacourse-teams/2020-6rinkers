@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { userCocktailState } from "../../recoil";
 import { createUserCocktail } from "../../api";
+import { USER_COCKTAIL_PROTOTYPE } from "../../constants";
 
 const Recipe = ({ setStage }) => {
   const history = useHistory();
@@ -32,7 +33,7 @@ const Recipe = ({ setStage }) => {
     await updateDescription();
     await createUserCocktail(renderToCreateRequest(userCocktail));
 
-    // todo 전역 데이터 초기화 해야함
+    setUserCocktail(USER_COCKTAIL_PROTOTYPE);
 
     history.push("/my-cocktail");
     setStage("");
@@ -75,14 +76,16 @@ const Recipe = ({ setStage }) => {
     });
   };
 
-  const recipe = userCocktail.userRecipeItemRequests.map((it, index) => (
-    <div key={"recipe" + index}>
-      {it.ingredientName} {it.quantityUnitName} {it.quantityName}
-      <button onClick={removeRecipe} data-id={index}>
-        X
-      </button>
-    </div>
-  ));
+  const recipe = userCocktail
+    ? userCocktail.userRecipeItemRequests.map((it, index) => (
+        <div key={"recipe" + index}>
+          {it.ingredientName} {it.quantityUnitName} {it.quantityName}
+          <button onClick={removeRecipe} data-id={index}>
+            X
+          </button>
+        </div>
+      ))
+    : "";
 
   return (
     <>
