@@ -28,25 +28,32 @@ const UserCocktailItems = ({ setStage }) => {
     setStage("name");
   };
 
+  const convertToRGBA = (data) => {
+    return `rgba(${data.rgba[0]}, ${data.rgba[1]}, ${data.rgba[2]}, ${data.rgba[3]})`;
+  };
+
   const mixColor = (cocktail) => {
     const items = cocktail.userRecipeItemResponses;
     let quantity = items[0].quantity;
-    let mixedColor = items[0].ingredientColor;
+    let firstColor = items[0].ingredientColor;
+    let mixedColor = {};
+
     for (let i = 1; i < items.length; i++) {
-      const tempQuantity = (
-        (quantity / (quantity + items[i].quantity)) *
-        100
-      ).toFixed(0);
-      mixedColor = mix(
-        items[i - 1].ingredientColor,
-        items[i].ingredientColor,
-        tempQuantity
+      const ratio = ((quantity / (quantity + items[i].quantity)) * 100).toFixed(
+        0
       );
-      quantity = tempQuantity;
+      mixedColor = mix(
+        i === 1 ? firstColor : convertToRGBA(mixedColor),
+        items[i].ingredientColor,
+        ratio
+      );
+
+      quantity += items[i].quantity;
     }
     try {
-      return `rgba(${mixedColor.rgba[0]}, ${mixedColor.rgba[1]}, ${mixedColor.rgba[2]}, ${mixedColor.rgba[3]})`;
+      return convertToRGBA(mixedColor);
     } catch (err) {
+      console.log("err: " + err);
       return "rgba(0,0,0,0)";
     }
   };
