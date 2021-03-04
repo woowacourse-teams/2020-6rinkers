@@ -38,6 +38,10 @@ const UserCocktailItems = ({ setStage }) => {
     let firstColor = items[0].ingredientColor;
     let mixedColor = {};
 
+    if (items.length === 1) {
+      return firstColor;
+    }
+
     for (let i = 1; i < items.length; i++) {
       const ratio = ((quantity / (quantity + items[i].quantity)) * 100).toFixed(
         0
