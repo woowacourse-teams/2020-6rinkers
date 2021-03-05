@@ -54,12 +54,7 @@ const UserCocktailItems = ({ setStage }) => {
 
       quantity += items[i].quantity;
     }
-    try {
-      return convertToRGBA(mixedColor);
-    } catch (err) {
-      console.log("err: " + err);
-      return "rgba(0,0,0,0)";
-    }
+    return convertToRGBA(mixedColor);
   };
 
   return (
