@@ -37,8 +37,8 @@ export const answerList = [
 export const userCocktailQuestions = {
   name: "칵테일의 이름은 무엇인가요?",
   ingredients: "어떤 재료가 들어가요?",
-  glass: "어떤 잔으로 계량할까요?",
-  amount: "얼마나 넣으면 좋을까요?",
+  "quantity-unit": "어떤 잔으로 계량할까요?",
+  quantity: "얼마나 넣으면 좋을까요?",
   recipe: "입력하신 정보를 확인해보세요.",
 };
 

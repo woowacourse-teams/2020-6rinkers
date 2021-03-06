@@ -29,13 +29,12 @@ const Name = ({ setStage }) => {
   };
 
   return (
-    <>
-      <div>name 화면입니다.</div>
+    <div className="name-container">
       <input className="name-input" onChange={onNameChange} type="text" />
       <button className="next-button" type="submit" onClick={onNext}>
         칵테일 재료를 정해보아요
       </button>
-    </>
+    </div>
   );
 };
 
