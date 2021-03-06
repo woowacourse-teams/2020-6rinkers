@@ -67,7 +67,7 @@ const QuantityUnit = ({ setStage }) => {
             userCocktail.userRecipeItemRequests.length - 1
           ].ingredientName}
       </div>
-      <button className="next-button" type="submit" onClick={onNext}>
+      <button className="next-stage" type="submit" onClick={onNext}>
         얼마나 따라야 할까요?
       </button>
     </div>

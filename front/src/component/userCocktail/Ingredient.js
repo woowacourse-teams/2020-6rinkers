@@ -72,7 +72,7 @@ const Ingredient = ({ setStage }) => {
             );
           })}
       </div>
-      <button className="name-button" type="submit" onClick={onNext}>
+      <button className="next-stage" type="submit" onClick={onNext}>
         다음 단계로 가보죠
       </button>
     </>

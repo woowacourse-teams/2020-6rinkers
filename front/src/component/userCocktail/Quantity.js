@@ -93,7 +93,7 @@ const Quantity = ({ setStage }) => {
             </div>
           ))}
       </div>
-      <button className="next-button" type="submit" onClick={onNext}>
+      <button className="next-stage" type="submit" onClick={onNext}>
         레시피 확인하러 고!
       </button>
     </div>

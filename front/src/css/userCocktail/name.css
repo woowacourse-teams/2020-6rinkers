@@ -1,0 +1,20 @@
+.name-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.name-input {
+    width: 450px;
+    height: 50px;
+    font-size: 25px;
+    border-radius: var(--base-border-radius);
+    margin: 1rem;
+    border: 1px solid black;
+}
+
+.name-input:focus {
+    outline: none !important;
+    border:2px solid var(--red);
+    box-shadow: 0 2px 5px var(--little-gray);
+}

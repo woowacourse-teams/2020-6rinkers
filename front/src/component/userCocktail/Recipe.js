@@ -108,7 +108,7 @@ const Recipe = ({ setStage }) => {
         placeholder="만든 칵테일에 대해 설명해주세요."
         onChange={onDescriptionChange}
       />
-      <button className="next-button" type="submit" onClick={onSave}>
+      <button className="next-stage" type="submit" onClick={onSave}>
         끝!
       </button>
     </>

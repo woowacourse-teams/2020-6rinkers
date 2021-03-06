@@ -1,5 +1,6 @@
 import React from "react";
 import { useRecoilState } from "recoil";
+import "../../css/userCocktail/name.css";
 import { useHistory } from "react-router-dom";
 import { userCocktailState } from "../../recoil";
 
@@ -31,8 +32,8 @@ const Name = ({ setStage }) => {
   return (
     <div className="name-container">
       <input className="name-input" onChange={onNameChange} type="text" />
-      <button className="next-button" type="submit" onClick={onNext}>
-        칵테일 재료를 정해보아요
+      <button className="next-stage" type="submit" onClick={onNext}>
+        <p className="content">칵테일 재료를 정해보아요</p>
       </button>
     </div>
   );
