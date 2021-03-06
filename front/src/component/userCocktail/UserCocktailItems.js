@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
+import "../../css/userCocktail/items.css";
 import { userCocktailState } from "../../recoil";
 import { useHistory } from "react-router-dom";
 import { fetchAllUserCocktails } from "../../api";
 import mix from "mix-css-color";
 
 const UserCocktailItems = ({ setStage }) => {
-  // todo 사실은 api를 쏴서 보여줘야 한다.
   const [userCocktail, setUserCocktail] = useRecoilState(userCocktailState);
   const [userCocktails, setUserCocktails] = useState([]);
   const history = useHistory();
@@ -68,7 +68,9 @@ const UserCocktailItems = ({ setStage }) => {
             {it.name}
           </div>
         ))}
-      <button onClick={onCreate}>나도 만들기</button>
+      <button className="create-button" onClick={onCreate}>
+        <div className="content">나만의 칵테일 만들기 🍹</div>
+      </button>
     </>
   );
 };

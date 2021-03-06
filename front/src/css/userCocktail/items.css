@@ -1,0 +1,36 @@
+.create-button {
+    display: flex;
+    align-items: center;
+    height: auto;
+    cursor: pointer;
+    padding: 0.8rem 8rem;
+    margin: 3rem 0 1rem 0;
+    border: var(--light-black) 1px solid;
+    border-radius: var(--base-border-radius);
+    transition: 0.4s ease-in-out;
+}
+
+
+.create-button:hover {
+    color: var(--black);
+    background-color: var(--little-light-red);
+    border: var(--light-red) 1px solid;
+    border-radius: var(--base-border-radius);
+    transition: 0.4s ease-in-out;
+}
+
+.create-button a {
+    color: var(--black);
+    text-decoration: none;
+    transition: 0.4s ease-in-out;
+}
+
+.create-button:hover a {
+    color: var(--white);
+    text-decoration: none;
+    transition: 0.4s ease-in-out;
+}
+
+.content {
+    font-size: 20px;
+}
