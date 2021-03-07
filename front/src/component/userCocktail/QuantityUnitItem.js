@@ -1,12 +1,8 @@
 import React from "react";
 
-const QuantityUnitItem = ({ unitItem, onSelect }) => {
+const QuantityUnitItem = ({ unitItem }) => {
   return (
-    <div
-      className="quantity-unit-item-container"
-      onClick={onSelect}
-      data-id={unitItem.id}
-    >
+    <div className="quantity-unit-item-container">
       <img
         className="quantity-unit-item-image"
         src={unitItem.path}
