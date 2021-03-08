@@ -12,7 +12,8 @@ const QuantitySelector = ({ updateQuantity, imagePath }) => {
 
   const updateValueByTyping = (e) => {
     e.preventDefault();
-    setValue(e.target.value);
+    const updated = parseFloat(e.target.value);
+    setValue(parseFloat(updated.toFixed(1)));
   };
 
   useEffect(() => {
