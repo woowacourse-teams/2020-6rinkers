@@ -34,6 +34,7 @@ const QuantityUnit = ({ setStage }) => {
           ingredientName: lastRecipe.ingredientName,
           quantityUnitId: selected.id,
           quantityUnitName: selected.name,
+          quantityUnitImagePath: selected.path,
           quantityUnit: selected.quantityUnit,
         },
       ],

@@ -84,7 +84,8 @@ const Recipe = ({ setStage }) => {
   const recipe = userCocktail
     ? userCocktail.userRecipeItemRequests.map((it, index) => (
         <div key={"recipe" + index}>
-          {it.ingredientName} {it.quantityUnitName} {it.quantityName}
+          {it.ingredientName} {it.quantityUnitName} {it.quantity}{" "}
+          {it.quantityUnitId === 5 ? " 개" : " 잔"}
           <button onClick={removeRecipe} data-id={index}>
             X
           </button>
