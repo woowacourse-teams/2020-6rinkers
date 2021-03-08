@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { userCocktailState } from "../../recoil";
+import "../../css/userCocktail/quantity.css";
 import div from "infinite-react-carousel";
 import QuantitySelector from "./QuantitySelector";
 
@@ -46,7 +47,7 @@ const Quantity = ({ setStage }) => {
   };
 
   return (
-    <div>
+    <div className="quantity-container">
       <div>
         {"재료: " +
           userCocktail.userRecipeItemRequests[

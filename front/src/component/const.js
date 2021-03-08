@@ -48,24 +48,28 @@ export const quantityUnits = [
     name: "소주잔",
     path: "/image/userCocktail/soju.png",
     quantityUnit: "SOJU",
+    ml: 70,
   },
   {
     id: 2,
     name: "맥주잔",
     path: "/image/userCocktail/beer.png",
     quantityUnit: "BEER",
+    ml: 200,
   },
   {
     id: 3,
     name: "양주잔",
     path: "/image/userCocktail/shot.png",
     quantityUnit: "SHOT",
+    ml: 45,
   },
   {
     id: 4,
     name: "종이컵",
     path: "/image/userCocktail/paper.png",
     quantityUnit: "PAPER",
+    ml: 180,
   },
   {
     id: 5,

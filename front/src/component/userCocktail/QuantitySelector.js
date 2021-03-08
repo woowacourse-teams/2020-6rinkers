@@ -21,20 +21,59 @@ const QuantitySelector = ({ updateQuantity, imagePath }) => {
   }, [value]);
 
   return (
-    <div>
-      <div>
-        <div onClick={(e) => updateValueByClick(e, -0.1)}>-0.1</div>
-        <div onClick={(e) => updateValueByClick(e, -1.0)}>-1.0</div>
-        <div onClick={(e) => updateValueByClick(e, -0.5)}>-0.5</div>
+    <div className="quantity-selector-container">
+      <div className="minus-selector-container">
+        <div
+          className="select-button minus-zero-point-one"
+          onClick={(e) => updateValueByClick(e, -0.1)}
+        >
+          -0.1
+        </div>
+        <div
+          className="select-button minus-one-point-zero"
+          onClick={(e) => updateValueByClick(e, -1.0)}
+        >
+          -1.0
+        </div>
+        <div
+          className="select-button minus-zero-point-five"
+          onClick={(e) => updateValueByClick(e, -0.5)}
+        >
+          -0.5
+        </div>
       </div>
-      <div>
-        <img src={imagePath} alt="quantity-unit-image" />
-        <input type="number" value={value} onChange={updateValueByTyping} />
+      <div className="image-and-input-container">
+        <img
+          className="quantity-unit-image"
+          src={imagePath}
+          alt="quantity-unit-image"
+        />
+        <input
+          className="quantity-input"
+          type="number"
+          value={value}
+          onChange={updateValueByTyping}
+        />
       </div>
-      <div>
-        <div onClick={(e) => updateValueByClick(e, 0.1)}>+0.1</div>
-        <div onClick={(e) => updateValueByClick(e, 1.0)}>+1.0</div>
-        <div onClick={(e) => updateValueByClick(e, 0.5)}>+0.5</div>
+      <div className="plus-selector-container">
+        <div
+          className="select-button plus-zero-point-one"
+          onClick={(e) => updateValueByClick(e, 0.1)}
+        >
+          +0.1
+        </div>
+        <div
+          className="select-button plus-one-point-zero"
+          onClick={(e) => updateValueByClick(e, 1.0)}
+        >
+          +1.0
+        </div>
+        <div
+          className="select-button plus-zero-point-five"
+          onClick={(e) => updateValueByClick(e, 0.5)}
+        >
+          +0.5
+        </div>
       </div>
     </div>
   );
