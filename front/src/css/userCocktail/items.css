@@ -11,6 +11,15 @@
     background-color: white;
 }
 
+.temp {
+    display: flex;
+   margin-bottom: 1rem;
+    justify-content: space-between;
+    width: 150px;
+}
+.temp2 {
+    margin: 0 1rem;
+}
 
 .create-button:hover {
     color: var(--black);

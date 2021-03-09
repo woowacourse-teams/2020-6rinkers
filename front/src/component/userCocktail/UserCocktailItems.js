@@ -5,6 +5,7 @@ import { userCocktailState } from "../../recoil";
 import { useHistory } from "react-router-dom";
 import { fetchAllUserCocktails } from "../../api";
 import mix from "mix-css-color";
+import LiquidFillGauge from "react-liquid-gauge";
 
 const UserCocktailItems = ({ setStage }) => {
   const [userCocktail, setUserCocktail] = useRecoilState(userCocktailState);
@@ -54,18 +55,37 @@ const UserCocktailItems = ({ setStage }) => {
 
       quantity += items[i].quantity;
     }
-    return convertToRGBA(mixedColor);
+    return mixedColor.hex;
+    // return convertToRGBA(mixedColor);
   };
 
   return (
     <>
       {userCocktails &&
         userCocktails.map((it, index) => (
-          <div
-            key={`user-cocktail-${index}`}
-            style={{ backgroundColor: `${mixColor(it)}` }}
-          >
-            {it.name}
+          <div className="temp">
+            <LiquidFillGauge
+              width={30}
+              height={30}
+              value={67}
+              textRenderer={() => <></>}
+              waveAnimation={true}
+              waveFrequency={1}
+              waveAmplitude={12}
+              riseAnimation={true}
+              outerRadius={1}
+              innerRadius={1}
+              waveStyle={{
+                fill: `${mixColor(it)}`,
+              }}
+            />
+            <div
+              className="temp2"
+              key={`user-cocktail-${index}`}
+              style={{ backgroundColor: `${mixColor(it)}` }}
+            >
+              {it.name}
+            </div>
           </div>
         ))}
       <button className="create-button" onClick={onCreate}>
