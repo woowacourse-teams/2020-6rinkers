@@ -1,10 +1,20 @@
+.quantity-unit-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    user-select: none;
+}
+
+.ingredient-name-container {
+    margin: 0 0 1rem 0;
+}
+
 .carousel .slide {
     background: transparent !important;
 }
 
 .carousel .control-prev.control-arrow:before {
     border-right: 8px solid var(--black) !important;
-
 }
 
 .carousel .control-next.control-arrow:before {
@@ -15,6 +25,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 1rem 0;
 }
 
 .quantity-unit-item-image {

@@ -45,8 +45,8 @@ const QuantityUnit = ({ setStage }) => {
 
   return (
     <div className="quantity-unit-container">
-      <div>
-        {"재료: " +
+      <div className="ingredient-name-container">
+        {"선택한 재료: " +
           userCocktail.userRecipeItemRequests[
             userCocktail.userRecipeItemRequests.length - 1
           ].ingredientName}
