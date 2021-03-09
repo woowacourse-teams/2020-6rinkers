@@ -9,6 +9,10 @@
     margin: 0 0 1rem 0;
 }
 
+.carousel-root {
+    width: 70%;
+}
+
 .carousel .slide {
     background: transparent !important;
 }
@@ -30,8 +34,8 @@
 
 .quantity-unit-item-image {
     display: flex;
-    /*align-content: center;*/
-    max-width: 100px;
+    max-width: 220px;
+    margin-bottom: 1rem;
 }
 
 .quantity-unit-item {
