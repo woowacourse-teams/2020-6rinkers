@@ -6,7 +6,7 @@ import Question from "./Question";
 import Name from "./Name";
 import Ingredient from "./Ingredient";
 import Quantity from "./Quantity";
-import Recipe from "./Recipe";
+import UserRecipe from "./UserRecipe";
 import QuantityUnit from "./QuantityUnit";
 import UserCocktailItems from "./UserCocktailItems";
 
@@ -27,7 +27,7 @@ const UserCocktail = () => {
       case "quantity":
         return <Quantity setStage={setStage} />;
       case "recipe":
-        return <Recipe setStage={setStage} />;
+        return <UserRecipe setStage={setStage} />;
     }
   };
 
