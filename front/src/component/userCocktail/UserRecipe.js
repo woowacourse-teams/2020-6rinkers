@@ -37,6 +37,12 @@ const UserRecipe = ({ setStage }) => {
 
   const onSave = async (e) => {
     e.preventDefault();
+
+    if (userCocktail.userRecipeItemRequests.length === 0) {
+      alert("최소한 하나의 레시피는 필요해요.");
+      return;
+    }
+
     await updateDescription();
     await createUserCocktail(renderToCreateRequest(userCocktail));
 
