@@ -59,11 +59,18 @@ const UserCocktailItems = ({ setStage }) => {
     // return convertToRGBA(mixedColor);
   };
 
+  const nameSlicer = (name) => {
+    if (name.length > 14) {
+      return name.substring(0, 11) + "...";
+    }
+    return name;
+  };
+
   return (
     <>
       {userCocktails &&
         userCocktails.map((it, index) => (
-          <div className="temp">
+          <div className="temp" key={`user-cocktail-${index}`}>
             <LiquidFillGauge
               width={30}
               height={30}
@@ -79,13 +86,8 @@ const UserCocktailItems = ({ setStage }) => {
                 fill: `${mixColor(it)}`,
               }}
             />
-            <div
-              className="temp2"
-              key={`user-cocktail-${index}`}
-              style={{ backgroundColor: `${mixColor(it)}` }}
-            >
-              {it.name}
-            </div>
+            <div className="temp2">{nameSlicer(it.name)}</div>
+            <div></div>
           </div>
         ))}
       <button className="create-button" onClick={onCreate}>

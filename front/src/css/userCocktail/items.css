@@ -13,11 +13,17 @@
 
 .temp {
     display: flex;
-   margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
     justify-content: space-between;
-    width: 150px;
+    width: 200px;
+    border-bottom: 1px solid;
+    user-select: none;
 }
+
 .temp2 {
+    display: flex;
+    justify-items: center;
     margin: 0 1rem;
 }
 
