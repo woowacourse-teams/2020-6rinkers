@@ -9,6 +9,7 @@
     border-radius: var(--base-border-radius);
     transition: 0.4s ease-in-out;
     background-color: white;
+    user-select: none;
 }
 
 .temp {
@@ -19,6 +20,10 @@
     width: 200px;
     border-bottom: 1px solid;
     user-select: none;
+}
+
+.temp:hover {
+    cursor: pointer;
 }
 
 .temp2 {

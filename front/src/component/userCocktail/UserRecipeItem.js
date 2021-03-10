@@ -8,9 +8,13 @@ const UserRecipeItem = ({ userCocktail, removeRecipe }) => {
             <div className="user-recipe-item" key={"recipe" + index}>
               {it.ingredientName} {it.quantityUnitName} {it.quantity}{" "}
               {it.quantityUnitId === 5 ? " 개" : " 잔"}
-              <button onClick={removeRecipe} data-id={index}>
-                X
-              </button>
+              <div className="a" onClick={removeRecipe} data-id={index}>
+                <img
+                  className="trash-bin-image"
+                  src="/image/trash-bin.png"
+                  alt="trash-bin"
+                />
+              </div>
             </div>
           ))
         : ""}

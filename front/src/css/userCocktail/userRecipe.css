@@ -8,14 +8,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    user-select: none;
 }
 
 .user-recipe-item {
+    width: 230px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     margin: 0.5rem;
     padding-bottom: 2px;
     border-bottom: 1px solid;
+}
+
+.trash-bin-image:hover {
+    filter: drop-shadow(0 0 6px var(--red));
+    cursor: pointer;
 }
 
 .description-textarea-container {
