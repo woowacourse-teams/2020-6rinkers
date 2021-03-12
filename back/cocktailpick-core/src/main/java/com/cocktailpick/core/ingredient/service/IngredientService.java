@@ -2,6 +2,7 @@ package com.cocktailpick.core.ingredient.service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -27,6 +28,12 @@ public class IngredientService {
         Ingredient savedIngredient = ingredientRepository.save(ingredient);
 
         return savedIngredient.getId();
+    }
+
+    @Transactional
+    public void saveAll(List<IngredientRequest> requests) {
+        ingredientRepository.saveAll(
+            requests.stream().map(IngredientRequest::toIngredient).collect(Collectors.toList()));
     }
 
     @Transactional(readOnly = true)

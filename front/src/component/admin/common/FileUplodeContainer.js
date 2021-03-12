@@ -6,6 +6,7 @@ const FileUploadContainer = () => {
   const TAG_RESOURCE_NAME = "tags";
   const COCKTAIL_RESOURCE_NAME = "cocktails";
   const TERMINOLOGY_RESOURCE_NAME = "terminologies";
+  const INGREDIENT_RESOURCE_NAME = "ingredients";
 
   const [file, setFile] = useState({});
   const handleFile = (e) => {
@@ -39,6 +40,10 @@ const FileUploadContainer = () => {
       />
       <FileUploadButton
         resourceName={TERMINOLOGY_RESOURCE_NAME}
+        uploadResourceFile={uploadResourceFile}
+      />
+      <FileUploadButton
+        resourceName={INGREDIENT_RESOURCE_NAME}
         uploadResourceFile={uploadResourceFile}
       />
     </div>
