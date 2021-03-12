@@ -7,7 +7,9 @@ const UserRecipeItem = ({ userCocktail, removeRecipe }) => {
         ? userCocktail.userRecipeItemRequests.map((it, index) => (
             <div className="user-recipe-item" key={"recipe" + index}>
               {it.ingredientName} {it.quantityUnitName} {it.quantity}{" "}
-              {it.quantityUnitId === 5 ? " 개" : " 잔"}
+              {it.quantityUnitId === 5 || it.quantityUnitId === 6
+                ? " 개"
+                : " 잔"}
               <div className="a" onClick={removeRecipe} data-id={index}>
                 <img
                   className="trash-bin-image"

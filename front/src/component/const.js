@@ -73,6 +73,12 @@ export const quantityUnits = [
   },
   {
     id: 5,
+    name: "스푼",
+    path: "/image/userCocktail/spoon.png",
+    quantityUnit: "SPOON",
+  },
+  {
+    id: 6,
     name: "n개",
     path: "/image/userCocktail/piece.png",
     quantityUnit: "PIECE",
