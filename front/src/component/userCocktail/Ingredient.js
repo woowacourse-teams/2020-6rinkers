@@ -1,14 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { userCocktailState } from "../../recoil";
+import "../../css/userCocktail/ingredient.css";
 import { useHistory } from "react-router-dom";
 import { fetchAllIngredients } from "../../api";
+import DisplayIngredientItems from "./DisplayIngredientItems";
 
 const Ingredient = ({ setStage }) => {
   const history = useHistory();
   const [userCocktail, setUserCocktail] = useRecoilState(userCocktailState);
-  const [selected, setSelected] = useState({ id: 0, name: "기본" });
+  const [selected, setSelected] = useState({
+    id: 0,
+    name: "재료를 선택해주세요.",
+  });
   const [ingredients, setIngredients] = useState([]);
+  const [shuffled, setShuffled] = useState();
+  const TAG_LENGTH_LIMIT = 36;
+  const [displayIndex, setDisplayIndex] = useState(0);
 
   const searchIngredient = (e) => {
     // 자동완성 api 쏘고 받아오고 띄워주고. 그니가 구현한 자동완성처럼.
@@ -24,6 +32,31 @@ const Ingredient = ({ setStage }) => {
   useEffect(() => {
     fetchIngredients();
   }, []);
+
+  const shuffle = (array) => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+  };
+
+  const displayIngredients = () => {
+    const shuffled = shuffle(ingredients);
+    let count = 0;
+    for (let i = 0; i < shuffled.length; i++) {
+      count += shuffled[i].name.length;
+      if (count >= TAG_LENGTH_LIMIT) {
+        break;
+      }
+      setDisplayIndex(i);
+    }
+    return shuffled.slice(0, displayIndex);
+  };
+
+  useEffect(() => {
+    setShuffled(displayIngredients());
+  }, [ingredients, displayIndex]);
 
   const onNext = (e) => {
     e.preventDefault();
@@ -45,37 +78,26 @@ const Ingredient = ({ setStage }) => {
   };
 
   const onSelect = (e) => {
-    const selectedId = e.target.dataset.id;
+    const selectedId = e.currentTarget.dataset.id;
     const found = ingredients.find((it) => it.id === parseInt(selectedId));
     setSelected(found);
   };
 
   return (
-    <>
-      <div>ingredient 화면입니다.</div>
-      <div>
+    <div className="ingredient-container">
+      <div className="selected-ingredient-container">
         <div>{selected.name}</div>
-        <button>X</button>
       </div>
-      <input type="text" placeholder="검색해보세요." />
-      <div>
-        {ingredients &&
-          ingredients.map((it, index) => {
-            return (
-              <div
-                key={"ingredient" + index}
-                data-id={it.id}
-                onClick={onSelect}
-              >
-                {it.name}
-              </div>
-            );
-          })}
-      </div>
+      <input
+        className="ingredient-input"
+        type="text"
+        placeholder="검색해보세요."
+      />
+      <DisplayIngredientItems ingredients={shuffled} onSelect={onSelect} />
       <button className="next-stage" type="submit" onClick={onNext}>
         다음 단계로 가보죠
       </button>
-    </>
+    </div>
   );
 };
 

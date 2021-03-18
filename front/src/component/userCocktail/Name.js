@@ -17,7 +17,7 @@ const Name = ({ setStage }) => {
     if (e.key === "Enter") {
       onNext(e);
     }
-  }
+  };
 
   const onNext = (e) => {
     e.preventDefault();
@@ -37,7 +37,13 @@ const Name = ({ setStage }) => {
 
   return (
     <div className="name-container">
-      <input className="name-input" onChange={onNameChange} onKeyPress={handleKeyPress} type="text" />
+      <input
+        className="name-input"
+        onChange={onNameChange}
+        onKeyPress={handleKeyPress}
+        type="text"
+        autoFocus={true}
+      />
       <button className="next-stage" type="submit" onClick={onNext}>
         <p className="content">칵테일 재료를 정해보아요</p>
       </button>
