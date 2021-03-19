@@ -12,7 +12,7 @@
 }
 
 .user-recipe-item {
-    width: 230px;
+    width: 300px;
     display: flex;
     justify-content: space-between;
     margin: 0.5rem;
