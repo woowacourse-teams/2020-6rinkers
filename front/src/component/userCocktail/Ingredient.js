@@ -43,15 +43,7 @@ const Ingredient = ({ setStage }) => {
 
   const displayIngredients = () => {
     const shuffled = shuffle(ingredients);
-    let count = 0;
-    for (let i = 0; i < shuffled.length; i++) {
-      count += shuffled[i].name.length;
-      if (count >= TAG_LENGTH_LIMIT) {
-        break;
-      }
-      setDisplayIndex(i);
-    }
-    return shuffled.slice(0, displayIndex);
+    return shuffled.slice(0, 9);
   };
 
   useEffect(() => {

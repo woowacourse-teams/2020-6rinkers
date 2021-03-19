@@ -27,18 +27,23 @@
 }
 
 .ingredient-items-container {
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    justify-content: center;
-    width: 300px;
-    margin: 1rem 0;
+    display: grid;
+    width: 500px;
+    grid-template-rows: repeat(3, 60px);
+    grid-template-columns: repeat(3, 1fr);
 }
 
 .ingredient-item-container {
     display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
     border-radius: var(--base-border-radius);
     border: 3px solid;
     margin: 0.3rem 0.2rem;
     padding: 0.1rem 0.3rem;
+}
+
+.ingredient-item-name {
+    font-size: 18px;
 }
