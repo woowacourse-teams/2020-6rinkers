@@ -6,6 +6,7 @@ import { useHistory } from "react-router-dom";
 import { fetchAllUserCocktails } from "../../api";
 import mix from "mix-css-color";
 import LiquidFillGauge from "react-liquid-gauge";
+import { quantityUnits } from "../const";
 
 const UserCocktailItems = ({ setStage }) => {
   const [userCocktail, setUserCocktail] = useRecoilState(userCocktailState);
@@ -33,9 +34,19 @@ const UserCocktailItems = ({ setStage }) => {
     return `rgba(${data.rgba[0]}, ${data.rgba[1]}, ${data.rgba[2]}, ${data.rgba[3]})`;
   };
 
+  const getRealQuantity = (unit) => {
+    return unit.quantity * convertQuantityUnitToQuantityMl(unit);
+  };
+
+  const convertQuantityUnitToQuantityMl = (unit) => {
+    return quantityUnits
+      .filter((it) => it.quantityUnit === unit.quantityUnit)
+      .map((it) => it.ml);
+  };
+
   const mixColor = (cocktail) => {
     const items = cocktail.userRecipeItemResponses;
-    let quantity = items[0].quantity;
+    let quantity = getRealQuantity(items[0]);
     let firstColor = items[0].ingredientColor;
     let mixedColor = {};
 
@@ -44,9 +55,10 @@ const UserCocktailItems = ({ setStage }) => {
     }
 
     for (let i = 1; i < items.length; i++) {
-      const ratio = ((quantity / (quantity + items[i].quantity)) * 100).toFixed(
-        0
-      );
+      const ratio = (
+        (quantity / (quantity + getRealQuantity(items[i]))) *
+        100
+      ).toFixed(0);
       mixedColor = mix(
         i === 1 ? firstColor : convertToRGBA(mixedColor),
         items[i].ingredientColor,
@@ -56,7 +68,6 @@ const UserCocktailItems = ({ setStage }) => {
       quantity += items[i].quantity;
     }
     return mixedColor.hex;
-    // return convertToRGBA(mixedColor);
   };
 
   const nameSlicer = (name) => {

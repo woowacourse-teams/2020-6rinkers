@@ -76,11 +76,13 @@ export const quantityUnits = [
     name: "스푼",
     path: "/image/userCocktail/spoon.png",
     quantityUnit: "SPOON",
+    ml: 0,
   },
   {
     id: 6,
     name: "n개",
     path: "/image/userCocktail/piece.png",
     quantityUnit: "PIECE",
+    ml: 0,
   },
 ];
