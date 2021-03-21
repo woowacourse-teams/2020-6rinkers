@@ -82,21 +82,23 @@ const UserCocktailItems = ({ setStage }) => {
       {userCocktails &&
         userCocktails.map((it, index) => (
           <div className="temp" key={`user-cocktail-${index}`}>
-            <LiquidFillGauge
-              width={30}
-              height={30}
-              value={67}
-              textRenderer={() => <></>}
-              waveAnimation={true}
-              waveFrequency={1}
-              waveAmplitude={12}
-              riseAnimation={true}
-              outerRadius={1}
-              innerRadius={1}
-              waveStyle={{
-                fill: `${mixColor(it)}`,
-              }}
-            />
+            <div className="liquid-cup">
+              <LiquidFillGauge
+                width={70}
+                height={90}
+                value={67}
+                textRenderer={() => <></>}
+                waveAnimation={true}
+                waveFrequency={1}
+                waveAmplitude={12}
+                riseAnimation={true}
+                outerRadius={1}
+                innerRadius={1}
+                waveStyle={{
+                  fill: `${mixColor(it)}`,
+                }}
+              />
+            </div>
             <div className="temp2">{nameSlicer(it.name)}</div>
             <div></div>
           </div>

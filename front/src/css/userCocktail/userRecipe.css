@@ -30,16 +30,17 @@
     height: 200px;
     width: 300px;
     border-radius: var(--base-border-radius);
-    font-size: 18px;
+    font-size: 1rem;
     text-align: center;
     word-break:break-all;
     text-overflow: clip;
     word-wrap: break-word;
+    padding: 10px 5px;
 }
 
 .description-textarea-container::placeholder {
-    font-size: 18px;
     text-align: center;
+    font-size: 1rem;
 }
 
 .description-textarea-container:focus {

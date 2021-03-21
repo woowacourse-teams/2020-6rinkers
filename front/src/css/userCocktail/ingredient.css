@@ -11,13 +11,19 @@
     margin: 1rem 0;
 }
 
+.selected-ingredient-container > div {
+    font-size: 1.5rem;
+    font-weight: bolder;
+}
+
 .ingredient-input {
     width: 450px;
     height: 50px;
-    font-size: 25px;
+    font-size: 1rem;
     border-radius: var(--base-border-radius);
     margin: 1rem;
     border: 1px solid black;
+    padding: 10px;
 }
 
 .ingredient-input:focus {
