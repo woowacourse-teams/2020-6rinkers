@@ -134,4 +134,19 @@ public class IngredientControllerTest extends DocumentationWithSecurity {
                 .andDo(print())
                 .andDo(IngredientDocumentation.deleteIngredient());
     }
+
+
+    @WithMockUser(roles = "USER")
+    @DisplayName("이름으로 재료를 조회한다.")
+	@Test
+	void findIngredientByName() throws Exception {
+        given(ingredientService.findByName(any())).willReturn(Collections.singletonList(ingredientResponse));
+
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/api/ingredients/name", 1L)
+            .param("name", "test")
+            .accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk())
+            .andDo(print())
+            .andDo(IngredientDocumentation.findIngredientByName());
+	}
 }

@@ -67,4 +67,10 @@ public class IngredientService {
     public void delete(Long id) {
         ingredientRepository.deleteById(id);
     }
+
+    @Transactional
+    public List<IngredientResponse> findByName(String name) {
+        List<Ingredient> ingredients = ingredientRepository.findByNameContaining(name);
+        return IngredientResponse.listOf(ingredients);
+    }
 }
