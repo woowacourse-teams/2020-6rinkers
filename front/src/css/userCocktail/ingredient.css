@@ -9,6 +9,9 @@
 .selected-ingredient-container {
     display: flex;
     margin: 1rem 0;
+    padding: 1rem 3rem;
+    border: solid 3px #a60000;
+    border-radius: var(--base-border-radius);
 }
 
 .selected-ingredient-container > div {

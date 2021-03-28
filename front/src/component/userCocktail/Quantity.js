@@ -49,7 +49,7 @@ const Quantity = ({ setStage }) => {
   return (
     <div className="quantity-container">
       <div className="ingredient-name-container">
-        {"선택한 재료: " +
+        {
           userCocktail.userRecipeItemRequests[
             userCocktail.userRecipeItemRequests.length - 1
           ].ingredientName}
