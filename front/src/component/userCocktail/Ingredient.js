@@ -5,6 +5,7 @@ import "../../css/userCocktail/ingredient.css";
 import { useHistory } from "react-router-dom";
 import { fetchAllIngredients } from "../../api";
 import DisplayIngredientItems from "./DisplayIngredientItems";
+import SearchContainer from "./SearchContainer";
 
 const Ingredient = ({ setStage }) => {
   const history = useHistory();
@@ -15,13 +16,9 @@ const Ingredient = ({ setStage }) => {
   });
   const [ingredients, setIngredients] = useState([]);
   const [shuffled, setShuffled] = useState();
-  const TAG_LENGTH_LIMIT = 36;
-  const [displayIndex, setDisplayIndex] = useState(0);
 
-  const searchIngredient = (e) => {
-    // 자동완성 api 쏘고 받아오고 띄워주고. 그니가 구현한 자동완성처럼.
-    // 혹은 아래 ingredients를 받아올 때에 모든 ingredients를 다 받아오고 랜덤으로 몇 개만 아래에서 보여주고
-    // 여기서 자동완성도 api 안찌르고 미리 받아온거 내에서 처리하기.
+  const selectIngredient = (e) => {
+    setSelected(e);
   };
 
   const fetchIngredients = async () => {
@@ -48,7 +45,7 @@ const Ingredient = ({ setStage }) => {
 
   useEffect(() => {
     setShuffled(displayIngredients());
-  }, [ingredients, displayIndex]);
+  }, [ingredients]);
 
   const onNext = (e) => {
     e.preventDefault();
@@ -80,11 +77,14 @@ const Ingredient = ({ setStage }) => {
       <div className="selected-ingredient-container">
         <div>{selected.name}</div>
       </div>
-      <input
-        className="ingredient-input"
-        type="text"
-        placeholder="검색해보세요."
-      />
+      <div className="ingredient-search-container">
+        <div className="search-container">
+          <SearchContainer
+            ingredients={ingredients}
+            selectIngredient={selectIngredient}
+          />
+        </div>
+      </div>
       <DisplayIngredientItems ingredients={shuffled} onSelect={onSelect} />
       <button className="next-stage" type="submit" onClick={onNext}>
         다음 단계로 가보죠
