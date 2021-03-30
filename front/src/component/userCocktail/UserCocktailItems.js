@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import "../../css/userCocktail/items.css";
 import { userCocktailState } from "../../recoil";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { fetchAllUserCocktails } from "../../api";
 import mix from "mix-css-color";
 import LiquidFillGauge from "react-liquid-gauge";
@@ -81,7 +81,11 @@ const UserCocktailItems = ({ setStage }) => {
     <>
       {userCocktails &&
         userCocktails.map((it, index) => (
-          <div className="user-cocktail-item" key={`user-cocktail-${index}`}>
+          <Link
+            className="user-cocktail-item"
+            to={`/my-cocktails/${it.id}`}
+            key={`user-cocktail-${index}`}
+          >
             <div className="liquid-cup">
               <LiquidFillGauge
                 width={70}
@@ -101,7 +105,7 @@ const UserCocktailItems = ({ setStage }) => {
             </div>
             <div className="name-container">{nameSlicer(it.name)}</div>
             <div className="dummy-container"></div>
-          </div>
+          </Link>
         ))}
       <button className="create-button" onClick={onCreate}>
         <div className="content">나만의 칵테일 만들기 🍹</div>

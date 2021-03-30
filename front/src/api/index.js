@@ -217,3 +217,5 @@ export const fetchAllUserCocktails = () =>
       Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
     },
   });
+export const fetchUserCocktail = (id) =>
+  client.get(`/api/user-cocktails/${id}`);
