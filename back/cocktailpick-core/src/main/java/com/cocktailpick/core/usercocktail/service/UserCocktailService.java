@@ -3,6 +3,7 @@ package com.cocktailpick.core.usercocktail.service;
 import static java.util.stream.Collectors.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -14,8 +15,10 @@ import com.cocktailpick.core.common.exceptions.ErrorCode;
 import com.cocktailpick.core.ingredient.domain.Ingredient;
 import com.cocktailpick.core.ingredient.domain.IngredientRepository;
 import com.cocktailpick.core.user.domain.User;
+import com.cocktailpick.core.user.domain.UserRepository;
 import com.cocktailpick.core.usercocktail.domain.UserCocktail;
 import com.cocktailpick.core.usercocktail.domain.UserCocktailRepository;
+import com.cocktailpick.core.usercocktail.dto.UserCocktailDetailResponse;
 import com.cocktailpick.core.usercocktail.dto.UserCocktailRequest;
 import com.cocktailpick.core.usercocktail.dto.UserCocktailResponse;
 import com.cocktailpick.core.usercocktail.dto.UserCocktailResponses;
@@ -30,6 +33,7 @@ import lombok.RequiredArgsConstructor;
 public class UserCocktailService {
     private final UserCocktailRepository userCocktailRepository;
     private final IngredientRepository ingredientRepository;
+    private final UserRepository userRepository;
 
     @Transactional
     public Long save(User user, UserCocktailRequest userCocktailRequest) {
@@ -56,9 +60,10 @@ public class UserCocktailService {
     }
 
     @Transactional(readOnly = true)
-    public UserCocktailResponse findUserCocktail(Long id) {
+    public UserCocktailDetailResponse findUserCocktail(Long id) {
         UserCocktail userCocktail = findUserCocktailById(id);
-        return UserCocktailResponse.of(userCocktail);
+        User user = userRepository.findById(userCocktail.getMemberId()).orElseThrow(() -> new EntityNotFoundException(ErrorCode.ENTITY_NOT_FOUND));
+        return UserCocktailDetailResponse.of(userCocktail, user.getName());
     }
 
     private UserCocktail findUserCocktailById(Long id) {

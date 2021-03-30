@@ -34,6 +34,7 @@ public class UserCocktailDocumentation {
 				fieldWithPath("id").type(JsonFieldType.NUMBER).description("나만의 레시피 아이디"),
 				fieldWithPath("name").type(JsonFieldType.STRING).description("나만의 레시피 이름"),
 				fieldWithPath("description").type(JsonFieldType.STRING).description("나만의 레시피 설명"),
+				fieldWithPath("authorName").type(JsonFieldType.STRING).description("나만의 레시피 제작자 이름"),
 				fieldWithPath("userRecipeItemResponses").type(JsonFieldType.ARRAY).description("재료 목록"),
 				fieldWithPath("userRecipeItemResponses.[].ingredientId").type(JsonFieldType.NUMBER)
 					.description("재료 ID"),

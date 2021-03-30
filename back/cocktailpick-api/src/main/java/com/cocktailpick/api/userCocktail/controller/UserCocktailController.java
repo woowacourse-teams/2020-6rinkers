@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cocktailpick.api.security.CurrentUser;
 import com.cocktailpick.core.user.domain.User;
+import com.cocktailpick.core.usercocktail.dto.UserCocktailDetailResponse;
 import com.cocktailpick.core.usercocktail.dto.UserCocktailRequest;
 import com.cocktailpick.core.usercocktail.dto.UserCocktailResponse;
 import com.cocktailpick.core.usercocktail.dto.UserCocktailResponses;
@@ -38,7 +39,7 @@ public class UserCocktailController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserCocktailResponse> findUserCocktail(@PathVariable Long id) {
+    public ResponseEntity<UserCocktailDetailResponse> findUserCocktail(@PathVariable Long id) {
         return ResponseEntity.ok(userCocktailService.findUserCocktail(id));
     }
 
