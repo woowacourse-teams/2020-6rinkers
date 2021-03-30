@@ -1,3 +1,23 @@
+.user-cocktail-item {
+    display: flex;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    justify-content: space-between;
+    width: 200px;
+    border-bottom: 1px solid;
+    user-select: none;
+}
+
+.user-cocktail-item:hover {
+    cursor: pointer;
+}
+
+.name-container {
+    display: flex;
+    justify-content: center;
+    margin: 0 1rem;
+}
+
 .create-button {
     display: flex;
     align-items: center;
@@ -10,26 +30,6 @@
     transition: 0.4s ease-in-out;
     background-color: white;
     user-select: none;
-}
-
-.temp {
-    display: flex;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1rem;
-    justify-content: space-between;
-    width: 200px;
-    border-bottom: 1px solid;
-    user-select: none;
-}
-
-.temp:hover {
-    cursor: pointer;
-}
-
-.temp2 {
-    display: flex;
-    justify-items: center;
-    margin: 0 1rem;
 }
 
 .create-button:hover {

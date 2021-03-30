@@ -81,7 +81,7 @@ const UserCocktailItems = ({ setStage }) => {
     <>
       {userCocktails &&
         userCocktails.map((it, index) => (
-          <div className="temp" key={`user-cocktail-${index}`}>
+          <div className="user-cocktail-item" key={`user-cocktail-${index}`}>
             <div className="liquid-cup">
               <LiquidFillGauge
                 width={70}
@@ -99,8 +99,8 @@ const UserCocktailItems = ({ setStage }) => {
                 }}
               />
             </div>
-            <div className="temp2">{nameSlicer(it.name)}</div>
-            <div></div>
+            <div className="name-container">{nameSlicer(it.name)}</div>
+            <div className="dummy-container"></div>
           </div>
         ))}
       <button className="create-button" onClick={onCreate}>
