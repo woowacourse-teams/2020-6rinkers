@@ -86,11 +86,11 @@ const UserCocktailItems = ({ setStage }) => {
               <LiquidFillGauge
                 width={70}
                 height={90}
-                value={67}
+                value={64}
                 textRenderer={() => <></>}
                 waveAnimation={true}
                 waveFrequency={1}
-                waveAmplitude={12}
+                waveAmplitude={7}
                 riseAnimation={true}
                 outerRadius={1}
                 innerRadius={1}
