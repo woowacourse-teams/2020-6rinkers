@@ -25,12 +25,12 @@ const ServiceSlider = ({ slider, toggleSlider, handleLogout }) => {
         칵테일 찾기
       </NavLink>
       <NavLink
-        to="/bars"
+        to="/my-cocktail"
         className="service-slider-item"
-        activeClassName="navitem-active"
+        activeClassName="nav-active"
         onClick={toggleSlider}
       >
-        바 찾기
+        나만의 칵테일
       </NavLink>
       <NavLink
         to="/recommend"
