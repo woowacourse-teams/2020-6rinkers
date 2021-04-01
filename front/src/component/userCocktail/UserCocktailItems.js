@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
 import "../../css/userCocktail/items.css";
-import { userCocktailState } from "../../recoil";
 import { Link, useHistory } from "react-router-dom";
 import { fetchAllUserCocktails } from "../../api";
 import mix from "mix-css-color";
@@ -9,7 +7,6 @@ import LiquidFillGauge from "react-liquid-gauge";
 import { quantityUnits } from "../const";
 
 const UserCocktailItems = ({ setStage }) => {
-  const [userCocktail, setUserCocktail] = useRecoilState(userCocktailState);
   const [userCocktails, setUserCocktails] = useState([]);
   const history = useHistory();
 
@@ -22,7 +19,7 @@ const UserCocktailItems = ({ setStage }) => {
 
   useEffect(() => {
     fetchUserCocktails();
-  }, [userCocktail]);
+  }, []);
 
   const onCreate = (e) => {
     e.preventDefault();
@@ -108,7 +105,7 @@ const UserCocktailItems = ({ setStage }) => {
           </Link>
         ))}
       <button className="create-button" onClick={onCreate}>
-        <div className="content">나만의 칵테일 만들기 🍹</div>
+        <div className="content">나도 만들래요 😀</div>
       </button>
     </>
   );

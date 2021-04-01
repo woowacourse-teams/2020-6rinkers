@@ -1,13 +1,13 @@
 import React from "react";
 import TodayCocktail from "./TodayCocktail";
 import "../../css/home/home.css";
-import Recommendation from "./Recommendation";
+import MyCocktail from "./MyCocktail";
 
 const Home = () => {
   return (
     <div className="home">
       <TodayCocktail />
-      <Recommendation />
+      <MyCocktail />
     </div>
   );
 };
