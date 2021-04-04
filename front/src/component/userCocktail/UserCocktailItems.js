@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 import "../../css/userCocktail/items.css";
+import { userCocktailState } from "../../recoil";
 import { Link, useHistory } from "react-router-dom";
 import { fetchAllUserCocktails } from "../../api";
 import mix from "mix-css-color";
@@ -7,14 +9,18 @@ import LiquidFillGauge from "react-liquid-gauge";
 import { quantityUnits } from "../const";
 
 const UserCocktailItems = ({ setStage }) => {
+  const [userCocktail, setUserCocktail] = useRecoilState(userCocktailState);
   const [userCocktails, setUserCocktails] = useState([]);
   const history = useHistory();
 
-  const fetchUserCocktails = async () => {
-    const output = await fetchAllUserCocktails();
-    const data = output.data;
-    const response = data.userCocktailResponses;
-    setUserCocktails(response);
+  const fetchUserCocktails = () => {
+    const load = async () => {
+      const output = await fetchAllUserCocktails();
+      const data = output.data;
+      const response = data.userCocktailResponses;
+      setUserCocktails(response);
+    };
+    load();
   };
 
   useEffect(() => {

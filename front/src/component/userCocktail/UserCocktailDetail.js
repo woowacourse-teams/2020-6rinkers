@@ -8,20 +8,24 @@ const UserCocktailDetail = (props) => {
   const [userCocktail, setUserCocktail] = useState();
   const history = useHistory();
 
-  const onLoadUserCocktail = async (id) => {
-    try {
-      const response = await fetchUserCocktail(id);
-      const { data } = response;
-      setUserCocktail(data);
-    } catch (e) {
-      Alert.error("나만의 칵테일 조회에 실패했습니다.");
-    }
+  const onLoadUserCocktail = (id) => {
+    const load = async () => {
+      try {
+        const response = await fetchUserCocktail(id);
+        const { data } = response;
+        setUserCocktail(data);
+      } catch (e) {
+        Alert.error("나만의 칵테일 조회에 실패했습니다.");
+      }
+    };
+    load();
   };
 
   useEffect(() => onLoadUserCocktail(id), []);
 
-  const onRedirect = () => {
-    history.push("/my-cocktail");
+  const onRedirect = (e) => {
+    e.preventDefault();
+    history.goBack();
   };
 
   console.log(userCocktail);
