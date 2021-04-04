@@ -11,9 +11,9 @@ const DisplayIngredientItems = ({ ingredients, onSelect }) => {
               key={"ingredient" + index}
               data-id={it.id}
               onClick={onSelect}
-              style={{ borderColor: `${it.color}` }}
+              style={{ background: `${it.color}` }}
             >
-              <div className="ingredient-item-name"> {it.name}</div>
+              <p className="ingredient-item-name"> {it.name}</p>
             </div>
           );
         })}

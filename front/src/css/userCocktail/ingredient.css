@@ -48,11 +48,18 @@
     align-items: center;
     justify-content: center;
     border-radius: var(--base-border-radius);
-    border: 3px solid;
+    opacity: 0.7;
     margin: 0.3rem 0.2rem;
     padding: 0.1rem 0.3rem;
 }
 
+.ingredient-item-container:hover {
+    opacity: 1;
+}
+
 .ingredient-item-name {
+    position: relative;
     font-size: 18px;
+    z-index: 4;
+    font-weight: 500;
 }
