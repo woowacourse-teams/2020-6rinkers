@@ -4,6 +4,11 @@
     align-items: center;
 }
 
+.user-cocktail-name {
+    font-size: 20px;
+    margin-bottom: 1.5rem;
+}
+
 .user-recipe-item-container {
     display: flex;
     flex-direction: column;

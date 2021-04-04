@@ -91,6 +91,7 @@ const UserRecipe = ({ setStage }) => {
 
   return (
     <div className="user-recipe-container">
+      <div className="user-cocktail-name">{userCocktail.name}</div>
       <UserRecipeItem userCocktail={userCocktail} removeRecipe={removeRecipe} />
       <button className="next-stage" type="submit" onClick={onIngredient}>
         재료를 더 추가할래요!
