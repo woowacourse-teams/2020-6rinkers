@@ -24,7 +24,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    
+
       - name: Checkout 
         uses: actions/checkout@v2
         with:
@@ -35,48 +35,30 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      
+
       - name: Grant execute permisson for gradlew
         working-directory: ./back
         run: chmod +x gradlew
         shell: bash
-        
+
       - name: Build with Gradle
         working-directory: ./back
         run: ./gradlew clean build
         shell: bash
 
-      - name: Zip jar file
-        working-directory: ./back/cocktailpick-api/build/libs
-        run: |
-          mv ../../../appspec.yml .
-          mv ../../../deploy.sh .
-          zip back.zip *.jar appspec.yml deploy.sh
-        shell: bash
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
+      - name: Login to DockerHub
+        uses: docker/login-action@v1.8.0
         with:
-          aws-access-key-id: ${{ secrets.AWS_IAM_MANAGER_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_IAM_MANAGER_SECRET_ACCESS_KEY }}
-          aws-region: ap-northeast-2
+          username: ${{ secrets.DOCKERHUB_BACK_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_BACK_TOKEN }}
 
-      - name: Transfer to S3 for serving static
-        uses: jakejarvis/s3-sync-action@master
+      - name: Build and push Docker images
+        uses: docker/build-push-action@v2.4.0
         with:
-          args: --acl public-read --follow-symlinks --delete
-        env:
-          AWS_S3_BUCKET: cocktail-pick-back-bucket
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_IAM_MANAGER_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_MANAGER_SECRET_ACCESS_KEY }}
-          AWS_REGION: ap-northeast-2
-          SOURCE_DIR: './back/cocktailpick-api/build/libs'
-          
-      - name: run code deploy
-        run: >
-          aws deploy create-deployment 
-          --application-name cocktailpick-prod 
-          --deployment-config-name CodeDeployDefault.OneAtATime 
-          --deployment-group-name cocktailpick-deploy-group
-          --file-exists-behavior OVERWRITE
-          --s3-location bucket=cocktail-pick-back-bucket,bundleType=zip,key=back.zip
+          context: .
+          file: back/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKERHUB_BACK_USERNAME}}/back:latest
+          build-args: |
+            GOOGLE_ID=${{ secrets.GOOGLE_ID }}
+            GOOGLE_SECRET=${{ secrets.GOOGLE_SECRET }}
