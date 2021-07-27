@@ -53,6 +53,7 @@
 }
 
 .logo-container {
+  width: 10%;
   justify-self: start;
   height: 100%;
   cursor: pointer;
