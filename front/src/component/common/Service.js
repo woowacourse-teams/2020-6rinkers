@@ -12,13 +12,13 @@ const Service = ({ authenticated, currentUser, handleLogout }) => {
         >
           칵테일 찾기
         </NavLink>
-        <NavLink
-          to="/my-cocktail"
-          className="service-item"
-          activeClassName="nav-active"
-        >
-          나만의 칵테일
-        </NavLink>
+        {/*<NavLink*/}
+        {/*  to="/my-cocktail"*/}
+        {/*  className="service-item"*/}
+        {/*  activeClassName="nav-active"*/}
+        {/*>*/}
+        {/*  나만의 칵테일*/}
+        {/*</NavLink>*/}
         <NavLink
           to="/recommend"
           className="service-item"

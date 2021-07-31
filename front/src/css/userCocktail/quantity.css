@@ -30,10 +30,10 @@
 }
 
 .select-button {
-    padding: 0.5rem 2rem;
+    padding: 0.5rem 1.5rem;
     margin: 1rem;
     border: 1px solid var(--little-gray);
-    border-radius: var(--base-border-radius);
+    border-radius: 4rem;
 }
 
 .select-button:hover {
