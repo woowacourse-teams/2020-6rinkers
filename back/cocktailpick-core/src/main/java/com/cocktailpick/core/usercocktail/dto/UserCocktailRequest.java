@@ -44,12 +44,12 @@ public class UserCocktailRequest {
     public List<UserRecipeItem> toUserRecipeItems(List<Ingredient> ingredients) {
         List<UserRecipeItem> userRecipeItems = new ArrayList<>();
         for (int i = 0; i < ingredients.size(); i++) {
-            int finalI = i;
-            UserRecipeItemRequest first = userRecipeItemRequests.stream()
-                .filter(it -> it.getIngredientId().equals(ingredients.get(finalI).getId()))
+            int index = i;
+            UserRecipeItemRequest found = userRecipeItemRequests.stream()
+                .filter(it -> it.getIngredientId().equals(ingredients.get(index).getId()))
                 .findFirst()
                 .orElseThrow(EntityNotFoundException::new);
-            UserRecipeItem result = first.toUserRecipeItem(ingredients.get(i));
+            UserRecipeItem result = found.toUserRecipeItem(ingredients.get(i));
             userRecipeItems.add(result);
         }
         return userRecipeItems;
