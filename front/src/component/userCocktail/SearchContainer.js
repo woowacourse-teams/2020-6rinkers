@@ -94,7 +94,7 @@ const SearchContainer = ({ ingredients, selectIngredient }) => {
       setAutoBox(true);
       highlightOut();
     } catch (e) {
-      Alert.error("칵테일 자동완성에 실패했습니다.");
+      Alert.error("재료 검색 자동완성에 실패했습니다.");
     }
   };
 
