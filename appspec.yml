@@ -4,7 +4,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ubuntu/docker/nginx
+    destination: /home/ubuntu/repo
     overwrite: yes
 
 permissions:
