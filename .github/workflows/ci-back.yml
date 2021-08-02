@@ -43,7 +43,7 @@ jobs:
 
       - name: Build with Gradle
         working-directory: ./back
-        run: ./gradlew clean build
+        run: ./gradlew clean build -Pprofile=prod
         shell: bash
 
       - name: Login to DockerHub
