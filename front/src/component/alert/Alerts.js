@@ -2,7 +2,7 @@ import Alert from "react-s-alert";
 import "react-s-alert/dist/s-alert-css-effects/jelly.css";
 import { isDesktop } from "../../constants";
 
-const loadConfig = () => {
+export const loadConfig = () => {
   return {
     position: isDesktop() ? "top-right" : "bottom",
     timeout: 1800,
@@ -20,6 +20,17 @@ export const recommendButtonClickInduceAlert = () => {
     loadConfig()
   );
   localStorage.setItem("recommendButtonClickInduceAlert", "true");
+};
+
+export const myCocktailButtonClickInduceAlert = () => {
+  if (localStorage.getItem("myCocktailButtonClickInduceAlert")) {
+    return;
+  }
+  Alert.info(
+    "<p>안녕하세요.</p><p>나만의 칵테일을 만들어보아요.</p>",
+    loadConfig()
+  );
+  localStorage.setItem("myCocktailButtonClickInduceAlert", "true");
 };
 
 export const favoriteClickInduceAlert = (isAuthenticated) => {

@@ -1,0 +1,74 @@
+.user-cocktail-item {
+    display: flex;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    justify-content: space-between;
+    width: 200px;
+    border-bottom: 1px solid;
+    user-select: none;
+}
+
+.user-cocktail-item:hover {
+    cursor: pointer;
+}
+
+.name-container {
+    display: flex;
+    justify-content: center;
+    margin: 0 1rem;
+}
+
+.create-button {
+    display: flex;
+    align-items: center;
+    height: auto;
+    cursor: pointer;
+    padding: 0.8rem 8rem;
+    margin: 3rem 0 1rem 0;
+    border: var(--light-black) 1px solid;
+    border-radius: var(--base-border-radius);
+    transition: 0.4s ease-in-out;
+    background-color: white;
+    user-select: none;
+}
+
+.create-button:hover {
+    color: var(--black);
+    background-color: var(--little-light-red);
+    border: var(--light-red) 1px solid;
+    border-radius: var(--base-border-radius);
+    transition: 0.4s ease-in-out;
+}
+
+.create-button a {
+    color: var(--black);
+    text-decoration: none;
+    transition: 0.4s ease-in-out;
+}
+
+.create-button:hover a {
+    color: var(--white);
+    text-decoration: none;
+    transition: 0.4s ease-in-out;
+}
+
+.content {
+    font-size: 20px;
+}
+
+.liquid-cup {
+    width:30px;
+    height: 50px;
+    border-bottom: 2px solid black;
+    border-left: 2px solid black;
+    border-right: 2px solid black;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    overflow: hidden;
+}
+
+.liquid-cup > div {
+    position: relative;
+    left: -10px;
+    top: -20px;
+}

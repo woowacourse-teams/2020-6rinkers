@@ -1,0 +1,65 @@
+.ingredient-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    user-select: none;
+    width: 450px;
+}
+
+.selected-ingredient-container {
+    display: flex;
+    margin: 1rem 0;
+    padding: 1rem 3rem;
+    border: solid 3px #a60000;
+    border-radius: var(--base-border-radius);
+}
+
+.selected-ingredient-container > div {
+    font-size: 1.5rem;
+    font-weight: bolder;
+}
+
+.ingredient-input {
+    width: 450px;
+    height: 50px;
+    font-size: 1rem;
+    border-radius: var(--base-border-radius);
+    margin: 1rem;
+    border: 1px solid black;
+    padding: 10px;
+}
+
+.ingredient-input:focus {
+    outline: none !important;
+    border: 2px solid var(--red);
+    box-shadow: 0 2px 5px var(--little-gray);
+}
+
+.ingredient-items-container {
+    display: grid;
+    width: 500px;
+    grid-template-rows: repeat(3, 60px);
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.ingredient-item-container {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--base-border-radius);
+    opacity: 0.7;
+    margin: 0.3rem 0.2rem;
+    padding: 0.1rem 0.3rem;
+}
+
+.ingredient-item-container:hover {
+    opacity: 1;
+}
+
+.ingredient-item-name {
+    position: relative;
+    font-size: 18px;
+    z-index: 4;
+    font-weight: 500;
+}

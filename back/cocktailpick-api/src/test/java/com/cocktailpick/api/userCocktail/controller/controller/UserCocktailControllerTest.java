@@ -23,6 +23,7 @@ import com.cocktailpick.api.common.WithMockCustomUser;
 import com.cocktailpick.api.common.documentation.DocumentationWithSecurity;
 import com.cocktailpick.api.userCocktail.controller.UserCocktailController;
 import com.cocktailpick.api.userCocktail.controller.docs.UserCocktailDocumentation;
+import com.cocktailpick.core.usercocktail.dto.UserCocktailDetailResponse;
 import com.cocktailpick.core.usercocktail.dto.UserCocktailRequest;
 import com.cocktailpick.core.usercocktail.dto.UserCocktailResponse;
 import com.cocktailpick.core.usercocktail.dto.UserCocktailResponses;
@@ -41,6 +42,8 @@ class UserCocktailControllerTest extends DocumentationWithSecurity {
     private UserRecipeItemRequest userRecipeItemRequest;
 
     private UserCocktailResponse userCocktailResponse;
+
+    private UserCocktailDetailResponse userCocktailDetailResponse;
 
     private UserRecipeItemResponse userRecipeItemResponse;
 
@@ -74,6 +77,9 @@ class UserCocktailControllerTest extends DocumentationWithSecurity {
         userCocktailResponse = new UserCocktailResponse(1L, "test", "test Description",
             Collections.singletonList(userRecipeItemResponse));
 
+        userCocktailDetailResponse = new UserCocktailDetailResponse(1L, "test", "test Description", "author",
+            Collections.singletonList(userRecipeItemResponse));
+
         objectMapper = new ObjectMapper();
     }
 
@@ -96,7 +102,7 @@ class UserCocktailControllerTest extends DocumentationWithSecurity {
     @WithMockCustomUser
     @Test
     void findUserCocktailById() throws Exception {
-        given(userCocktailService.findUserCocktail(anyLong())).willReturn(userCocktailResponse);
+        given(userCocktailService.findUserCocktail(anyLong())).willReturn(userCocktailDetailResponse);
 
         mockMvc.perform(RestDocumentationRequestBuilders.get("/api/user-cocktails/{id}", 1L)
             .contentType(MediaType.APPLICATION_JSON))

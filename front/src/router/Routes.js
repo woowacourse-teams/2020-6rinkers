@@ -19,6 +19,7 @@ import MyProfile from "../component/mypage/MyProfile";
 import TerminologyAdmin from "../component/admin/terminology/TerminologyAdmin";
 import IngredientAdmin from "../component/admin/ingredient/IngredientAdmin";
 import UserCocktail from "../component/userCocktail/UserCocktail";
+import UserCocktailDetail from "../component/userCocktail/UserCocktailDetail";
 
 const Routes = ({ handleLogout, loading }) => {
   const [recommendedCocktails, setRecommendedCocktails] = useState([]);
@@ -99,6 +100,7 @@ const Routes = ({ handleLogout, loading }) => {
           <Route path="/my-cocktail">
             <UserCocktail />
           </Route>
+          <Route path="/my-cocktails/:id" component={UserCocktailDetail} />
         </Switch>
       </div>
       <Route render={({ location }) => checkAdminForFooter(location)} />

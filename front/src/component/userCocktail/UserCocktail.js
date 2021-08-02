@@ -6,13 +6,13 @@ import Question from "./Question";
 import Name from "./Name";
 import Ingredient from "./Ingredient";
 import Quantity from "./Quantity";
-import Recipe from "./Recipe";
+import UserRecipe from "./UserRecipe";
 import QuantityUnit from "./QuantityUnit";
 import UserCocktailItems from "./UserCocktailItems";
 
 const UserCocktail = () => {
   const INITIAL_STAGE = "";
-  const [stage, setStage] = useState("name"); // INITIAL_STAGE로 바꿔야함
+  const [stage, setStage] = useState(INITIAL_STAGE);
 
   const renderContents = () => {
     switch (stage) {
@@ -27,7 +27,7 @@ const UserCocktail = () => {
       case "quantity":
         return <Quantity setStage={setStage} />;
       case "recipe":
-        return <Recipe setStage={setStage} />;
+        return <UserRecipe setStage={setStage} />;
     }
   };
 

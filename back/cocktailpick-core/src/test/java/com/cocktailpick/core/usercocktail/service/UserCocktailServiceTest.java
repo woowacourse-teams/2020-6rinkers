@@ -13,9 +13,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.cocktailpick.core.favorite.domain.Favorites;
 import com.cocktailpick.core.ingredient.domain.Ingredient;
 import com.cocktailpick.core.ingredient.domain.IngredientRepository;
+import com.cocktailpick.core.user.domain.AuthProvider;
+import com.cocktailpick.core.user.domain.Role;
 import com.cocktailpick.core.user.domain.User;
+import com.cocktailpick.core.user.domain.UserRepository;
 import com.cocktailpick.core.usercocktail.domain.UserCocktail;
 import com.cocktailpick.core.usercocktail.domain.UserCocktailRepository;
 import com.cocktailpick.core.usercocktail.dto.UserCocktailRequest;
@@ -27,6 +31,9 @@ class UserCocktailServiceTest {
 	private UserCocktailRepository userCocktailRepository;
 	@Mock
 	private IngredientRepository ingredientRepository;
+
+	@Mock
+	private UserRepository userRepository;
 
 	private UserCocktailService userCocktailService;
 
@@ -42,7 +49,7 @@ class UserCocktailServiceTest {
 
 	@BeforeEach
 	void setUp() {
-		userCocktailService = new UserCocktailService(userCocktailRepository, ingredientRepository);
+		userCocktailService = new UserCocktailService(userCocktailRepository, ingredientRepository, userRepository);
 		ingredient = Ingredient.builder()
 			.id(1L)
 			.name("test")
@@ -88,6 +95,9 @@ class UserCocktailServiceTest {
 	@Test
 	void findUserCocktail() {
 		when(userCocktailRepository.findById(anyLong())).thenReturn(Optional.ofNullable(userCocktail));
+		when(userRepository.findById(anyLong())).thenReturn(Optional.of(
+			new User(1L, "name", "email", "image", true, "pw", AuthProvider.GOOGLE, "hi", Role.ROLE_USER,
+				Favorites.empty())));
 
 		assertThat(userCocktailService.findUserCocktail(1L).getName()).isEqualTo("testCocktail");
 	}

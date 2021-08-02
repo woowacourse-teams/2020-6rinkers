@@ -203,3 +203,19 @@ export const deleteFavorite = (cocktailId) =>
       Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
     },
   });
+
+export const createUserCocktail = (data) =>
+  client.post("/api/user-cocktails", data, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+    },
+  });
+
+export const fetchAllUserCocktails = () =>
+  client.get("/api/user-cocktails", {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem(ACCESS_TOKEN)}`,
+    },
+  });
+export const fetchUserCocktail = (id) =>
+  client.get(`/api/user-cocktails/${id}`);

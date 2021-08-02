@@ -3,13 +3,13 @@ package com.cocktailpick.core.usercocktail.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.NotBlank;
 
 import com.cocktailpick.core.ingredient.domain.Ingredient;
 import com.cocktailpick.core.usercocktail.domain.UserCocktail;
 import com.cocktailpick.core.userrecipe.domain.UserRecipeItem;
 import com.cocktailpick.core.userrecipe.dto.UserRecipeItemRequest;
-
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -44,8 +44,13 @@ public class UserCocktailRequest {
     public List<UserRecipeItem> toUserRecipeItems(List<Ingredient> ingredients) {
         List<UserRecipeItem> userRecipeItems = new ArrayList<>();
         for (int i = 0; i < ingredients.size(); i++) {
-            UserRecipeItem userRecipeItem = userRecipeItemRequests.get(i).toUserRecipeItem(ingredients.get(i));
-            userRecipeItems.add(userRecipeItem);
+            int index = i;
+            UserRecipeItemRequest found = userRecipeItemRequests.stream()
+                .filter(it -> it.getIngredientId().equals(ingredients.get(index).getId()))
+                .findFirst()
+                .orElseThrow(EntityNotFoundException::new);
+            UserRecipeItem result = found.toUserRecipeItem(ingredients.get(i));
+            userRecipeItems.add(result);
         }
         return userRecipeItems;
     }

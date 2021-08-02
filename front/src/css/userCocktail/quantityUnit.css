@@ -1,0 +1,49 @@
+.quantity-unit-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    user-select: none;
+}
+
+.ingredient-name-container {
+    margin: 0 0 1rem 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.carousel-root {
+    width: 70%;
+}
+
+.carousel .slide {
+    background: transparent !important;
+}
+
+.carousel .control-prev.control-arrow:before {
+    border-right: 8px solid var(--black) !important;
+}
+
+.carousel .control-next.control-arrow:before {
+    border-left: 8px solid var(--black) !important;
+}
+
+.quantity-unit-item-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.quantity-unit-item-image {
+    display: flex;
+    max-width: 220px;
+    margin-bottom: 1rem;
+}
+
+.quantity-unit-item {
+    margin-bottom: 2rem;
+}
+
+.carousel .control-dots .dot.selected, .carousel .control-dots .dot:hover {
+    background: var(--little-light-red) !important;
+}

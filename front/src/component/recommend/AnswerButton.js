@@ -1,5 +1,5 @@
 import React from "react";
-import { answerList } from "./const";
+import { answerList } from "../const";
 
 const AnswerButton = ({ tagId, answer, onChangeAnswer }) => {
   return (
@@ -12,7 +12,9 @@ const AnswerButton = ({ tagId, answer, onChangeAnswer }) => {
       </button>
       <button
         onClick={() => onChangeAnswer(tagId, "SOSO")}
-        className={answer === "SOSO" ? "answer-button checked" : "answer-button"}
+        className={
+          answer === "SOSO" ? "answer-button checked" : "answer-button"
+        }
       >
         {answerList[0].soso}
       </button>

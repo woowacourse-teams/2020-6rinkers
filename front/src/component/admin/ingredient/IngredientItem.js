@@ -22,7 +22,7 @@ const IngredientItem = ({ ingredient }) => {
   return (
     <div className="ingredient-item" onClick={onUpdateIngredientAdmin}>
       <div className="ingredient-information">
-        <div>title: {ingredient.title}</div>
+        <div>name: {ingredient.name}</div>
         <div>color: {ingredient.color}</div>
         <div>abv: {ingredient.abv}</div>
       </div>

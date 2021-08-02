@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -119,4 +120,21 @@ class IngredientServiceTest {
 
         verify(ingredientRepository).deleteById(1L);
     }
+
+    @DisplayName("이름으로 재료를 조회한다.")
+	@Test
+	void findByName() {
+        Ingredient beer = Ingredient.builder()
+            .id(2L)
+            .name("맥주")
+            .color("#222222")
+            .abv(5.0)
+            .build();
+
+        when(ingredientRepository.findByNameContaining(any())).thenReturn(Collections.singletonList(beer));
+
+        List<IngredientResponse> ingredients = ingredientService.findByName("맥주");
+
+        assertThat(ingredients.get(0).getName()).isEqualTo(beer.getName());
+	}
 }

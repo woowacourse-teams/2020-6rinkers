@@ -8,7 +8,7 @@ const StepProgressBar = ({ percent }) => {
 
   for (let i = 0; i < count; i++) {
     steps.push(
-      <Step>
+      <Step key={`progress${i}`}>
         {({ accomplished }) => (
           <div className={`indexed-step ${accomplished ? "accomplished" : ""}`}>
             {i + 1}

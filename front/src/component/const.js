@@ -26,18 +26,63 @@ export const recommendationQuestions = [
   "이제 한 가지만 더 여쭤볼게요.\n다음 중 먹고 싶지 않은 재료들을\n모두 골라주세요!", // DISLIKE
 ];
 
-export const userCocktailQuestions = {
-  name: "칵테일의 이름은 무엇인가요?",
-  ingredients: "어떤 재료가 들어가요?",
-  glass: "어떤 잔으로 계량할까요?",
-  amount: "얼마나 넣으면 좋을까요?",
-  recipe: "입력하신 정보를 확인해보세요.",
-};
-
 export const answerList = [
   {
     yes: "매우 좋아요",
     soso: "좋아요",
     no: "그저 그래요",
+  },
+];
+
+export const userCocktailQuestions = {
+  name: "칵테일의 이름을 정해주세요.",
+  ingredients: "어떤 재료가 들어가요?",
+  "quantity-unit": "어떤 잔으로 계량할까요?",
+  quantity: "얼마나 넣으면 좋을까요?",
+  recipe: "입력하신 정보를 확인해보세요.",
+};
+
+export const quantityUnits = [
+  {
+    id: 1,
+    name: "소주잔",
+    path: "/image/userCocktail/soju.png",
+    quantityUnit: "SOJU",
+    ml: 70,
+  },
+  {
+    id: 2,
+    name: "맥주잔",
+    path: "/image/userCocktail/beer.png",
+    quantityUnit: "BEER",
+    ml: 200,
+  },
+  {
+    id: 3,
+    name: "양주잔",
+    path: "/image/userCocktail/shot.png",
+    quantityUnit: "SHOT",
+    ml: 45,
+  },
+  {
+    id: 4,
+    name: "종이컵",
+    path: "/image/userCocktail/paper.png",
+    quantityUnit: "PAPER",
+    ml: 180,
+  },
+  {
+    id: 5,
+    name: "스푼",
+    path: "/image/userCocktail/spoon.png",
+    quantityUnit: "SPOON",
+    ml: 0,
+  },
+  {
+    id: 6,
+    name: "n개",
+    path: "/image/userCocktail/piece.png",
+    quantityUnit: "PIECE",
+    ml: 0,
   },
 ];
