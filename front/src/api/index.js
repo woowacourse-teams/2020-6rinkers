@@ -2,7 +2,7 @@ import axios from "axios";
 import { ACCESS_TOKEN } from "../constants";
 
 const client = axios.create({
-  baseURL: `//${process.env.REACT_APP_HOST}`,
+  baseURL: `${process.env.REACT_APP_SERVER_HOST}`,
 });
 
 export const fetchAllCocktails = () => client.get("/api/cocktails");
