@@ -23,7 +23,7 @@ public @interface WithMockCustomUser {
 
 	String password() default "password";
 
-	AuthProvider provider() default AuthProvider.LOCAL;
+	AuthProvider provider() default AuthProvider.local;
 
 	Role roles() default Role.ROLE_USER;
 

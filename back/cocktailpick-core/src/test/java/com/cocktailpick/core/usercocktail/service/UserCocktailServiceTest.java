@@ -96,7 +96,7 @@ class UserCocktailServiceTest {
 	void findUserCocktail() {
 		when(userCocktailRepository.findById(anyLong())).thenReturn(Optional.ofNullable(userCocktail));
 		when(userRepository.findById(anyLong())).thenReturn(Optional.of(
-			new User(1L, "name", "email", "image", true, "pw", AuthProvider.GOOGLE, "hi", Role.ROLE_USER,
+			new User(1L, "name", "email", "image", true, "pw", AuthProvider.google, "hi", Role.ROLE_USER,
 				Favorites.empty())));
 
 		assertThat(userCocktailService.findUserCocktail(1L).getName()).isEqualTo("testCocktail");

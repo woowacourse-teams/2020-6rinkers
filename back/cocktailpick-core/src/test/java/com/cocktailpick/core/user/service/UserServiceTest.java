@@ -74,7 +74,7 @@ class UserServiceTest {
 		user.setImageUrl("image.com");
 		user.setName("toney");
 		user.setPassword("password");
-		user.setProvider(AuthProvider.LOCAL);
+		user.setProvider(AuthProvider.local);
 		user.setRole(Role.ROLE_USER);
 		user.setProviderId("local");
 		user.setFavorites(favorites);
@@ -92,7 +92,7 @@ class UserServiceTest {
 		user.setImageUrl("image.com");
 		user.setName("hi");
 		user.setPassword("password");
-		user.setProvider(AuthProvider.LOCAL);
+		user.setProvider(AuthProvider.local);
 		user.setRole(Role.ROLE_USER);
 		user.setProviderId("local");
 
@@ -114,7 +114,7 @@ class UserServiceTest {
 		user.setImageUrl("image.com");
 		user.setName("hi");
 		user.setPassword("password");
-		user.setProvider(AuthProvider.LOCAL);
+		user.setProvider(AuthProvider.local);
 		user.setRole(Role.ROLE_USER);
 		user.setProviderId("local");
 
