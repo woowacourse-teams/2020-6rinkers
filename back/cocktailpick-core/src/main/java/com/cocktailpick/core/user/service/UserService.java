@@ -41,7 +41,7 @@ public class UserService {
 		user.setName(signUpRequest.getName());
 		user.setEmail(signUpRequest.getEmail());
 		user.setPassword(signUpRequest.getPassword());
-		user.setProvider(AuthProvider.LOCAL);
+		user.setProvider(AuthProvider.local);
 		user.setRole(Role.ROLE_USER);
 
 		User result = userRepository.save(user);
