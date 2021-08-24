@@ -1,6 +1,6 @@
-[submodule "back/cocktailpick-api/src/main/resources/config"]
-	path = back/cocktailpick-api/src/main/resources/config
-	url = https://github.com/toneyparky/config
 [submodule "back/cocktailpick-api/src/main/resources/db"]
 	path = back/cocktailpick-api/src/main/resources/db
 	url = https://github.com/KueNiYam/6rinkers-db-migration
+[submodule "back/cocktailpick-api/src/main/resources/config"]
+	path = back/cocktailpick-api/src/main/resources/config
+	url = https://github.com/toneyparky/config
