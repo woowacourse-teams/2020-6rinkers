@@ -24,7 +24,7 @@ import com.cocktailpick.core.usercocktail.dto.UserCocktailResponses;
 import com.cocktailpick.core.usercocktail.service.UserCocktailService;
 import lombok.RequiredArgsConstructor;
 
-@CrossOrigin("*")
+@CrossOrigin(originPatterns = "*")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/user-cocktails")
