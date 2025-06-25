@@ -23,7 +23,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -43,8 +45,18 @@ public class SecurityConfig{
 
 	private final TokenProvider tokenProvider;
 
-	@Autowired @Qualifier("SecurityFilterCors")
-	CorsConfigurationSource corsConfigurationSource;
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.addAllowedOriginPattern("*");
+		configuration.addAllowedHeader("*");
+		configuration.addAllowedMethod("*");
+		configuration.setAllowCredentials(true);
+
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
+	}
 
 	@Bean
 	public TokenAuthenticationFilter tokenAuthenticationFilter() {
@@ -78,7 +90,7 @@ public class SecurityConfig{
 	public SecurityFilterChain filterChain(HttpSecurity http, AuthenticationManager authenticationManager) throws Exception {
 		http
             .headers(h -> h.frameOptions().disable())
-			.cors(c -> c.configurationSource(corsConfigurationSource))
+			.cors(c -> c.configurationSource(corsConfigurationSource()))
 			.sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 			.csrf(csrf ->csrf.disable())
 			.formLogin(fl ->fl.disable())
