@@ -45,6 +45,8 @@ public class SecurityConfig{
 
 	private final TokenProvider tokenProvider;
 
+	private final TokenAuthenticationFilter tokenAuthenticationFilter;
+
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
@@ -56,11 +58,6 @@ public class SecurityConfig{
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
-	}
-
-	@Bean
-	public TokenAuthenticationFilter tokenAuthenticationFilter() {
-		return new TokenAuthenticationFilter();
 	}
 
 	@Bean
@@ -156,7 +153,7 @@ public class SecurityConfig{
                     .failureHandler(oAuth2AuthenticationFailureHandler)
             );
 
-		http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+		http.addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 		http.addFilterBefore(loginFilter(authenticationManager), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
