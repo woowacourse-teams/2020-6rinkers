@@ -1,64 +1,48 @@
-# This is a basic workflow to help you get started with Actions
-
 name: CI-Back
 
-# Controls when the action will run. 
 on:
-  # Triggers the workflow on push or pull request events but only for the dev branch
   push:
     branches: [ dev ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# defaults:
-#   run:
-#     working-directory: ./back
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-
-      - name: Checkout 
-        uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v4
         with:
           submodules: recursive
-          token: ${{ secrets.SUBMODULE_TOKEN }} 
+          token: ${{ secrets.SUBMODULE_TOKEN }}
 
-      - name: Install Java
-        uses: actions/setup-java@v1
+      - name: Set up Java
+        uses: actions/setup-java@v4
         with:
-          java-version: 1.8
+          distribution: temurin
+          java-version: 8
 
-      - name: Grant execute permisson for gradlew
+      - name: Grant execute permission for gradlew
         working-directory: ./back
         run: chmod +x gradlew
-        shell: bash
 
-      - name: Build with Gradle
+      - name: Build with Gradle (prod profile)
         working-directory: ./back
         run: ./gradlew clean build -Pprofile=prod
-        shell: bash
 
       - name: Login to DockerHub
-        uses: docker/login-action@v1.8.0
+        uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_BACK_USERNAME }}
           password: ${{ secrets.DOCKERHUB_BACK_TOKEN }}
 
-      - name: Build and push Docker images
-        uses: docker/build-push-action@v2.4.0
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v5
         with:
-          context: .
-          file: back/Dockerfile
+          context: ./back
+          file: ./back/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_BACK_USERNAME}}/back:latest
+          tags: ${{ secrets.DOCKERHUB_BACK_USERNAME }}/back:latest
           build-args: |
             GOOGLE_ID=${{ secrets.GOOGLE_ID }}
             GOOGLE_SECRET=${{ secrets.GOOGLE_SECRET }}
