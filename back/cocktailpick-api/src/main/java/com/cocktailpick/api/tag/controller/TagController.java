@@ -28,7 +28,7 @@ import com.cocktailpick.core.tag.dto.TagResponse;
 import com.cocktailpick.core.tag.service.TagService;
 import lombok.RequiredArgsConstructor;
 
-@CrossOrigin("*")
+@CrossOrigin(originPatterns = "*")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/tags")

@@ -31,7 +31,7 @@ import com.cocktailpick.core.cocktail.service.CocktailRecommendService;
 import com.cocktailpick.core.cocktail.service.CocktailService;
 import lombok.RequiredArgsConstructor;
 
-@CrossOrigin("*")
+@CrossOrigin(originPatterns = "*")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/cocktails")

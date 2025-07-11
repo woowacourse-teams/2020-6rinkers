@@ -26,7 +26,7 @@ import com.cocktailpick.core.terminology.dto.TerminologyResponse;
 import com.cocktailpick.core.terminology.service.TerminologyService;
 import lombok.RequiredArgsConstructor;
 
-@CrossOrigin("*")
+@CrossOrigin(originPatterns = "*")
 @RequiredArgsConstructor
 @RequestMapping("/api/terminologies")
 @RestController
