@@ -33,6 +33,7 @@ dependencies {
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     testImplementation 'org.springframework.security:spring-security-test'
     implementation 'io.rest-assured:rest-assured-common:3.3.0'
+    testImplementation 'io.rest-assured:rest-assured:3.3.0'
     testImplementation 'io.rest-assured:spring-mock-mvc:3.3.0'
     implementation "com.github.maricn:logback-slack-appender:1.4.0"
 }
