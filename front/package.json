@@ -20,7 +20,7 @@
     "react-responsive-carousel": "^3.2.12",
     "react-router-dom": "^5.2.0",
     "react-s-alert": "^1.4.1",
-    "react-scripts": "3.4.1",
+    "react-scripts": "5.0.1",
     "react-step-progress-bar": "^1.0.3",
     "recoil": "0.0.10",
     "recoil-persist": "^0.6.0",
